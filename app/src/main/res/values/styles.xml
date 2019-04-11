@@ -1,0 +1,35 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="titlesytle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/dp_30</item>
+        <item name="android:background">@color/appbar</item>
+    </style>
+
+    <style name="titletext">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/sp_19</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
+    <style name="titleback">
+        <item name="android:layout_width">@dimen/dp_20</item>
+        <item name="android:layout_height">@dimen/dp_20</item>
+        <item name="android:layout_centerInParent">true</item>
+    </style>
+
+    <style name="MyEditText">
+        <item name="colorControlNormal">#E6E6E6</item>
+        <item name="colorControlActivated">@android:color/holo_orange_dark</item>
+    </style>
+</resources>

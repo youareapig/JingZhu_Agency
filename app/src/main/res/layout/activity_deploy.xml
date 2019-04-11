@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:context=".deploy.DeployActivity">
+
+    <RelativeLayout style="@style/titlesytle">
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/titleback"
+                android:src="@mipmap/back_write" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            style="@style/titletext"
+            android:text="设备部署" />
+
+    </RelativeLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/dp_21">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:text="设备编号:"
+                    android:textColor="#707070"
+                    android:textSize="@dimen/sp_14" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_33">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_18"
+                        android:text="JZCB0920111349"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_16" />
+
+                    <TextView
+                        android:id="@+id/bt_saoyisao"
+                        android:layout_width="@dimen/dp_64"
+                        android:layout_height="@dimen/dp_24"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_13"
+                        android:background="@drawable/saoyisao_button"
+                        android:gravity="center"
+                        android:text="扫一扫"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/sp_13" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:layout_marginRight="@dimen/dp_13"
+                        android:background="#E6E6E6" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="经纬度:"
+                    android:textColor="#707070"
+                    android:textSize="@dimen/sp_14" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_33">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:text="130.62205，103.988562"
+                        android:textColor="#67AB52"
+                        android:textSize="@dimen/sp_16" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:layout_marginRight="@dimen/dp_13"
+                        android:background="#E6E6E6" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="所在地区:"
+                    android:textColor="#707070"
+                    android:textSize="@dimen/sp_14" />
+
+                <RelativeLayout
+                    android:id="@+id/bt_choosecity"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_33">
+
+                    <TextView
+                        android:id="@+id/city_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_20"
+                        android:text="选择城市"
+                        android:textColor="#B6B6B6"
+                        android:textSize="@dimen/sp_16" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:layout_marginRight="@dimen/dp_13"
+                        android:background="#E6E6E6" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="详细地址:"
+                    android:textColor="#707070"
+                    android:textSize="@dimen/sp_14" />
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_13"
+                    android:layout_marginRight="@dimen/dp_13"
+                    android:hint="请填写详细地址"
+                    android:paddingLeft="@dimen/dp_6"
+                    android:textColor="#8888"
+                    android:textColorHint="#B6B6B6"
+                    android:textSize="@dimen/sp_16"
+                    android:theme="@style/MyEditText" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="设备单价:"
+                    android:textColor="#707070"
+                    android:textSize="@dimen/sp_14" />
+
+                <RelativeLayout
+                    android:id="@+id/choose_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_33">
+
+                    <TextView
+                        android:id="@+id/price"
+                        android:layout_width="@dimen/dp_180"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:paddingLeft="@dimen/dp_6"
+                        android:text="请选择单价"
+                        android:textColor="#8888"
+                        android:textSize="@dimen/sp_16"
+                        android:theme="@style/MyEditText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_13"
+                        android:text="元/小时"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_16" />
+
+                    <View
+                        android:layout_width="@dimen/dp_281"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:layout_marginRight="@dimen/dp_13"
+                        android:background="#E6E6E6" />
+
+                </RelativeLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="商户联系人手机号码:"
+                    android:textColor="#707070"
+                    android:textSize="@dimen/sp_14" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:layout_marginRight="@dimen/dp_13"
+                        android:hint="请填写详细地址"
+                        android:paddingLeft="@dimen/dp_6"
+                        android:textColor="#8888"
+                        android:textColorHint="#B6B6B6"
+                        android:textSize="@dimen/sp_16"
+                        android:theme="@style/MyEditText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/dp_19"
+                        android:text="张三"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_16" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:layout_marginTop="@dimen/dp_16"
+                    android:text="分润比例:"
+                    android:textColor="#707070"
+                    android:textSize="@dimen/sp_14" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:layout_width="@dimen/dp_180"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_13"
+                        android:hint="请填写分润比例"
+                        android:paddingLeft="@dimen/dp_6"
+                        android:textColor="#8888"
+                        android:textColorHint="#B6B6B6"
+                        android:textSize="@dimen/sp_16"
+                        android:theme="@style/MyEditText" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="%"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_16" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_26"
+                        android:text="ps：最大分润比例"
+                        android:textColor="#707070"
+                        android:textSize="@dimen/sp_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="10%"
+                        android:textColor="#E55C5C"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_47"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_18"
+                        android:text="是否冻结设备:"
+                        android:textColor="#707070"
+                        android:textSize="@dimen/sp_16" />
+
+                    <CheckBox
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:layout_marginLeft="@dimen/dp_11"
+                        android:background="@drawable/check_button"
+                        android:button="@null" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_5"
+                android:background="#F6F6F6" />
+
+            <ImageView
+                android:id="@+id/bt_getlocation"
+                android:layout_width="@dimen/dp_122"
+                android:layout_height="@dimen/dp_122"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_19"
+                android:src="@mipmap/blue_location" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_10"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="当前定位："
+                    android:textColor="#707070"
+                    android:textSize="@dimen/sp_15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="成都"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_15" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/bt_sure"
+                android:layout_width="@dimen/dp_260"
+                android:layout_height="@dimen/dp_44"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_24"
+                android:layout_marginBottom="@dimen/dp_29"
+                android:background="@drawable/tixian_button"
+                android:gravity="center"
+                android:text="完成"
+                android:textColor="#fff"
+                android:textSize="@dimen/sp_17" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+
+</LinearLayout>

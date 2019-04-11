@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_32"
+        android:layout_marginLeft="@dimen/dp_13"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="@drawable/offline_count"
+        android:elevation="@dimen/dp_3"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="@dimen/dp_13"
+            android:layout_height="@dimen/dp_9"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:src="@mipmap/index_icon_hover" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="离线设备总计："
+            android:textColor="#363636"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/offline_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="2568"
+            android:textColor="@color/appbar"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:text="台"
+            android:textColor="#363636"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_9" />
+</LinearLayout>
