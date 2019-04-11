@@ -9,7 +9,7 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.order.fragment.myorder.contract.MyOrderContract;
 import com.xiaomai.ageny.order.fragment.myorder.presenter.MyOrderPresenter;
-import com.xiaomai.ageny.orderdetails.myorderdetails.MyOrderDetailsActivity;
+import com.xiaomai.ageny.details.orderdetails.myorderdetails.MyOrderDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

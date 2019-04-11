@@ -10,8 +10,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
-import com.xiaomai.ageny.devicedetails.directdetails.DirectDetailsActivity;
-import com.xiaomai.ageny.devicedetails.indirectdetails.IndirectDetailsActivity;
+import com.xiaomai.ageny.details.devicedetails.directdetails.DirectDetailsActivity;
+import com.xiaomai.ageny.details.devicedetails.indirectdetails.IndirectDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

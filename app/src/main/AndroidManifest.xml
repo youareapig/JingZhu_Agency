@@ -46,26 +46,45 @@
         </activity>
         <activity
             android:name=".deposit.DepositActivity"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".bank.BankActivity" />
         <activity android:name=".offline.OfflineActivity" />
-        <activity android:name=".devicedetails.directdetails.DirectDetailsActivity" />
-        <activity android:name=".devicedetails.indirectdetails.IndirectDetailsActivity" />
-        <activity android:name=".bank.ApplyActivity" />
+        <activity android:name=".details.devicedetails.directdetails.DirectDetailsActivity" />
+        <activity android:name=".details.devicedetails.indirectdetails.IndirectDetailsActivity" />
+        <activity android:name=".bank.DepositSuccessActivity" />
         <activity android:name=".filter.directfilter.DirectFilterActivity" />
         <activity android:name=".filter.indirectfilter.IndirectFilterActivity" />
         <activity android:name=".deviceinstalllist.DeviceInstallActivity" />
         <activity android:name=".filter.deviceinstall.DeviceInstallFilterActivity" />
         <activity
             android:name=".deploy.DeployActivity"
-            android:windowSoftInputMode="stateAlwaysVisible|adjustResize" />
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".deploy.DeploySuccessActivity" />
         <activity android:name=".order.OrderActivity" />
-        <activity android:name=".orderdetails.myorderdetails.MyOrderDetailsActivity" />
-        <activity android:name=".orderdetails.lowerorderdetails.LowerOrderDetailsActivity" />
+        <activity android:name=".details.orderdetails.myorderdetails.MyOrderDetailsActivity" />
+        <activity android:name=".details.orderdetails.lowerorderdetails.LowerOrderDetailsActivity" />
         <activity android:name=".filter.lowerorderfilter.LowerOrderFilterActivity" />
         <activity android:name=".filter.myorderfilter.MyOrderFilterActivity" />
-        <activity android:name=".filter.contactfilter.ContactFilterActivity"></activity>
+        <activity android:name=".filter.contactfilter.ContactFilterActivity" />
+        <activity
+            android:name=".addcontact.AddContactActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".details.contactdetails.ContactDetailsActivity" />
+        <activity android:name=".shanghudevice.ShanghuDeviceActivity" />
+        <activity android:name=".filter.shanghudevicefilter.ShangHuDeviceFilterActivity" />
+        <activity android:name=".details.shanghudevicedetails.ShanghuDeviceDetailsActivity" />
+        <activity
+            android:name=".unbundle.unbundle_shanghu.UnbundleShanghuActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".unbundle.unbundle_device.UnbundleDeviceActivity" />
+        <activity android:name=".unbundle.UnbundleSuccessActivity" />
+        <activity android:name=".unbundle.UnbundleFaileActivity" />
+        <activity android:name=".filter.dailifilter.DailiFilterActivity" />
+        <activity android:name=".filter.feidailifilter.FeiDailiFilterActivity" />
+        <activity android:name=".details.dailidetails.DailiDetailsActivity" />
+        <activity android:name=".details.feidailidetails.FeiDailiDetailsActivity" />
+        <activity android:name=".xiajishanghu.xiajishanghulist.XiaJiSH_ListActivity" />
+        <activity android:name=".xiajishanghu.xiajishanghu_devicelist.XiajiSHDeviceListActivity"></activity>
     </application>
 
 </manifest>

@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:text="持卡人"
                 android:textColor="#363636"
-                android:textSize="@dimen/sp_15" />
+                android:textSize="@dimen/sp_17" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:text="开户银行"
                 android:textColor="#363636"
-                android:textSize="@dimen/sp_15" />
+                android:textSize="@dimen/sp_17" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:text="银行卡号"
                 android:textColor="#363636"
-                android:textSize="@dimen/sp_15" />
+                android:textSize="@dimen/sp_17" />
 
             <EditText
                 android:layout_width="match_parent"
@@ -142,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:text="预留手机号"
                 android:textColor="#363636"
-                android:textSize="@dimen/sp_15" />
+                android:textSize="@dimen/sp_17" />
 
             <EditText
                 android:layout_width="match_parent"

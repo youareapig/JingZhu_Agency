@@ -9,8 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xiaomai.ageny.R;
+import com.xiaomai.ageny.addcontact.AddContactActivity;
 import com.xiaomai.ageny.base.BaseMvpFragment;
+import com.xiaomai.ageny.details.contactdetails.ContactDetailsActivity;
 import com.xiaomai.ageny.filter.contactfilter.ContactFilterActivity;
 import com.xiaomai.ageny.fragment.contact.contract.ContactContract;
 import com.xiaomai.ageny.fragment.contact.presenter.ContactPresenter;
@@ -34,9 +37,12 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     private Adapter adapter;
     private List<String> list;
 
+    private Bundle bundle;
+
     @Override
     protected void initView(View view) {
-        list=new ArrayList<>();
+        bundle=new Bundle();
+        list = new ArrayList<>();
         list.add("26");
         list.add("27");
         list.add("28");
@@ -45,6 +51,12 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
         adapter = new Adapter(R.layout.contact_item, list);
         recycler.setAdapter(adapter);
         adapter.openLoadAnimation();
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                toClass(view.getContext(), ContactDetailsActivity.class);
+            }
+        });
     }
 
     @Override
@@ -72,9 +84,11 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_filter:
-                toClass(getActivity(),ContactFilterActivity.class);
+                toClass(getActivity(), ContactFilterActivity.class);
                 break;
             case R.id.bt_add:
+                bundle.putInt("isadd",1);
+                toClass(getActivity(), AddContactActivity.class,bundle);
                 break;
         }
     }

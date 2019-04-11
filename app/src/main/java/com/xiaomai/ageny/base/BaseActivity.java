@@ -48,15 +48,22 @@ public abstract class BaseActivity extends AppCompatActivity {
         Intent intent = new Intent(context, clazz);
         context.startActivity(intent);
     }
+
     protected void toClass1(Context context, Class<? extends BaseActivity> clazz) {
         Intent intent = new Intent(context, clazz);
         context.startActivity(intent);
     }
 
+    //带参数
+    protected void toClass(Context context, Class<? extends BaseMvpActivity> clazz, Bundle bundle) {
+        Intent intent = new Intent(context, clazz);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
 
     protected void toClass_Empty(Context context, Class<? extends BaseActivity> clazz) {
         Intent intent = new Intent(context, clazz);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP );
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
 }

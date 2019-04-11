@@ -12,7 +12,7 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.order.fragment.lowerorder.contract.LowerOrderContract;
 import com.xiaomai.ageny.order.fragment.lowerorder.presenter.LowerOrderPresenter;
-import com.xiaomai.ageny.orderdetails.lowerorderdetails.LowerOrderDetailsActivity;
+import com.xiaomai.ageny.details.orderdetails.lowerorderdetails.LowerOrderDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

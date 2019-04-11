@@ -293,12 +293,14 @@
 
                 <ImageView
                     android:layout_width="@dimen/dp_12"
-                    android:layout_height="@dimen/dp_12" />
+                    android:layout_height="@dimen/dp_12"
+                    android:src="@mipmap/prompt_small_icon"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="提现手续费5.8元"
+                    android:layout_marginLeft="@dimen/dp_7"
                     android:textColor="#363636"
                     android:textSize="@dimen/sp_13" />
 
@@ -307,7 +309,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_24"
+                android:layout_marginLeft="@dimen/dp_31"
                 android:layout_marginTop="@dimen/dp_10"
                 android:text="提现手续费率：提现手续费按照提现金额的千分之一收取，不足一元按一元算" />
 

@@ -10,14 +10,14 @@
 
     <style name="titlesytle">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/dp_30</item>
+        <item name="android:layout_height">@dimen/dp_36</item>
         <item name="android:background">@color/appbar</item>
     </style>
 
     <style name="titletext">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerInParent">true</item>
         <item name="android:textSize">@dimen/sp_19</item>
         <item name="android:textColor">#fff</item>
     </style>

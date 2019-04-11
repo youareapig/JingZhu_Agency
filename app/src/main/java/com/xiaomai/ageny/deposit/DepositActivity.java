@@ -1,6 +1,5 @@
 package com.xiaomai.ageny.deposit;
 
-import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -12,14 +11,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiaomai.ageny.R;
-import com.xiaomai.ageny.bank.ApplyActivity;
+import com.xiaomai.ageny.bank.DepositSuccessActivity;
 import com.xiaomai.ageny.bank.BankActivity;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.deposit.contract.DepositContract;
 import com.xiaomai.ageny.deposit.presenter.DepositPresenter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DepositActivity extends BaseMvpActivity<DepositPresenter> implements DepositContract.View {
@@ -92,7 +90,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
                 toClass(this, BankActivity.class);
                 break;
             case R.id.bt_sure:
-                toClass1(this, ApplyActivity.class);
+                toClass1(this, DepositSuccessActivity.class);
                 break;
         }
     }
