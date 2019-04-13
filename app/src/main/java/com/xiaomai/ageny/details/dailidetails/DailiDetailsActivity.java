@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.xiaomai.ageny.R;
+import com.xiaomai.ageny.addagency.update.UpdateAgencyActivity;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.details.dailidetails.contract.DailiDetailsContract;
 import com.xiaomai.ageny.details.dailidetails.presenter.DailiDetailsPresenter;
@@ -75,6 +76,7 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
                 toClass(this,XiaJiSH_ListActivity.class);
                 break;
             case R.id.updateuserinfo:
+                toClass(this,UpdateAgencyActivity.class);
                 break;
         }
     }

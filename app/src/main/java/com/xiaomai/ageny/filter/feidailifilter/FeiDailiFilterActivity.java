@@ -34,6 +34,7 @@ public class FeiDailiFilterActivity extends BaseMvpActivity<FeidailiFilterPresen
     TextView filterBtSubmit;
     private List<String> list;
     private Adapter adapter;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_fei_daili_filter;

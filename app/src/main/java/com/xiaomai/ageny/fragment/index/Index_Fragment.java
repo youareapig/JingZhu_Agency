@@ -8,9 +8,11 @@ import android.widget.TextView;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.deposit.DepositActivity;
+import com.xiaomai.ageny.device_manage.DeviceManageActivity;
 import com.xiaomai.ageny.deviceinstalllist.DeviceInstallActivity;
 import com.xiaomai.ageny.fragment.index.contract.IndexContract;
 import com.xiaomai.ageny.fragment.index.presenter.IndexPresenter;
+import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.order.OrderActivity;
 
@@ -85,17 +87,19 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 toClass(getActivity(), DepositActivity.class);
                 break;
             case R.id.bt_index_bill:
+                toClass(getActivity(), MyBillActivity.class);
                 break;
             case R.id.bt_index_devicemanager:
+                toClass(getActivity(), DeviceManageActivity.class);
                 break;
             case R.id.bt_index_devicemake:
-                toClass(getActivity(),DeviceInstallActivity.class);
+                toClass(getActivity(), DeviceInstallActivity.class);
                 break;
             case R.id.bt_index_order:
-                toClass(getActivity(),OrderActivity.class);
+                toClass(getActivity(), OrderActivity.class);
                 break;
             case R.id.bt_off_line:
-                toClass(getActivity(),OfflineActivity.class);
+                toClass(getActivity(), OfflineActivity.class);
                 break;
         }
     }

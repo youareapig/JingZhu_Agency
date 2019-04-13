@@ -47,11 +47,11 @@
         <activity
             android:name=".deposit.DepositActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".bank.BankActivity" />
+        <activity android:name=".addbank.BankActivity" />
         <activity android:name=".offline.OfflineActivity" />
         <activity android:name=".details.devicedetails.directdetails.DirectDetailsActivity" />
         <activity android:name=".details.devicedetails.indirectdetails.IndirectDetailsActivity" />
-        <activity android:name=".bank.DepositSuccessActivity" />
+        <activity android:name=".addbank.DepositSuccessActivity" />
         <activity android:name=".filter.directfilter.DirectFilterActivity" />
         <activity android:name=".filter.indirectfilter.IndirectFilterActivity" />
         <activity android:name=".deviceinstalllist.DeviceInstallActivity" />
@@ -84,7 +84,33 @@
         <activity android:name=".details.dailidetails.DailiDetailsActivity" />
         <activity android:name=".details.feidailidetails.FeiDailiDetailsActivity" />
         <activity android:name=".xiajishanghu.xiajishanghulist.XiaJiSH_ListActivity" />
-        <activity android:name=".xiajishanghu.xiajishanghu_devicelist.XiajiSHDeviceListActivity"></activity>
+        <activity android:name=".xiajishanghu.xiajishanghu_devicelist.XiajiSHDeviceListActivity" />
+        <activity android:name=".filter.xiajishfilter.XiajiSHFilterActivity" />
+        <activity android:name=".addagency.add.AddAgencyActivity" />
+        <activity android:name=".addagency.update.UpdateAgencyActivity" />
+        <activity android:name=".deposit_list.DepositListActivity" />
+        <activity android:name=".filter.deposit_list_filter.DepositListFilterActivity" />
+        <activity android:name=".mybill.MyBillActivity" />
+        <activity android:name=".device_manage.DeviceManageActivity" />
+        <activity android:name=".setting.SettingActivity" />
+        <activity android:name=".mybankcard.MyBankCardActivity" />
+        <activity android:name=".staff_manage.StaffManageActivity" />
+        <activity android:name=".device_manage.device_noallot.DeviceNoAllotActivity" />
+        <activity android:name=".filter.device_noallot_filter.DeviceNoAllotFilterActivity" />
+        <activity android:name=".device_manage.device_alloted.DeviceAllotedActivity" />
+        <activity android:name=".filter.device_alloted_filter.DeviceAllotedFilterActivity" />
+        <activity android:name=".device_manage.device_freeze.DeviceFreezeActivity" />
+        <activity android:name=".filter.devicefreeze_filter.DeviceFreezeFilterActivity" />
+        <activity android:name=".details.devcie_freeze_details.DeviceFreezDetailsActivity" />
+        <activity android:name=".device_manage.device_withdraw.DeviceWithdrawActivity" />
+        <activity android:name=".deploy.DeployZxingActivity" />
+        <activity android:name=".device_manage.device_withdraw.DeviceWithDrawListActivity" />
+        <activity android:name=".device_manage.device_withdraw.DeviceWithSuccessActivity" />
+        <activity android:name=".device_manage.device_allot.DeviceAllotZxingActivity" />
+        <activity android:name=".device_manage.device_allot.device_allot_list.DeviceAllotListActivity" >
+
+        </activity>
+        <activity android:name=".device_manage.device_allot.device_allot_agency.DeviceAllotAgencyActivity"></activity>
     </application>
 
 </manifest>

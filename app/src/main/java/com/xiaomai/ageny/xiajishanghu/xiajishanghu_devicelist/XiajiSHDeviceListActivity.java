@@ -11,6 +11,7 @@ import com.androidkun.xtablayout.XTabLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.TabAdapter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.filter.xiajishfilter.XiajiSHFilterActivity;
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.OffDeviceFragment;
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.OnDeviecFragment;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.contract.XiajiSHDeviceListContract;
@@ -82,6 +83,7 @@ public class XiajiSHDeviceListActivity extends BaseMvpActivity<XiajiSHDeviceList
             case R.id.back:
                 break;
             case R.id.bt_filter:
+                toClass(this, XiajiSHFilterActivity.class);
                 break;
         }
     }

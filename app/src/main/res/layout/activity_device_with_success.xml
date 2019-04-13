@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <RelativeLayout style="@style/titlesytle">
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/titleback"
+                android:src="@mipmap/back_write" />
+        </RelativeLayout>
+
+
+        <TextView
+            style="@style/titletext"
+            android:text="撤回成功" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="@dimen/dp_64"
+        android:layout_height="@dimen/dp_64"
+        android:layout_marginTop="@dimen/dp_54"
+        android:src="@mipmap/succeed_icon" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_18"
+        android:text="成功撤回"
+        android:textColor="#363636"
+        android:textSize="@dimen/sp_20" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_10"
+        android:gravity="center"
+        android:text="设备'JZCB6546554656'\n可在“未分配设备”内查看"
+        android:textColor="#363636"
+        android:textSize="@dimen/sp_16" />
+
+    <TextView
+        android:layout_width="@dimen/dp_260"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_220"
+        android:background="@drawable/tixian_button"
+        android:elevation="@dimen/dp_3"
+        android:gravity="center"
+        android:text="查看设备"
+        android:textColor="#fff"
+        android:textSize="@dimen/sp_17" />
+
+    <TextView
+        android:id="@+id/bt_back_index"
+        android:layout_width="@dimen/dp_260"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_15"
+        android:background="@drawable/sure_button"
+        android:gravity="center"
+        android:text="返回设备管理"
+        android:textColor="@color/appbar"
+        android:textSize="@dimen/sp_17" />
+</LinearLayout>

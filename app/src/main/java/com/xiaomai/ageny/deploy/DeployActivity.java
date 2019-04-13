@@ -27,6 +27,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.JsonBean;
 import com.xiaomai.ageny.deploy.contract.DeployContract;
 import com.xiaomai.ageny.deploy.presenter.DeployPresenter;
+import com.xiaomai.ageny.device_manage.device_withdraw.DeviceWithdrawActivity;
 import com.xiaomai.ageny.utils.GetJsonDataUtil;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
@@ -136,8 +137,8 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     }
 
     private void goCamera() {
-        Intent intent = new Intent(this, CaptureActivity.class);
-        startActivityForResult(intent, 1);
+        Intent intent=new Intent(this,DeployZxingActivity.class);
+        startActivityForResult(intent,1);
     }
 
     @Override

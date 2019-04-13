@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.androidkun.xtablayout.XTabLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.TabAdapter;
+import com.xiaomai.ageny.addagency.add.AddAgencyActivity;
+import com.xiaomai.ageny.addcontact.AddContactActivity;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.filter.dailifilter.DailiFilterActivity;
 import com.xiaomai.ageny.filter.feidailifilter.FeiDailiFilterActivity;
@@ -113,6 +115,7 @@ public class Agency_Fragment extends BaseMvpFragment<AgencyPresenter> implements
                 }
                 break;
             case R.id.bt_add:
+                toClass(getActivity(),AddAgencyActivity.class);
                 break;
         }
     }

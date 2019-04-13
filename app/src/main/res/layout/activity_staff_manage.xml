@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".staff_manage.StaffManageActivity">
+
+    <RelativeLayout style="@style/titlesytle">
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/titleback"
+                android:src="@mipmap/back_write" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            style="@style/titletext"
+            android:text="员工管理" />
+
+        <TextView
+            android:id="@+id/bt_manage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_29"
+            android:text="管理"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_14" />
+
+        <ImageView
+            android:layout_width="@dimen/dp_13"
+            android:layout_height="@dimen/dp_13"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_13"
+            android:src="@mipmap/untying_white" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/dp_120" />
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/bt_addstaff"
+            android:layout_width="@dimen/dp_260"
+            android:layout_height="@dimen/dp_44"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_58"
+            android:background="@drawable/sure_button"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dp_22"
+                android:layout_height="@dimen/dp_22"
+                android:src="@mipmap/add_card_blue"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:text="添加员工"
+                android:textColor="@color/appbar"
+                android:textSize="@dimen/sp_17" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

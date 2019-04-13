@@ -11,8 +11,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiaomai.ageny.R;
-import com.xiaomai.ageny.bank.DepositSuccessActivity;
-import com.xiaomai.ageny.bank.BankActivity;
+import com.xiaomai.ageny.addbank.DepositSuccessActivity;
+import com.xiaomai.ageny.addbank.BankActivity;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.deposit.contract.DepositContract;
 import com.xiaomai.ageny.deposit.presenter.DepositPresenter;

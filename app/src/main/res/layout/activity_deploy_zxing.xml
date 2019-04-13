@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_my_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout style="@style/titlesytle">
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/titleback"
+                android:src="@mipmap/back_write" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            style="@style/titletext"
+            android:text="设备部署" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
