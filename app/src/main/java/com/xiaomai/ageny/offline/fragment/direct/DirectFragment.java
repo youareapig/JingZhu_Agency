@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
-import com.xiaomai.ageny.bean.TestBean;
+import com.xiaomai.ageny.bean.OffDeviceBean;
 import com.xiaomai.ageny.offline.fragment.direct.adapter.Adapter;
 import com.xiaomai.ageny.offline.fragment.direct.contract.DirectContract;
 import com.xiaomai.ageny.offline.fragment.direct.presenter.DirectPresenter;
@@ -33,17 +33,12 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
 
     private Adapter adapter;
     private List<String> list;
+
     @Override
     protected void initView(View view) {
-        list=new ArrayList<>();
-        list.add("第1家");
-        list.add("第2家");
-        list.add("第3家");
-        list.add("第4家");
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapter = new Adapter(R.layout.direct_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
+        mPresenter = new DirectPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData("", "", "");
     }
 
     @Override
@@ -64,6 +59,19 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
     @Override
     public void onError(Throwable throwable) {
 
+    }
+
+    @Override
+    public void onSuccess(OffDeviceBean bean) {
+        list = new ArrayList<>();
+        list.add("第1家");
+        list.add("第2家");
+        list.add("第3家");
+        list.add("第4家");
+        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        adapter = new Adapter(R.layout.direct_item, list);
+        recycler.setAdapter(adapter);
+        adapter.openLoadAnimation();
     }
 
 }

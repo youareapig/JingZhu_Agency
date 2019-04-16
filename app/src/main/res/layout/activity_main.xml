@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_1"
-                    android:text="设备"
+                    android:text="代理"
                     android:textColor="#767676"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>

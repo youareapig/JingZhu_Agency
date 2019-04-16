@@ -40,7 +40,8 @@ public class OfflineActivity extends BaseMvpActivity<OfflinePresenter> implement
 
     private List<String> titleList;
     private List<Fragment> fragmentList;
-    private int tabPosition =0;
+    private int tabPosition = 0;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_offline;
@@ -64,7 +65,9 @@ public class OfflineActivity extends BaseMvpActivity<OfflinePresenter> implement
         xtab.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
-                tabPosition=tab.getPosition();
+                tabPosition = tab.getPosition();
+                //不加这句点击不能切换，但能滑动
+                viewpage.setCurrentItem(tabPosition);
             }
 
             @Override
@@ -102,11 +105,11 @@ public class OfflineActivity extends BaseMvpActivity<OfflinePresenter> implement
                 finish();
                 break;
             case R.id.bt_filter:
-                if (tabPosition==0){
+                if (tabPosition == 0) {
                     toClass(this, DirectFilterActivity.class);
                 }
-                if (tabPosition==1){
-                    toClass(this,IndirectFilterActivity.class);
+                if (tabPosition == 1) {
+                    toClass(this, IndirectFilterActivity.class);
                 }
 
                 break;

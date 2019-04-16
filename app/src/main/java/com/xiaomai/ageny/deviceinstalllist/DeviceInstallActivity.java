@@ -1,23 +1,29 @@
 package com.xiaomai.ageny.deviceinstalllist;
 
+import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.bean.DeviceInstallListBean;
 import com.xiaomai.ageny.deploy.DeployActivity;
 import com.xiaomai.ageny.deviceinstalllist.adapter.Adapter;
 import com.xiaomai.ageny.deviceinstalllist.contract.DeviceInstallContract;
 import com.xiaomai.ageny.deviceinstalllist.presenter.DeviceInstallPresenter;
 import com.xiaomai.ageny.filter.deviceinstall.DeviceInstallFilterActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresenter> implements DeviceInstallContract.View {
@@ -30,9 +36,15 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     RecyclerView recycler;
     @BindView(R.id.bt_install)
     RelativeLayout btInstall;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refresh;
 
     private Adapter adapter;
-    private List<String> list;
+    private List<DeviceInstallListBean.DataBean.ListBean> list;
+    private String strChiyourenTel = "";
+    private String strAnzhuangrenTel = "";
+    private String strTime = "";
+    private int page = 1;
 
     @Override
     public int getLayoutId() {
@@ -41,17 +53,44 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     @Override
     public void initView() {
-        list = new ArrayList<>();
-        list.add("张三");
-        list.add("旺旺");
-        list.add("张三");
-        list.add("张三");
-        list.add("张三");
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new Adapter(R.layout.device_install_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            strChiyourenTel = bundle.getString("cyren");
+            strAnzhuangrenTel = bundle.getString("azren");
+            strTime = bundle.getString("time");
+        }
+        Logger.d("参数" + strChiyourenTel + strAnzhuangrenTel + strTime);
 
+        mPresenter = new DeviceInstallPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getDeviceInstallListData(strChiyourenTel, strAnzhuangrenTel, strTime);
+
+        //下拉上啦
+        refresh.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page=1;
+                        mPresenter.getDeviceInstallListBean_Refresh(page,strChiyourenTel, strAnzhuangrenTel, strTime);
+                        refresh.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        page++;
+                        mPresenter.getDeviceInstallListBean_Refresh(page,strChiyourenTel, strAnzhuangrenTel, strTime);
+                        refresh.finishLoadMore();
+                    }
+                }, 1000);
+            }
+        });
     }
 
     @Override
@@ -66,6 +105,23 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     @Override
     public void onError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onSuccess(DeviceInstallListBean bean) {
+        list = bean.getData().getList();
+        if (bean.getCode() == 1) {
+            recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            adapter = new Adapter(R.layout.device_install_item, list);
+            recycler.setNestedScrollingEnabled(false);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+        }
+    }
+
+    @Override
+    public void onSuccess_Refresh(DeviceInstallListBean bean) {
 
     }
 

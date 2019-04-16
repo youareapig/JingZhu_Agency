@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
+import com.xiaomai.ageny.bean.FreezeBean;
 import com.xiaomai.ageny.details.devcie_freeze_details.DeviceFreezDetailsActivity;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.Adapter;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.returnmoney.contract.ReturnMoneyContract;
@@ -27,23 +28,14 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
     RecyclerView recycler;
     Unbinder unbinder;
     private Adapter adapter;
-    private List<String> list;
+    private List<FreezeBean.DataBean.ListBean> list;
+
     @Override
     protected void initView(View view) {
-        list = new ArrayList<>();
-        list.add("956");
-        list.add("9527");
-        list.add("9527");
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapter = new Adapter(R.layout.freeze_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toClass(view.getContext(),DeviceFreezDetailsActivity.class);
-            }
-        });
+        mPresenter=new ReturnMoneyPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData("3","","");
+
     }
 
     @Override
@@ -63,6 +55,24 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
 
     @Override
     public void onError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onSuccess(FreezeBean bean) {
+        if (bean.getCode() == 1) {
+            list = bean.getData().getList();
+            recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            adapter = new Adapter(R.layout.freeze_item, list);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    toClass(view.getContext(), DeviceFreezDetailsActivity.class);
+                }
+            });
+        }
 
     }
 

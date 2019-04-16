@@ -13,6 +13,11 @@ public class DateUtils {
         return format.format(date);
     }
 
+    public static String getHM(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+        return format.format(date);
+    }
+
     /**
      * 掉此方法输入所要转换的时间输入例如（"2014年06月14日16时09分00秒"）返回时间戳
      *

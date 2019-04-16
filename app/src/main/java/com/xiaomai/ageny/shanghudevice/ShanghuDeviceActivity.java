@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.TabAdapter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
@@ -20,6 +21,11 @@ import com.xiaomai.ageny.shanghudevice.contract.ShangHuDeviceContract;
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.OffDeviceFragment;
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.OnDeviecFragment;
 import com.xiaomai.ageny.shanghudevice.presenter.ShangHuDevicePresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +48,8 @@ public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresente
 
     private List<String> titleList;
     private List<Fragment> fragmentList;
+    private String id;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_shanghu_device;
@@ -49,12 +57,14 @@ public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresente
 
     @Override
     public void initView() {
+        id = getIntent().getExtras().getString("id");
+
         titleList = new ArrayList<>();
         titleList.add("在线设备（89台）");
         titleList.add("离线设备（9台）");
         fragmentList = new ArrayList<>();
-        fragmentList.add(new OnDeviecFragment());
-        fragmentList.add(new OffDeviceFragment());
+        fragmentList.add(new OnDeviecFragment(id));
+        fragmentList.add(new OffDeviceFragment(id));
 
         viewpage.setAdapter(new TabAdapter(getSupportFragmentManager(), titleList, fragmentList));
         viewpage.setOffscreenPageLimit(0);
@@ -64,6 +74,7 @@ public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresente
         viewpage.setCurrentItem(0);
 
     }
+
 
     @Override
     public void showLoading() {
@@ -87,7 +98,7 @@ public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresente
             case R.id.back:
                 break;
             case R.id.bt_filter:
-                toClass(this,ShangHuDeviceFilterActivity.class);
+                toClass(this, ShangHuDeviceFilterActivity.class);
                 break;
         }
     }

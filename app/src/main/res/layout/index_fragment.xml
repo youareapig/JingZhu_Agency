@@ -20,19 +20,20 @@
         <RelativeLayout
             android:layout_width="@dimen/dp_19"
             android:layout_height="@dimen/dp_19"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_14">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@mipmap/news" />
+
             <ImageView
                 android:layout_width="@dimen/dp_6"
                 android:layout_height="@dimen/dp_6"
-                android:src="@mipmap/red_icon"
-                android:layout_alignParentRight="true"/>
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/red_icon" />
         </RelativeLayout>
     </RelativeLayout>
 
@@ -95,7 +96,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_10"
-                            android:text="17,098.45"
                             android:textColor="#fff"
                             android:textSize="@dimen/sp_16" />
                     </LinearLayout>
@@ -119,7 +119,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_10"
-                            android:text="17,098.45"
                             android:textColor="#fff"
                             android:textSize="@dimen/sp_16" />
                     </LinearLayout>
@@ -143,7 +142,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_10"
-                            android:text="17,098.45"
                             android:textColor="#fff"
                             android:textSize="@dimen/sp_16" />
                     </LinearLayout>
@@ -196,7 +194,7 @@
                         android:id="@+id/tx_index_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="182585.0"
+                        android:text="0"
                         android:textColor="#fff"
                         android:textSize="@dimen/sp_24" />
 
@@ -314,7 +312,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="待租借：108个"
+                                android:text="待租借：0个"
                                 android:textColor="#363636"
                                 android:textSize="@dimen/sp_13" />
 
@@ -323,7 +321,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="租借中：12208个"
+                                android:text="租借中：0个"
                                 android:textColor="#363636"
                                 android:textSize="@dimen/sp_13" />
                         </LinearLayout>
@@ -351,7 +349,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="离线：9台"
+                                android:text="离线：0台"
                                 android:textColor="#363636"
                                 android:textSize="@dimen/sp_13" />
 
@@ -360,7 +358,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="在线：1256台个"
+                                android:text="在线：0台"
                                 android:textColor="#363636"
                                 android:textSize="@dimen/sp_13" />
                         </LinearLayout>

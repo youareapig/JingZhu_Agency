@@ -114,6 +114,7 @@
                     android:textSize="@dimen/sp_13" />
 
                 <TextView
+                    android:id="@+id/yesterday_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -146,6 +147,7 @@
                                 android:textSize="@dimen/sp_13" />
 
                             <TextView
+                                android:id="@+id/all_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="17,098.45"
@@ -174,6 +176,7 @@
                                 android:textSize="@dimen/sp_13" />
 
                             <TextView
+                                android:id="@+id/month_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="17,4.45"
@@ -202,6 +205,7 @@
                                 android:textSize="@dimen/sp_13" />
 
                             <TextView
+                                android:id="@+id/today_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="17,098.45"
@@ -412,6 +416,7 @@
                         android:src="@mipmap/seller_icon_01" />
 
                     <TextView
+                        android:id="@+id/deviceId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_11"
@@ -433,6 +438,7 @@
                         android:src="@mipmap/seller_icon_02" />
 
                     <TextView
+                        android:id="@+id/storename"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_11"
@@ -454,6 +460,7 @@
                         android:src="@mipmap/seller_icon_03" />
 
                     <TextView
+                        android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_11"
@@ -475,6 +482,7 @@
                         android:src="@mipmap/seller_icon_04" />
 
                     <TextView
+                        android:id="@+id/tel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_11"
@@ -496,6 +504,7 @@
                         android:src="@mipmap/seller_icon_05" />
 
                     <TextView
+                        android:id="@+id/addtime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_11"

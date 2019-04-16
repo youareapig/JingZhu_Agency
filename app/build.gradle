@@ -4,7 +4,7 @@ android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.xiaomai.ageny"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
@@ -63,5 +63,11 @@ dependencies {
     //权限申请
     implementation 'com.zhy:mpermission-api:1.0.0'
     annotationProcessor 'com.zhy:mpermission-compiler:1.0.0'
+    //下拉刷新
+    implementation 'com.jwenfeng.pulltorefresh:library:1.2.6'
+    //加载状态
+    implementation 'com.github.fingdo:stateLayout:1.0.4'
+    //eventbus
+    implementation 'org.greenrobot:eventbus:3.0.0'
 
 }

@@ -23,6 +23,7 @@
             android:src="@mipmap/blue_sign_equipment" />
 
         <TextView
+            android:id="@+id/deviceId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_3"
@@ -44,6 +45,7 @@
             android:src="@mipmap/blue_sign_equipment" />
 
         <TextView
+            android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_3"
@@ -77,6 +79,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/chiyouren"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="持有人：欧特派"
@@ -84,7 +87,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
-                    android:id="@+id/install_name"
+                    android:id="@+id/anzhuangren"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_9"
@@ -114,6 +117,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/chiyouren_tel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="联系方式：138 8044 1206"
@@ -121,6 +125,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/anzhuangren_tel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_9"
@@ -146,6 +151,7 @@
             android:src="@mipmap/blue_sign_equipment" />
 
         <TextView
+            android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_3"

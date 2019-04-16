@@ -118,15 +118,13 @@
             android:layout_marginLeft="@dimen/dp_19"
             android:layout_marginTop="@dimen/dp_10"
             android:lineSpacingExtra="@dimen/dp_5"
-            android:text="1.解除绑定后设备变为初始状态
-2.解除绑定需要设备所属商户的上级代理手机验证码"
+            android:text="1.解除绑定后设备变为初始状态\n2.解除绑定需要设备所属商户的上级代理手机验证码"
             android:textColor="#878787"
             android:textSize="@dimen/sp_13" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
             <TextView
                 android:id="@+id/bt_unbundle"

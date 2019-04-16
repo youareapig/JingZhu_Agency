@@ -4,12 +4,14 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.device_manage.device_freeze.DeviceFreezeActivity;
 import com.xiaomai.ageny.filter.devicefreeze_filter.contract.DeviceFreezeFilterContract;
 import com.xiaomai.ageny.filter.devicefreeze_filter.presenter.DeviceFreezeFilterPresenter;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
@@ -31,9 +33,14 @@ public class DeviceFreezeFilterActivity extends BaseMvpActivity<DeviceFreezeFilt
     TextView filterBtReset;
     @BindView(R.id.filter_bt_submit)
     TextView filterBtSubmit;
+    @BindView(R.id.deviceId)
+    EditText deviceId;
     private List<String> list;
     private Adapter adapter;
-
+    private String strId = "";
+    private String strRelation = "";
+    private Bundle bundle;
+    private int tabposition;
     @Override
     public int getLayoutId() {
         return R.layout.activity_device_freeze_filter;
@@ -41,6 +48,12 @@ public class DeviceFreezeFilterActivity extends BaseMvpActivity<DeviceFreezeFilt
 
     @Override
     public void initView() {
+        Bundle bundle1=getIntent().getExtras();
+        if (bundle1!=null){
+            tabposition=bundle1.getInt("tabposition");
+        }
+
+        bundle = new Bundle();
         list = new ArrayList<>();
         list.add("全部");
         list.add("直属");
@@ -55,6 +68,7 @@ public class DeviceFreezeFilterActivity extends BaseMvpActivity<DeviceFreezeFilt
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
                 adapter.setSelectItem(position);
                 adapter.notifyDataSetChanged();
+                strRelation = list.get(position);
             }
         });
     }
@@ -83,7 +97,15 @@ public class DeviceFreezeFilterActivity extends BaseMvpActivity<DeviceFreezeFilt
             case R.id.filter_bt_reset:
                 break;
             case R.id.filter_bt_submit:
+                strId = deviceId.getText().toString().trim();
+                bundle.putString("filler_deviceid", strId);
+                bundle.putString("filler_relation", strRelation);
+                bundle.putInt("tabposition", tabposition);
+                toClass(this, DeviceFreezeActivity.class, bundle);
+                finish();
                 break;
         }
     }
+
+
 }

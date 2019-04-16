@@ -9,11 +9,10 @@ import android.widget.TextView;
 
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.bean.BillListBean;
 import com.xiaomai.ageny.mybill.contract.MyBillContract;
 import com.xiaomai.ageny.mybill.presenter.MyBillPresenter;
-import com.xiaomai.ageny.utils.SpacesItemDecoration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,14 +24,14 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
 
     @BindView(R.id.back)
     RelativeLayout back;
-    @BindView(R.id.tv_tixian_money)
-    TextView tvTixianMoney;
-    @BindView(R.id.tv_tixian_dongjie)
-    TextView tvTixianDongjie;
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.tv_all_money)
+    TextView tvAllMoney;
+    @BindView(R.id.tv_order_money)
+    TextView tvOrderMoney;
     private Adapter adapter;
-    private List<String> list;
+    private List<BillListBean.DataBean.ListBean> list;
 
     @Override
     public int getLayoutId() {
@@ -41,16 +40,10 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
 
     @Override
     public void initView() {
-        list = new ArrayList<>();
-        list.add("956");
-        list.add("956");
-        list.add("956");
-        list.add("9527");
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recycler.setNestedScrollingEnabled(false);
-        adapter = new Adapter(R.layout.mybill_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
+
+        mPresenter = new MyBillPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData();
     }
 
     @Override
@@ -68,6 +61,21 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
 
     }
 
+    @Override
+    public void onSuccess(BillListBean bean) {
+        if (bean.getCode()==1){
+            tvAllMoney.setText(bean.getData().getTotal_earn());
+            tvOrderMoney.setText(bean.getData().getTotal_price());
+            list = bean.getData().getList();
+            recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            recycler.setNestedScrollingEnabled(false);
+            adapter = new Adapter(R.layout.mybill_item, list);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+        }
+
+    }
+
 
     @OnClick({R.id.back, R.id.recycler})
     public void onViewClicked(View view) {
@@ -78,4 +86,5 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
                 break;
         }
     }
+
 }

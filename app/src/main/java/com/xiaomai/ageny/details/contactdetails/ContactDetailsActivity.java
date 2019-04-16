@@ -6,13 +6,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.addcontact.AddContactActivity;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.bean.ContactDetailsBean;
+import com.xiaomai.ageny.bean.ContactUserInfoBean;
 import com.xiaomai.ageny.details.contactdetails.contract.ContactDetailsContract;
 import com.xiaomai.ageny.details.contactdetails.presenter.ContactDetailsPresenter;
 import com.xiaomai.ageny.shanghudevice.ShanghuDeviceActivity;
 import com.xiaomai.ageny.unbundle.unbundle_shanghu.UnbundleShanghuActivity;
+import com.xiaomai.ageny.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,8 +41,28 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
     TextView onLine;
     @BindView(R.id.updateuserinfo)
     RelativeLayout updateuserinfo;
+    @BindView(R.id.yesterday_money)
+    TextView yesterdayMoney;
+    @BindView(R.id.all_money)
+    TextView allMoney;
+    @BindView(R.id.month_money)
+    TextView monthMoney;
+    @BindView(R.id.today_money)
+    TextView todayMoney;
+    @BindView(R.id.deviceId)
+    TextView deviceId;
+    @BindView(R.id.storename)
+    TextView storename;
+    @BindView(R.id.name)
+    TextView name;
+    @BindView(R.id.tel)
+    TextView tel;
+    @BindView(R.id.addtime)
+    TextView addtime;
+
 
     private Bundle bundle;
+    private String id, strStorename, strLinkName, strLinkTel, strAdress, strYingye, strPersoncount;
 
     @Override
     public int getLayoutId() {
@@ -47,8 +71,19 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
 
     @Override
     public void initView() {
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         bundle = new Bundle();
         ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
+        id = getIntent().getExtras().getString("id");
+        mPresenter = new ContactDetailsPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData(id);
+        mPresenter.getUserInfo(id, "");
     }
 
     @Override
@@ -63,32 +98,69 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
 
     @Override
     public void onError(Throwable throwable) {
+        ToastUtil.showShortToast("错误" + throwable.getMessage());
+    }
+
+    @Override
+    public void onSuccess(ContactDetailsBean bean) {
+        if (bean.getCode() == 1) {
+            ContactDetailsBean.DataBean data = bean.getData();
+            allMoney.setText(data.getTotal_earn());
+            yesterdayMoney.setText(data.getYestoday_earn());
+            todayMoney.setText(data.getDay_earn());
+            monthMoney.setText(data.getMonth_earn());
+            rent.setText("待租借：" + data.getNoRentCount() + "个");
+            rentting.setText("租借中：" + data.getRentCount() + "个");
+            offLine.setText("离线：" + data.getOffLineCount() + "台");
+            onLine.setText("在线：" + data.getOnLineCount() + "台");
+            deviceId.setText("编号：" + id);
+
+        }
+    }
+
+    @Override
+    public void onSuccess(ContactUserInfoBean userInfoBean) {
+        if (userInfoBean.getCode() == 1) {
+            strStorename = userInfoBean.getData().getName();
+            strLinkName = userInfoBean.getData().getLinkman();
+            strLinkTel = userInfoBean.getData().getLinktel();
+            strAdress = userInfoBean.getData().getAddress();
+            strYingye = userInfoBean.getData().getOpenTime();
+            strPersoncount = userInfoBean.getData().getPersonCost();
+
+            storename.setText("商户名称：" + strStorename);
+            name.setText("联系人：" + strLinkName);
+            tel.setText("联系方式：" + strLinkTel);
+            addtime.setText("添加时间：" + userInfoBean.getData().getCreateTimestr());
+        }
 
     }
 
 
-    @OnClick({R.id.back, R.id.bt_shanghudevice, R.id.bt_unbundle,R.id.updateuserinfo})
+    @OnClick({R.id.back, R.id.bt_shanghudevice, R.id.bt_unbundle, R.id.updateuserinfo})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
                 break;
             case R.id.bt_shanghudevice:
-                toClass(this, ShanghuDeviceActivity.class);
+                bundle.putString("id", id);
+                toClass(this, ShanghuDeviceActivity.class, bundle);
                 break;
             case R.id.bt_unbundle:
                 toClass(this, UnbundleShanghuActivity.class);
                 break;
             case R.id.updateuserinfo:
-                bundle.putInt("isadd",2);
-                toClass(this,AddContactActivity.class,bundle);
+                bundle.putInt("isadd", 2);
+                bundle.putString("id", id);
+                bundle.putString("storename", strStorename);
+                bundle.putString("strLinkName", strLinkName);
+                bundle.putString("strLinkTel", strLinkTel);
+                bundle.putString("strAdress", strAdress);
+                bundle.putString("strYingye", strYingye);
+                bundle.putString("strPersoncount", strPersoncount);
+                toClass(this, AddContactActivity.class, bundle);
                 break;
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

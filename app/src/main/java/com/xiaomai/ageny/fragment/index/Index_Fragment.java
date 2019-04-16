@@ -1,12 +1,18 @@
 package com.xiaomai.ageny.fragment.index;
 
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.fingdo.statelayout.StateLayout;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
+import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.deposit.DepositActivity;
 import com.xiaomai.ageny.device_manage.DeviceManageActivity;
 import com.xiaomai.ageny.deviceinstalllist.DeviceInstallActivity;
@@ -17,6 +23,7 @@ import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.order.OrderActivity;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
@@ -57,7 +64,9 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
     @Override
     protected void initView(View view) {
-
+        mPresenter = new IndexPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData();
     }
 
     @Override
@@ -67,7 +76,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
@@ -77,6 +85,28 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
     @Override
     public void onError(Throwable throwable) {
+        Logger.d("失败");
+    }
+
+    @Override
+    public void onSuccess(IndexBean bean) {
+        Logger.d("成功");
+        if (bean.getCode() == 1) {
+            IndexBean.DataBean data = bean.getData();
+            yesterdayMoney.setText(data.getYestoday_earn());
+            todayMoney.setText(data.getDay_earn());
+            allMoney.setText(data.getTotal_earn());
+            monthMoney.setText(data.getMonth_earn());
+            txIndexMoney.setText(data.getUnliquidated());
+            depositMoney.setText("已提现金额：" + data.getFreeze_money());
+            rent.setText("待租借：" + data.getNoRentCount() + "个");
+            rentting.setText("租借中：" + data.getRentCount() + "个");
+            offLine.setText("离线：" + data.getOffLineCount() + "台");
+            onLine.setText("在线：" + data.getOnLineCount() + "台");
+
+
+        }
+
 
     }
 
@@ -103,4 +133,5 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 break;
         }
     }
+
 }

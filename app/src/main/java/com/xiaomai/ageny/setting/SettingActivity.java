@@ -11,7 +11,9 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.mybankcard.MyBankCardActivity;
 import com.xiaomai.ageny.setting.contract.SettingContract;
 import com.xiaomai.ageny.setting.presenter.SettingPresenter;
+import com.xiaomai.ageny.shop_manage.ShopManageActivity;
 import com.xiaomai.ageny.staff_manage.StaffManageActivity;
+import com.xiaomai.ageny.unbundle.unbundle_record.UnbundleRecordActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,9 +76,11 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
                 break;
             case R.id.bt_unbundle_record:
                 //商户绑定记录
+                toClass(this,UnbundleRecordActivity.class);
                 break;
             case R.id.bt_shop_manage:
                 //采购管理
+                toClass1(this,ShopManageActivity.class);
                 break;
             case R.id.bt_loginout:
                 //退出登录

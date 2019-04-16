@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiaomai.ageny.R;
-import com.xiaomai.ageny.bean.TestBean;
 
 import java.util.List;
 

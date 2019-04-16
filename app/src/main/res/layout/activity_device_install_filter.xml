@@ -38,6 +38,7 @@
         android:textSize="@dimen/sp_15" />
 
     <EditText
+        android:id="@+id/chiyouren_tel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_21"
@@ -57,6 +58,7 @@
         android:textSize="@dimen/sp_15" />
 
     <EditText
+        android:id="@+id/anzhuangren_tel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_21"
@@ -81,7 +83,6 @@
         android:layout_height="@dimen/dp_44"
         android:layout_marginLeft="@dimen/dp_21"
         android:gravity="center_vertical"
-        android:text="2019-02-28"
         android:textColor="#363636"
         android:textSize="@dimen/sp_16" />
 

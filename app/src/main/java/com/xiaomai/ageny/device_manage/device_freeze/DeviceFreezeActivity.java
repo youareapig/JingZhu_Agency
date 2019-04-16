@@ -40,6 +40,8 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
     ViewPager viewpage;
     private List<String> titleList;
     private List<Fragment> fragmentList;
+    private String id, reletion;
+    private int tabposition = 0;
 
     @Override
     public int getLayoutId() {
@@ -48,21 +50,29 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
 
     @Override
     public void initView() {
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            id = bundle.getString("filler_deviceid");
+            reletion = bundle.getString("filler_relation");
+            tabposition = bundle.getInt("tabposition");
+        }
+
         titleList = new ArrayList<>();
         titleList.add("未解冻");
         titleList.add("已解冻");
         titleList.add("已回款");
         fragmentList = new ArrayList<>();
-        fragmentList.add(new NoFreeze_Fragment());
+        fragmentList.add(new NoFreeze_Fragment(id, reletion));
         fragmentList.add(new Freezed_Fragment());
         fragmentList.add(new ReturnMoney_Fragment());
 
         viewpage.setAdapter(new TabAdapter(getSupportFragmentManager(), titleList, fragmentList));
-        viewpage.setOffscreenPageLimit(0);
+        viewpage.setOffscreenPageLimit(3);
         xtab.setupWithViewPager(viewpage);
         xtab.getTabAt(0).select();
         xtab.getTabAt(1).select();
         viewpage.setCurrentItem(0);
+
     }
 
     @Override
@@ -87,7 +97,9 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
             case R.id.back:
                 break;
             case R.id.bt_filter:
-                toClass(this,DeviceFreezeFilterActivity.class);
+                Bundle bundle1 = new Bundle();
+                bundle1.putInt("tabposition", tabposition);
+                toClass(this, DeviceFreezeFilterActivity.class, bundle1);
                 break;
         }
     }

@@ -107,10 +107,22 @@
         <activity android:name=".device_manage.device_withdraw.DeviceWithDrawListActivity" />
         <activity android:name=".device_manage.device_withdraw.DeviceWithSuccessActivity" />
         <activity android:name=".device_manage.device_allot.DeviceAllotZxingActivity" />
-        <activity android:name=".device_manage.device_allot.device_allot_list.DeviceAllotListActivity" >
-
-        </activity>
-        <activity android:name=".device_manage.device_allot.device_allot_agency.DeviceAllotAgencyActivity"></activity>
+        <activity android:name=".device_manage.device_allot.device_allot_list.DeviceAllotListActivity" />
+        <activity android:name=".device_manage.device_allot.device_allot_agency.DeviceAllotAgencyActivity" />
+        <activity android:name=".device_manage.device_allot.DeviceAllotSuccessActivity" />
+        <activity android:name=".device_popu.DevicePopuZxingActivity" />
+        <activity android:name=".device_popu.DevicePopuActivity" />
+        <activity android:name=".unbundle.unbundle_record.UnbundleRecordActivity" />
+        <activity android:name=".filter.unbundle_record_filter.UnbundleRecordFilterActivity" />
+        <activity android:name=".shop_manage.ShopManageActivity" />
+        <activity android:name=".filter.shop_filter.ShopFilterActivity" />
+        <activity android:name=".filter.record_filter.RecordFilterActivity" />
+        <activity android:name=".details.shop_note_details.ShopNoteDetailsActivity" />
+        <activity android:name=".details.record_details.RecordDetailsActivity" />
+        <activity
+            android:name=".shop_manage.goshop.GoShopActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".login.LoginActivity"></activity>
     </application>
 
 </manifest>

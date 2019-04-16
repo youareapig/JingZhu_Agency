@@ -49,11 +49,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_13"
-                android:layout_marginTop="@dimen/dp_23"
+                android:layout_marginTop="@dimen/dp_20"
                 android:layout_marginRight="@dimen/dp_13"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/idview"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_49">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="商户编号"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_17" />
+
+                    <TextView
+                        android:id="@+id/storeId"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_76"
+                        android:gravity="center_vertical"
+                        android:text="545454545"
+                        android:textColor="#363636"
+                        android:textColorHint="#868686"
+                        android:textSize="@dimen/sp_15" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_alignParentBottom="true"
+                        android:background="#D6D6D6" />
+                </RelativeLayout>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -69,6 +101,7 @@
                         android:textSize="@dimen/sp_17" />
 
                     <EditText
+                        android:id="@+id/storename"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_16"
@@ -99,6 +132,7 @@
                         android:textSize="@dimen/sp_17" />
 
                     <EditText
+                        android:id="@+id/linkname"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_16"
@@ -129,6 +163,7 @@
                         android:textSize="@dimen/sp_17" />
 
                     <EditText
+                        android:id="@+id/linktel"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_16"
@@ -159,6 +194,7 @@
                         android:textSize="@dimen/sp_17" />
 
                     <EditText
+                        android:id="@+id/address"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_16"
@@ -201,7 +237,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/dp_80"
-                            android:text="2014-06-03"
+                            android:text="0:00"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
 
@@ -231,7 +267,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerInParent="true"
                             android:layout_marginLeft="@dimen/dp_80"
-                            android:text="2014-06-03"
+                            android:text="24:00"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
 
@@ -258,6 +294,7 @@
                         android:textSize="@dimen/sp_17" />
 
                     <EditText
+                        android:id="@+id/xiaofei"
                         android:layout_width="@dimen/dp_165"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_16"
@@ -292,10 +329,10 @@
                 android:layout_height="@dimen/dp_44"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_160"
+                android:layout_marginBottom="@dimen/dp_44"
                 android:background="@drawable/save_button"
                 android:gravity="center"
                 android:text="保存"
-                android:layout_marginBottom="@dimen/dp_44"
                 android:textColor="#fff"
                 android:textSize="@dimen/sp_17" />
 

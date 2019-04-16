@@ -12,6 +12,7 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.fragment.index.contract.IndexContract;
 import com.xiaomai.ageny.offline.fragment.indirect.adapter.Adapter;
+import com.xiaomai.ageny.offline.fragment.indirect.contract.IndirectContract;
 import com.xiaomai.ageny.offline.fragment.indirect.presenter.IndirectPresenter;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> implements IndexContract.View {
+public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> implements IndirectContract.View {
 
 
     @BindView(R.id.offline_num)

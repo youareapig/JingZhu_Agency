@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import com.gyf.barlibrary.ImmersionBar;
 import com.xiaomai.ageny.R;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -30,6 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+        ImmersionBar.with(this).destroy();
     }
 
     /**

@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.addcontact.AddContactActivity;
 import com.xiaomai.ageny.base.BaseMvpFragment;
+import com.xiaomai.ageny.bean.ContactListBean;
 import com.xiaomai.ageny.details.contactdetails.ContactDetailsActivity;
 import com.xiaomai.ageny.filter.contactfilter.ContactFilterActivity;
 import com.xiaomai.ageny.fragment.contact.contract.ContactContract;
@@ -34,29 +35,24 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     @BindView(R.id.bt_add)
     ImageView btAdd;
     Unbinder unbinder;
+    @BindView(R.id.add_time)
+    TextView addTime;
+    @BindView(R.id.make_money)
+    TextView makeMoney;
+    @BindView(R.id.totle_count)
+    TextView totleCount;
+    Unbinder unbinder1;
     private Adapter adapter;
-    private List<String> list;
+    private List<ContactListBean.DataBean.ListBean> list;
 
     private Bundle bundle;
 
     @Override
     protected void initView(View view) {
-        bundle=new Bundle();
-        list = new ArrayList<>();
-        list.add("26");
-        list.add("27");
-        list.add("28");
-        list.add("29");
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapter = new Adapter(R.layout.contact_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toClass(view.getContext(), ContactDetailsActivity.class);
-            }
-        });
+        bundle = new Bundle();
+        mPresenter = new ContactPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData("", "", "");
     }
 
     @Override
@@ -79,17 +75,47 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
 
     }
 
+    @Override
+    public void onSuccess(ContactListBean bean) {
+        if (bean.getCode() == 1) {
+            list = bean.getData().getList();
+            totleCount.setText("共："+list.size()+"家");
+            recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            adapter = new Adapter(R.layout.contact_item, list);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    bundle.putString("id",list.get(position).getId());
 
-    @OnClick({R.id.bt_filter, R.id.bt_add})
+                    toClass(view.getContext(), ContactDetailsActivity.class,bundle);
+                }
+            });
+        }
+
+    }
+
+
+    @OnClick({R.id.bt_filter, R.id.bt_add, R.id.add_time, R.id.make_money})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_filter:
                 toClass(getActivity(), ContactFilterActivity.class);
                 break;
             case R.id.bt_add:
-                bundle.putInt("isadd",1);
-                toClass(getActivity(), AddContactActivity.class,bundle);
+                bundle.putInt("isadd", 1);
+                toClass(getActivity(), AddContactActivity.class, bundle);
+                break;
+            case R.id.add_time:
+                addTime.setSelected(true);
+                makeMoney.setSelected(false);
+                break;
+            case R.id.make_money:
+                addTime.setSelected(false);
+                makeMoney.setSelected(true);
                 break;
         }
     }
+
 }

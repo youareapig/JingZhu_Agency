@@ -37,7 +37,6 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_10"
-            android:text="184 0368 7786"
             android:textColor="#363636"
             android:textSize="@dimen/sp_15" />
     </RelativeLayout>

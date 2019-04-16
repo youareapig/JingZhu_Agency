@@ -2,6 +2,7 @@ package com.xiaomai.ageny.filter.deviceinstall;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.deviceinstalllist.DeviceInstallActivity;
 import com.xiaomai.ageny.filter.deviceinstall.contract.DeviceInstallFilterContract;
 import com.xiaomai.ageny.filter.deviceinstall.presenter.DeviceInstallFilterPresenter;
 import com.xiaomai.ageny.utils.DateUtils;
@@ -30,6 +32,13 @@ public class DeviceInstallFilterActivity extends BaseMvpActivity<DeviceInstallFi
     TextView filterBtReset;
     @BindView(R.id.filter_bt_submit)
     TextView filterBtSubmit;
+    @BindView(R.id.chiyouren_tel)
+    EditText chiyourenTel;
+    @BindView(R.id.anzhuangren_tel)
+    EditText anzhuangrenTel;
+
+    private String strChiyourenTel, strAnzhuangrenTel, strTime;
+    private Bundle bundle;
 
     @Override
     public int getLayoutId() {
@@ -38,6 +47,7 @@ public class DeviceInstallFilterActivity extends BaseMvpActivity<DeviceInstallFi
 
     @Override
     public void initView() {
+        bundle = new Bundle();
 
     }
 
@@ -75,7 +85,16 @@ public class DeviceInstallFilterActivity extends BaseMvpActivity<DeviceInstallFi
             case R.id.filter_bt_reset:
                 break;
             case R.id.filter_bt_submit:
+                strChiyourenTel = chiyourenTel.getText().toString().trim();
+                strAnzhuangrenTel = anzhuangrenTel.getText().toString().trim();
+                strTime = filterTime.getText().toString().trim();
+                bundle.putString("cyren", strChiyourenTel);
+                bundle.putString("azren", strAnzhuangrenTel);
+                bundle.putString("time", strTime);
+                toClass(this, DeviceInstallActivity.class, bundle);
+                finish();
                 break;
         }
     }
+
 }

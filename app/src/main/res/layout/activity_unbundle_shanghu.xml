@@ -159,8 +159,7 @@
                 android:layout_marginLeft="@dimen/dp_19"
                 android:layout_marginTop="@dimen/dp_10"
                 android:lineSpacingExtra="@dimen/dp_5"
-                android:text="1.解除绑定后设备变为初始状态
-2.解除绑定需要设备所属商户的上级代理手机验证码"
+                android:text="1.解绑时请保证商户名下无设备\n2.解除绑定后商户不再为代理产生分润\n3.解除绑定时需要验证商户直属代理的手机号"
                 android:textColor="#878787"
                 android:textSize="@dimen/sp_13" />
 
