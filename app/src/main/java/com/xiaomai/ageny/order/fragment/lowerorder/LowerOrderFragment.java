@@ -6,15 +6,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
+import com.xiaomai.ageny.bean.LowerOrderBean;
+import com.xiaomai.ageny.bean.MyOrderBean;
+import com.xiaomai.ageny.details.orderdetails.lowerorderdetails.LowerOrderDetailsActivity;
 import com.xiaomai.ageny.order.fragment.lowerorder.contract.LowerOrderContract;
 import com.xiaomai.ageny.order.fragment.lowerorder.presenter.LowerOrderPresenter;
-import com.xiaomai.ageny.details.orderdetails.lowerorderdetails.LowerOrderDetailsActivity;
+import com.xiaomai.ageny.utils.ToastUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,27 +28,22 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
     @BindView(R.id.recycler)
     RecyclerView recycler;
     Unbinder unbinder;
-    private List<String> list;
+    @BindView(R.id.orderTotleMoney)
+    TextView orderTotleMoney;
+    @BindView(R.id.earn)
+    TextView earn;
+    Unbinder unbinder1;
+    private List<LowerOrderBean.DataBean.ListBean> list;
     private Adapter adapter;
+    private Bundle bundle;
 
     @Override
     protected void initView(View view) {
-        list = new ArrayList<>();
-        list.add("李四");
-        list.add("李四");
-        list.add("李四");
-        list.add("李四");
-        list.add("李四");
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapter = new Adapter(R.layout.order_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toClass(view.getContext(), LowerOrderDetailsActivity.class);
-            }
-        });
+        bundle = new Bundle();
+        mPresenter = new LowerOrderPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData("", "", "", "");
+
     }
 
     @Override
@@ -69,16 +67,27 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
+    public void onSuccess(LowerOrderBean bean) {
+        if (bean.getCode() == 1) {
+            orderTotleMoney.setText(bean.getData().getCountRentPrice());
+            earn.setText(bean.getData().getCountEarn());
+            list = bean.getData().getList();
+            recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            adapter = new Adapter(R.layout.order_item, list);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    bundle.putString("id", list.get(position).getOrderid());
+                    toClass(view.getContext(), LowerOrderDetailsActivity.class, bundle);
+                }
+            });
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
+
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
+
 }

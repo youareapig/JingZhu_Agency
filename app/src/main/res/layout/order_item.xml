@@ -19,6 +19,7 @@
             android:layout_height="@dimen/dp_31">
 
             <TextView
+                android:id="@+id/orderId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -28,6 +29,7 @@
                 android:textSize="@dimen/sp_13" />
 
             <TextView
+                android:id="@+id/orderTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -57,6 +59,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/storename"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_11"
@@ -74,10 +77,11 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/rentTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_11"
-                    android:text="兵哥豌豆面(武侯店)"
+                    android:text="租借时间：20:36:58"
                     android:textColor="#363636"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>
@@ -96,6 +100,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_11"
@@ -118,6 +123,7 @@
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/make_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="300"

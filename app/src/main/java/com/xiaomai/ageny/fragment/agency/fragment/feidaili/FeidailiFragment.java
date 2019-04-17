@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
+import com.xiaomai.ageny.bean.DailiListBean;
 import com.xiaomai.ageny.details.feidailidetails.FeiDailiDetailsActivity;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.contract.FeidailiContract;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.presenter.FeidailiPresenter;
@@ -26,23 +27,16 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
     RecyclerView recycler;
     Unbinder unbinder;
     private Adapter adapter;
-    private List<String> list;
+    private List<DailiListBean.DataBean.ListBean> list;
+    private Bundle bundle;
 
     @Override
     protected void initView(View view) {
-        list = new ArrayList<>();
-        list.add("101");
-        list.add("102");
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapter = new Adapter(R.layout.feidaili_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toClass(view.getContext(), FeiDailiDetailsActivity.class);
-            }
-        });
+        bundle = new Bundle();
+        mPresenter = new FeidailiPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData("", "", "", "0", "");
+
     }
 
     @Override
@@ -63,6 +57,24 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
     @Override
     public void onError(Throwable throwable) {
 
+    }
+
+    @Override
+    public void onSuccess(DailiListBean bean) {
+        if (bean.getCode() == 1) {
+            list = bean.getData().getList();
+            recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            adapter = new Adapter(R.layout.feidaili_item, list);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    bundle.putString("id", list.get(position).getId());
+                    toClass(view.getContext(), FeiDailiDetailsActivity.class, bundle);
+                }
+            });
+        }
     }
 
 }

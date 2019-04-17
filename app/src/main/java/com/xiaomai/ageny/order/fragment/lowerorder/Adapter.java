@@ -5,17 +5,25 @@ import android.support.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiaomai.ageny.R;
+import com.xiaomai.ageny.bean.LowerOrderBean;
+import com.xiaomai.ageny.bean.MyOrderBean;
 
 import java.util.List;
 
-public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
-    public Adapter(int layoutResId, @Nullable List<String> data) {
+public class Adapter extends BaseQuickAdapter<LowerOrderBean.DataBean.ListBean, BaseViewHolder> {
+    public Adapter(int layoutResId, @Nullable List<LowerOrderBean.DataBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.name, item);
+    protected void convert(BaseViewHolder helper, LowerOrderBean.DataBean.ListBean item) {
+        helper.setText(R.id.orderId, item.getOrderid())
+                .setText(R.id.orderTime, item.getUpdTime())
+                .setText(R.id.storename, item.getSellername())
+                .setText(R.id.name, "所属代理：" + item.getAgentname())
+                .setText(R.id.rentTime, "租借时间：" + item.getLeasetime())
+                .setText(R.id.pay, "实付金额" + item.getRentprice() + "元")
+                .setText(R.id.make_money, item.getEarn());
 
     }
 }

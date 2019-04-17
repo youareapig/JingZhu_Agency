@@ -96,6 +96,7 @@
                     android:textSize="@dimen/sp_13" />
 
                 <TextView
+                    android:id="@+id/yesterday_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -128,9 +129,9 @@
                                 android:textSize="@dimen/sp_13" />
 
                             <TextView
+                                android:id="@+id/all_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="17,098.45"
                                 android:textColor="#fff"
                                 android:textSize="@dimen/sp_17" />
                         </LinearLayout>
@@ -156,9 +157,9 @@
                                 android:textSize="@dimen/sp_13" />
 
                             <TextView
+                                android:id="@+id/month_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="17,4.45"
                                 android:textColor="#fff"
                                 android:textSize="@dimen/sp_17" />
                         </LinearLayout>
@@ -184,9 +185,9 @@
                                 android:textSize="@dimen/sp_13" />
 
                             <TextView
+                                android:id="@+id/today_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="17,098.45"
                                 android:textColor="#fff"
                                 android:textSize="@dimen/sp_17" />
                         </LinearLayout>
@@ -272,7 +273,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="待租借：108个"
+                                android:text="待租借：0个"
                                 android:textColor="#363636"
                                 android:textSize="@dimen/sp_13" />
 
@@ -281,7 +282,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="租借中：12208个"
+                                android:text="租借中：0个"
                                 android:textColor="#363636"
                                 android:textSize="@dimen/sp_13" />
                         </LinearLayout>
@@ -309,7 +310,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="离线：9台"
+                                android:text="离线：0台"
                                 android:textColor="#363636"
                                 android:textSize="@dimen/sp_13" />
 
@@ -318,7 +319,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="在线：1256台个"
+                                android:text="在线：0台"
                                 android:textColor="#363636"
                                 android:textSize="@dimen/sp_13" />
                         </LinearLayout>
@@ -393,10 +394,10 @@
                         android:src="@mipmap/agent_orange_icon01" />
 
                     <TextView
+                        android:id="@+id/storeCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_11"
-                        android:text="商户总数：108家"
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_15" />
                 </LinearLayout>
@@ -414,10 +415,10 @@
                         android:src="@mipmap/agent_orange_icon02" />
 
                     <TextView
+                        android:id="@+id/orderCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_11"
-                        android:text="订单总量：19886个"
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_15" />
                 </LinearLayout>
@@ -435,10 +436,10 @@
                         android:src="@mipmap/agent_orange_icon03" />
 
                     <TextView
+                        android:id="@+id/orderMoney"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_11"
-                        android:text="订单总金额：10,5450.27元"
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_15" />
                 </LinearLayout>
@@ -495,10 +496,10 @@
                         android:src="@mipmap/seller_icon_01" />
 
                     <TextView
+                        android:id="@+id/agencyId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_11"
-                        android:text="编号：JDASD1231312"
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_15" />
                 </LinearLayout>
@@ -517,10 +518,10 @@
                         android:src="@mipmap/seller_icon_03" />
 
                     <TextView
+                        android:id="@+id/linkname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_11"
-                        android:text="联系人：欧小帅"
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_15" />
                 </LinearLayout>
@@ -540,10 +541,10 @@
                         android:src="@mipmap/seller_icon_05" />
 
                     <TextView
+                        android:id="@+id/add_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_11"
-                        android:text="添加时间：2018-12-08"
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_15" />
                 </LinearLayout>

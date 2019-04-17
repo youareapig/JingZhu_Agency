@@ -116,6 +116,7 @@
                             android:textSize="@dimen/sp_17" />
 
                         <EditText
+                            android:id="@+id/firmName"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/dp_16"
@@ -149,6 +150,7 @@
                         android:textSize="@dimen/sp_17" />
 
                     <EditText
+                        android:id="@+id/linkname"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_16"
@@ -179,6 +181,7 @@
                         android:textSize="@dimen/sp_17" />
 
                     <EditText
+                        android:id="@+id/linktel"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_16"
@@ -209,6 +212,7 @@
                         android:textSize="@dimen/sp_17" />
 
                     <EditText
+                        android:id="@+id/adress"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_16"
@@ -239,6 +243,7 @@
                         android:textSize="@dimen/sp_17" />
 
                     <EditText
+                        android:id="@+id/fenrun"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="@dimen/dp_16"

@@ -159,7 +159,6 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
             monthMoney.setText(data.getMonthMoney());
             pingjunmoney.setText(data.getMonthlyMoney());
 
-
         }
 
     }

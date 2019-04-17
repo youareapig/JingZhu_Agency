@@ -140,9 +140,9 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
     @Override
     public void onSuccess(ContactUpdateUserInfoBean bean) {
         if (bean.getCode() == 1) {
-            ToastUtil.showShortToast("添加成功");
+            ToastUtil.showShortToast(bean.getMessage());
         } else {
-            ToastUtil.showShortToast("添加失败");
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 

@@ -1,6 +1,11 @@
 package com.xiaomai.ageny.net;
 
 
+import com.xiaomai.ageny.bean.AddAgencyBean;
+import com.xiaomai.ageny.bean.AgencyDetailsBean;
+import com.xiaomai.ageny.bean.AgencySellerListBean;
+import com.xiaomai.ageny.bean.AgencyUpdateBean;
+import com.xiaomai.ageny.bean.AgencyUserInfoBean;
 import com.xiaomai.ageny.bean.BillListBean;
 import com.xiaomai.ageny.bean.ContactDetailsBean;
 import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
@@ -8,11 +13,18 @@ import com.xiaomai.ageny.bean.ContactDeviceListBean;
 import com.xiaomai.ageny.bean.ContactListBean;
 import com.xiaomai.ageny.bean.ContactUpdateUserInfoBean;
 import com.xiaomai.ageny.bean.ContactUserInfoBean;
+import com.xiaomai.ageny.bean.DailiListBean;
 import com.xiaomai.ageny.bean.DeviceInstallListBean;
 import com.xiaomai.ageny.bean.FreezeBean;
+import com.xiaomai.ageny.bean.HisSellerBean;
 import com.xiaomai.ageny.bean.IndexBean;
+import com.xiaomai.ageny.bean.LowerOrderBean;
+import com.xiaomai.ageny.bean.LowerOrderDetailsBean;
+import com.xiaomai.ageny.bean.MyOrderDetailsBean;
 import com.xiaomai.ageny.bean.OffDeviceBean;
+import com.xiaomai.ageny.bean.MyOrderBean;
 import com.xiaomai.ageny.bean.UserInfoBean;
+import com.xiaomai.ageny.bean.XiajiListBean;
 
 import io.reactivex.Flowable;
 import okhttp3.RequestBody;
@@ -78,9 +90,54 @@ public interface APIService {
     @POST(urlhead + "agentCenter/seller/save")
     Flowable<ContactUpdateUserInfoBean> contactUpdateUserInfo(@Body RequestBody requestBody);
 
-    //添加商户资料
+    //添加商户
     @POST(urlhead + "agentCenter/seller/add")
     Flowable<ContactUpdateUserInfoBean> addContanct(@Body RequestBody requestBody);
+
+    //代理列表 1、直属  0、非直属
+    @GET(urlhead + "agentCenter/agent/list")
+    Flowable<DailiListBean> getDailiListBean(
+            @Query("mobile") String mobile,
+            @Query("deviceid") String deviceid,
+            @Query("grade") String grade,
+            @Query("directly") String directly,
+            @Query("isbytime") String isbytime);
+
+    //代理详情
+    @GET(urlhead + "agentCenter/agent/details")
+    Flowable<AgencyDetailsBean> getAgencyDetials(
+            @Query("agentid") String agentid);
+
+    //他的商户
+    @GET(urlhead + "agentCenter/agent/seller/HisSeller")
+    Flowable<HisSellerBean> getHisSellerBean(
+            @Query("agentid") String agentid);
+
+    //代理个人资料
+    @GET(urlhead + "agentCenter/agent/info")
+    Flowable<AgencyUserInfoBean> getAgencyUserInfo(
+            @Query("agentid") String agentid);
+
+    //代理修改资料
+    @POST(urlhead + "agentCenter/agent/save")
+    Flowable<AgencyUpdateBean> AgencyUpdate(@Body RequestBody requestBody);
+
+    //此代理的商户列表
+    @GET(urlhead + "agentCenter/agent/seller/list ")
+    Flowable<AgencySellerListBean> getAgencySellerListBean(
+            @Query("id") String id);
+
+    //越级查看此商户的设备情况 1，在线  2，离线
+    @GET(urlhead + "agentCenter/agent/seller/device/list")
+    Flowable<XiajiListBean> getXiajiListBean(
+            @Query("id") String id,
+            @Query("deviceid") String deviceid,
+            @Query("dentails") String dentails,
+            @Query("state") String state);
+
+    //添加代理
+    @POST(urlhead + "agentCenter/agent/add")
+    Flowable<AddAgencyBean> AddAgency(@Body RequestBody requestBody);
 
     //设备部署列表
     @GET(urlhead + "agentCenter/homepage/install/list")
@@ -112,5 +169,26 @@ public interface APIService {
             @Query("filler_deviceid") String filler_deviceid,
             @Query("filler_relation") String filler_relation);
 
+    //我的订单列表
+    @GET(urlhead + "agentCenter/agent/Order")
+    Flowable<MyOrderBean> getMyOrderListBean(@Query("orderid") String orderid,
+                                             @Query("sellername") String sellername,
+                                             @Query("startTime") String startTime,
+                                             @Query("endTime") String endTime);
+
+    //下级订单列表
+    @GET(urlhead + "agentCenter/agent/lowerorders")
+    Flowable<LowerOrderBean> getLowerOrderListBean(@Query("orderid") String orderid,
+                                                   @Query("sellername") String sellername,
+                                                   @Query("startTime") String startTime,
+                                                   @Query("endTime") String endTime);
+
+    //我的订单详情
+    @GET(urlhead + "agentCenter/agent/Orderdetails")
+    Flowable<MyOrderDetailsBean> getMyOrderDetailsBean(@Query("orderid") String orderid);
+
+    //下级订单详情
+    @GET(urlhead + "agentCenter/agent/lowerordersDetails")
+    Flowable<LowerOrderDetailsBean> getLowerOrderDetailsBean(@Query("orderid") String orderid);
 }
 

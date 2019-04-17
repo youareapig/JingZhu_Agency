@@ -67,6 +67,7 @@ public class OrderActivity extends BaseMvpActivity<OrderPresenter> implements Or
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
                 tabPosition=tab.getPosition();
+                viewpage.setCurrentItem(tabPosition);
             }
 
             @Override

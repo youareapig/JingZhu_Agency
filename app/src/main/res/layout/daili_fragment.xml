@@ -13,6 +13,7 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/totle_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_11"
@@ -21,46 +22,52 @@
             android:textSize="@dimen/sp_14" />
 
         <TextView
+            android:id="@+id/addTimeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_21"
             android:text="添加时间"
-            android:textColor="#666666"
+            android:textColor="@color/contact_color"
             android:textSize="@dimen/sp_14" />
 
         <ImageView
+            android:id="@+id/addTimeIcon"
             android:layout_width="@dimen/dp_12"
             android:layout_height="@dimen/dp_12"
             android:layout_marginLeft="@dimen/dp_10"
-            android:src="@mipmap/time_hover" />
+            android:src="@mipmap/sort_hover_hui" />
 
         <TextView
+            android:id="@+id/moneyText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_15"
             android:text="为我赚取"
-            android:textColor="@color/appbar"
+            android:textColor="@color/contact_color"
             android:textSize="@dimen/sp_14" />
 
         <ImageView
+            android:id="@+id/moneyIcon"
             android:layout_width="@dimen/dp_12"
             android:layout_height="@dimen/dp_12"
             android:layout_marginLeft="@dimen/dp_8"
             android:src="@mipmap/sort_hover" />
 
         <TextView
+            android:id="@+id/fenrunText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_15"
             android:text="分润比例"
-            android:textColor="#666666"
+            android:textColor="@color/contact_color"
             android:textSize="@dimen/sp_14" />
 
         <ImageView
+            android:id="@+id/fenrunIcon"
             android:layout_width="@dimen/dp_12"
             android:layout_height="@dimen/dp_12"
             android:layout_marginLeft="@dimen/dp_8"
-            android:src="@mipmap/profit_hover" />
+            android:src="@mipmap/sort_hover_hui" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

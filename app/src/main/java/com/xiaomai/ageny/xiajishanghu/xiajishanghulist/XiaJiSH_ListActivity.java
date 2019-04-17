@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.bean.AgencySellerListBean;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.XiajiSHDeviceListActivity;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghulist.contract.XiajiSHContract;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghulist.presenter.XiajiSHPresenter;
@@ -27,8 +29,10 @@ public class XiaJiSH_ListActivity extends BaseMvpActivity<XiajiSHPresenter> impl
     @BindView(R.id.recycler)
     RecyclerView recycler;
 
-    private List<String> list;
+    private List<AgencySellerListBean.DataBean> list;
     private Adapter adapter;
+    private String id;
+    private Bundle bundle;
 
     @Override
     public int getLayoutId() {
@@ -37,20 +41,12 @@ public class XiaJiSH_ListActivity extends BaseMvpActivity<XiajiSHPresenter> impl
 
     @Override
     public void initView() {
-        list = new ArrayList<>();
-        list.add("张三顶麻辣烫");
-        list.add("张三顶麻辣烫");
-        list.add("张三顶麻辣烫");
-        adapter = new Adapter(R.layout.xiaji_item, list);
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toClass(view.getContext(), XiajiSHDeviceListActivity.class);
-            }
-        });
+        bundle = new Bundle();
+        id = getIntent().getExtras().getString("id");
+        mPresenter = new XiajiSHPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData(id);
+
     }
 
     @Override
@@ -65,6 +61,27 @@ public class XiaJiSH_ListActivity extends BaseMvpActivity<XiajiSHPresenter> impl
 
     @Override
     public void onError(Throwable throwable) {
+
+    }
+
+    @Override
+    public void onSuccess(AgencySellerListBean bean) {
+        if (bean.getCode() == 1) {
+            list = bean.getData();
+            adapter = new Adapter(R.layout.xiaji_item, list);
+            recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    bundle.putString("id", list.get(position).getSellerId());
+                    toClass(view.getContext(), XiajiSHDeviceListActivity.class, bundle);
+                }
+            });
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
 
     }
 

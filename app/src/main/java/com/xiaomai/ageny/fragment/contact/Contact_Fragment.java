@@ -19,7 +19,6 @@ import com.xiaomai.ageny.filter.contactfilter.ContactFilterActivity;
 import com.xiaomai.ageny.fragment.contact.contract.ContactContract;
 import com.xiaomai.ageny.fragment.contact.presenter.ContactPresenter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -42,17 +41,25 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     @BindView(R.id.totle_count)
     TextView totleCount;
     Unbinder unbinder1;
+    @BindView(R.id.add_icon)
+    ImageView addIcon;
+    @BindView(R.id.make_money_icon)
+    ImageView makeMoneyIcon;
+    Unbinder unbinder2;
     private Adapter adapter;
     private List<ContactListBean.DataBean.ListBean> list;
 
     private Bundle bundle;
+    private boolean rank_makeMoney = true;
+    private boolean rank_addTime = true;
 
     @Override
     protected void initView(View view) {
+        makeMoney.setSelected(true);
         bundle = new Bundle();
         mPresenter = new ContactPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("", "", "");
+        mPresenter.getData("", "", "4");
     }
 
     @Override
@@ -79,7 +86,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     public void onSuccess(ContactListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
-            totleCount.setText("共："+list.size()+"家");
+            totleCount.setText("共：" + list.size() + "家");
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             adapter = new Adapter(R.layout.contact_item, list);
             recycler.setAdapter(adapter);
@@ -87,9 +94,9 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
             adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    bundle.putString("id",list.get(position).getId());
+                    bundle.putString("id", list.get(position).getId());
 
-                    toClass(view.getContext(), ContactDetailsActivity.class,bundle);
+                    toClass(view.getContext(), ContactDetailsActivity.class, bundle);
                 }
             });
         }
@@ -110,10 +117,31 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
             case R.id.add_time:
                 addTime.setSelected(true);
                 makeMoney.setSelected(false);
+                makeMoneyIcon.setImageResource(R.mipmap.sort_hover_hui);
+                if (rank_addTime) {
+                    addIcon.setImageResource(R.mipmap.sort_hove);
+                    mPresenter.getData("", "", "2");
+                    rank_addTime = false;
+                } else {
+                    addIcon.setImageResource(R.mipmap.sort_hover);
+                    mPresenter.getData("", "", "1");
+                    rank_addTime = true;
+                }
                 break;
             case R.id.make_money:
                 addTime.setSelected(false);
                 makeMoney.setSelected(true);
+                addIcon.setImageResource(R.mipmap.sort_hover_hui);
+                if (rank_makeMoney) {
+                    makeMoneyIcon.setImageResource(R.mipmap.sort_hove);
+                    mPresenter.getData("", "", "3");
+                    rank_makeMoney = false;
+                } else {
+                    makeMoneyIcon.setImageResource(R.mipmap.sort_hover);
+                    mPresenter.getData("", "", "4");
+                    rank_makeMoney = true;
+                }
+
                 break;
         }
     }

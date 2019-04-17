@@ -1,6 +1,5 @@
 package com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -12,18 +11,15 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.TabAdapter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.filter.xiajishfilter.XiajiSHFilterActivity;
-import com.xiaomai.ageny.shanghudevice.fragment.offdevice.OffDeviceFragment;
-import com.xiaomai.ageny.shanghudevice.fragment.ondevice.OnDeviecFragment;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.contract.XiajiSHDeviceListContract;
-import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.fragment.xiajishdevicelist_off.XiajiSHDeviceListOn_Fragment;
-import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.fragment.xiajishdevicelist_on.XiajiSHDeviceListOff_Fragment;
+import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.fragment.xiajishdevicelist_on.XiajiSHDeviceListOn_Fragment;
+import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.fragment.xiajishdevicelist_off.XiajiSHDeviceListOff_Fragment;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.presenter.XiajiSHDeviceListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class XiajiSHDeviceListActivity extends BaseMvpActivity<XiajiSHDeviceListPresenter> implements XiajiSHDeviceListContract.View {
@@ -39,6 +35,7 @@ public class XiajiSHDeviceListActivity extends BaseMvpActivity<XiajiSHDeviceList
     ViewPager viewpage;
     private List<String> titleList;
     private List<Fragment> fragmentList;
+    private String id;
 
     @Override
     public int getLayoutId() {
@@ -47,12 +44,13 @@ public class XiajiSHDeviceListActivity extends BaseMvpActivity<XiajiSHDeviceList
 
     @Override
     public void initView() {
+        id = getIntent().getExtras().getString("id");
         titleList = new ArrayList<>();
         titleList.add("在线设备");
         titleList.add("离线设备");
         fragmentList = new ArrayList<>();
-        fragmentList.add(new XiajiSHDeviceListOn_Fragment());
-        fragmentList.add(new XiajiSHDeviceListOff_Fragment());
+        fragmentList.add(new XiajiSHDeviceListOn_Fragment(id));
+        fragmentList.add(new XiajiSHDeviceListOff_Fragment(id));
 
         viewpage.setAdapter(new TabAdapter(getSupportFragmentManager(), titleList, fragmentList));
         viewpage.setOffscreenPageLimit(0);
