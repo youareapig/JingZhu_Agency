@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -23,7 +25,7 @@ import butterknife.Unbinder;
 public abstract class BaseFragment extends Fragment {
 
     private Unbinder unBinder;
-
+    public OtherViewHolder mHolder;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(this.getLayoutId(), container, false);
         unBinder = ButterKnife.bind(this, view);
+        mHolder=new OtherViewHolder(getActivity());
         initView(view);
         return view;
     }

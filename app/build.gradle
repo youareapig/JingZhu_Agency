@@ -1,6 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs{
+        jingzhu_agency{
+            keyAlias 'jingzhukey'
+            keyPassword 'jingzhu9527'
+            storeFile file('F:/keystore/jingzhu_agency.jks')
+            storePassword 'jingzhu9527'
+        }
+    }
+
+
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.xiaomai.ageny"
@@ -9,11 +19,18 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips'
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.jingzhu_agency
+        }
+        debug {
+            signingConfig signingConfigs.jingzhu_agency
         }
     }
 }
@@ -65,9 +82,9 @@ dependencies {
     annotationProcessor 'com.zhy:mpermission-compiler:1.0.0'
     //下拉刷新
     implementation 'com.jwenfeng.pulltorefresh:library:1.2.6'
-    //加载状态
-    implementation 'com.github.fingdo:stateLayout:1.0.4'
     //eventbus
     implementation 'org.greenrobot:eventbus:3.0.0'
+    //高德地图定位
+    implementation 'com.amap.api:location:latest.integration'
 
 }

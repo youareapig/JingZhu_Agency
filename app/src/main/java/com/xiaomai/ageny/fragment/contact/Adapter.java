@@ -20,12 +20,12 @@ public class Adapter extends BaseQuickAdapter<ContactListBean.DataBean.ListBean,
     @Override
     protected void convert(BaseViewHolder helper, ContactListBean.DataBean.ListBean item) {
         helper.setText(R.id.title, item.getName())
-                .setText(R.id.rent_count, item.getBoxcount())
-                .setText(R.id.offlin_count, item.getCount())
+                .setText(R.id.rent_count, item.getCount())
+                .setText(R.id.offlin_count, item.getBoxcount())
                 .setText(R.id.make_moneycount, item.getMoney())
                 .setText(R.id.name, item.getLinkman())
                 .setText(R.id.tel, item.getLinktel())
-                .setText(R.id.id,item.getId())
+                .setText(R.id.id, item.getId())
                 .setText(R.id.address, item.getAddress());
 
     }

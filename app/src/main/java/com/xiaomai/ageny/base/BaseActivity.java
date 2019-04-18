@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.xiaomai.ageny.R;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -17,7 +18,7 @@ import butterknife.Unbinder;
 public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
     public Bundle savedInstanceState;
-
+    public OtherViewHolder mHolder;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,6 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.savedInstanceState = savedInstanceState;
         unbinder = ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarColor(R.color.appbar).fitsSystemWindows(true).statusBarDarkFont(true).init();
+        mHolder=new OtherViewHolder(this);
         initView();
     }
 

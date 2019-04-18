@@ -9,7 +9,12 @@ import io.reactivex.Flowable;
 
 public class LowerOrderModel implements LowerOrderContract.Model {
     @Override
-    public Flowable<LowerOrderBean> getData(String orderid, String sellername, String startTime, String endTime) {
-        return RetrofitClient.getInstance().getApi().getLowerOrderListBean(orderid, sellername, startTime, endTime);
+    public Flowable<LowerOrderBean> getData(String orderid, String sellername, String startTime, String endTime,String page,String pagesize) {
+        return RetrofitClient.getInstance().getApi().getLowerOrderListBean(orderid, sellername, startTime, endTime,page,pagesize);
+    }
+
+    @Override
+    public Flowable<LowerOrderBean> getRefrsh(String orderid, String sellername, String startTime, String endTime, String page, String pagesize) {
+        return RetrofitClient.getInstance().getApi().getLowerOrderListBean(orderid, sellername, startTime, endTime,page,pagesize);
     }
 }

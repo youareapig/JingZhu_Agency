@@ -17,13 +17,13 @@ import com.xiaomai.ageny.details.contactdetails.presenter.ContactDetailsPresente
 import com.xiaomai.ageny.shanghudevice.ShanghuDeviceActivity;
 import com.xiaomai.ageny.unbundle.unbundle_shanghu.UnbundleShanghuActivity;
 import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresenter> implements ContactDetailsContract.View {
-
 
     @BindView(R.id.back)
     RelativeLayout back;
@@ -59,7 +59,8 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
     TextView tel;
     @BindView(R.id.addtime)
     TextView addtime;
-
+    @BindView(R.id.otherview)
+    OtherView otherView;
 
     private Bundle bundle;
     private String id, strStorename, strLinkName, strLinkTel, strAdress, strYingye, strPersoncount;
@@ -71,7 +72,7 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
 
     @Override
     public void initView() {
-
+        otherView.setHolder(mHolder);
     }
 
     @Override
@@ -88,12 +89,12 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override

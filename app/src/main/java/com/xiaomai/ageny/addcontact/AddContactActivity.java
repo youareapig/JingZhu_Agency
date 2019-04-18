@@ -24,6 +24,7 @@ import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.DateUtils;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,6 +68,8 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
     EditText xiaofei;
     @BindView(R.id.storeId)
     TextView storeId;
+    @BindView(R.id.otherview)
+    OtherView otherView;
 
     private int isadd;
     private String titleStr;
@@ -83,6 +86,7 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
     @Override
     public void initView() {
         ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
+        otherView.setHolder(mHolder);
         Bundle bundle = getIntent().getExtras();
         isadd = bundle.getInt("isadd");
         switch (isadd) {
@@ -124,12 +128,12 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override

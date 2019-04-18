@@ -16,6 +16,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.AgencyUpdateBean;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,12 +97,10 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override

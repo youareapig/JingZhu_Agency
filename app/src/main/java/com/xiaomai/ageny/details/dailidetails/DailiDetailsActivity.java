@@ -18,6 +18,7 @@ import com.xiaomai.ageny.bean.HisSellerBean;
 import com.xiaomai.ageny.details.dailidetails.contract.DailiDetailsContract;
 import com.xiaomai.ageny.details.dailidetails.presenter.DailiDetailsPresenter;
 import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghulist.XiaJiSH_ListActivity;
 
 import butterknife.BindView;
@@ -75,6 +76,8 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
     TextView firmName;
     @BindView(R.id.firmView)
     LinearLayout firmView;
+    @BindView(R.id.otherview)
+    OtherView otherView;
     private String id, strFenrun, strLinkName, strLinkTel, strAddress, strAddTime, strFirmName;
     private int isperson;
     private Bundle bundle;
@@ -86,6 +89,7 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
 
     @Override
     public void initView() {
+        otherView.setHolder(mHolder);
         bundle = new Bundle();
         ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
         id = getIntent().getExtras().getString("id");
@@ -98,12 +102,12 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override

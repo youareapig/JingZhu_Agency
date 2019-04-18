@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ import com.xiaomai.ageny.fragment.mine.contract.MineContract;
 import com.xiaomai.ageny.fragment.mine.presenter.MinePresenter;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.setting.SettingActivity;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
 
@@ -55,10 +57,12 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
     TextView usertype;
     @BindView(R.id.userscale)
     TextView userscale;
-    Unbinder unbinder1;
+    @BindView(R.id.otherview)
+    OtherView otherView;
 
     @Override
     protected void initView(View view) {
+        otherView.setHolder(mHolder);
         mPresenter = new MinePresenter();
         mPresenter.attachView(this);
         mPresenter.getData();
@@ -72,12 +76,12 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
@@ -87,12 +91,12 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
 
     @Override
     public void onSuccess(UserInfoBean bean) {
-        if (bean.getCode()==1){
-            UserInfoBean.DataBean data=bean.getData();
+        if (bean.getCode() == 1) {
+            UserInfoBean.DataBean data = bean.getData();
             username.setText(data.getRealname());
             userlevel.setText(data.getLevel_name());
-            userid.setText("编号："+data.getAgent_number());
-            usertel.setText("绑定手机："+data.getMobile());
+            userid.setText("编号：" + data.getAgent_number());
+            usertel.setText("绑定手机：" + data.getMobile());
             usertype.setText(data.getParent_name());
             userscale.setText(data.getReward());
         }

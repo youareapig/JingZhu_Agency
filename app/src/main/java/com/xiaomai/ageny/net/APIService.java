@@ -174,14 +174,19 @@ public interface APIService {
     Flowable<MyOrderBean> getMyOrderListBean(@Query("orderid") String orderid,
                                              @Query("sellername") String sellername,
                                              @Query("startTime") String startTime,
-                                             @Query("endTime") String endTime);
+                                             @Query("endTime") String endTime,
+                                             @Query("page") String page,
+                                             @Query("page_size") String pagesize);
+
 
     //下级订单列表
     @GET(urlhead + "agentCenter/agent/lowerorders")
     Flowable<LowerOrderBean> getLowerOrderListBean(@Query("orderid") String orderid,
                                                    @Query("sellername") String sellername,
                                                    @Query("startTime") String startTime,
-                                                   @Query("endTime") String endTime);
+                                                   @Query("endTime") String endTime,
+                                                   @Query("page") String page,
+                                                   @Query("page_size") String pagesize);
 
     //我的订单详情
     @GET(urlhead + "agentCenter/agent/Orderdetails")

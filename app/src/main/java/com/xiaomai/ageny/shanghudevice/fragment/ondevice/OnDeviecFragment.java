@@ -17,6 +17,7 @@ import com.xiaomai.ageny.details.shanghudevicedetails.ShanghuDeviceDetailsActivi
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.contract.OnDeviceContract;
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.presenter.OnDevicePresenter;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -31,6 +32,9 @@ import butterknife.Unbinder;
 public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> implements OnDeviceContract.View {
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.otherview)
+    OtherView otherView;
+
     Unbinder unbinder;
     private List<ContactDeviceListBean.DataBean.ListBean> list;
     private Adapter adapter;
@@ -42,6 +46,7 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
 
     @Override
     protected void initView(View view) {
+        otherView.setHolder(mHolder);
         bundle=new Bundle();
         mPresenter = new OnDevicePresenter();
         mPresenter.attachView(this);
@@ -55,12 +60,12 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override

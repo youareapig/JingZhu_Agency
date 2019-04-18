@@ -64,6 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_11"
                     android:text="兵哥豌豆面(武侯店)"
+                    android:singleLine="true"
                     android:textColor="#363636"
                     android:textSize="@dimen/sp_14" />
 
@@ -73,6 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_11"
                     android:text="所属代理：杨幂"
+                    android:singleLine="true"
                     android:textColor="#363636"
                     android:textSize="@dimen/sp_14" />
 

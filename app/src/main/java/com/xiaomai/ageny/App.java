@@ -13,7 +13,7 @@ import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 public class App extends Application {
     public static Context context;
-
+    public static String pageSize="15";
     @Override
     public void onCreate() {
         super.onCreate();

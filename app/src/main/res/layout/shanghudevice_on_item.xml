@@ -79,6 +79,7 @@
                 android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:layout_marginLeft="@dimen/dp_4"
                 android:text="四川省武侯区兆信国际2-201"
                 android:textColor="#363636"

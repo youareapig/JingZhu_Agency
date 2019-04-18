@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xiaomai.ageny.utils.state_layout.OtherView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/otherview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -233,11 +234,68 @@
                     android:textSize="@dimen/sp_13" />
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/taskCenter"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_47"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_11"
+                android:layout_marginRight="@dimen/dp_13"
+                android:background="@drawable/index_frame"
+                android:elevation="@dimen/dp_2">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_17"
+                    android:layout_height="@dimen/dp_20"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_14"
+                    android:src="@mipmap/task_center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_41"
+                    android:text="任务中心     ·    ·    ·    ·    ·    ·"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_15" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_2"
+                    android:layout_toLeftOf="@+id/num"
+                    android:text="未处理"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/sp_16" />
+
+                <TextView
+                    android:id="@+id/num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_10"
+                    android:layout_toLeftOf="@+id/tag_go1"
+                    android:text="18"
+                    android:textColor="#E55C5C"
+                    android:textSize="@dimen/sp_16" />
+
+                <ImageView
+                    android:id="@+id/tag_go1"
+                    android:layout_width="@dimen/dp_5"
+                    android:layout_height="@dimen/dp_8"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_11"
+                    android:src="@mipmap/sign_icon" />
+            </RelativeLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_114"
                 android:layout_marginLeft="@dimen/dp_12"
-                android:layout_marginTop="@dimen/dp_13"
+                android:layout_marginTop="@dimen/dp_11"
                 android:layout_marginRight="@dimen/dp_13"
                 android:background="@drawable/index_frame"
                 android:elevation="@dimen/dp_3"
@@ -520,4 +578,4 @@
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-</LinearLayout>
+</com.xiaomai.ageny.utils.state_layout.OtherView>

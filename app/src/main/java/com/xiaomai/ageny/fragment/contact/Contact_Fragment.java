@@ -18,6 +18,7 @@ import com.xiaomai.ageny.details.contactdetails.ContactDetailsActivity;
 import com.xiaomai.ageny.filter.contactfilter.ContactFilterActivity;
 import com.xiaomai.ageny.fragment.contact.contract.ContactContract;
 import com.xiaomai.ageny.fragment.contact.presenter.ContactPresenter;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.List;
 
@@ -40,12 +41,13 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     TextView makeMoney;
     @BindView(R.id.totle_count)
     TextView totleCount;
-    Unbinder unbinder1;
     @BindView(R.id.add_icon)
     ImageView addIcon;
     @BindView(R.id.make_money_icon)
     ImageView makeMoneyIcon;
-    Unbinder unbinder2;
+    @BindView(R.id.otherview)
+    OtherView otherView;
+
     private Adapter adapter;
     private List<ContactListBean.DataBean.ListBean> list;
 
@@ -55,6 +57,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
 
     @Override
     protected void initView(View view) {
+        otherView.setHolder(mHolder);
         makeMoney.setSelected(true);
         bundle = new Bundle();
         mPresenter = new ContactPresenter();
@@ -69,12 +72,12 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override

@@ -7,11 +7,13 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.BillListBean;
 import com.xiaomai.ageny.mybill.contract.MyBillContract;
 import com.xiaomai.ageny.mybill.presenter.MyBillPresenter;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.List;
 
@@ -30,6 +32,8 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
     TextView tvAllMoney;
     @BindView(R.id.tv_order_money)
     TextView tvOrderMoney;
+    @BindView(R.id.otherview)
+    OtherView otherview;
     private Adapter adapter;
     private List<BillListBean.DataBean.ListBean> list;
 
@@ -40,7 +44,7 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
 
     @Override
     public void initView() {
-
+        otherview.setHolder(mHolder);
         mPresenter = new MyBillPresenter();
         mPresenter.attachView(this);
         mPresenter.getData();
@@ -48,12 +52,12 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
 
     @Override
     public void showLoading() {
-
+        otherview.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherview.showContentView();
     }
 
     @Override
@@ -63,7 +67,7 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
 
     @Override
     public void onSuccess(BillListBean bean) {
-        if (bean.getCode()==1){
+        if (bean.getCode() == 1) {
             tvAllMoney.setText(bean.getData().getTotal_earn());
             tvOrderMoney.setText(bean.getData().getTotal_price());
             list = bean.getData().getList();
@@ -87,4 +91,10 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

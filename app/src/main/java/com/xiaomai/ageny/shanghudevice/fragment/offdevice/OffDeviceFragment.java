@@ -16,6 +16,7 @@ import com.xiaomai.ageny.details.shanghudevicedetails.ShanghuDeviceDetailsActivi
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.contract.OffDeviceContract;
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.presenter.OffDevicePresenter;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,8 @@ import butterknife.Unbinder;
 public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> implements OffDeviceContract.View {
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.otherview)
+    OtherView otherView;
     Unbinder unbinder;
     private List<ContactDeviceListBean.DataBean.ListBean> list;
     private Adapter adapter;
@@ -39,9 +42,10 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
 
     @Override
     protected void initView(View view) {
-        mPresenter=new OffDevicePresenter();
+        otherView.setHolder(mHolder);
+        mPresenter = new OffDevicePresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(id,"0","","");
+        mPresenter.getData(id, "0", "", "");
     }
 
     @Override
@@ -51,12 +55,12 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
@@ -66,16 +70,16 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
 
     @Override
     public void onSuccess(ContactDeviceListBean bean) {
-        list=bean.getData().getList();
+        list = bean.getData().getList();
         recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         recycler.addItemDecoration(new SpacesItemDecoration(9));
-//        adapter=new Adapter(R.layout.shanghudevice_off_item,list);
-//        recycler.setAdapter(adapter);
+        adapter=new Adapter(R.layout.shanghudevice_off_item,list);
+        recycler.setAdapter(adapter);
         adapter.openLoadAnimation();
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toClass(view.getContext(),ShanghuDeviceDetailsActivity.class);
+                toClass(view.getContext(), ShanghuDeviceDetailsActivity.class);
             }
         });
     }

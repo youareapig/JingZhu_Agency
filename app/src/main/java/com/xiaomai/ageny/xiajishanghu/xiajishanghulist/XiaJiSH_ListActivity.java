@@ -11,6 +11,7 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.AgencySellerListBean;
 import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.XiajiSHDeviceListActivity;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghulist.contract.XiajiSHContract;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghulist.presenter.XiajiSHPresenter;
@@ -28,6 +29,8 @@ public class XiaJiSH_ListActivity extends BaseMvpActivity<XiajiSHPresenter> impl
     RelativeLayout back;
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.otherview)
+    OtherView otherView;
 
     private List<AgencySellerListBean.DataBean> list;
     private Adapter adapter;
@@ -41,6 +44,7 @@ public class XiaJiSH_ListActivity extends BaseMvpActivity<XiajiSHPresenter> impl
 
     @Override
     public void initView() {
+        otherView.setHolder(mHolder);
         bundle = new Bundle();
         id = getIntent().getExtras().getString("id");
         mPresenter = new XiajiSHPresenter();
@@ -51,12 +55,12 @@ public class XiaJiSH_ListActivity extends BaseMvpActivity<XiajiSHPresenter> impl
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override

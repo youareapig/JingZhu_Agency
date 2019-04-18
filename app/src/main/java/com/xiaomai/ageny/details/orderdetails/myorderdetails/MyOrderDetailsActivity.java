@@ -88,7 +88,16 @@ public class MyOrderDetailsActivity extends BaseMvpActivity<MyOrderDetailsPresen
         if (bean.getCode() == 1) {
             MyOrderDetailsBean.DataBean data = bean.getData();
             orderId.setText(data.getOrderid());
-            orderstate.setText(data.getState());
+            // state 0为已完成 1进行中 -1待支付
+            if (data.getState().equals("0")) {
+                orderstate.setText("已完成");
+            }
+            if (data.getState().equals("1")) {
+                orderstate.setText("进行中");
+            }
+            if (data.getState().equals("-1")) {
+                orderstate.setText("待支付");
+            }
             earn.setText(data.getEarn());
             rentname.setText(data.getSellername());
             returnname.setText(data.getReturnsellername());
@@ -99,11 +108,12 @@ public class MyOrderDetailsActivity extends BaseMvpActivity<MyOrderDetailsPresen
             rentdeviceId.setText(data.getDeviceid());
             returndeviceId.setText(data.getReturnbox());
             rentduration.setText(data.getLeasetime());
-            rentmoney.setText(data.getRentprice());
-            discounts.setText(data.getDiscountprice());
-            pay.setText(data.getRealpayment());
+            rentmoney.setText(data.getRentprice()+"元");
+            discounts.setText(data.getDiscountprice()+"元");
+            pay.setText(data.getRealpayment()+"元");
             creattime.setText(data.getRenttime());
             paytime.setText(data.getUpdTime());
+
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

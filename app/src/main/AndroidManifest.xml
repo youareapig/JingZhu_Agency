@@ -44,6 +44,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="ace804f5054abed9ead209b22900cb23" />
         <activity
             android:name=".deposit.DepositActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />

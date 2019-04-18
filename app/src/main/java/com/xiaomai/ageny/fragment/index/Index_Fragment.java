@@ -1,5 +1,10 @@
 package com.xiaomai.ageny.fragment.index;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.fingdo.statelayout.StateLayout;
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
@@ -21,6 +29,13 @@ import com.xiaomai.ageny.fragment.index.presenter.IndexPresenter;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.order.OrderActivity;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.zhy.m.permission.MPermissions;
+import com.zhy.m.permission.PermissionGrant;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,13 +75,65 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     LinearLayout btIndexOrder;
     @BindView(R.id.bt_off_line)
     RelativeLayout btOffLine;
-    Unbinder unbinder;
+    @BindView(R.id.otherview)
+    OtherView otherView;
+    @BindView(R.id.taskCenter)
+    RelativeLayout tastCenter;
+    @BindView(R.id.num)
+    TextView Num;
+
+    public AMapLocationClient mLocationClient = null;
+    public AMapLocationListener mLocationListener = new MyAMapLocationListener();
+    public AMapLocationClientOption mLocationOption = null;
 
     @Override
     protected void initView(View view) {
+        otherView.setHolder(mHolder);
         mPresenter = new IndexPresenter();
         mPresenter.attachView(this);
         mPresenter.getData();
+//        showDialog();
+        MPermissions.requestPermissions(Index_Fragment.this, 10, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        MPermissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @PermissionGrant(10)
+    public void getLocation() {
+        getPositioning();
+
+    }
+
+    class MyAMapLocationListener implements AMapLocationListener {
+        @Override
+        public void onLocationChanged(AMapLocation aMapLocation) {
+            if (aMapLocation != null) {
+                if (aMapLocation.getErrorCode() == 0) {
+                    Logger.d("经纬度:" + aMapLocation.getLatitude() + "    " + aMapLocation.getLongitude()+"   "+aMapLocation.getCity());
+                }
+
+            }
+
+        }
+    }
+
+    // 高德定位
+    public void getPositioning() {
+        mLocationClient = new AMapLocationClient(getActivity());
+        mLocationClient.setLocationListener(mLocationListener);
+        mLocationOption = new AMapLocationClientOption();
+        mLocationOption.setOnceLocationLatest(true);
+        mLocationOption.setOnceLocation(true);
+        mLocationOption.setNeedAddress(true);
+        mLocationOption.setMockEnable(true);
+        mLocationOption.setInterval(5000);
+        mLocationClient.setLocationOption(mLocationOption);
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        mLocationClient.startLocation();
     }
 
     @Override
@@ -76,11 +143,12 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
     @Override
     public void showLoading() {
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
@@ -104,13 +172,12 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             offLine.setText("离线：" + data.getOffLineCount() + "台");
             onLine.setText("在线：" + data.getOnLineCount() + "台");
 
-
         }
 
 
     }
 
-    @OnClick({R.id.bt_index_tixian, R.id.bt_index_bill, R.id.bt_index_devicemanager, R.id.bt_index_devicemake, R.id.bt_index_order, R.id.bt_off_line})
+    @OnClick({R.id.bt_index_tixian, R.id.bt_index_bill, R.id.bt_index_devicemanager, R.id.bt_index_devicemake, R.id.bt_index_order, R.id.bt_off_line, R.id.taskCenter})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_index_tixian:
@@ -131,7 +198,25 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             case R.id.bt_off_line:
                 toClass(getActivity(), OfflineActivity.class);
                 break;
+            case R.id.taskCenter:
+                break;
         }
     }
+
+    private void showDialog() {
+        final AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.FullScreenDialog).create();
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View v = inflater.inflate(R.layout.offline_dialog, null);
+        dialog.setCancelable(false);
+        v.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.setView(v);
+        dialog.show();
+    }
+
 
 }

@@ -14,6 +14,7 @@ import com.xiaomai.ageny.bean.DailiListBean;
 import com.xiaomai.ageny.details.feidailidetails.FeiDailiDetailsActivity;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.contract.FeidailiContract;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.presenter.FeidailiPresenter;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,13 +26,15 @@ import butterknife.Unbinder;
 public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> implements FeidailiContract.View {
     @BindView(R.id.recycler)
     RecyclerView recycler;
-    Unbinder unbinder;
+    @BindView(R.id.otherview)
+    OtherView otherView;
     private Adapter adapter;
     private List<DailiListBean.DataBean.ListBean> list;
     private Bundle bundle;
 
     @Override
     protected void initView(View view) {
+        otherView.setHolder(mHolder);
         bundle = new Bundle();
         mPresenter = new FeidailiPresenter();
         mPresenter.attachView(this);
@@ -46,12 +49,12 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.xiaomai.ageny.bean.DailiListBean;
 import com.xiaomai.ageny.details.dailidetails.DailiDetailsActivity;
 import com.xiaomai.ageny.fragment.agency.fragment.daili.contract.DailiContract;
 import com.xiaomai.ageny.fragment.agency.fragment.daili.presenter.DailiPresenter;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +44,8 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
     ImageView fenrunIcon;
     @BindView(R.id.totle_count)
     TextView totleCount;
+    @BindView(R.id.otherview)
+    OtherView otherView;
 
 
     private Adapter adapter;
@@ -54,6 +57,7 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
 
     @Override
     protected void initView(View view) {
+        otherView.setHolder(mHolder);
         bundle = new Bundle();
         moneyText.setSelected(true);
         mPresenter = new DailiPresenter();
@@ -69,12 +73,12 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
@@ -95,7 +99,7 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     bundle.putString("id", list.get(position).getId());
-                    toClass(view.getContext(), DailiDetailsActivity.class,bundle);
+                    toClass(view.getContext(), DailiDetailsActivity.class, bundle);
                 }
             });
         }

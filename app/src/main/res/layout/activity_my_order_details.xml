@@ -129,55 +129,67 @@
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_17" />
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_26"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="@dimen/dp_12"
-                            android:layout_height="@dimen/dp_12"
-                            android:layout_centerVertical="true"
-                            android:src="@mipmap/orange_sign_icon1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_37"
-                            android:text="出借商户名称："
-                            android:textColor="#363636"
-                            android:textSize="@dimen/sp_14" />
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/rentname"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="星巴克（红牌楼店）"
-                            android:textColor="#363636"
-                            android:textSize="@dimen/sp_14" />
+                            <ImageView
+                                android:layout_width="@dimen/dp_12"
+                                android:layout_height="@dimen/dp_12"
+                                android:layout_centerVertical="true"
+                                android:src="@mipmap/orange_sign_icon1" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_37"
-                            android:layout_marginTop="@dimen/dp_54"
-                            android:text="归还商户名称："
-                            android:textColor="#363636"
-                            android:textSize="@dimen/sp_14" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_24"
+                                android:text="出借商户名称："
+                                android:textColor="#363636"
+                                android:textSize="@dimen/sp_14" />
 
-                        <TextView
-                            android:id="@+id/returnname"
-                            android:layout_width="wrap_content"
+                            <TextView
+                                android:id="@+id/rentname"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_30"
+                                android:text="星巴克（克（红牌楼店）"
+                                android:textColor="#363636"
+                                android:textSize="@dimen/sp_14" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginLeft="@dimen/dp_37"
-                            android:layout_marginTop="@dimen/dp_54"
-                            android:text="兵哥豌豆面（人民南路店）"
-                            android:textColor="#363636"
-                            android:textSize="@dimen/sp_14" />
-                    </RelativeLayout>
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_37"
+                                android:text="归还商户名称："
+                                android:textColor="#363636"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/returnname"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_30"
+                                android:text="兵哥豌豆面（人民南路店）"
+                                android:textColor="#363636"
+                                android:textSize="@dimen/sp_14" />
+                        </LinearLayout>
+
+
+                    </LinearLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -229,55 +241,65 @@
                             android:textSize="@dimen/sp_14" />
                     </RelativeLayout>
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_26"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:layout_width="@dimen/dp_12"
-                            android:layout_height="@dimen/dp_12"
-                            android:layout_centerVertical="true"
-                            android:src="@mipmap/green_sign_icon" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/dp_37"
-                            android:text="租借地点："
-                            android:textColor="#363636"
-                            android:textSize="@dimen/sp_14" />
+                            android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/rentadress"
-                            android:layout_width="@dimen/dp_200"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="成都市武侯区人民南南南南路南号"
-                            android:textColor="#363636"
-                            android:textSize="@dimen/sp_14" />
+                            <ImageView
+                                android:layout_width="@dimen/dp_12"
+                                android:layout_height="@dimen/dp_12"
+                                android:src="@mipmap/green_sign_icon" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_37"
-                            android:layout_marginTop="@dimen/dp_54"
-                            android:text="归还地点："
-                            android:textColor="#363636"
-                            android:textSize="@dimen/sp_14" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_24"
+                                android:text="租借地点："
+                                android:textColor="#363636"
+                                android:textSize="@dimen/sp_14" />
 
-                        <TextView
-                            android:id="@+id/returnadress"
-                            android:layout_width="@dimen/dp_200"
+                            <TextView
+                                android:id="@+id/rentadress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_30"
+                                android:text="成都市武侯区南民南路南号"
+                                android:textColor="#363636"
+                                android:textSize="@dimen/sp_14" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginLeft="@dimen/dp_37"
-                            android:layout_marginTop="@dimen/dp_54"
-                            android:text="武侯区兆信国际2栋201"
-                            android:textColor="#363636"
-                            android:textSize="@dimen/sp_14" />
-                    </RelativeLayout>
+                            android:layout_marginTop="@dimen/dp_10"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_37"
+                                android:text="归还地点："
+                                android:textColor="#363636"
+                                android:textSize="@dimen/sp_14" />
+
+                            <TextView
+                                android:id="@+id/returnadress"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp_30"
+                                android:text="武侯区兆兆信信国际2栋201"
+                                android:textColor="#363636"
+                                android:textSize="@dimen/sp_14" />
+                        </LinearLayout>
+
+                    </LinearLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"

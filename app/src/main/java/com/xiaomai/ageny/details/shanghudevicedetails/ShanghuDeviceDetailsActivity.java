@@ -17,6 +17,7 @@ import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
 import com.xiaomai.ageny.details.shanghudevicedetails.contract.ShangHuDeviceDetailsContract;
 import com.xiaomai.ageny.details.shanghudevicedetails.presenter.ShangHuDeviceDetailsPresenter;
 import com.xiaomai.ageny.unbundle.unbundle_device.UnbundleDeviceActivity;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +81,8 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
     TextView monthMoney;
     @BindView(R.id.pingjunmoney)
     TextView pingjunmoney;
+    @BindView(R.id.otherview)
+    OtherView otherView;
 
     private OptionsPickerView pvCustomOptions;
     private List<String> list;
@@ -93,6 +96,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
     @Override
     public void initView() {
+        otherView.setHolder(mHolder);
         deviceId = getIntent().getExtras().getString("id");
 
         list = new ArrayList<>();
@@ -109,12 +113,12 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
@@ -133,8 +137,8 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
             devicePrice.setText(data.getBoxdetails() + "/元小时");
             devicetype.setText(data.getBoxslot() + "槽");
             fenrun.setText(data.getBoxsellerreward());
-            freezeMoney.setText("冻结金额："+data.getFreeze_money());
-            nofreezemoney.setText("已解冻金额："+data.getUnfreeze_money());
+            freezeMoney.setText("冻结金额：" + data.getFreeze_money());
+            nofreezemoney.setText("已解冻金额：" + data.getUnfreeze_money());
             storename.setText(data.getSellername());
             linkname.setText(data.getSellerLinkman());
             linktel.setText(data.getSellerLinkTel());

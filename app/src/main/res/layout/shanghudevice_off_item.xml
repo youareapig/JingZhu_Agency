@@ -30,6 +30,7 @@
                 android:src="@mipmap/seller_icon_01" />
 
             <TextView
+                android:id="@+id/deviceId"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_4"
@@ -44,6 +45,7 @@
                 android:src="@mipmap/red_sign_icon" />
 
             <TextView
+                android:id="@+id/off_line_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_3"
@@ -65,6 +67,7 @@
                 android:src="@mipmap/details_icon02" />
 
             <TextView
+                android:id="@+id/lat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_4"
@@ -86,8 +89,10 @@
                 android:src="@mipmap/details_icon02" />
 
             <TextView
+                android:id="@+id/address"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:layout_marginLeft="@dimen/dp_4"
                 android:text="四川省武侯区兆信国际2-201"
                 android:textColor="#363636"
@@ -121,6 +126,7 @@
             android:textSize="@dimen/sp_13" />
 
         <TextView
+            android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1元/小时"
