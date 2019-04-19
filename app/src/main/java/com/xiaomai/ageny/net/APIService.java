@@ -14,6 +14,8 @@ import com.xiaomai.ageny.bean.ContactListBean;
 import com.xiaomai.ageny.bean.ContactUpdateUserInfoBean;
 import com.xiaomai.ageny.bean.ContactUserInfoBean;
 import com.xiaomai.ageny.bean.DailiListBean;
+import com.xiaomai.ageny.bean.DeployDeviceBean;
+import com.xiaomai.ageny.bean.DepositBean;
 import com.xiaomai.ageny.bean.DeviceInstallListBean;
 import com.xiaomai.ageny.bean.FreezeBean;
 import com.xiaomai.ageny.bean.HisSellerBean;
@@ -214,5 +216,13 @@ public interface APIService {
     //手机号显示姓名
     @GET(urlhead + "agentCenter/seller/info")
     Flowable<TelToNameBean> getTelName(@Query("mobile") String mobile);
+
+    //部署设备
+    @POST(urlhead + "agentCenter/homepage/install")
+    Flowable<DeployDeviceBean> deployDevice(@Body RequestBody requestBody);
+
+    //申请提现
+    @POST(urlhead + "admin/withdrow")
+    Flowable<DepositBean> dePosit(@Body RequestBody requestBody);
 }
 

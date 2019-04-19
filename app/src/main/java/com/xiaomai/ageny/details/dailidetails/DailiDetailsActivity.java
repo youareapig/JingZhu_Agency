@@ -90,6 +90,11 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
     @Override
     public void initView() {
         otherView.setHolder(mHolder);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         bundle = new Bundle();
         ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
         id = getIntent().getExtras().getString("id");

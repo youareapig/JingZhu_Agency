@@ -246,20 +246,22 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dp_13"
                         android:layout_marginRight="@dimen/dp_13"
-                        android:hint="请填写详细地址"
+                        android:hint="请填写电话号码"
                         android:paddingLeft="@dimen/dp_6"
                         android:textColor="#363636"
+                        android:maxLength="11"
+                        android:inputType="number"
                         android:textColorHint="#B6B6B6"
                         android:textSize="@dimen/sp_16"
                         android:theme="@style/MyEditText" />
 
                     <TextView
+                        android:id="@+id/personname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="@dimen/dp_19"
-                        android:text="张三"
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_16" />
                 </RelativeLayout>

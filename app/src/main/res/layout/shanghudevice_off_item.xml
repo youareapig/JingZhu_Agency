@@ -73,6 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_4"
                 android:text="经纬度：30.68852,103.994086"
+                android:singleLine="true"
                 android:textColor="#363636"
                 android:textSize="@dimen/sp_14" />
         </LinearLayout>

@@ -29,6 +29,7 @@ import com.xiaomai.ageny.fragment.index.presenter.IndexPresenter;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.order.OrderActivity;
+import com.xiaomai.ageny.task.TaskActivity;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.zhy.m.permission.MPermissions;
@@ -86,7 +87,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     public AMapLocationClient mLocationClient = null;
     public AMapLocationListener mLocationListener = new MyAMapLocationListener();
     public AMapLocationClientOption mLocationOption = null;
-
     @Override
     protected void initView(View view) {
         otherView.setHolder(mHolder);
@@ -204,6 +204,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 toClass(getActivity(), OfflineActivity.class);
                 break;
             case R.id.taskCenter:
+                toClass1(getActivity(), TaskActivity.class);
                 break;
         }
     }

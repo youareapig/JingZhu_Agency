@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    signingConfigs{
-        jingzhu_agency{
+    signingConfigs {
+        jingzhu_agency {
             keyAlias 'jingzhukey'
             keyPassword 'jingzhu9527'
             storeFile file('F:/keystore/jingzhu_agency.jks')

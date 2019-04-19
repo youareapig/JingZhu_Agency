@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout style="@style/titlesytle">
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/titleback"
+                android:src="@mipmap/back_write" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            style="@style/titletext"
+            android:text="离线设备" />
+
+    </RelativeLayout>
+
+    <com.androidkun.xtablayout.XTabLayout
+        android:id="@+id/xtab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_46"
+        android:layout_gravity="center_horizontal"
+        android:background="#fff"
+        app:xTabDisplayNum="2"
+        app:xTabDividerWidthWidthText="true"
+        app:xTabIndicatorColor="@color/appbar"
+        app:xTabIndicatorHeight="@dimen/dp_2"
+        app:xTabMode="scrollable"
+        app:xTabSelectedTextColor="@color/appbar"
+        app:xTabTextColor="#363636"
+        app:xTabTextSize="@dimen/sp_14" />
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

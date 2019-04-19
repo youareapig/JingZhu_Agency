@@ -50,6 +50,7 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="ace804f5054abed9ead209b22900cb23" />
+
         <activity
             android:name=".deposit.DepositActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -128,7 +129,8 @@
         <activity
             android:name=".shop_manage.goshop.GoShopActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".login.LoginActivity"></activity>
+        <activity android:name=".login.LoginActivity" />
+        <activity android:name=".task.TaskActivity"></activity>
     </application>
 
 </manifest>

@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -28,12 +30,15 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.bean.DeployDeviceBean;
 import com.xiaomai.ageny.bean.JsonBean;
+import com.xiaomai.ageny.bean.TelToNameBean;
 import com.xiaomai.ageny.deploy.contract.DeployContract;
 import com.xiaomai.ageny.deploy.presenter.DeployPresenter;
 import com.xiaomai.ageny.fragment.index.Index_Fragment;
 import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.GetJsonDataUtil;
+import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.zhy.m.permission.MPermissions;
@@ -46,7 +51,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
+import okhttp3.RequestBody;
 
 public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements DeployContract.View {
     @BindView(R.id.back)
@@ -68,7 +76,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     @BindView(R.id.deviceId)
     TextView deviceId;
     @BindView(R.id.lat)
-    TextView lat;
+    TextView latandlng;
     @BindView(R.id.adress)
     EditText adress;
     @BindView(R.id.tel)
@@ -79,6 +87,8 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     CheckBox isfrezze;
     @BindView(R.id.location)
     TextView location;
+    @BindView(R.id.personname)
+    TextView personName;
     private List<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
@@ -88,9 +98,9 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     private static final int MSG_LOAD_FAILED = 0x0003;
     private boolean isShow = true;
     private List<String> priceList = new ArrayList<>();
-    private AMapLocationClient mLocationClient = null;
-    private AMapLocationListener mLocationListener = new MyAMapLocationListener();
-    private AMapLocationClientOption mLocationOption = null;
+    private String strId, strlatandlng, strcity, stradress, strprice, strtel, strfenrun, strisfreeze, strlat, strlng;
+    private List<String> keyList = new ArrayList<>();
+    private List<String> valueList = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -99,6 +109,8 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
     @Override
     public void initView() {
+        mPresenter = new DeployPresenter();
+        mPresenter.attachView(this);
         priceList.add("1");
         priceList.add("2");
         priceList.add("3");
@@ -124,6 +136,40 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
     }
 
+    //验证电话号码结果
+    @Override
+    public void onSuccess(TelToNameBean bean) {
+        if (bean.getCode() == 1) {
+            personName.setText(bean.getData().getName());
+        }
+        if (bean.getCode() == -1) {
+            personName.setText(bean.getMessage());
+        }
+
+    }
+
+    //获取当前定位结果
+    @Override
+    public void locationSuccess(AMapLocation aMapLocation) {
+        strlat = aMapLocation.getLatitude() + "";
+        strlng = aMapLocation.getLongitude() + "";
+        latandlng.setText(strlat + "," + strlng);
+        cityName.setText(aMapLocation.getCity() + "");
+        adress.setText(aMapLocation.getProvince() + aMapLocation.getCity() + aMapLocation.getDistrict() + aMapLocation.getStreet());
+    }
+
+    //部署返回结果
+    @Override
+    public void onDeploy(DeployDeviceBean bean) {
+        if (bean.getCode() == 1) {
+            toClass1(this, DeploySuccessActivity.class);
+            finish();
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
+
+    }
+
 
     @OnClick({R.id.back, R.id.bt_saoyisao, R.id.bt_choosecity, R.id.bt_getlocation, R.id.bt_sure, R.id.choose_price})
     public void onViewClicked(View view) {
@@ -145,10 +191,59 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
                 initNoLinkOptionsPicker();
                 break;
             case R.id.bt_sure:
-                toClass1(this, DeploySuccessActivity.class);
+                if (isfrezze.isChecked()) {
+                    //冻结
+                    strisfreeze = "1";
+                } else {
+                    //未冻结
+                    strisfreeze = "0";
+                }
+                strId = deviceId.getText().toString().trim();
+                strlatandlng = latandlng.getText().toString().trim();
+                strcity = cityName.getText().toString().trim();
+                stradress = adress.getText().toString().trim();
+                strprice = price.getText().toString().trim();
+                strtel = tel.getText().toString().trim();
+                strfenrun = fenrun.getText().toString().trim();
+                if (TextUtils.isEmpty(strId) || TextUtils.isEmpty(strlatandlng) || TextUtils.isEmpty(strcity) || TextUtils.isEmpty(stradress)
+                        || TextUtils.isEmpty(strprice) || TextUtils.isEmpty(strtel) || TextUtils.isEmpty(strfenrun)) {
+                    ToastUtil.showShortToast("请完善资料");
+                } else {
+                    keyList.add("id");
+                    keyList.add("address");
+                    keyList.add("unit_price");
+                    keyList.add("longitude");
+                    keyList.add("latitude");
+                    keyList.add("mobile");
+                    keyList.add("reward");
+                    keyList.add("is_freeze");
+
+                    valueList.add(strId);
+                    valueList.add(stradress);
+                    valueList.add(strprice);
+                    valueList.add(strlng);
+                    valueList.add(strlat);
+                    valueList.add(strtel);
+                    valueList.add(strfenrun);
+                    valueList.add(strisfreeze);
+
+                    mPresenter.getDeploy(MaptoJson.toJsonZero(keyList, valueList));
+                }
+
                 break;
         }
     }
+
+    @OnTextChanged(R.id.tel)
+    public void onTextChanged(CharSequence text) {
+        Logger.d("文本内容" + text);
+        if (text.length() == 11) {
+            mPresenter.getData(text.toString());
+        } else {
+            personName.setText("");
+        }
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -161,6 +256,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
         goCamera();
     }
 
+    //打开相机，二维码
     private void goCamera() {
         Intent intent = new Intent(this, DeployZxingActivity.class);
         startActivityForResult(intent, 1);
@@ -168,40 +264,10 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
     @PermissionGrant(20)
     public void getLocation() {
-        getPositioning();
+        //获取当前定位
+        mPresenter.getLocation();
     }
 
-    // 高德定位
-    public void getPositioning() {
-        mLocationClient = new AMapLocationClient(this);
-        mLocationClient.setLocationListener(mLocationListener);
-        mLocationOption = new AMapLocationClientOption();
-        mLocationOption.setOnceLocationLatest(true);
-        mLocationOption.setOnceLocation(true);
-        mLocationOption.setNeedAddress(true);
-        mLocationOption.setMockEnable(true);
-        mLocationOption.setInterval(5000);
-        mLocationClient.setLocationOption(mLocationOption);
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        mLocationClient.startLocation();
-    }
-
-    class MyAMapLocationListener implements AMapLocationListener {
-        @Override
-        public void onLocationChanged(AMapLocation aMapLocation) {
-            Logger.d("定位" + aMapLocation.getErrorCode());
-            if (aMapLocation != null) {
-                if (aMapLocation.getErrorCode() == 0) {
-                    lat.setText(aMapLocation.getLatitude() + "," + aMapLocation.getLongitude());
-                    cityName.setText(aMapLocation.getCity() + "");
-                    adress.setText(aMapLocation.getProvince() + aMapLocation.getCity() + aMapLocation.getDistrict() + aMapLocation.getStreet());
-                } else {
-                    ToastUtil.showShortToast("获取当前位置失败,请检查是否开启定位权限");
-                }
-
-            }
-        }
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

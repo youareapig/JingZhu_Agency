@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xiaomai.ageny.utils.state_layout.OtherView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:id="@+id/otherview"
     android:orientation="vertical">
 
     <RelativeLayout style="@style/titlesytle">
@@ -42,7 +43,6 @@
                 android:id="@+id/tv_tixian_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="6,098.45"
                 android:textColor="#fff"
                 android:textSize="@dimen/sp_18" />
 
@@ -72,7 +72,6 @@
                 android:id="@+id/tv_tixian_dongjie"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="47,098.45"
                 android:textColor="#fff"
                 android:textSize="@dimen/sp_18" />
 
@@ -93,7 +92,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
 
             <LinearLayout
                 android:id="@+id/view_bank"
@@ -106,8 +107,7 @@
                 android:elevation="@dimen/dp_3"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/dp_22"
-                android:paddingRight="@dimen/dp_20"
-                android:visibility="gone">
+                android:paddingRight="@dimen/dp_20">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -126,7 +126,6 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dp_33"
-                        android:text="建设银行"
                         android:textColor="#fff"
                         android:textSize="@dimen/sp_16" />
 
@@ -144,7 +143,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="@dimen/dp_18"
-                    android:text="6217 **** **** **** 9131"
                     android:textColor="#fff"
                     android:textSize="@dimen/sp_18" />
 
@@ -160,7 +158,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="黄豆豆"
                         android:textColor="#fff"
                         android:textSize="@dimen/sp_16" />
 
@@ -170,7 +167,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="136 6920 0087"
                         android:textColor="#fff"
                         android:textSize="@dimen/sp_14" />
                 </RelativeLayout>
@@ -187,7 +183,8 @@
                 android:background="@drawable/index_frame"
                 android:elevation="@dimen/dp_3"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -225,9 +222,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_13"
                 android:layout_marginTop="@dimen/dp_23"
-                android:layout_marginRight="@dimen/dp_13"
-                android:focusable="true"
-                android:focusableInTouchMode="true">
+                android:layout_marginRight="@dimen/dp_13">
 
                 <TextView
                     android:id="@+id/tx_tixian_yuan"
@@ -245,7 +240,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_21"
                     android:hint="请输入金额"
-                    android:inputType="number"
+                    android:inputType="number|numberDecimal"
                     android:lines="1"
                     android:textColor="#363636"
                     android:textSize="@dimen/sp_38"
@@ -300,7 +295,22 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_7"
-                    android:text="提现手续费5.8元"
+                    android:text="提现手续费"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_13" />
+
+                <TextView
+                    android:id="@+id/service_money"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_13" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="元"
                     android:textColor="#363636"
                     android:textSize="@dimen/sp_13" />
 
@@ -329,4 +339,4 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-</LinearLayout>
+</com.xiaomai.ageny.utils.state_layout.OtherView>
