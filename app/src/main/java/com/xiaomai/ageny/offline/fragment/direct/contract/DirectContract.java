@@ -1,13 +1,13 @@
 package com.xiaomai.ageny.offline.fragment.direct.contract;
 
 import com.xiaomai.ageny.base.BaseView;
-import com.xiaomai.ageny.bean.OffDeviceBean;
+import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 
 import io.reactivex.Flowable;
 
 public interface DirectContract {
     interface Model {
-        Flowable<OffDeviceBean> getData(String sellername, String linkmobile, String deviceid);
+        Flowable<OffDirectDeviceBean> getData(String sellername, String linkmobile, String deviceid);
     }
 
     interface View extends BaseView {
@@ -20,7 +20,7 @@ public interface DirectContract {
         @Override
         void onError(Throwable throwable);
 
-        void onSuccess(OffDeviceBean bean);
+        void onSuccess(OffDirectDeviceBean bean);
     }
 
     interface Presenter {

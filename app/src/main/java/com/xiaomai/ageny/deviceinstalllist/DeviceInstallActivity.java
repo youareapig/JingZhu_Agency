@@ -19,6 +19,8 @@ import com.xiaomai.ageny.deviceinstalllist.adapter.Adapter;
 import com.xiaomai.ageny.deviceinstalllist.contract.DeviceInstallContract;
 import com.xiaomai.ageny.deviceinstalllist.presenter.DeviceInstallPresenter;
 import com.xiaomai.ageny.filter.deviceinstall.DeviceInstallFilterActivity;
+import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.List;
 
@@ -38,6 +40,8 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     RelativeLayout btInstall;
     @BindView(R.id.refresh)
     PullToRefreshLayout refresh;
+    @BindView(R.id.otherview)
+    OtherView otherView;
 
     private Adapter adapter;
     private List<DeviceInstallListBean.DataBean.ListBean> list;
@@ -53,13 +57,13 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     @Override
     public void initView() {
+        otherView.setHolder(mHolder);
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             strChiyourenTel = bundle.getString("cyren");
             strAnzhuangrenTel = bundle.getString("azren");
             strTime = bundle.getString("time");
         }
-        Logger.d("参数" + strChiyourenTel + strAnzhuangrenTel + strTime);
 
         mPresenter = new DeviceInstallPresenter();
         mPresenter.attachView(this);
@@ -72,8 +76,8 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        page=1;
-                        mPresenter.getDeviceInstallListBean_Refresh(page,strChiyourenTel, strAnzhuangrenTel, strTime);
+                        page = 1;
+                        mPresenter.getDeviceInstallListBean_Refresh(page, strChiyourenTel, strAnzhuangrenTel, strTime);
                         refresh.finishRefresh();
                     }
                 }, 1000);
@@ -85,7 +89,7 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
                     @Override
                     public void run() {
                         page++;
-                        mPresenter.getDeviceInstallListBean_Refresh(page,strChiyourenTel, strAnzhuangrenTel, strTime);
+                        mPresenter.getDeviceInstallListBean_Refresh(page, strChiyourenTel, strAnzhuangrenTel, strTime);
                         refresh.finishLoadMore();
                     }
                 }, 1000);
@@ -95,12 +99,12 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
@@ -110,13 +114,15 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     @Override
     public void onSuccess(DeviceInstallListBean bean) {
-        list = bean.getData().getList();
         if (bean.getCode() == 1) {
+            list = bean.getData().getList();
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             adapter = new Adapter(R.layout.device_install_item, list);
             recycler.setNestedScrollingEnabled(false);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 

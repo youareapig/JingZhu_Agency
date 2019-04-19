@@ -9,26 +9,33 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
-import com.bigkoo.pickerview.listener.OnOptionsSelectChangeListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.google.gson.Gson;
 import com.orhanobut.logger.Logger;
-import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.JsonBean;
 import com.xiaomai.ageny.deploy.contract.DeployContract;
 import com.xiaomai.ageny.deploy.presenter.DeployPresenter;
-import com.xiaomai.ageny.device_manage.device_withdraw.DeviceWithdrawActivity;
+import com.xiaomai.ageny.fragment.index.Index_Fragment;
+import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.GetJsonDataUtil;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
 
@@ -58,6 +65,20 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     TextView price;
     @BindView(R.id.choose_price)
     RelativeLayout choosePrice;
+    @BindView(R.id.deviceId)
+    TextView deviceId;
+    @BindView(R.id.lat)
+    TextView lat;
+    @BindView(R.id.adress)
+    EditText adress;
+    @BindView(R.id.tel)
+    EditText tel;
+    @BindView(R.id.fenrun)
+    EditText fenrun;
+    @BindView(R.id.isfrezze)
+    CheckBox isfrezze;
+    @BindView(R.id.location)
+    TextView location;
     private List<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
@@ -67,6 +88,9 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     private static final int MSG_LOAD_FAILED = 0x0003;
     private boolean isShow = true;
     private List<String> priceList = new ArrayList<>();
+    private AMapLocationClient mLocationClient = null;
+    private AMapLocationListener mLocationListener = new MyAMapLocationListener();
+    private AMapLocationClientOption mLocationOption = null;
 
     @Override
     public int getLayoutId() {
@@ -115,6 +139,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
                 }
                 break;
             case R.id.bt_getlocation:
+                MPermissions.requestPermissions(this, 20, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
                 break;
             case R.id.choose_price:
                 initNoLinkOptionsPicker();
@@ -137,8 +162,45 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     }
 
     private void goCamera() {
-        Intent intent=new Intent(this,DeployZxingActivity.class);
-        startActivityForResult(intent,1);
+        Intent intent = new Intent(this, DeployZxingActivity.class);
+        startActivityForResult(intent, 1);
+    }
+
+    @PermissionGrant(20)
+    public void getLocation() {
+        getPositioning();
+    }
+
+    // 高德定位
+    public void getPositioning() {
+        mLocationClient = new AMapLocationClient(this);
+        mLocationClient.setLocationListener(mLocationListener);
+        mLocationOption = new AMapLocationClientOption();
+        mLocationOption.setOnceLocationLatest(true);
+        mLocationOption.setOnceLocation(true);
+        mLocationOption.setNeedAddress(true);
+        mLocationOption.setMockEnable(true);
+        mLocationOption.setInterval(5000);
+        mLocationClient.setLocationOption(mLocationOption);
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+        mLocationClient.startLocation();
+    }
+
+    class MyAMapLocationListener implements AMapLocationListener {
+        @Override
+        public void onLocationChanged(AMapLocation aMapLocation) {
+            Logger.d("定位" + aMapLocation.getErrorCode());
+            if (aMapLocation != null) {
+                if (aMapLocation.getErrorCode() == 0) {
+                    lat.setText(aMapLocation.getLatitude() + "," + aMapLocation.getLongitude());
+                    cityName.setText(aMapLocation.getCity() + "");
+                    adress.setText(aMapLocation.getProvince() + aMapLocation.getCity() + aMapLocation.getDistrict() + aMapLocation.getStreet());
+                } else {
+                    ToastUtil.showShortToast("获取当前位置失败,请检查是否开启定位权限");
+                }
+
+            }
+        }
     }
 
     @Override
@@ -151,7 +213,22 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    Logger.d("解析成功结果:" + result);
+                    try {
+                        String headurl = BaseUtils.subFrontString(result, "=");
+                        String shadurl = BaseUtils.subBehindString(result, "=");
+
+                        Logger.d("解析成功结果:" + result);
+                        Logger.d("头---" + headurl + "尾---" + shadurl);
+                        if (headurl.equals(App.ZxingBaseUrl)) {
+                            deviceId.setText(shadurl);
+                        } else {
+                            ToastUtil.showShortToast("请扫描正确二维码");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ToastUtil.showShortToast("请扫描正确二维码");
+                    }
+
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Logger.d("解析失败");
                 }

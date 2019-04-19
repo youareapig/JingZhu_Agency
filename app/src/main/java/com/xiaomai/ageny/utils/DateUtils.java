@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -162,7 +163,19 @@ public class DateUtils {
         return times;
 
     }
-
+    //13位时间戳
+    public static String timeStamp2Date(String time) {
+        Long timeLong = Long.parseLong(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//要转换的时间格式
+        Date date;
+        try {
+            date = sdf.parse(sdf.format(timeLong));
+            return sdf.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     public static String timeMinute(String time) {
         SimpleDateFormat sdr = new SimpleDateFormat("HH:mm");

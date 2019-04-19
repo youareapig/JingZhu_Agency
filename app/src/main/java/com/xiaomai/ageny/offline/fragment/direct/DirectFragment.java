@@ -1,27 +1,23 @@
 package com.xiaomai.ageny.offline.fragment.direct;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
-import com.xiaomai.ageny.bean.OffDeviceBean;
+import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 import com.xiaomai.ageny.offline.fragment.direct.adapter.Adapter;
 import com.xiaomai.ageny.offline.fragment.direct.contract.DirectContract;
 import com.xiaomai.ageny.offline.fragment.direct.presenter.DirectPresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements DirectContract.View {
@@ -29,13 +25,15 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
     TextView offlineNum;
     @BindView(R.id.recycler)
     RecyclerView recycler;
-    Unbinder unbinder;
+    @BindView(R.id.otherview)
+    OtherView otherView;
 
     private Adapter adapter;
-    private List<String> list;
+    private List<OffDirectDeviceBean.DataBean.ListBean> list;
 
     @Override
     protected void initView(View view) {
+        otherView.setHolder(mHolder);
         mPresenter = new DirectPresenter();
         mPresenter.attachView(this);
         mPresenter.getData("", "", "");
@@ -48,12 +46,12 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
@@ -62,16 +60,19 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
     }
 
     @Override
-    public void onSuccess(OffDeviceBean bean) {
-        list = new ArrayList<>();
-        list.add("第1家");
-        list.add("第2家");
-        list.add("第3家");
-        list.add("第4家");
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        adapter = new Adapter(R.layout.direct_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
+    public void onSuccess(OffDirectDeviceBean bean) {
+        if (bean.getCode() == 1) {
+            offlineNum.setText(bean.getData().get(0).getCountlinxianbox());
+            list = bean.getData().get(0).getList();
+            recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            adapter = new Adapter(R.layout.direct_item, list);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
+
+
     }
 
 }

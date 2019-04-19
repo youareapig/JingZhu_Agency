@@ -13,7 +13,9 @@ import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 public class App extends Application {
     public static Context context;
-    public static String pageSize="15";
+    public static String pageSize = "15";
+    public static String ZxingBaseUrl = "https://www.jzcdsc.com/rent?id";
+
     @Override
     public void onCreate() {
         super.onCreate();

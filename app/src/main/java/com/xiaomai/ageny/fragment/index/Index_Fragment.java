@@ -29,6 +29,7 @@ import com.xiaomai.ageny.fragment.index.presenter.IndexPresenter;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.order.OrderActivity;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
@@ -105,15 +106,19 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     @PermissionGrant(10)
     public void getLocation() {
         getPositioning();
-
     }
 
     class MyAMapLocationListener implements AMapLocationListener {
         @Override
         public void onLocationChanged(AMapLocation aMapLocation) {
+            Logger.d("定位" + aMapLocation.getErrorCode());
             if (aMapLocation != null) {
                 if (aMapLocation.getErrorCode() == 0) {
-                    Logger.d("经纬度:" + aMapLocation.getLatitude() + "    " + aMapLocation.getLongitude()+"   "+aMapLocation.getCity());
+                    Logger.d("经纬度:" + aMapLocation.getLatitude() + "    " + aMapLocation.getLongitude() + "   " + aMapLocation.getCity());
+
+                    SharedPreferencesUtil.getInstance(getActivity()).putSP("lat", aMapLocation.getLatitude() + "");
+                    SharedPreferencesUtil.getInstance(getActivity()).putSP("lng", aMapLocation.getLongitude() + "");
+                    SharedPreferencesUtil.getInstance(getActivity()).putSP("city", aMapLocation.getCity() + "");
                 }
 
             }
@@ -218,5 +223,10 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         dialog.show();
     }
 
-
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        //停止定位
+        mLocationClient.stopLocation();
+    }
 }

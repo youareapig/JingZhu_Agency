@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xiaomai.ageny.utils.state_layout.OtherView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/otherview"
     android:orientation="vertical">
 
     <RelativeLayout style="@style/titlesytle">
@@ -64,6 +65,7 @@
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
@@ -71,6 +73,7 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_11"
                     android:background="#E6E6E6" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -87,6 +90,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="DASD1231312"
@@ -110,6 +114,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/lat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="363.2"
@@ -133,6 +138,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/city"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="成都"
@@ -156,6 +162,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="赵信国际"
@@ -179,6 +186,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/device_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1元/小时"
@@ -202,6 +210,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/devicetype"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="6槽"
@@ -225,6 +234,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/fenrun"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10%"
@@ -248,6 +258,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/freeze_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="800元"
@@ -272,6 +283,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/nofreezemoney"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="20元"
@@ -312,6 +324,7 @@
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
@@ -319,6 +332,7 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_11"
                     android:background="#E6E6E6" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -335,6 +349,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/storename"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="兵哥豌豆面"
@@ -358,6 +373,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/linkname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="张三"
@@ -382,6 +398,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/linktel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="13698536425"
@@ -423,6 +440,7 @@
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
@@ -430,6 +448,7 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_11"
                     android:background="#E6E6E6" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -446,6 +465,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/installman"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="周杰伦"
@@ -469,6 +489,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/install_tel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="156985398545"
@@ -493,6 +514,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/install_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2018-06-03"
@@ -535,6 +557,7 @@
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
@@ -542,6 +565,7 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_11"
                     android:background="#E6E6E6" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -557,35 +581,54 @@
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_15" />
 
-                    <ImageView
-                        android:layout_width="@dimen/dp_7"
-                        android:layout_height="@dimen/dp_7"
-                        android:layout_marginLeft="@dimen/dp_9"
-                        android:src="@mipmap/red_sign_icon" />
-
-                    <TextView
+                    <LinearLayout
+                        android:id="@+id/off_line_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_9"
-                        android:text="离线"
-                        android:textColor="#E55C5C"
-                        android:textSize="@dimen/sp_15" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
 
-                    <ImageView
-                        android:layout_width="@dimen/dp_7"
-                        android:layout_height="@dimen/dp_7"
-                        android:layout_marginLeft="@dimen/dp_25"
-                        android:src="@mipmap/green_sign_icon" />
+                        <ImageView
+                            android:layout_width="@dimen/dp_7"
+                            android:layout_height="@dimen/dp_7"
+                            android:layout_marginLeft="@dimen/dp_9"
+                            android:src="@mipmap/red_sign_icon" />
 
-                    <TextView
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_9"
+                            android:text="离线"
+                            android:textColor="#E55C5C"
+                            android:textSize="@dimen/sp_15" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/on_line_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_9"
-                        android:text="在线"
-                        android:textColor="#67AB52"
-                        android:textSize="@dimen/sp_15" />
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_7"
+                            android:layout_height="@dimen/dp_7"
+                            android:layout_marginLeft="@dimen/dp_25"
+                            android:src="@mipmap/green_sign_icon" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_9"
+                            android:text="在线"
+                            android:textColor="#67AB52"
+                            android:textSize="@dimen/sp_15" />
+                    </LinearLayout>
+
 
                     <TextView
+                        android:id="@+id/off_line_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_44"
@@ -610,6 +653,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/remaincount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="1个"
@@ -634,6 +678,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/newtime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2019-06-25"
@@ -676,6 +721,7 @@
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_1"
@@ -683,6 +729,7 @@
                     android:layout_marginTop="@dimen/dp_10"
                     android:layout_marginRight="@dimen/dp_11"
                     android:background="#E6E6E6" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -705,6 +752,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/all_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="500"
@@ -743,6 +791,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/month_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="300"
@@ -782,6 +831,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/pingjunmoney"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="400"
@@ -803,4 +853,4 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-</LinearLayout>
+</com.xiaomai.ageny.utils.state_layout.OtherView>

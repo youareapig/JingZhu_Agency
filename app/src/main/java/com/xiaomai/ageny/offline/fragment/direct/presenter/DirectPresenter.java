@@ -1,8 +1,7 @@
 package com.xiaomai.ageny.offline.fragment.direct.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
-import com.xiaomai.ageny.bean.BillListBean;
-import com.xiaomai.ageny.bean.OffDeviceBean;
+import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 import com.xiaomai.ageny.net.RxScheduler;
 import com.xiaomai.ageny.offline.fragment.direct.contract.DirectContract;
 import com.xiaomai.ageny.offline.fragment.direct.model.DirectModel;
@@ -21,10 +20,10 @@ public class DirectPresenter extends BasePresenter<DirectContract.View> implemen
             return;
         }
         mView.showLoading();
-        model.getData(sellername, linkmobile, deviceid).compose(RxScheduler.<OffDeviceBean>Flo_io_main())
-                .subscribe(new Consumer<OffDeviceBean>() {
+        model.getData(sellername, linkmobile, deviceid).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
+                .subscribe(new Consumer<OffDirectDeviceBean>() {
                     @Override
-                    public void accept(OffDeviceBean bean) throws Exception {
+                    public void accept(OffDirectDeviceBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
                     }

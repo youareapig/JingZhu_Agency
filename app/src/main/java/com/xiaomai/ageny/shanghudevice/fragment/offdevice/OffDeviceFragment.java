@@ -35,6 +35,7 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
     private List<ContactDeviceListBean.DataBean.ListBean> list;
     private Adapter adapter;
     private String id;
+    private Bundle bundle;
 
     public OffDeviceFragment(String id) {
         this.id = id;
@@ -42,6 +43,7 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
 
     @Override
     protected void initView(View view) {
+        bundle=new Bundle();
         otherView.setHolder(mHolder);
         mPresenter = new OffDevicePresenter();
         mPresenter.attachView(this);
@@ -79,7 +81,8 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toClass(view.getContext(), ShanghuDeviceDetailsActivity.class);
+                bundle.putString("id",list.get(position).getId());
+                toClass(view.getContext(), ShanghuDeviceDetailsActivity.class,bundle);
             }
         });
     }

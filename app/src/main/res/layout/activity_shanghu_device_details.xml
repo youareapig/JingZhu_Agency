@@ -284,7 +284,6 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/freeze_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="冻结金额："
@@ -292,6 +291,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/freeze_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="800元"
@@ -309,7 +309,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/nofreezemoney"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="已解冻金额："
@@ -317,6 +317,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <TextView
+                        android:id="@+id/nofreezemoney"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="20元"

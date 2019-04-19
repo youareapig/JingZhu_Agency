@@ -10,24 +10,23 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
+import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 import com.xiaomai.ageny.details.devicedetails.directdetails.DirectDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
-    public Adapter(int layoutResId, @Nullable List<String> data) {
+public class Adapter extends BaseQuickAdapter<OffDirectDeviceBean.DataBean.ListBean, BaseViewHolder> {
+    public Adapter(int layoutResId, @Nullable List<OffDirectDeviceBean.DataBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.item_storename, item);
+    protected void convert(BaseViewHolder helper, OffDirectDeviceBean.DataBean.ListBean item) {
+        helper.setText(R.id.item_storename, item.getSellername());
         RecyclerView recyclerView = helper.getView(R.id.item_recycler);
-        List<String> list = new ArrayList();
-        list.add("1");
-        list.add("2");
-        list.add("3");
+        final List<OffDirectDeviceBean.DataBean.ListBean.BoxBean> list = item.getBox();
+
         Adapter_Item adapter_item = new Adapter_Item(R.layout.direct_item_item, list);
         recyclerView.setLayoutManager(new LinearLayoutManager(App.context, LinearLayoutManager.VERTICAL, false));
         recyclerView.setAdapter(adapter_item);
@@ -36,6 +35,7 @@ public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Intent intent = new Intent(view.getContext(), DirectDetailsActivity.class);
+                intent.putExtra("id", list.get(position).getBoxid());
                 view.getContext().startActivity(intent);
             }
         });

@@ -58,11 +58,11 @@
                     android:layout_height="@dimen/dp_33">
 
                     <TextView
+                        android:id="@+id/deviceId"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dp_18"
-                        android:text="JZCB0920111349"
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_16" />
 
@@ -102,11 +102,11 @@
                     android:layout_height="@dimen/dp_33">
 
                     <TextView
+                        android:id="@+id/lat"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dp_20"
-                        android:text="130.62205，103.988562"
                         android:textColor="#67AB52"
                         android:textSize="@dimen/sp_16" />
 
@@ -139,8 +139,9 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dp_20"
-                        android:text="选择城市"
-                        android:textColor="#B6B6B6"
+                        android:hint="选择城市"
+                        android:textColor="#363636"
+                        android:textColorHint="#b6b6b6"
                         android:textSize="@dimen/sp_16" />
 
                     <View
@@ -163,6 +164,7 @@
 
 
                 <EditText
+                    android:id="@+id/adress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -170,7 +172,7 @@
                     android:layout_marginRight="@dimen/dp_13"
                     android:hint="请填写详细地址"
                     android:paddingLeft="@dimen/dp_6"
-                    android:textColor="#8888"
+                    android:textColor="#363636"
                     android:textColorHint="#B6B6B6"
                     android:textSize="@dimen/sp_16"
                     android:theme="@style/MyEditText" />
@@ -196,9 +198,10 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="@dimen/dp_13"
+                        android:hint="请选择单价"
                         android:paddingLeft="@dimen/dp_6"
-                        android:text="请选择单价"
-                        android:textColor="#8888"
+                        android:textColor="#363636"
+                        android:textColorHint="#B6B6B6"
                         android:textSize="@dimen/sp_16"
                         android:theme="@style/MyEditText" />
 
@@ -237,6 +240,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/tel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -244,7 +248,7 @@
                         android:layout_marginRight="@dimen/dp_13"
                         android:hint="请填写详细地址"
                         android:paddingLeft="@dimen/dp_6"
-                        android:textColor="#8888"
+                        android:textColor="#363636"
                         android:textColorHint="#B6B6B6"
                         android:textSize="@dimen/sp_16"
                         android:theme="@style/MyEditText" />
@@ -275,12 +279,13 @@
                     android:orientation="horizontal">
 
                     <EditText
+                        android:id="@+id/fenrun"
                         android:layout_width="@dimen/dp_180"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_13"
                         android:hint="请填写分润比例"
                         android:paddingLeft="@dimen/dp_6"
-                        android:textColor="#8888"
+                        android:textColor="#363636"
                         android:textColorHint="#B6B6B6"
                         android:textSize="@dimen/sp_16"
                         android:theme="@style/MyEditText" />
@@ -323,6 +328,7 @@
                         android:textSize="@dimen/sp_16" />
 
                     <CheckBox
+                        android:id="@+id/isfrezze"
                         android:layout_width="@dimen/dp_20"
                         android:layout_height="@dimen/dp_20"
                         android:layout_marginLeft="@dimen/dp_11"
@@ -360,9 +366,9 @@
                     android:textSize="@dimen/sp_15" />
 
                 <TextView
+                    android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="成都"
                     android:textColor="#363636"
                     android:textSize="@dimen/sp_15" />
             </LinearLayout>

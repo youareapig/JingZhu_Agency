@@ -21,8 +21,11 @@ import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.bean.LowerOrderBean;
 import com.xiaomai.ageny.bean.LowerOrderDetailsBean;
 import com.xiaomai.ageny.bean.MyOrderDetailsBean;
-import com.xiaomai.ageny.bean.OffDeviceBean;
+import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 import com.xiaomai.ageny.bean.MyOrderBean;
+import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
+import com.xiaomai.ageny.bean.OffIndirectDeivceDetailsBean;
+import com.xiaomai.ageny.bean.TelToNameBean;
 import com.xiaomai.ageny.bean.UserInfoBean;
 import com.xiaomai.ageny.bean.XiajiListBean;
 
@@ -48,11 +51,23 @@ public interface APIService {
     @GET(urlhead + "agentCenter/homepage")
     Flowable<IndexBean> getIndexBean();
 
-    //离线设备（直属设备）
+    //离线设备列表（直属设备）
     @GET(urlhead + "agentCenter/directlyequipment")
-    Flowable<OffDeviceBean> getDirectListBean(
+    Flowable<OffDirectDeviceBean> getDirectListBean(
             @Query("sellername") String sellername,
             @Query("linkmobile") String linkmobile,
+            @Query("deviceid") String deviceid);
+
+    //离线设备列表（非直属设备）
+    @GET(urlhead + "agentCenter/nodirecte/quipment")
+    Flowable<OffIndirectDeivceBean> getInDirectListBean(
+            @Query("agentname") String agentname,
+            @Query("agentmobile") String agentmobile,
+            @Query("deviceid") String deviceid);
+
+    //离线设备详情（非直属设备）
+    @GET(urlhead + "agentCenter/nodirecte/quipment/details ")
+    Flowable<OffIndirectDeivceDetailsBean> getInDirectDetailsBean(
             @Query("deviceid") String deviceid);
 
     //商户列表
@@ -195,5 +210,9 @@ public interface APIService {
     //下级订单详情
     @GET(urlhead + "agentCenter/agent/lowerordersDetails")
     Flowable<LowerOrderDetailsBean> getLowerOrderDetailsBean(@Query("orderid") String orderid);
+
+    //手机号显示姓名
+    @GET(urlhead + "agentCenter/seller/info")
+    Flowable<TelToNameBean> getTelName(@Query("mobile") String mobile);
 }
 

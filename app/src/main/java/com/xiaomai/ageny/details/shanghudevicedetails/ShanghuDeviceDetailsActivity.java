@@ -155,7 +155,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
                 onLineView.setVisibility(View.GONE);
                 offLineView.setVisibility(View.VISIBLE);
                 offLineTime.setVisibility(View.VISIBLE);
-                offLineTime.setText("离线时间：" + data.getLixianTime() + "h");
+                offLineTime.setText("离线时间：" + data.getLixianTime());
             }
             remaincount.setText(data.getSybox() + "个");
             newtime.setText(data.getUpdtime());
