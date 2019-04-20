@@ -1,16 +1,16 @@
 package com.xiaomai.ageny.addcontact.contract;
 
 import com.xiaomai.ageny.base.BaseView;
-import com.xiaomai.ageny.bean.ContactUpdateUserInfoBean;
+import com.xiaomai.ageny.bean.HintBean;
 
 import io.reactivex.Flowable;
 import okhttp3.RequestBody;
 
 public interface AddContactContract {
     interface Model {
-        Flowable<ContactUpdateUserInfoBean> getData(RequestBody requestBody);
+        Flowable<HintBean> getData(RequestBody requestBody);
 
-        Flowable<ContactUpdateUserInfoBean> AddContanct(RequestBody requestBody);
+        Flowable<HintBean> AddContanct(RequestBody requestBody);
     }
 
     interface View extends BaseView {
@@ -23,7 +23,7 @@ public interface AddContactContract {
         @Override
         void onError(Throwable throwable);
 
-        void onSuccess(ContactUpdateUserInfoBean bean);
+        void onSuccess(HintBean bean);
 
     }
 

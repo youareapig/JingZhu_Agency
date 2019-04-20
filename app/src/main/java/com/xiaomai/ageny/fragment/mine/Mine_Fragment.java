@@ -24,7 +24,9 @@ import com.xiaomai.ageny.fragment.mine.contract.MineContract;
 import com.xiaomai.ageny.fragment.mine.presenter.MinePresenter;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.setting.SettingActivity;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
 
@@ -66,7 +68,12 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
         mPresenter = new MinePresenter();
         mPresenter.attachView(this);
         mPresenter.getData();
-
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData();
+            }
+        });
     }
 
     @Override
@@ -86,7 +93,7 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
@@ -99,6 +106,8 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
             usertel.setText("绑定手机：" + data.getMobile());
             usertype.setText(data.getParent_name());
             userscale.setText(data.getReward());
+        }else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 

@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.xiaomai.ageny.R;
+import com.xiaomai.ageny.utils.NetWorkUtils;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import org.greenrobot.eventbus.EventBus;
@@ -19,6 +20,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
     public Bundle savedInstanceState;
     public OtherViewHolder mHolder;
+    public boolean isNetWork=true;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +29,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.savedInstanceState = savedInstanceState;
         unbinder = ButterKnife.bind(this);
         ImmersionBar.with(this).statusBarColor(R.color.appbar).fitsSystemWindows(true).statusBarDarkFont(true).init();
-        mHolder=new OtherViewHolder(this);
+        //是否有网络
+        isNetWork = NetWorkUtils.isNetworkConnected(this);
+        //空白页初始化
+        mHolder = new OtherViewHolder(this);
         initView();
     }
 
@@ -56,6 +62,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void toClass1(Context context, Class<? extends BaseActivity> clazz) {
         Intent intent = new Intent(context, clazz);
+        context.startActivity(intent);
+    }
+
+    protected void toClass1(Context context, Class<? extends BaseActivity> clazz, Bundle bundle) {
+        Intent intent = new Intent(context, clazz);
+        intent.putExtras(bundle);
         context.startActivity(intent);
     }
 

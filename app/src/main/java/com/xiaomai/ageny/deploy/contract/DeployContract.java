@@ -2,7 +2,7 @@ package com.xiaomai.ageny.deploy.contract;
 
 import com.amap.api.location.AMapLocation;
 import com.xiaomai.ageny.base.BaseView;
-import com.xiaomai.ageny.bean.DeployDeviceBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.TelToNameBean;
 
 import io.reactivex.Flowable;
@@ -12,7 +12,7 @@ public interface DeployContract {
     interface Model {
         Flowable<TelToNameBean> getData(String mobile);
 
-        Flowable<DeployDeviceBean> getDeploy(RequestBody requestBody);
+        Flowable<HintBean> getDeploy(RequestBody requestBody);
     }
 
     interface View extends BaseView {
@@ -29,7 +29,7 @@ public interface DeployContract {
 
         void locationSuccess(AMapLocation aMapLocation);
 
-        void onDeploy(DeployDeviceBean bean);
+        void onDeploy(HintBean bean);
     }
 
     interface Presenter {

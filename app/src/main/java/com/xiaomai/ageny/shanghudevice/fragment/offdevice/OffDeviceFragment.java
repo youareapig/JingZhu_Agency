@@ -16,7 +16,9 @@ import com.xiaomai.ageny.details.shanghudevicedetails.ShanghuDeviceDetailsActivi
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.contract.OffDeviceContract;
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.presenter.OffDevicePresenter;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,11 +45,17 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
 
     @Override
     protected void initView(View view) {
-        bundle=new Bundle();
+        bundle = new Bundle();
         otherView.setHolder(mHolder);
         mPresenter = new OffDevicePresenter();
         mPresenter.attachView(this);
         mPresenter.getData(id, "0", "", "");
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData(id, "0", "", "");
+            }
+        });
     }
 
     @Override
@@ -67,23 +75,31 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(ContactDeviceListBean bean) {
-        list = bean.getData().getList();
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        recycler.addItemDecoration(new SpacesItemDecoration(9));
-        adapter=new Adapter(R.layout.shanghudevice_off_item,list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                bundle.putString("id",list.get(position).getId());
-                toClass(view.getContext(), ShanghuDeviceDetailsActivity.class,bundle);
+        if (bean.getCode()==1){
+            list = bean.getData().getList();
+            if (list.size()==0){
+                otherView.showEmptyView();
             }
-        });
+            recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            recycler.addItemDecoration(new SpacesItemDecoration(9));
+            adapter = new Adapter(R.layout.shanghudevice_off_item, list);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    bundle.putString("id", list.get(position).getId());
+                    toClass(view.getContext(), ShanghuDeviceDetailsActivity.class, bundle);
+                }
+            });
+        }else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
+
     }
 }

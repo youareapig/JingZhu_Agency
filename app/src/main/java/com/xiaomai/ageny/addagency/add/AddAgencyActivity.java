@@ -1,6 +1,5 @@
 package com.xiaomai.ageny.addagency.add;
 
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -13,7 +12,7 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.addagency.add.contract.AddAgencyContract;
 import com.xiaomai.ageny.addagency.add.presenter.AddAgencyPresenter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
-import com.xiaomai.ageny.bean.AddAgencyBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ToastUtil;
 
@@ -21,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> implements AddAgencyContract.View {
@@ -82,7 +80,7 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
     }
 
     @Override
-    public void onSuccess(AddAgencyBean bean) {
+    public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
             ToastUtil.showShortToast(bean.getMessage());
         } else {

@@ -29,14 +29,13 @@ public class FeiDailiDetailsPresenter extends BasePresenter<FeiDailiDetailsContr
                 .subscribe(new Consumer<AgencyDetailsBean>() {
                     @Override
                     public void accept(AgencyDetailsBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
                     }
                 });
     }
@@ -51,14 +50,13 @@ public class FeiDailiDetailsPresenter extends BasePresenter<FeiDailiDetailsContr
                 .subscribe(new Consumer<HisSellerBean>() {
                     @Override
                     public void accept(HisSellerBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
                     }
                 });
     }
@@ -73,14 +71,13 @@ public class FeiDailiDetailsPresenter extends BasePresenter<FeiDailiDetailsContr
                 .subscribe(new Consumer<AgencyUserInfoBean>() {
                     @Override
                     public void accept(AgencyUserInfoBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
                     }
                 });
     }

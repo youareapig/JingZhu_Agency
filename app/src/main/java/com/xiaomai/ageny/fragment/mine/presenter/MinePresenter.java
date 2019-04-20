@@ -25,14 +25,13 @@ public class MinePresenter extends BasePresenter<MineContract.View> implements M
                 .subscribe(new Consumer<UserInfoBean>() {
                     @Override
                     public void accept(UserInfoBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
                     }
                 });
     }

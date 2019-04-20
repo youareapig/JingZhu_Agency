@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.xiaomai.ageny.utils.NetWorkUtils;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import butterknife.ButterKnife;
@@ -26,6 +27,7 @@ public abstract class BaseFragment extends Fragment {
 
     private Unbinder unBinder;
     public OtherViewHolder mHolder;
+    public boolean isNetWork=true;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,8 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(this.getLayoutId(), container, false);
         unBinder = ButterKnife.bind(this, view);
+        //是否有网络
+        isNetWork = NetWorkUtils.isNetworkConnected(getActivity());
         mHolder=new OtherViewHolder(getActivity());
         initView(view);
         return view;

@@ -8,12 +8,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.BillListBean;
 import com.xiaomai.ageny.mybill.contract.MyBillContract;
 import com.xiaomai.ageny.mybill.presenter.MyBillPresenter;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.List;
 
@@ -45,6 +47,12 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
     @Override
     public void initView() {
         otherview.setHolder(mHolder);
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData();
+            }
+        });
         mPresenter = new MyBillPresenter();
         mPresenter.attachView(this);
         mPresenter.getData();
@@ -52,17 +60,20 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
 
     @Override
     public void showLoading() {
+        Logger.d("showLoading");
         otherview.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
+        Logger.d("hideLoading");
         otherview.showContentView();
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        Logger.d("onError");
+        otherview.showRetryView();
     }
 
     @Override
@@ -91,10 +102,4 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

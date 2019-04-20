@@ -15,6 +15,7 @@ import com.xiaomai.ageny.fragment.agency.Agency_Fragment;
 import com.xiaomai.ageny.fragment.contact.Contact_Fragment;
 import com.xiaomai.ageny.fragment.index.Index_Fragment;
 import com.xiaomai.ageny.fragment.mine.Mine_Fragment;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,8 @@ public class MainActivity extends BaseActivity {
     TextView mineName;
     @BindView(R.id.bt_index_mine)
     RelativeLayout btIndexMine;
+    @BindView(R.id.otherview)
+    OtherView otherView;
 
     private Fragment fragment;
     private List<Fragment> fragmentList;

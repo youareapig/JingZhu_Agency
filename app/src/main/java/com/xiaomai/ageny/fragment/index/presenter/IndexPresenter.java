@@ -25,14 +25,14 @@ public class IndexPresenter extends BasePresenter<IndexContract.View> implements
                 .subscribe(new Consumer<IndexBean>() {
                     @Override
                     public void accept(IndexBean indexBean) throws Exception {
-                        mView.onSuccess(indexBean);
                         mView.hideLoading();
+                        mView.onSuccess(indexBean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.onError(throwable);
                         mView.hideLoading();
+                        mView.onError(throwable);
                     }
                 });
     }

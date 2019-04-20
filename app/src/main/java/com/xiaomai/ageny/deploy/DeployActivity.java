@@ -30,7 +30,7 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
-import com.xiaomai.ageny.bean.DeployDeviceBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.JsonBean;
 import com.xiaomai.ageny.bean.TelToNameBean;
 import com.xiaomai.ageny.deploy.contract.DeployContract;
@@ -160,7 +160,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
     //部署返回结果
     @Override
-    public void onDeploy(DeployDeviceBean bean) {
+    public void onDeploy(HintBean bean) {
         if (bean.getCode() == 1) {
             toClass1(this, DeploySuccessActivity.class);
             finish();

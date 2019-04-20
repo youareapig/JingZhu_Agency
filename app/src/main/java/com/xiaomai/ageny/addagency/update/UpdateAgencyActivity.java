@@ -13,7 +13,7 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.addagency.update.contract.UpdateAgencyContract;
 import com.xiaomai.ageny.addagency.update.presenter.UpdateAgencyPresenter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
-import com.xiaomai.ageny.bean.AgencyUpdateBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -109,7 +109,7 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
     }
 
     @Override
-    public void onSuccess(AgencyUpdateBean bean) {
+    public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
             ToastUtil.showShortToast(bean.getMessage());
         } else {

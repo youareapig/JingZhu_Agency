@@ -1,15 +1,15 @@
 package com.xiaomai.ageny.bean;
 
-public class DepositBean {
+public class VerCodeBean {
 
     /**
-     * code : -1
-     * data : {}
-     * message : 您还有一笔20元的提现正在进行中
+     * code : 1
+     * data : 4840
+     * message : 获得验证码成功
      */
 
     private int code;
-    private DataBean data;
+    private String data;
     private String message;
 
     public int getCode() {
@@ -20,11 +20,11 @@ public class DepositBean {
         this.code = code;
     }
 
-    public DataBean getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(DataBean data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -34,8 +34,5 @@ public class DepositBean {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public static class DataBean {
     }
 }

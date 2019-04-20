@@ -1,18 +1,29 @@
 package com.xiaomai.ageny.unbundle.unbundle_shanghu;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.bean.HintBean;
+import com.xiaomai.ageny.bean.VerCodeBean;
 import com.xiaomai.ageny.unbundle.UnbundleFaileActivity;
+import com.xiaomai.ageny.unbundle.UnbundleSuccessActivity;
 import com.xiaomai.ageny.unbundle.unbundle_shanghu.contract.UnbundleShanghuContract;
 import com.xiaomai.ageny.unbundle.unbundle_shanghu.presenter.UnbundleShanghuPresenter;
+import com.xiaomai.ageny.utils.CountDownTimerUtils;
+import com.xiaomai.ageny.utils.HideUtil;
+import com.xiaomai.ageny.utils.MaptoJson;
+import com.xiaomai.ageny.utils.ToastUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPresenter> implements UnbundleShanghuContract.View {
@@ -22,6 +33,21 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
     RelativeLayout back;
     @BindView(R.id.bt_unbundle)
     TextView btUnbundle;
+    @BindView(R.id.linktel)
+    TextView linktel;
+    @BindView(R.id.input_code)
+    EditText inputCode;
+    @BindView(R.id.bt_getCode)
+    TextView btGetCode;
+    @BindView(R.id.storename)
+    TextView storename;
+    @BindView(R.id.reason)
+    EditText reason;
+
+    private String id, name, tel;
+    private List<String> keyList = new ArrayList<>();
+    private List<String> valueList = new ArrayList<>();
+    private Bundle bundle;
 
     @Override
     public int getLayoutId() {
@@ -30,8 +56,19 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
 
     @Override
     public void initView() {
-
+        bundle = new Bundle();
+        mPresenter = new UnbundleShanghuPresenter();
+        mPresenter.attachView(this);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            id = bundle.getString("sellerId");
+            name = bundle.getString("sellerName");
+            tel = bundle.getString("mobile");
+            linktel.setText(HideUtil.hideMobile(tel));
+            storename.setText(name);
+        }
     }
+
 
     @Override
     public void showLoading() {
@@ -48,17 +85,62 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
 
     }
 
+    @Override
+    public void onSuccess(VerCodeBean bean) {
+        if (bean.getCode()==1){
+            CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(btGetCode, 5000, 1000);
+            mCountDownTimerUtils.start();
+        } else  {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
+    }
 
-    @OnClick({R.id.back, R.id.bt_unbundle})
+    @Override
+    public void onSuccess(HintBean bean) {
+        if (bean.getCode() == 1) {
+            bundle.putInt("unbundletype", 1);
+            toClass1(this, UnbundleSuccessActivity.class, bundle);
+            finish();
+        } else {
+            bundle.putInt("unbundletype", 1);
+            toClass1(this, UnbundleFaileActivity.class, bundle);
+            finish();
+        }
+    }
+
+
+    @OnClick({R.id.back, R.id.bt_unbundle, R.id.bt_getCode})
     public void onViewClicked(View view) {
+        String strvercode = inputCode.getText().toString().trim();
+        String strReson = reason.getText().toString().trim();
         switch (view.getId()) {
             case R.id.back:
                 finish();
                 break;
             case R.id.bt_unbundle:
-                toClass1(this, UnbundleFaileActivity.class);
-//                toClass1(this,UnbundleSuccessActivity.class);
+                if (TextUtils.isEmpty(strvercode) || TextUtils.isEmpty(strReson)) {
+                    TextUtils.isEmpty("请输入验证码或者解绑原因");
+                } else {
+                    keyList.add("sellerId");
+                    keyList.add("sellerName");
+                    keyList.add("captca");
+                    keyList.add("mobile");
+                    keyList.add("unbundlingReason");
+
+                    valueList.add(id);
+                    valueList.add(name);
+                    valueList.add(strvercode);
+                    valueList.add(tel);
+                    valueList.add(strReson);
+
+                    mPresenter.unbundleContanctBean(MaptoJson.toJsonZero(keyList, valueList));
+                }
+                break;
+            case R.id.bt_getCode:
+                //获取验证码
+                mPresenter.getCode(tel);
                 break;
         }
     }
+
 }

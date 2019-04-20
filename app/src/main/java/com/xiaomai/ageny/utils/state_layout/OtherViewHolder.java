@@ -28,7 +28,7 @@ public class OtherViewHolder extends OtherHolder {
     @Override
     public View setRetry(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.base_retry, null);
-        view.findViewById(R.id.m_retry).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.bt_reload).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mListener != null){

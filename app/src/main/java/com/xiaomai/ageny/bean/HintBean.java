@@ -1,11 +1,11 @@
 package com.xiaomai.ageny.bean;
 
-public class DeployDeviceBean {
+public class HintBean {
 
     /**
-     * code : -1
+     * code : 1
      * data : {}
-     * message : 您不是该设备的管理员
+     * message : 新增代理商成功
      */
 
     private int code;

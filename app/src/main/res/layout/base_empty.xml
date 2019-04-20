@@ -1,14 +1,24 @@
-<FrameLayout android:id="@+id/id_loading_and_retry"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/id_loading_and_retry"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+    <ImageView
+        android:layout_width="@dimen/dp_187"
+        android:layout_height="@dimen/dp_144"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_142"
+        android:src="@mipmap/img_no_data" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="空空如也"
-        />
+        android:text="哦，什么也木有~"
+        android:textColor="#363636"
+        android:layout_marginTop="@dimen/dp_60"
+        android:textSize="@dimen/sp_17" />
 
 </FrameLayout>

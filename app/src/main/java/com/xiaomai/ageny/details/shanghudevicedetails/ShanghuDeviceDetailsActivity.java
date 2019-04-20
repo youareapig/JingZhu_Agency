@@ -17,7 +17,9 @@ import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
 import com.xiaomai.ageny.details.shanghudevicedetails.contract.ShangHuDeviceDetailsContract;
 import com.xiaomai.ageny.details.shanghudevicedetails.presenter.ShangHuDeviceDetailsPresenter;
 import com.xiaomai.ageny.unbundle.unbundle_device.UnbundleDeviceActivity;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,8 +88,10 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
     private OptionsPickerView pvCustomOptions;
     private List<String> list;
-    private String strPrice;
+    private String strPrice, strlinktel;
     private String deviceId;
+    private Bundle bundle;
+    public static ShanghuDeviceDetailsActivity instance;
 
     @Override
     public int getLayoutId() {
@@ -96,6 +100,8 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
     @Override
     public void initView() {
+        instance = this;
+        bundle = new Bundle();
         otherView.setHolder(mHolder);
         deviceId = getIntent().getExtras().getString("id");
 
@@ -109,6 +115,12 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
         mPresenter = new ShangHuDeviceDetailsPresenter();
         mPresenter.attachView(this);
         mPresenter.getData(deviceId);
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData(deviceId);
+            }
+        });
     }
 
     @Override
@@ -123,13 +135,15 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
     @Override
     public void onError(Throwable throwable) {
-
+            otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(ContactDeviceDetailsBean bean) {
         if (bean.getCode() == 1) {
             ContactDeviceDetailsBean.DataBean data = bean.getData();
+            strlinktel = data.getSellerLinkTel();
+
             id.setText(data.getBoxId());
             lat.setText(data.getBoxlatitude() + "," + data.getBoxlongitude());
             city.setText("");
@@ -141,7 +155,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
             nofreezemoney.setText("已解冻金额：" + data.getUnfreeze_money());
             storename.setText(data.getSellername());
             linkname.setText(data.getSellerLinkman());
-            linktel.setText(data.getSellerLinkTel());
+            linktel.setText(strlinktel);
             installman.setText(data.getInstallname());
             installTel.setText(data.getInstallLinkTel());
             installTime.setText(data.getInstallTime());
@@ -163,6 +177,8 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
             monthMoney.setText(data.getMonthMoney());
             pingjunmoney.setText(data.getMonthlyMoney());
 
+        }else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
 
     }
@@ -175,7 +191,10 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
                 finish();
                 break;
             case R.id.bt_unbundle:
-                toClass(this, UnbundleDeviceActivity.class);
+                bundle.putString("id", deviceId);
+                bundle.putString("tel", strlinktel);
+
+                toClass(this, UnbundleDeviceActivity.class, bundle);
                 break;
             case R.id.bt_setprice:
                 choosePrice();

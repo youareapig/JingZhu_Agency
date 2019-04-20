@@ -1,7 +1,7 @@
 package com.xiaomai.ageny.deposit.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
-import com.xiaomai.ageny.bean.DepositBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.deposit.contract.DepositContract;
 import com.xiaomai.ageny.deposit.model.DepositModel;
@@ -44,10 +44,10 @@ public class DepositPresenter extends BasePresenter<DepositContract.View> implem
         if (!isViewAttached()) {
             return;
         }
-        model.getDepositBean(requestBody).compose(RxScheduler.<DepositBean>Flo_io_main())
-                .subscribe(new Consumer<DepositBean>() {
+        model.getDepositBean(requestBody).compose(RxScheduler.<HintBean>Flo_io_main())
+                .subscribe(new Consumer<HintBean>() {
                     @Override
-                    public void accept(DepositBean indexBean) throws Exception {
+                    public void accept(HintBean indexBean) throws Exception {
                         mView.onSuccessDeposit(indexBean);
                     }
                 }, new Consumer<Throwable>() {

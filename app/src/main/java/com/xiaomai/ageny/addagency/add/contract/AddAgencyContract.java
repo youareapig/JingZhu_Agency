@@ -1,14 +1,14 @@
 package com.xiaomai.ageny.addagency.add.contract;
 
 import com.xiaomai.ageny.base.BaseView;
-import com.xiaomai.ageny.bean.AddAgencyBean;
+import com.xiaomai.ageny.bean.HintBean;
 
 import io.reactivex.Flowable;
 import okhttp3.RequestBody;
 
 public interface AddAgencyContract {
     interface Model {
-        Flowable<AddAgencyBean> getData(RequestBody body);
+        Flowable<HintBean> getData(RequestBody body);
     }
 
     interface View extends BaseView {
@@ -21,7 +21,7 @@ public interface AddAgencyContract {
         @Override
         void onError(Throwable throwable);
 
-        void onSuccess(AddAgencyBean bean);
+        void onSuccess(HintBean bean);
     }
 
     interface Presenter {

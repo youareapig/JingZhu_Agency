@@ -19,7 +19,7 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.addcontact.contract.AddContactContract;
 import com.xiaomai.ageny.addcontact.presenter.AddContactPresenter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
-import com.xiaomai.ageny.bean.ContactUpdateUserInfoBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.DateUtils;
 import com.xiaomai.ageny.utils.MaptoJson;
@@ -128,12 +128,10 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
 
     @Override
     public void showLoading() {
-        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-        otherView.showContentView();
     }
 
     @Override
@@ -142,7 +140,7 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
     }
 
     @Override
-    public void onSuccess(ContactUpdateUserInfoBean bean) {
+    public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
             ToastUtil.showShortToast(bean.getMessage());
         } else {

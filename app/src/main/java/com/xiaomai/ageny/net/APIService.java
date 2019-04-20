@@ -1,21 +1,17 @@
 package com.xiaomai.ageny.net;
 
 
-import com.xiaomai.ageny.bean.AddAgencyBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.AgencyDetailsBean;
 import com.xiaomai.ageny.bean.AgencySellerListBean;
-import com.xiaomai.ageny.bean.AgencyUpdateBean;
 import com.xiaomai.ageny.bean.AgencyUserInfoBean;
 import com.xiaomai.ageny.bean.BillListBean;
 import com.xiaomai.ageny.bean.ContactDetailsBean;
 import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
 import com.xiaomai.ageny.bean.ContactDeviceListBean;
 import com.xiaomai.ageny.bean.ContactListBean;
-import com.xiaomai.ageny.bean.ContactUpdateUserInfoBean;
 import com.xiaomai.ageny.bean.ContactUserInfoBean;
 import com.xiaomai.ageny.bean.DailiListBean;
-import com.xiaomai.ageny.bean.DeployDeviceBean;
-import com.xiaomai.ageny.bean.DepositBean;
 import com.xiaomai.ageny.bean.DeviceInstallListBean;
 import com.xiaomai.ageny.bean.FreezeBean;
 import com.xiaomai.ageny.bean.HisSellerBean;
@@ -29,6 +25,7 @@ import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
 import com.xiaomai.ageny.bean.OffIndirectDeivceDetailsBean;
 import com.xiaomai.ageny.bean.TelToNameBean;
 import com.xiaomai.ageny.bean.UserInfoBean;
+import com.xiaomai.ageny.bean.VerCodeBean;
 import com.xiaomai.ageny.bean.XiajiListBean;
 
 import io.reactivex.Flowable;
@@ -48,6 +45,11 @@ import retrofit2.http.Query;
 public interface APIService {
     //    public String urlhead = "chargeAgent-0.0.1-SNAPSHOT/";
     public String urlhead = "";
+
+    //获取验证码
+    @GET(urlhead + "agentCenter/account/captcha")
+    Flowable<VerCodeBean> getVercode(
+            @Query("mobile") String mobile);
 
     //首页
     @GET(urlhead + "agentCenter/homepage")
@@ -105,11 +107,11 @@ public interface APIService {
 
     //修改商户资料
     @POST(urlhead + "agentCenter/seller/save")
-    Flowable<ContactUpdateUserInfoBean> contactUpdateUserInfo(@Body RequestBody requestBody);
+    Flowable<HintBean> contactUpdateUserInfo(@Body RequestBody requestBody);
 
     //添加商户
     @POST(urlhead + "agentCenter/seller/add")
-    Flowable<ContactUpdateUserInfoBean> addContanct(@Body RequestBody requestBody);
+    Flowable<HintBean> addContanct(@Body RequestBody requestBody);
 
     //代理列表 1、直属  0、非直属
     @GET(urlhead + "agentCenter/agent/list")
@@ -137,7 +139,7 @@ public interface APIService {
 
     //代理修改资料
     @POST(urlhead + "agentCenter/agent/save")
-    Flowable<AgencyUpdateBean> AgencyUpdate(@Body RequestBody requestBody);
+    Flowable<HintBean> AgencyUpdate(@Body RequestBody requestBody);
 
     //此代理的商户列表
     @GET(urlhead + "agentCenter/agent/seller/list ")
@@ -154,7 +156,7 @@ public interface APIService {
 
     //添加代理
     @POST(urlhead + "agentCenter/agent/add")
-    Flowable<AddAgencyBean> AddAgency(@Body RequestBody requestBody);
+    Flowable<HintBean> AddAgency(@Body RequestBody requestBody);
 
     //设备部署列表
     @GET(urlhead + "agentCenter/homepage/install/list")
@@ -219,10 +221,18 @@ public interface APIService {
 
     //部署设备
     @POST(urlhead + "agentCenter/homepage/install")
-    Flowable<DeployDeviceBean> deployDevice(@Body RequestBody requestBody);
+    Flowable<HintBean> deployDevice(@Body RequestBody requestBody);
 
     //申请提现
     @POST(urlhead + "admin/withdrow")
-    Flowable<DepositBean> dePosit(@Body RequestBody requestBody);
+    Flowable<HintBean> dePosit(@Body RequestBody requestBody);
+
+    //解绑商户
+    @POST(urlhead + "agentCenter/device/deleteSeller")
+    Flowable<HintBean> getUnbundleContanctBean(@Body RequestBody requestBody);
+
+    //解绑设备
+    @POST(urlhead + "agentCenter/device/delete")
+    Flowable<HintBean> deviceDelete(@Body RequestBody requestBody);
 }
 

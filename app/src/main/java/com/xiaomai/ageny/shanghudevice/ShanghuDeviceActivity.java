@@ -60,8 +60,8 @@ public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresente
         id = getIntent().getExtras().getString("id");
 
         titleList = new ArrayList<>();
-        titleList.add("在线设备（89台）");
-        titleList.add("离线设备（9台）");
+        titleList.add("在线设备");
+        titleList.add("离线设备");
         fragmentList = new ArrayList<>();
         fragmentList.add(new OnDeviecFragment(id));
         fragmentList.add(new OffDeviceFragment(id));

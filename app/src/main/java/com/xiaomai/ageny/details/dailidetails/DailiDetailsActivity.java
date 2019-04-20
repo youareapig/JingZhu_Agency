@@ -19,6 +19,7 @@ import com.xiaomai.ageny.details.dailidetails.contract.DailiDetailsContract;
 import com.xiaomai.ageny.details.dailidetails.presenter.DailiDetailsPresenter;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghulist.XiaJiSH_ListActivity;
 
 import butterknife.BindView;
@@ -90,16 +91,24 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
     @Override
     public void initView() {
         otherView.setHolder(mHolder);
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
         bundle = new Bundle();
         ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
         id = getIntent().getExtras().getString("id");
         mPresenter = new DailiDetailsPresenter();
         mPresenter.attachView(this);
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData(id);
+                mPresenter.getHisSeller(id);
+                mPresenter.getAgencyUserInfo(id);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         mPresenter.getData(id);
         mPresenter.getHisSeller(id);
         mPresenter.getAgencyUserInfo(id);
@@ -117,7 +126,7 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
 
     @Override
     public void onError(Throwable throwable) {
-
+            otherView.showRetryView();
     }
 
     @Override

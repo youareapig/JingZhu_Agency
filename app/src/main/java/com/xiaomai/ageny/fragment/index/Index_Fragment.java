@@ -31,7 +31,9 @@ import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.order.OrderActivity;
 import com.xiaomai.ageny.task.TaskActivity;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
 
@@ -87,15 +89,24 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     public AMapLocationClient mLocationClient = null;
     public AMapLocationListener mLocationListener = new MyAMapLocationListener();
     public AMapLocationClientOption mLocationOption = null;
+
     @Override
     protected void initView(View view) {
         otherView.setHolder(mHolder);
         mPresenter = new IndexPresenter();
         mPresenter.attachView(this);
         mPresenter.getData();
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData();
+            }
+        });
 //        showDialog();
         MPermissions.requestPermissions(Index_Fragment.this, 10, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -111,10 +122,8 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     class MyAMapLocationListener implements AMapLocationListener {
         @Override
         public void onLocationChanged(AMapLocation aMapLocation) {
-            Logger.d("定位" + aMapLocation.getErrorCode());
             if (aMapLocation != null) {
                 if (aMapLocation.getErrorCode() == 0) {
-                    Logger.d("经纬度:" + aMapLocation.getLatitude() + "    " + aMapLocation.getLongitude() + "   " + aMapLocation.getCity());
 
                     SharedPreferencesUtil.getInstance(getActivity()).putSP("lat", aMapLocation.getLatitude() + "");
                     SharedPreferencesUtil.getInstance(getActivity()).putSP("lng", aMapLocation.getLongitude() + "");
@@ -158,12 +167,11 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
     @Override
     public void onError(Throwable throwable) {
-        Logger.d("失败");
+        otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(IndexBean bean) {
-        Logger.d("成功");
         if (bean.getCode() == 1) {
             IndexBean.DataBean data = bean.getData();
             yesterdayMoney.setText(data.getYestoday_earn());
@@ -176,7 +184,8 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             rentting.setText("租借中：" + data.getRentCount() + "个");
             offLine.setText("离线：" + data.getOffLineCount() + "台");
             onLine.setText("在线：" + data.getOnLineCount() + "台");
-
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
 
 

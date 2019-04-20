@@ -3,7 +3,7 @@ package com.xiaomai.ageny.addagency.add.presenter;
 import com.xiaomai.ageny.addagency.add.contract.AddAgencyContract;
 import com.xiaomai.ageny.addagency.add.model.AddAgencyModel;
 import com.xiaomai.ageny.base.BasePresenter;
-import com.xiaomai.ageny.bean.AddAgencyBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.net.RxScheduler;
 
 import io.reactivex.functions.Consumer;
@@ -22,10 +22,10 @@ public class AddAgencyPresenter extends BasePresenter<AddAgencyContract.View> im
             return;
         }
         mView.showLoading();
-        model.getData(body).compose(RxScheduler.<AddAgencyBean>Flo_io_main())
-                .subscribe(new Consumer<AddAgencyBean>() {
+        model.getData(body).compose(RxScheduler.<HintBean>Flo_io_main())
+                .subscribe(new Consumer<HintBean>() {
                     @Override
-                    public void accept(AddAgencyBean bean) throws Exception {
+                    public void accept(HintBean bean) throws Exception {
                         mView.onSuccess(bean);
                         mView.hideLoading();
                     }

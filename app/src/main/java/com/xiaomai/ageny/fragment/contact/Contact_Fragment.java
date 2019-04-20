@@ -18,7 +18,9 @@ import com.xiaomai.ageny.details.contactdetails.ContactDetailsActivity;
 import com.xiaomai.ageny.filter.contactfilter.ContactFilterActivity;
 import com.xiaomai.ageny.fragment.contact.contract.ContactContract;
 import com.xiaomai.ageny.fragment.contact.presenter.ContactPresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.List;
 
@@ -62,6 +64,17 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
         bundle = new Bundle();
         mPresenter = new ContactPresenter();
         mPresenter.attachView(this);
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData("", "", "4");
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         mPresenter.getData("", "", "4");
     }
 
@@ -82,13 +95,16 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(ContactListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
             totleCount.setText("共：" + list.size() + "家");
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             adapter = new Adapter(R.layout.contact_item, list);
@@ -102,6 +118,8 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
                     toClass(view.getContext(), ContactDetailsActivity.class, bundle);
                 }
             });
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
 
     }

@@ -50,11 +50,11 @@
                 android:textSize="@dimen/sp_15" />
 
             <TextView
+                android:id="@+id/linktel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_17"
-                android:text="184 **** 4867"
                 android:textColor="#363636"
                 android:textSize="@dimen/sp_17" />
 
@@ -70,6 +70,7 @@
                 android:layout_marginTop="@dimen/dp_30">
 
                 <EditText
+                    android:id="@+id/input_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="输入验证码"
@@ -84,6 +85,7 @@
                     android:theme="@style/MyEditText" />
 
                 <TextView
+                    android:id="@+id/bt_getCode"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -102,11 +104,11 @@
                 android:textSize="@dimen/sp_15" />
 
             <TextView
+                android:id="@+id/storename"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginTop="@dimen/dp_13"
-                android:text="兵哥豌豆面（温江店）"
                 android:textColor="#363636"
                 android:textSize="@dimen/sp_17" />
 
@@ -119,6 +121,7 @@
                 android:textSize="@dimen/sp_15" />
 
             <EditText
+                android:id="@+id/reason"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_130"
                 android:layout_marginTop="@dimen/dp_15"

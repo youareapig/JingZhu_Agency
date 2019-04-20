@@ -8,7 +8,7 @@ import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.App;
-import com.xiaomai.ageny.bean.DeployDeviceBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.TelToNameBean;
 import com.xiaomai.ageny.deploy.DeployActivity;
 import com.xiaomai.ageny.deploy.contract.DeployContract;
@@ -63,10 +63,10 @@ public class DeployPresenter extends BasePresenter<DeployContract.View> implemen
         if (!isViewAttached()) {
             return;
         }
-        model.getDeploy(requestBody).compose(RxScheduler.<DeployDeviceBean>Flo_io_main())
-                .subscribe(new Consumer<DeployDeviceBean>() {
+        model.getDeploy(requestBody).compose(RxScheduler.<HintBean>Flo_io_main())
+                .subscribe(new Consumer<HintBean>() {
                     @Override
-                    public void accept(DeployDeviceBean bean) throws Exception {
+                    public void accept(HintBean bean) throws Exception {
                         mView.onDeploy(bean);
                     }
                 }, new Consumer<Throwable>() {

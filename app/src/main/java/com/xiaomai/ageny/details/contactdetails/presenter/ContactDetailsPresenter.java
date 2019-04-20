@@ -27,14 +27,14 @@ public class ContactDetailsPresenter extends BasePresenter<ContactDetailsContrac
                 .subscribe(new Consumer<ContactDetailsBean>() {
                     @Override
                     public void accept(ContactDetailsBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.onError(throwable);
                         mView.hideLoading();
+                        mView.onError(throwable);
                     }
                 });
     }
@@ -49,14 +49,15 @@ public class ContactDetailsPresenter extends BasePresenter<ContactDetailsContrac
                 .subscribe(new Consumer<ContactUserInfoBean>() {
                     @Override
                     public void accept(ContactUserInfoBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.onError(throwable);
                         mView.hideLoading();
+                        mView.onError(throwable);
+
                     }
                 });
     }

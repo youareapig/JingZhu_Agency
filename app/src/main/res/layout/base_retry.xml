@@ -1,38 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:id="@+id/errorStateRelativeLayout"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/id_loading_and_retry"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-        <TextView
-            android:id="@+id/m_error_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            android:layout_marginLeft="56dp"
-            android:layout_marginRight="56dp"
-            android:layout_marginTop="10dp"
-            android:gravity="center"
-            android:lineSpacingExtra="5.5dp"
-            android:text="加载错误"
-            />
+    <ImageView
+        android:layout_width="@dimen/dp_187"
+        android:layout_height="@dimen/dp_144"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dp_142"
+        android:src="@mipmap/img_no_network" />
 
-        <Button
-            android:id="@+id/m_retry"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="点击重试"
+    <TextView
+        android:id="@+id/bt_reload"
+        android:layout_width="@dimen/dp_260"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="@dimen/dp_44"
+        android:background="@drawable/sure_button"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:text="重新加载"
+        android:textColor="@color/appbar"
+        android:textSize="@dimen/sp_17">
 
-            android:layout_gravity="center_horizontal"
-            />
+    </TextView>
 
-    </LinearLayout>
 
-</RelativeLayout>
+</FrameLayout>

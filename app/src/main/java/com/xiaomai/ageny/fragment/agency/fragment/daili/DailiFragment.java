@@ -16,7 +16,9 @@ import com.xiaomai.ageny.bean.DailiListBean;
 import com.xiaomai.ageny.details.dailidetails.DailiDetailsActivity;
 import com.xiaomai.ageny.fragment.agency.fragment.daili.contract.DailiContract;
 import com.xiaomai.ageny.fragment.agency.fragment.daili.presenter.DailiPresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,8 +64,19 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
         moneyText.setSelected(true);
         mPresenter = new DailiPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("", "", "", "1", "6");
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData("", "", "", "1", "6");
+            }
+        });
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.getData("", "", "", "1", "6");
     }
 
     @Override
@@ -83,7 +96,7 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
@@ -91,6 +104,9 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
         if (bean.getCode() == 1) {
             totleCount.setText("共" + bean.getData().getTotal() + "家");
             list = bean.getData().getList();
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             adapter = new Adapter(R.layout.daili_item, list);
             recycler.setAdapter(adapter);
@@ -102,6 +118,8 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
                     toClass(view.getContext(), DailiDetailsActivity.class, bundle);
                 }
             });
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 

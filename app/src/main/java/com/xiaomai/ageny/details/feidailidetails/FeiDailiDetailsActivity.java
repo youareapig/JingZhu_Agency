@@ -14,6 +14,8 @@ import com.xiaomai.ageny.bean.HisSellerBean;
 import com.xiaomai.ageny.details.feidailidetails.contract.FeiDailiDetailsContract;
 import com.xiaomai.ageny.details.feidailidetails.presenter.FeiDailiDetailsPresenter;
 import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghulist.XiaJiSH_ListActivity;
 
 import butterknife.BindView;
@@ -59,6 +61,8 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
     TextView addTime;
     @BindView(R.id.all_money)
     TextView allMoney;
+    @BindView(R.id.otherview)
+    OtherView otherView;
     private String id;
     private Bundle bundle;
 
@@ -70,10 +74,24 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
     @Override
     public void initView() {
         ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
+        otherView.setHolder(mHolder);
         bundle = new Bundle();
         id = getIntent().getExtras().getString("id");
         mPresenter = new FeiDailiDetailsPresenter();
         mPresenter.attachView(this);
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData(id);
+                mPresenter.getHisSeller(id);
+                mPresenter.getAgencyUserInfo(id);
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         mPresenter.getData(id);
         mPresenter.getHisSeller(id);
         mPresenter.getAgencyUserInfo(id);
@@ -81,17 +99,17 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override

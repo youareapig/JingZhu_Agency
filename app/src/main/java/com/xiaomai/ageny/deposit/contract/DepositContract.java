@@ -1,7 +1,7 @@
 package com.xiaomai.ageny.deposit.contract;
 
 import com.xiaomai.ageny.base.BaseView;
-import com.xiaomai.ageny.bean.DepositBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.IndexBean;
 
 import io.reactivex.Flowable;
@@ -11,7 +11,7 @@ public interface DepositContract {
     interface Model {
         Flowable<IndexBean> getData();
 
-        Flowable<DepositBean> getDepositBean(RequestBody requestBody);
+        Flowable<HintBean> getDepositBean(RequestBody requestBody);
     }
 
     interface View extends BaseView {
@@ -26,7 +26,7 @@ public interface DepositContract {
 
         void onSuccess(IndexBean bean);
 
-        void onSuccessDeposit(DepositBean bean);
+        void onSuccessDeposit(HintBean bean);
     }
 
     interface Presenter {

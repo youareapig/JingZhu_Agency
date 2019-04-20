@@ -17,7 +17,9 @@ import com.xiaomai.ageny.details.shanghudevicedetails.ShanghuDeviceDetailsActivi
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.contract.OnDeviceContract;
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.presenter.OnDevicePresenter;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -40,6 +42,7 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
     private Adapter adapter;
     private String id;
     private Bundle bundle;
+
     public OnDeviecFragment(String id) {
         this.id = id;
     }
@@ -47,10 +50,16 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
     @Override
     protected void initView(View view) {
         otherView.setHolder(mHolder);
-        bundle=new Bundle();
+        bundle = new Bundle();
         mPresenter = new OnDevicePresenter();
         mPresenter.attachView(this);
         mPresenter.getData(id, "1", "", "");
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData(id, "1", "", "");
+            }
+        });
     }
 
     @Override
@@ -70,13 +79,16 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
 
     @Override
     public void onError(Throwable throwable) {
-        Logger.d("错误");
+        otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(ContactDeviceListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             recycler.addItemDecoration(new SpacesItemDecoration(9));
             adapter = new Adapter(R.layout.shanghudevice_on_item, list);
@@ -85,10 +97,12 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
             adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    bundle.putString("id",list.get(position).getId());
-                    toClass(view.getContext(), ShanghuDeviceDetailsActivity.class,bundle);
+                    bundle.putString("id", list.get(position).getId());
+                    toClass(view.getContext(), ShanghuDeviceDetailsActivity.class, bundle);
                 }
             });
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
 
     }

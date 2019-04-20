@@ -14,7 +14,9 @@ import com.xiaomai.ageny.bean.DailiListBean;
 import com.xiaomai.ageny.details.feidailidetails.FeiDailiDetailsActivity;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.contract.FeidailiContract;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.presenter.FeidailiPresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +40,19 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
         bundle = new Bundle();
         mPresenter = new FeidailiPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("", "", "", "0", "");
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData("", "", "", "0", "");
+            }
+        });
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.getData("", "", "", "0", "");
     }
 
     @Override
@@ -59,13 +72,16 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(DailiListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             adapter = new Adapter(R.layout.feidaili_item, list);
             recycler.setAdapter(adapter);
@@ -77,6 +93,8 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
                     toClass(view.getContext(), FeiDailiDetailsActivity.class, bundle);
                 }
             });
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 

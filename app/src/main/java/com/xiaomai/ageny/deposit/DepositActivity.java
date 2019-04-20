@@ -15,7 +15,7 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.addbank.DepositSuccessActivity;
 import com.xiaomai.ageny.addbank.BankActivity;
 import com.xiaomai.ageny.base.BaseMvpActivity;
-import com.xiaomai.ageny.bean.DepositBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.deposit.contract.DepositContract;
 import com.xiaomai.ageny.deposit.presenter.DepositPresenter;
@@ -127,7 +127,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
     }
 
     @Override
-    public void onSuccessDeposit(DepositBean bean) {
+    public void onSuccessDeposit(HintBean bean) {
         if (bean.getCode() == 1) {
             toClass1(this, DepositSuccessActivity.class);
         } else {

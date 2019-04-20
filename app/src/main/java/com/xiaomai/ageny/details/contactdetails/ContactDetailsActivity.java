@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.orhanobut.logger.Logger;
+import com.xiaomai.ageny.MainActivity;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.addcontact.AddContactActivity;
 import com.xiaomai.ageny.base.BaseMvpActivity;
@@ -18,6 +19,7 @@ import com.xiaomai.ageny.shanghudevice.ShanghuDeviceActivity;
 import com.xiaomai.ageny.unbundle.unbundle_shanghu.UnbundleShanghuActivity;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -64,6 +66,7 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
 
     private Bundle bundle;
     private String id, strStorename, strLinkName, strLinkTel, strAdress, strYingye, strPersoncount;
+    public static ContactDetailsActivity instance;
 
     @Override
     public int getLayoutId() {
@@ -73,6 +76,7 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
     @Override
     public void initView() {
         otherView.setHolder(mHolder);
+        instance=this;
     }
 
     @Override
@@ -81,10 +85,18 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
         bundle = new Bundle();
         ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
         id = getIntent().getExtras().getString("id");
+        Logger.d("id-----"+id);
         mPresenter = new ContactDetailsPresenter();
         mPresenter.attachView(this);
         mPresenter.getData(id);
         mPresenter.getUserInfo(id, "");
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData(id);
+                mPresenter.getUserInfo(id, "");
+            }
+        });
     }
 
     @Override
@@ -99,7 +111,7 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
 
     @Override
     public void onError(Throwable throwable) {
-        ToastUtil.showShortToast("错误" + throwable.getMessage());
+        otherView.showRetryView();
     }
 
     @Override
@@ -116,6 +128,8 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
             onLine.setText("在线：" + data.getOnLineCount() + "台");
             deviceId.setText("编号：" + id);
 
+        }else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 
@@ -133,6 +147,8 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
             name.setText("联系人：" + strLinkName);
             tel.setText("联系方式：" + strLinkTel);
             addtime.setText("添加时间：" + userInfoBean.getData().getCreateTimestr());
+        }else {
+            ToastUtil.showShortToast(userInfoBean.getMessage());
         }
 
     }
@@ -148,7 +164,11 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
                 toClass(this, ShanghuDeviceActivity.class, bundle);
                 break;
             case R.id.bt_unbundle:
-                toClass(this, UnbundleShanghuActivity.class);
+                bundle.putString("sellerId", id);
+                bundle.putString("sellerName", strStorename);
+                bundle.putString("mobile", strLinkTel);
+
+                toClass(this, UnbundleShanghuActivity.class, bundle);
                 break;
             case R.id.updateuserinfo:
                 bundle.putInt("isadd", 2);
