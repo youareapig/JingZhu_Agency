@@ -14,6 +14,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.BillListBean;
 import com.xiaomai.ageny.mybill.contract.MyBillContract;
 import com.xiaomai.ageny.mybill.presenter.MyBillPresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
@@ -60,19 +61,16 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
 
     @Override
     public void showLoading() {
-        Logger.d("showLoading");
         otherview.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-        Logger.d("hideLoading");
         otherview.showContentView();
     }
 
     @Override
     public void onError(Throwable throwable) {
-        Logger.d("onError");
         otherview.showRetryView();
     }
 
@@ -82,11 +80,16 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
             tvAllMoney.setText(bean.getData().getTotal_earn());
             tvOrderMoney.setText(bean.getData().getTotal_price());
             list = bean.getData().getList();
+            if (list.size()==0){
+                otherview.showEmptyView();
+            }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.mybill_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
+        }else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
 
     }

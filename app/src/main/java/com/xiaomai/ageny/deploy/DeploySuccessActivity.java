@@ -39,8 +39,10 @@ public class DeploySuccessActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.bt_back_index:
-                toClass(this, DeviceInstallActivity.class);
                 finish();
+                if (DeployActivity.instance != null) {
+                    DeployActivity.instance.finish();
+                }
                 break;
         }
     }

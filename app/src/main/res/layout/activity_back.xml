@@ -55,6 +55,7 @@
                 android:textSize="@dimen/sp_17" />
 
             <EditText
+                android:id="@+id/name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_16"
@@ -85,6 +86,7 @@
                 android:textSize="@dimen/sp_17" />
 
             <EditText
+                android:id="@+id/banktype"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_16"
@@ -115,6 +117,7 @@
                 android:textSize="@dimen/sp_17" />
 
             <EditText
+                android:id="@+id/bankid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_16"
@@ -145,6 +148,7 @@
                 android:textSize="@dimen/sp_17" />
 
             <EditText
+                android:id="@+id/tel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_16"

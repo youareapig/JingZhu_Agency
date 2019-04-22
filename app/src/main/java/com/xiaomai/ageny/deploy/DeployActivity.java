@@ -101,6 +101,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     private String strId, strlatandlng, strcity, stradress, strprice, strtel, strfenrun, strisfreeze, strlat, strlng;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
+    public static DeployActivity instance;
 
     @Override
     public int getLayoutId() {
@@ -109,6 +110,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
     @Override
     public void initView() {
+        instance=this;
         mPresenter = new DeployPresenter();
         mPresenter.attachView(this);
         priceList.add("1");
@@ -163,7 +165,6 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     public void onDeploy(HintBean bean) {
         if (bean.getCode() == 1) {
             toClass1(this, DeploySuccessActivity.class);
-            finish();
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

@@ -83,6 +83,7 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
             ToastUtil.showShortToast(bean.getMessage());
+            finish();
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

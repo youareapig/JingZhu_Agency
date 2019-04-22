@@ -21,6 +21,7 @@ import com.xiaomai.ageny.order.fragment.lowerorder.contract.LowerOrderContract;
 import com.xiaomai.ageny.order.fragment.lowerorder.presenter.LowerOrderPresenter;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,6 +56,12 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
         /**
          * 加载更多
          * */
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData("", "", "", "", "1", App.pageSize);
+            }
+        });
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
@@ -103,7 +110,7 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherview.showRetryView();
     }
 
     @Override
@@ -112,6 +119,10 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
             orderTotleMoney.setText(bean.getData().getCountRentPrice());
             earn.setText(bean.getData().getCountEarn());
             list.addAll(bean.getData().getList());
+            if (list.size()==0){
+                otherview.showEmptyView();
+                refresh.setCanLoadMore(false);
+            }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.order_item, list);
@@ -137,6 +148,8 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
             adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
             if (bean.getData().getList().size() == 0) {
                 ToastUtil.showShortToast("没有更多数据");
+            }else {
+                ToastUtil.showShortToast(bean.getMessage());
             }
         }
     }

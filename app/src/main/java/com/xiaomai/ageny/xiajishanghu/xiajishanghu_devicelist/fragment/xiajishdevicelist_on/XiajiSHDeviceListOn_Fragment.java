@@ -9,6 +9,8 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.XiajiListBean;
 import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.fragment.xiajishdevicelist_on.contract.XiajiSHDeviceListOnContract;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.fragment.xiajishdevicelist_on.presenter.XiajiSHDeviceListOnPresenter;
 
@@ -22,6 +24,8 @@ import butterknife.Unbinder;
 public class XiajiSHDeviceListOn_Fragment extends BaseMvpFragment<XiajiSHDeviceListOnPresenter> implements XiajiSHDeviceListOnContract.View {
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.otherview)
+    OtherView otherView;
 
     private List<XiajiListBean.DataBean> list;
     private Adapter adapter;
@@ -33,10 +37,16 @@ public class XiajiSHDeviceListOn_Fragment extends BaseMvpFragment<XiajiSHDeviceL
 
     @Override
     protected void initView(View view) {
+        otherView.setHolder(mHolder);
         mPresenter = new XiajiSHDeviceListOnPresenter();
         mPresenter.attachView(this);
         mPresenter.getData(id, "", "", "1");
-
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData(id, "", "", "1");
+            }
+        });
     }
 
     @Override
@@ -46,29 +56,32 @@ public class XiajiSHDeviceListOn_Fragment extends BaseMvpFragment<XiajiSHDeviceL
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(XiajiListBean bean) {
         if (bean.getCode() == 1) {
-            list=bean.getData();
+            list = bean.getData();
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
             adapter = new Adapter(R.layout.xiajishdevice_on_item, list);
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

@@ -30,7 +30,6 @@ public class MyBillPresenter extends BasePresenter<MyBillContract.View> implemen
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.hideLoading();
                         mView.onError(throwable);
 
                     }

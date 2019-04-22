@@ -11,6 +11,14 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_142"
         android:src="@mipmap/img_no_network" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="服务器故障或暂无网络~"
+        android:textColor="#363636"
+        android:layout_marginTop="@dimen/dp_60"
+        android:textSize="@dimen/sp_17" />
 
     <TextView
         android:id="@+id/bt_reload"

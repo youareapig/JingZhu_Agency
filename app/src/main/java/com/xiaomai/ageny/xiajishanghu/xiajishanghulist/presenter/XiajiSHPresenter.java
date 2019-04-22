@@ -26,14 +26,13 @@ public class XiajiSHPresenter extends BasePresenter<XiajiSHContract.View> implem
                 .subscribe(new Consumer<AgencySellerListBean>() {
                     @Override
                     public void accept(AgencySellerListBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
                     }
                 });
     }

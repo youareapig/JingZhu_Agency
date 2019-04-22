@@ -9,9 +9,13 @@ import android.widget.TextView;
 
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.bean.UnbindRecordBean;
 import com.xiaomai.ageny.filter.unbundle_record_filter.UnbundleRecordFilterActivity;
 import com.xiaomai.ageny.unbundle.unbundle_record.contract.UnbundleRecordContract;
 import com.xiaomai.ageny.unbundle.unbundle_record.presenter.UnbundleRecordPresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,8 +33,11 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
     TextView btFilter;
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.otherview)
+    OtherView otherView;
+
     private Adapter adapter;
-    private List<String> list;
+    private List<UnbindRecordBean.DataBean> list;
 
     @Override
     public int getLayoutId() {
@@ -39,29 +46,47 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
 
     @Override
     public void initView() {
-        list = new ArrayList<>();
-        list.add("商户名称：兵哥豌豆面（武侯店）");
-        list.add("商户名称：兵哥豌豆面（武侯店）");
-        list.add("商户名称：兵哥豌豆面（武侯店）");
-        list.add("商户名称：兵哥豌豆面（武侯店）");
-        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new Adapter(R.layout.unbundle_record_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
+        otherView.setHolder(mHolder);
+        mPresenter = new UnbundleRecordPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData("", "", "", "");
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData("", "", "", "");
+            }
+        });
     }
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
     public void onError(Throwable throwable) {
+        otherView.showRetryView();
+    }
+
+    @Override
+    public void onSuccess(UnbindRecordBean bean) {
+        if (bean.getCode() == 1) {
+            list = bean.getData();
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
+            recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            adapter = new Adapter(R.layout.unbundle_record_item, list);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
 
     }
 
@@ -69,6 +94,7 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.bt_filter:
                 toClass1(this, UnbundleRecordFilterActivity.class);

@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.net;
 
 
+import com.xiaomai.ageny.bean.DepositListBean;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.AgencyDetailsBean;
 import com.xiaomai.ageny.bean.AgencySellerListBean;
@@ -18,12 +19,18 @@ import com.xiaomai.ageny.bean.HisSellerBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.bean.LowerOrderBean;
 import com.xiaomai.ageny.bean.LowerOrderDetailsBean;
+import com.xiaomai.ageny.bean.MyBankBean;
 import com.xiaomai.ageny.bean.MyOrderDetailsBean;
 import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 import com.xiaomai.ageny.bean.MyOrderBean;
 import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
 import com.xiaomai.ageny.bean.OffIndirectDeivceDetailsBean;
+import com.xiaomai.ageny.bean.ShopApplyBean;
+import com.xiaomai.ageny.bean.ShopBean;
+import com.xiaomai.ageny.bean.ShopRecordBean;
+import com.xiaomai.ageny.bean.StaffBean;
 import com.xiaomai.ageny.bean.TelToNameBean;
+import com.xiaomai.ageny.bean.UnbindRecordBean;
 import com.xiaomai.ageny.bean.UserInfoBean;
 import com.xiaomai.ageny.bean.VerCodeBean;
 import com.xiaomai.ageny.bean.XiajiListBean;
@@ -234,5 +241,63 @@ public interface APIService {
     //解绑设备
     @POST(urlhead + "agentCenter/device/delete")
     Flowable<HintBean> deviceDelete(@Body RequestBody requestBody);
+
+    //提现记录
+    @GET(urlhead + "agentCenter/user/withdraw/list")
+    Flowable<DepositListBean> getDepositListBean(@Query("page") String page,
+                                                 @Query("page_size") String page_size,
+                                                 @Query("state") String state,
+                                                 @Query("orderid") String orderid,
+                                                 @Query("price_start") String price_start,
+                                                 @Query("price_end") String price_end);
+
+    //我的银行卡
+    @GET(urlhead + "agentCenter/user/creditCard")
+    Flowable<MyBankBean> getMyBankBean();
+
+    //添加银行卡
+    @POST(urlhead + "agentCenter/user/creditCard/add")
+    Flowable<HintBean> addBank(@Body RequestBody requestBody);
+
+    //修改银行卡信息
+    @POST(urlhead + "agentCenter/user/creditCard/save")
+    Flowable<HintBean> updateBank(@Body RequestBody requestBody);
+
+    //获取员工列表
+    @GET(urlhead + "agentCenter/user/agent/list")
+    Flowable<StaffBean> getStaffListBean(@Query("page") String page, @Query("page_size") String page_size);
+
+    //删除员工
+    @POST(urlhead + "agentCenter/user/agent/delete")
+    Flowable<HintBean> deleteStaff(@Body RequestBody requestBody);
+
+    //添加员工
+    @POST(urlhead + "agentCenter/user/agent/add")
+    Flowable<HintBean> addStaff(@Body RequestBody requestBody);
+
+    //获取商户解绑记录
+    @GET(urlhead + "agentCenter/user/seller/unbindcord")
+    Flowable<UnbindRecordBean> getUnbindRecordBean(@Query("page") String page,
+                                                   @Query("page_size") String page_size,
+                                                   @Query("linkman") String linkman,
+                                                   @Query("linkmobile") String linkmobile);
+
+    //采购单列表
+    @GET(urlhead + "agentCenter/user/application/list")
+    Flowable<ShopRecordBean> getShopRecordListBean(@Query("bath") String bath,
+                                                   @Query("mobile") String mobile,
+                                                   @Query("page") String page,
+                                                   @Query("page_size") String page_size);
+
+    //申请记录列表
+    @GET(urlhead + "agentCenter/user/records/list")
+    Flowable<ShopApplyBean> getShopApplyBean(@Query("bath") String bath,
+                                             @Query("state") String state,
+                                             @Query("page") String page,
+                                             @Query("page_size") String page_size);
+
+    //申请记录和采购单详情
+    @GET(urlhead + "agentCenter/user/records/details")
+    Flowable<ShopBean> getShopDetails(@Query("receiptId") String receiptId);
 }
 

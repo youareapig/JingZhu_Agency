@@ -12,6 +12,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.AgencySellerListBean;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.XiajiSHDeviceListActivity;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghulist.contract.XiajiSHContract;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghulist.presenter.XiajiSHPresenter;
@@ -50,6 +51,12 @@ public class XiaJiSH_ListActivity extends BaseMvpActivity<XiajiSHPresenter> impl
         mPresenter = new XiajiSHPresenter();
         mPresenter.attachView(this);
         mPresenter.getData(id);
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData(id);
+            }
+        });
 
     }
 
@@ -65,13 +72,16 @@ public class XiaJiSH_ListActivity extends BaseMvpActivity<XiajiSHPresenter> impl
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(AgencySellerListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData();
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
             adapter = new Adapter(R.layout.xiaji_item, list);
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recycler.setAdapter(adapter);

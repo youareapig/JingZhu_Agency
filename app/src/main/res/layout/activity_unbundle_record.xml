@@ -45,8 +45,17 @@
             android:src="@mipmap/filter_botton" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+    <com.xiaomai.ageny.utils.state_layout.OtherView
+        android:id="@+id/otherview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.xiaomai.ageny.utils.state_layout.OtherView>
+
+
 </LinearLayout>

@@ -16,4 +16,9 @@ public class BaseUtils {
     public static String subFrontString(String str, String tag) {
         return str.substring(0, str.indexOf(tag));
     }
+
+    //截取后面几位
+    public static String subsubBehindNumString(String str, int num) {
+        return str.substring(str.length() - num);
+    }
 }

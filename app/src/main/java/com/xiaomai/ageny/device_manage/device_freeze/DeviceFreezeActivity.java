@@ -62,7 +62,7 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
         titleList.add("已解冻");
         titleList.add("已回款");
         fragmentList = new ArrayList<>();
-        fragmentList.add(new NoFreeze_Fragment(id, reletion));
+        fragmentList.add(new NoFreeze_Fragment());
         fragmentList.add(new Freezed_Fragment());
         fragmentList.add(new ReturnMoney_Fragment());
 

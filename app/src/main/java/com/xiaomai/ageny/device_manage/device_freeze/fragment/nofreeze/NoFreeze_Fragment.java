@@ -16,6 +16,7 @@ import com.xiaomai.ageny.details.devcie_freeze_details.DeviceFreezDetailsActivit
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.Adapter;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.nofreeze.contract.NoFreezeContract;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.nofreeze.presenter.NoFreezePresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +33,6 @@ public class NoFreeze_Fragment extends BaseMvpFragment<NoFreezePresenter> implem
     private List<FreezeBean.DataBean.ListBean> list;
     private String deviceId, relation;
 
-    public NoFreeze_Fragment() {
-    }
-
-    @SuppressLint("ValidFragment")
-    public NoFreeze_Fragment(String deviceId, String relation) {
-        this.deviceId = deviceId;
-        this.relation = relation;
-    }
 
     @Override
     protected void initView(View view) {
@@ -83,6 +76,8 @@ public class NoFreeze_Fragment extends BaseMvpFragment<NoFreezePresenter> implem
                     toClass(view.getContext(), DeviceFreezDetailsActivity.class);
                 }
             });
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 

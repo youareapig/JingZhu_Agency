@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.deposit;
 
+import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -19,6 +20,7 @@ import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.deposit.contract.DepositContract;
 import com.xiaomai.ageny.deposit.presenter.DepositPresenter;
+import com.xiaomai.ageny.update_bank.UpdateBankActivity;
 import com.xiaomai.ageny.utils.HideUtil;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ToastUtil;
@@ -64,10 +66,13 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
     TextView serviceMoney;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.updatebank)
+    RelativeLayout updateBank;
 
     private String strprice, strcardid, strbank, strtel, strname;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
+    private Bundle bundle;
 
     @Override
     public int getLayoutId() {
@@ -76,6 +81,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
 
     @Override
     public void initView() {
+        bundle = new Bundle();
         otherView.setHolder(mHolder);
         //设置hint字体的大小
         SpannableString ss = new SpannableString("请输入金额");//定义hint的值
@@ -84,6 +90,11 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
         etMoney.setHint(new SpannedString(ss));
         mPresenter = new DepositPresenter();
         mPresenter.attachView(this);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         mPresenter.getData();
     }
 
@@ -150,7 +161,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
 
     }
 
-    @OnClick({R.id.back, R.id.bt_addbank, R.id.bt_sure})
+    @OnClick({R.id.back, R.id.bt_addbank, R.id.bt_sure, R.id.updatebank})
 
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -184,7 +195,14 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
                         mPresenter.getDepositBean(MaptoJson.toJsonZero(keyList, valueList));
                     }
                 }
-
+                break;
+            case R.id.updatebank:
+                //修改信息
+                bundle.putString("banktype", strbank);
+                bundle.putString("bankid", strcardid);
+                bundle.putString("name", strname);
+                bundle.putString("tel", strtel);
+                toClass(this, UpdateBankActivity.class, bundle);
                 break;
         }
     }

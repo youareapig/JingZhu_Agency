@@ -24,14 +24,13 @@ public class MyOrderPresenter extends BasePresenter<MyOrderContract.View> implem
                 .subscribe(new Consumer<MyOrderBean>() {
                     @Override
                     public void accept(MyOrderBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
                     }
                 });
     }

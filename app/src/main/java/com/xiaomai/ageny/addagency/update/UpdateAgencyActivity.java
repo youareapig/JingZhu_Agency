@@ -105,13 +105,14 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
 
     @Override
     public void onError(Throwable throwable) {
-        Logger.d("修改错误");
+        ToastUtil.showShortToast("服务器故障");
     }
 
     @Override
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
             ToastUtil.showShortToast(bean.getMessage());
+            finish();
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

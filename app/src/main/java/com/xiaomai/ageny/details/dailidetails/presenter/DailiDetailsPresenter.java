@@ -34,7 +34,6 @@ public class DailiDetailsPresenter extends BasePresenter<DailiDetailsContract.Vi
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.hideLoading();
                         mView.onError(throwable);
                     }
                 });
@@ -56,7 +55,6 @@ public class DailiDetailsPresenter extends BasePresenter<DailiDetailsContract.Vi
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.hideLoading();
                         mView.onError(throwable);
                     }
                 });
@@ -78,7 +76,6 @@ public class DailiDetailsPresenter extends BasePresenter<DailiDetailsContract.Vi
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.hideLoading();
                         mView.onError(throwable);
                     }
                 });

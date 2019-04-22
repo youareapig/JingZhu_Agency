@@ -21,6 +21,7 @@ import com.xiaomai.ageny.deviceinstalllist.presenter.DeviceInstallPresenter;
 import com.xiaomai.ageny.filter.deviceinstall.DeviceInstallFilterActivity;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.List;
 
@@ -67,8 +68,12 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
         mPresenter = new DeviceInstallPresenter();
         mPresenter.attachView(this);
-        mPresenter.getDeviceInstallListData(strChiyourenTel, strAnzhuangrenTel, strTime);
-
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getDeviceInstallListData("", "", "");
+            }
+        });
         //下拉上啦
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
@@ -98,6 +103,12 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.getDeviceInstallListData("", "", "");
+    }
+
+    @Override
     public void showLoading() {
         otherView.showLoadingView();
     }
@@ -109,13 +120,16 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(DeviceInstallListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             adapter = new Adapter(R.layout.device_install_item, list);
             recycler.setNestedScrollingEnabled(false);

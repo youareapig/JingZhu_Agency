@@ -46,7 +46,6 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
     RelativeLayout btPopup;
     @BindView(R.id.bt_setting)
     RelativeLayout btSetting;
-    Unbinder unbinder;
     @BindView(R.id.username)
     TextView username;
     @BindView(R.id.userlevel)

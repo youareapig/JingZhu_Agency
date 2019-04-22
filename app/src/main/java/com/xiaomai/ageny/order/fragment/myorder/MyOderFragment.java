@@ -21,6 +21,7 @@ import com.xiaomai.ageny.order.fragment.myorder.contract.MyOrderContract;
 import com.xiaomai.ageny.order.fragment.myorder.presenter.MyOrderPresenter;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,12 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
         mPresenter = new MyOrderPresenter();
         mPresenter.attachView(this);
         mPresenter.getData("", "", "", "", "1", App.pageSize);
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData("", "", "", "", "1", App.pageSize);
+            }
+        });
 
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
@@ -59,10 +66,10 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (list!=null){
+                        if (list != null) {
                             list.clear();
                         }
-                        page=1;
+                        page = 1;
                         mPresenter.getData("", "", "", "", "1", App.pageSize);
                         refresh.finishRefresh();
                     }
@@ -101,7 +108,7 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
@@ -110,6 +117,10 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
             orderTotleMoney.setText(bean.getData().getCountRentPrice());
             earn.setText(bean.getData().getCountEarn());
             list.addAll(bean.getData().getList());
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+                refresh.setCanLoadMore(false);
+            }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.order_item, list);
@@ -137,6 +148,8 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
             if (bean.getData().getList().size() == 0) {
                 ToastUtil.showShortToast("没有更多数据");
             }
+        }else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
 
     }

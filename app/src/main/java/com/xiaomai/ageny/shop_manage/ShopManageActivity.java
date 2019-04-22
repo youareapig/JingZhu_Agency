@@ -64,6 +64,7 @@ public class ShopManageActivity extends BaseActivity {
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
                 tabPosition = tab.getPosition();
+                viewpage.setCurrentItem(tabPosition);
             }
 
             @Override

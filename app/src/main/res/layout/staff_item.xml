@@ -52,6 +52,7 @@
                 android:src="@mipmap/seller_icon_04" />
 
             <TextView
+                android:id="@+id/tel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -73,6 +74,7 @@
                 android:src="@mipmap/seller_icon_05" />
 
             <TextView
+                android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -85,19 +87,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginRight="-5dp"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_12"
         android:layout_marginBottom="@dimen/dp_3">
 
         <TextView
             android:id="@+id/delete"
-            android:layout_width="@dimen/dp_150"
+            android:layout_width="@dimen/dp_93"
             android:layout_height="match_parent"
-            android:background="#ff00"
+            android:background="@drawable/frame_blue_dp3"
             android:gravity="center"
             android:text="删除"
             android:textColor="#ffffff"
-            android:textSize="@dimen/sp_16" />
+            android:textSize="@dimen/sp_15" />
 
     </LinearLayout>
 </com.xiaomai.ageny.utils.SwipeItemLayout>

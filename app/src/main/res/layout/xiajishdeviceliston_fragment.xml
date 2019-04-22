@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xiaomai.ageny.utils.state_layout.OtherView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:id="@+id/otherview"
     android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView
@@ -23,4 +24,4 @@
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 
-</LinearLayout>
+</com.xiaomai.ageny.utils.state_layout.OtherView>

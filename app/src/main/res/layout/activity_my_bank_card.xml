@@ -29,97 +29,137 @@
             android:textColor="#363636" />
     </RelativeLayout>
 
-    <RelativeLayout
+    <com.xiaomai.ageny.utils.state_layout.OtherView
+        android:id="@+id/otherview"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_121"
-        android:layout_marginLeft="@dimen/dp_13"
-        android:layout_marginTop="@dimen/dp_17"
-        android:layout_marginRight="@dimen/dp_13"
-        android:elevation="@dimen/dp_3">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_121"
-            android:src="@mipmap/card_bg" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/view_addbank"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/dp_22"
-            android:paddingRight="@dimen/dp_20">
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_17">
-
-                <ImageView
-                    android:layout_width="@dimen/dp_20"
-                    android:layout_height="@dimen/dp_16"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/card_mine_write" />
-
-                <TextView
-                    android:id="@+id/banktype"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/dp_33"
-                    android:text="建设银行"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/sp_16" />
-
-                <TextView
-                    android:id="@+id/bt_alterinfo"
-                    android:layout_width="@dimen/dp_76"
-                    android:layout_height="@dimen/dp_22"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/bt_update"
-                    android:gravity="center"
-                    android:text="修改信息"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/sp_13" />
-            </RelativeLayout>
+            android:layout_height="@dimen/dp_74"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:layout_marginTop="@dimen/dp_17"
+            android:layout_marginRight="@dimen/dp_13"
+            android:background="@drawable/index_frame"
+            android:elevation="@dimen/dp_3"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/bankid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_18"
-                android:text="6217 0089 4457 9971 131"
-                android:textColor="#fff"
-                android:textSize="@dimen/sp_18" />
+                android:layout_marginLeft="@dimen/dp_18"
+                android:text="您还未添加银行卡信息"
+                android:textColor="#666666"
+                android:textSize="@dimen/sp_15" />
 
+            <TextView
+                android:id="@+id/bt_addbank"
+                android:layout_width="@dimen/dp_90"
+                android:layout_height="@dimen/dp_26"
+                android:layout_marginLeft="@dimen/dp_73"
+                android:background="@drawable/addbank_button"
+                android:gravity="center"
+                android:text="马上添加"
+                android:textColor="@color/appbar"
+                android:textSize="@dimen/sp_13" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp_10">
-
-
-                <TextView
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="黄豆豆"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/sp_16" />
-
-                <TextView
-                    android:id="@+id/tel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:text="136 6920 0087"
-                    android:textColor="#fff"
-                    android:textSize="@dimen/sp_14" />
-            </RelativeLayout>
         </LinearLayout>
-    </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/view_bank"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_121"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:layout_marginTop="@dimen/dp_17"
+            android:layout_marginRight="@dimen/dp_13"
+            android:elevation="@dimen/dp_3">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_121"
+                android:src="@mipmap/card_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp_22"
+                android:paddingRight="@dimen/dp_20">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_17">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_16"
+                        android:layout_centerVertical="true"
+                        android:src="@mipmap/card_mine_write" />
+
+                    <TextView
+                        android:id="@+id/banktype"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/dp_33"
+                        android:text="建设银行"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/sp_16" />
+
+                    <TextView
+                        android:id="@+id/bt_alterinfo"
+                        android:layout_width="@dimen/dp_76"
+                        android:layout_height="@dimen/dp_22"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bt_update"
+                        android:gravity="center"
+                        android:text="修改信息"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/sp_13" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/bankid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/dp_18"
+                    android:text="6217 0089 4457 9971 131"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/sp_18" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10">
+
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="黄豆豆"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/sp_16" />
+
+                    <TextView
+                        android:id="@+id/tel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="136 6920 0087"
+                        android:textColor="#fff"
+                        android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </com.xiaomai.ageny.utils.state_layout.OtherView>
 </LinearLayout>

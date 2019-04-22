@@ -130,7 +130,9 @@
             android:name=".shop_manage.goshop.GoShopActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity android:name=".login.LoginActivity" />
-        <activity android:name=".task.TaskActivity"></activity>
+        <activity android:name=".task.TaskActivity" />
+        <activity android:name=".update_bank.UpdateBankActivity" />
+        <activity android:name=".add_staff.AddStaffActivity"></activity>
     </application>
 
 </manifest>

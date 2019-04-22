@@ -11,10 +11,13 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
+import com.xiaomai.ageny.bean.ShopRecordBean;
 import com.xiaomai.ageny.details.shop_note_details.ShopNoteDetailsActivity;
 import com.xiaomai.ageny.shop_manage.fragment.shopnote.contract.ShopNoteContract;
 import com.xiaomai.ageny.shop_manage.fragment.shopnote.presenter.ShopNotePresenter;
 import com.xiaomai.ageny.shop_manage.goshop.GoShopActivity;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,30 +32,26 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
     RecyclerView recycler;
     @BindView(R.id.bt_shop)
     TextView btShop;
-    Unbinder unbinder;
-    private List<String> list;
+    @BindView(R.id.otherview)
+    OtherView otherView;
+    private List<ShopRecordBean.DataBean.ListBean> list;
     private Adapter adapter;
+    private Bundle bundle;
 
     @Override
     protected void initView(View view) {
-        list = new ArrayList<>();
-        list.add("批次：第一次采购");
-        list.add("批次：第一次采购");
-        list.add("批次：第一次采购");
-        list.add("批次：第一次采购");
-        list.add("批次：第一次采购");
-        list.add("批次：第一次采购");
-        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        recycler.setNestedScrollingEnabled(false);
-        adapter = new Adapter(R.layout.shop_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        bundle=new Bundle();
+        otherView.setHolder(mHolder);
+        mPresenter = new ShopNotePresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData("", "", "", "");
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                toClass(view.getContext(), ShopNoteDetailsActivity.class);
+            public void onListener() {
+                mPresenter.getData("", "", "", "");
             }
         });
+
     }
 
     @Override
@@ -62,22 +61,44 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
     public void onError(Throwable throwable) {
+        otherView.showRetryView();
+    }
 
+    @Override
+    public void onSuccess(ShopRecordBean bean) {
+        if (bean.getCode() == 1) {
+            list = bean.getData().getList();
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
+            recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            recycler.setNestedScrollingEnabled(false);
+            adapter = new Adapter(R.layout.shop_item, list);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    bundle.putString("id",list.get(position).getReceiptId());
+                    toClass(view.getContext(), ShopNoteDetailsActivity.class,bundle);
+                }
+            });
+        }
     }
 
 
     @OnClick(R.id.bt_shop)
     public void onViewClicked() {
-        toClass(getActivity(),GoShopActivity.class);
+        toClass(getActivity(), GoShopActivity.class);
     }
 }
