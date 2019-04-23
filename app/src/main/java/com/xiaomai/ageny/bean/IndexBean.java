@@ -4,7 +4,7 @@ public class IndexBean {
 
     /**
      * code : 1
-     * data : {"bank":"农业银行","creditCard":"****   ****   ****   3275","day_earn":"0.00","freeze_money":"0.00","is_havecard":"1","liquidated":"0.00","mobile":"189****6214","month_earn":"1.68","noRentCount":"7","offLineCount":"0","onLineCount":"1","realName":"你蔡","rentCount":"0","subBank":"","total_earn":"3.78","unliquidated":"3.78","yestoday_earn":"0.00"}
+     * data : {"bank":"icbc","countTask":"19","creditCard":"1547895465125478","day_earn":"0.00","freeze_money":"140.00","is_havecard":"1","liquidated":"5000.00","mobile":"12547896541","month_earn":"2925.55","noRentCount":"39","offLineCount":"7","onLineCount":"1","realName":"华总gg","rentCount":"1","subBank":"","total_earn":"14839.80","unliquidated":"9699.80","yestoday_earn":"0.00"}
      * message :
      */
 
@@ -38,26 +38,28 @@ public class IndexBean {
 
     public static class DataBean {
         /**
-         * bank : 农业银行
-         * creditCard : ****   ****   ****   3275
+         * bank : icbc
+         * countTask : 19
+         * creditCard : 1547895465125478
          * day_earn : 0.00
-         * freeze_money : 0.00
+         * freeze_money : 140.00
          * is_havecard : 1
-         * liquidated : 0.00
-         * mobile : 189****6214
-         * month_earn : 1.68
-         * noRentCount : 7
-         * offLineCount : 0
+         * liquidated : 5000.00
+         * mobile : 12547896541
+         * month_earn : 2925.55
+         * noRentCount : 39
+         * offLineCount : 7
          * onLineCount : 1
-         * realName : 你蔡
-         * rentCount : 0
+         * realName : 华总gg
+         * rentCount : 1
          * subBank :
-         * total_earn : 3.78
-         * unliquidated : 3.78
+         * total_earn : 14839.80
+         * unliquidated : 9699.80
          * yestoday_earn : 0.00
          */
 
         private String bank;
+        private String countTask;
         private String creditCard;
         private String day_earn;
         private String freeze_money;
@@ -81,6 +83,14 @@ public class IndexBean {
 
         public void setBank(String bank) {
             this.bank = bank;
+        }
+
+        public String getCountTask() {
+            return countTask;
+        }
+
+        public void setCountTask(String countTask) {
+            this.countTask = countTask;
         }
 
         public String getCreditCard() {

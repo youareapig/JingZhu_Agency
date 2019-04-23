@@ -8,12 +8,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.bean.HintBean;
+import com.xiaomai.ageny.bean.ShowHoleBean;
 import com.xiaomai.ageny.device_popu.contract.DevicePopuContract;
 import com.xiaomai.ageny.device_popu.presenter.DevicePopuPresenter;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
 import com.xiaomai.ageny.utils.SpacesItemDecoration_left;
+import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,8 +36,12 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
     RecyclerView recycler;
     @BindView(R.id.bt_sure_pop)
     TextView btSurePop;
+    @BindView(R.id.otherview)
+    OtherView otherView;
     private List<String> list;
     private Adapter adapter;
+    private String id;
+    private int slotId;
 
     @Override
     public int getLayoutId() {
@@ -41,32 +50,12 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
 
     @Override
     public void initView() {
-        list = new ArrayList<>();
-        list.add("1孔");
-        list.add("2孔");
-        list.add("3孔");
-        list.add("4孔");
-        list.add("5孔");
-        list.add("6孔");
-        list.add("7孔");
-        list.add("8孔");
-        list.add("9孔");
-        list.add("10孔");
-        list.add("11孔");
-        list.add("12孔");
-        recycler.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
-        recycler.addItemDecoration(new SpacesItemDecoration_left(90));
-        recycler.setNestedScrollingEnabled(false);
-        adapter = new Adapter(R.layout.device_pop_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
-                adapter.setSelectItem(position);
-                adapter.notifyDataSetChanged();
-            }
-        });
+        id = getIntent().getExtras().getString("id");
+        otherView.setHolder(mHolder);
+        mPresenter = new DevicePopuPresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData(id);
+
     }
 
     @Override
@@ -81,7 +70,42 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
 
     @Override
     public void onError(Throwable throwable) {
+        Logger.d("错误");
+    }
 
+    @Override
+    public void onSuccess(HintBean bean) {
+        if (bean.getCode() == 1) {
+            finish();
+        }
+        ToastUtil.showShortToast(bean.getMessage());
+
+    }
+
+    @Override
+    public void onSuccess(final ShowHoleBean bean) {
+        if (bean.getCode() == 1) {
+            list = new ArrayList<>();
+            int kongcount = bean.getData();
+            for (int i = 1; i <= kongcount; i++) {
+                list.add(i + "孔");
+            }
+
+        }
+        recycler.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
+        recycler.addItemDecoration(new SpacesItemDecoration_left(90));
+        recycler.setNestedScrollingEnabled(false);
+        adapter = new Adapter(R.layout.device_pop_item, list);
+        recycler.setAdapter(adapter);
+        adapter.openLoadAnimation();
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                slotId = position + 1;
+                adapter.setSelectItem(position);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
 
@@ -92,6 +116,7 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
                 finish();
                 break;
             case R.id.bt_sure_pop:
+                mPresenter.popu(id, slotId + "");
                 break;
         }
     }

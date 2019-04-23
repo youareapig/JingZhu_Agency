@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,6 +90,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     public AMapLocationClient mLocationClient = null;
     public AMapLocationListener mLocationListener = new MyAMapLocationListener();
     public AMapLocationClientOption mLocationOption = null;
+    private String strTaskNum;
 
     @Override
     protected void initView(View view) {
@@ -174,6 +176,8 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     public void onSuccess(IndexBean bean) {
         if (bean.getCode() == 1) {
             IndexBean.DataBean data = bean.getData();
+            strTaskNum = data.getCountTask();
+
             yesterdayMoney.setText(data.getYestoday_earn());
             todayMoney.setText(data.getDay_earn());
             allMoney.setText(data.getTotal_earn());
@@ -184,6 +188,14 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             rentting.setText("租借中：" + data.getRentCount() + "个");
             offLine.setText("离线：" + data.getOffLineCount() + "台");
             onLine.setText("在线：" + data.getOnLineCount() + "台");
+            if (!TextUtils.isEmpty(strTaskNum)) {
+                showDialog();
+                tastCenter.setVisibility(View.VISIBLE);
+                Num.setText(strTaskNum);
+            } else {
+                tastCenter.setVisibility(View.GONE);
+            }
+
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -222,10 +234,19 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         final AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.FullScreenDialog).create();
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.offline_dialog, null);
+        TextView taskNum = v.findViewById(R.id.task_num);
+        taskNum.setText(strTaskNum);
         dialog.setCancelable(false);
         v.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        v.findViewById(R.id.deal).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toClass1(view.getContext(), TaskActivity.class);
                 dialog.cancel();
             }
         });

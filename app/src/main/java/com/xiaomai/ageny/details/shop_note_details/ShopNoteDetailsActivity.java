@@ -9,6 +9,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.ShopBean;
 import com.xiaomai.ageny.details.shop_note_details.contract.ShopNoteDetailsContract;
 import com.xiaomai.ageny.details.shop_note_details.presenter.ShopNoteDetailsPresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
@@ -82,7 +83,21 @@ public class ShopNoteDetailsActivity extends BaseMvpActivity<ShopNoteDetailsPres
 
     @Override
     public void onSuccess(ShopBean bean) {
-
+        if (bean.getCode() == 1) {
+            ShopBean.DataBean data = bean.getData();
+            name.setText(data.getReceiptName());
+            tel.setText(data.getReceiptMobile());
+            adress.setText(data.getReceiptAddress());
+            times.setText(data.getBatch());
+            smallNumFahuo.setText(data.getDeviceSmallDelivery());
+            smallNumWeifahuo.setText(data.getDeviceSmallNodelivery());
+            bigNumFahuo.setText(data.getDeviceBigDelivery());
+            bigNumWeifahuo.setText(data.getDeviceBigNodelivery());
+            paytype.setText(data.getPayment());
+            remark.setText(data.getExamination());
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
     }
 
 

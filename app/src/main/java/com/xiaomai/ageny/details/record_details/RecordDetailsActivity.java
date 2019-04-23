@@ -9,6 +9,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.ShopBean;
 import com.xiaomai.ageny.details.record_details.contract.RecordDetailsContract;
 import com.xiaomai.ageny.details.record_details.presenter.RecordDetailsPresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
@@ -80,7 +81,20 @@ public class RecordDetailsActivity extends BaseMvpActivity<RecordDetailsPresente
 
     @Override
     public void onSuccess(ShopBean bean) {
-
+        if (bean.getCode() == 1) {
+            ShopBean.DataBean data = bean.getData();
+            name.setText(data.getReceiptName());
+            tel.setText(data.getReceiptMobile());
+            adress.setText(data.getReceiptAddress());
+            times.setText(data.getBatch());
+            smallNum.setText(data.getDeviceSmallcount() + "台");
+            bigNum.setText(data.getDeviceBigcount() + "台");
+            remark.setText(data.getExamination());
+            state.setText(data.getState().equals("1") ? "已通过" : (data.getState().equals("0") ? "审核中" : "未通过"));
+            info.setText(data.getDetails());
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
     }
 
 

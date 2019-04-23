@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.UserInfoBean;
@@ -24,6 +25,7 @@ import com.xiaomai.ageny.fragment.mine.contract.MineContract;
 import com.xiaomai.ageny.fragment.mine.presenter.MinePresenter;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.setting.SettingActivity;
+import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -105,7 +107,7 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
             usertel.setText("绑定手机：" + data.getMobile());
             usertype.setText(data.getParent_name());
             userscale.setText(data.getReward());
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
@@ -154,8 +156,24 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
                 }
                 if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
                     String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    toClass(getActivity(), DevicePopuActivity.class);
-                    Logger.d("解析成功结果:" + result);
+                    try {
+
+                        Logger.d("解析成功结果:" + result);
+                        String headurl = BaseUtils.subFrontString(result, "=");
+                        String shadurl = BaseUtils.subBehindString(result, "=");
+                        Bundle mBundle = new Bundle();
+                        mBundle.putString("id", shadurl);
+                        toClass(getActivity(), DevicePopuActivity.class,mBundle);
+                        if (headurl.equals(App.ZxingBaseUrl)) {
+
+                        } else {
+                            ToastUtil.showShortToast("请扫描正确二维码");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ToastUtil.showShortToast("请扫描正确二维码");
+                    }
+
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
                     Logger.d("解析失败");
                 }

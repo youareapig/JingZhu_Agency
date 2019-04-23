@@ -90,7 +90,6 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
                 }, 1000);
             }
         });
-
     }
 
     @Override

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     tools:context=".shop_manage.goshop.GoShopActivity">
 
     <RelativeLayout style="@style/titlesytle">
@@ -49,12 +49,15 @@
                 android:textSize="@dimen/sp_15" />
 
             <EditText
+                android:id="@+id/input_times"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:hint="输入采购批次"
+                android:inputType="number"
                 android:paddingLeft="@dimen/dp_9"
+                android:singleLine="true"
                 android:textColorHint="#B6B6B6"
                 android:textSize="@dimen/sp_17"
                 android:theme="@style/MyEditText" />
@@ -69,12 +72,14 @@
                 android:textSize="@dimen/sp_15" />
 
             <EditText
+                android:id="@+id/input_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:hint="输入姓名"
                 android:paddingLeft="@dimen/dp_9"
+                android:singleLine="true"
                 android:textColorHint="#B6B6B6"
                 android:textSize="@dimen/sp_17"
                 android:theme="@style/MyEditText" />
@@ -89,12 +94,15 @@
                 android:textSize="@dimen/sp_15" />
 
             <EditText
+                android:id="@+id/input_tel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:hint="输入收件人联系方式"
+                android:inputType="phone"
                 android:paddingLeft="@dimen/dp_9"
+                android:singleLine="true"
                 android:textColorHint="#B6B6B6"
                 android:textSize="@dimen/sp_17"
                 android:theme="@style/MyEditText" />
@@ -109,12 +117,14 @@
                 android:textSize="@dimen/sp_15" />
 
             <EditText
+                android:id="@+id/input_adress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:hint="输入收件人地址"
                 android:paddingLeft="@dimen/dp_9"
+                android:singleLine="true"
                 android:textColorHint="#B6B6B6"
                 android:textSize="@dimen/sp_17"
                 android:theme="@style/MyEditText" />
@@ -129,12 +139,15 @@
                 android:textSize="@dimen/sp_15" />
 
             <EditText
+                android:id="@+id/input_small"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:hint="输入数量"
+                android:inputType="number"
                 android:paddingLeft="@dimen/dp_9"
+                android:singleLine="true"
                 android:textColorHint="#B6B6B6"
                 android:textSize="@dimen/sp_17"
                 android:theme="@style/MyEditText" />
@@ -149,12 +162,15 @@
                 android:textSize="@dimen/sp_15" />
 
             <EditText
+                android:id="@+id/input_big"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:hint="输入数量"
+                android:inputType="number"
                 android:paddingLeft="@dimen/dp_9"
+                android:singleLine="true"
                 android:textColorHint="#B6B6B6"
                 android:textSize="@dimen/sp_17"
                 android:theme="@style/MyEditText" />
@@ -169,11 +185,12 @@
                 android:textSize="@dimen/sp_15" />
 
             <RadioGroup
+                android:id="@+id/group"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_17"
-                android:checkedButton="@id/rb_once"
                 android:layout_marginTop="@dimen/dp_11"
+                android:checkedButton="@id/rb_fenqi"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -219,6 +236,7 @@
                 android:textSize="@dimen/sp_15" />
 
             <EditText
+                android:id="@+id/input_remark"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_130"
                 android:layout_marginLeft="@dimen/dp_10"
@@ -237,7 +255,7 @@
                 android:theme="@style/MyEditText" />
 
             <TextView
-                android:id="@+id/bt_shop"
+                android:id="@+id/bt_submit"
                 android:layout_width="@dimen/dp_260"
                 android:layout_height="@dimen/dp_44"
                 android:layout_gravity="center_horizontal"

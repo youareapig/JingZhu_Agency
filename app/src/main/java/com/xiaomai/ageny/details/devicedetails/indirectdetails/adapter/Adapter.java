@@ -27,7 +27,7 @@ public class Adapter extends BaseQuickAdapter<OffIndirectDeivceDetailsBean.DataB
     protected void convert(BaseViewHolder helper, OffIndirectDeivceDetailsBean.DataBean.ListBean item) {
         helper.setText(R.id.name, item.getAgentName())
                 .setText(R.id.agency, item.getAgentLevel() + "级代理")
-                .setText(R.id.time, DateUtils.timeStamp2Date(item.getDistTime().getTime() + ""));
+                .setText(R.id.time, DateUtils.timeStamp2Date(item.getDistTime().getTime()+""));
 
     }
 }

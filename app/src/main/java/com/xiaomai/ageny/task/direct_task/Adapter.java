@@ -12,7 +12,6 @@ import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 import com.xiaomai.ageny.details.devicedetails.directdetails.DirectDetailsActivity;
-import com.xiaomai.ageny.offline.fragment.direct.adapter.Adapter_Item;
 
 import java.util.List;
 
@@ -23,7 +22,13 @@ public class Adapter extends BaseQuickAdapter<OffDirectDeviceBean.DataBean.ListB
 
     @Override
     protected void convert(BaseViewHolder helper, OffDirectDeviceBean.DataBean.ListBean item) {
-        helper.setText(R.id.item_storename, item.getSellername());
-        //item  task_direct_item_item
+        helper.setText(R.id.item_storename, item.getSellername())
+                .setText(R.id.tel, item.getLinktel());
+        RecyclerView recyclerView = helper.getView(R.id.item_recycler);
+        final List<OffDirectDeviceBean.DataBean.ListBean.BoxBean> list = item.getBox();
+        Adapter_Item adapter_item = new Adapter_Item(R.layout.task_direct_item_item, list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(App.context, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(adapter_item);
+        adapter_item.openLoadAnimation();
     }
 }

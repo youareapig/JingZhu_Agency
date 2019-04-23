@@ -118,6 +118,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
                     toClass(view.getContext(), ContactDetailsActivity.class, bundle);
                 }
             });
+
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

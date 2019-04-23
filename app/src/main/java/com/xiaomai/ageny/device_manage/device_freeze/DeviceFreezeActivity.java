@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.TabAdapter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
@@ -17,8 +18,6 @@ import com.xiaomai.ageny.device_manage.device_freeze.fragment.nofreeze.NoFreeze_
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.returnmoney.ReturnMoney_Fragment;
 import com.xiaomai.ageny.device_manage.device_freeze.presenter.DeviceFreezePresenter;
 import com.xiaomai.ageny.filter.devicefreeze_filter.DeviceFreezeFilterActivity;
-import com.xiaomai.ageny.order.fragment.lowerorder.LowerOrderFragment;
-import com.xiaomai.ageny.order.fragment.myorder.MyOderFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter> implements DeviceFreezeContract.View {
+public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter> implements DeviceFreezeContract.View, NoFreeze_Fragment.CallBackListener {
 
 
     @BindView(R.id.back)
@@ -38,6 +37,10 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
     XTabLayout xtab;
     @BindView(R.id.viewpage)
     ViewPager viewpage;
+    @BindView(R.id.tv_tixian_money)
+    TextView tvTixianMoney;
+    @BindView(R.id.tv_tixian_dongjie)
+    TextView tvTixianDongjie;
     private List<String> titleList;
     private List<Fragment> fragmentList;
     private String id, reletion;
@@ -72,7 +75,6 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
         xtab.getTabAt(0).select();
         xtab.getTabAt(1).select();
         viewpage.setCurrentItem(0);
-
     }
 
     @Override
@@ -103,4 +105,12 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
                 break;
         }
     }
+
+
+    @Override
+    public void callback(String nofreeze_device, String nofreeze_momney) {
+        tvTixianMoney.setText(nofreeze_device);
+        tvTixianDongjie.setText(nofreeze_momney);
+    }
 }
+

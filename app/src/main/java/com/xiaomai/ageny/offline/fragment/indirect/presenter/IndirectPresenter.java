@@ -15,12 +15,12 @@ public class IndirectPresenter extends BasePresenter<IndirectContract.View> impl
     }
 
     @Override
-    public void getData(String agentname, String agentmobile, String deviceid) {
+    public void getData(String agentname, String agentmobile, String deviceid,String state) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(agentname, agentmobile, deviceid).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
+        model.getData(agentname, agentmobile, deviceid,state).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
                 .subscribe(new Consumer<OffIndirectDeivceBean>() {
                     @Override
                     public void accept(OffIndirectDeivceBean bean) throws Exception {

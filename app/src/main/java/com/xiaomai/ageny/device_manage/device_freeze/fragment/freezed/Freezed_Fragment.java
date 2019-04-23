@@ -15,6 +15,9 @@ import com.xiaomai.ageny.details.devcie_freeze_details.DeviceFreezDetailsActivit
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.Adapter;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.freezed.contract.FreezedContract;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.freezed.presenter.FreezedPresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,16 +29,26 @@ import butterknife.Unbinder;
 public class Freezed_Fragment extends BaseMvpFragment<FreezedPresenter> implements FreezedContract.View {
     @BindView(R.id.recycler)
     RecyclerView recycler;
+    @BindView(R.id.otherview)
+    OtherView otherView;
     Unbinder unbinder;
     private Adapter adapter;
     private List<FreezeBean.DataBean.ListBean> list;
+    private Bundle bundle;
 
     @Override
     protected void initView(View view) {
+        bundle = new Bundle();
+        otherView.setHolder(mHolder);
         mPresenter = new FreezedPresenter();
         mPresenter.attachView(this);
         mPresenter.getData("2", "", "");
-
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData("2", "", "");
+            }
+        });
     }
 
     @Override
@@ -45,23 +58,26 @@ public class Freezed_Fragment extends BaseMvpFragment<FreezedPresenter> implemen
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(FreezeBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             adapter = new Adapter(R.layout.freeze_item, list);
             recycler.setAdapter(adapter);
@@ -69,9 +85,13 @@ public class Freezed_Fragment extends BaseMvpFragment<FreezedPresenter> implemen
             adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    toClass(view.getContext(), DeviceFreezDetailsActivity.class);
+                    bundle.putString("id", list.get(position).getDeviceid());
+                    bundle.putString("state","2");
+                    toClass(view.getContext(), DeviceFreezDetailsActivity.class, bundle);
                 }
             });
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
 
     }

@@ -18,10 +18,11 @@ public class Adapter extends BaseQuickAdapter<FreezeBean.DataBean.ListBean, Base
     protected void convert(BaseViewHolder helper, FreezeBean.DataBean.ListBean item) {
         helper.setText(R.id.name, item.getSellerName())
                 .setText(R.id.id, item.getDeviceid())
-                .setText(R.id.haveman, item.getSellerLinkman())
-                .setText(R.id.installman, item.getInstallMan())
+                .setText(R.id.haveman, "持有人：" + item.getSellerLinkman())
+                .setText(R.id.installman, "安装人：" + item.getInstallMan())
                 .setText(R.id.freeze_money, item.getFreezeMoney())
-                .setText(R.id.nofreezemoney, item.getNofreezeMoney());
+                .setText(R.id.nofreezemoney, item.getNofreezeMoney())
+                .setText(R.id.relation, item.getRelation().equals("0") ? "非直属" : "直属");
 
     }
 }

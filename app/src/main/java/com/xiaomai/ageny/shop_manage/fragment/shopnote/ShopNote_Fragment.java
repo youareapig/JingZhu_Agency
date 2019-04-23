@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.ShopRecordBean;
@@ -16,6 +17,7 @@ import com.xiaomai.ageny.details.shop_note_details.ShopNoteDetailsActivity;
 import com.xiaomai.ageny.shop_manage.fragment.shopnote.contract.ShopNoteContract;
 import com.xiaomai.ageny.shop_manage.fragment.shopnote.presenter.ShopNotePresenter;
 import com.xiaomai.ageny.shop_manage.goshop.GoShopActivity;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
@@ -93,6 +95,8 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
                     toClass(view.getContext(), ShopNoteDetailsActivity.class,bundle);
                 }
             });
+        }else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 

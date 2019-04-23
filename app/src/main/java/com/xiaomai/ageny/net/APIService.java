@@ -1,7 +1,10 @@
 package com.xiaomai.ageny.net;
 
 
+import com.xiaomai.ageny.bean.AllotDeviceBean;
 import com.xiaomai.ageny.bean.DepositListBean;
+import com.xiaomai.ageny.bean.DeviceManageBean;
+import com.xiaomai.ageny.bean.FreezeDetailsBean;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.AgencyDetailsBean;
 import com.xiaomai.ageny.bean.AgencySellerListBean;
@@ -21,6 +24,7 @@ import com.xiaomai.ageny.bean.LowerOrderBean;
 import com.xiaomai.ageny.bean.LowerOrderDetailsBean;
 import com.xiaomai.ageny.bean.MyBankBean;
 import com.xiaomai.ageny.bean.MyOrderDetailsBean;
+import com.xiaomai.ageny.bean.NoAllotDeviceBean;
 import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 import com.xiaomai.ageny.bean.MyOrderBean;
 import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
@@ -28,6 +32,7 @@ import com.xiaomai.ageny.bean.OffIndirectDeivceDetailsBean;
 import com.xiaomai.ageny.bean.ShopApplyBean;
 import com.xiaomai.ageny.bean.ShopBean;
 import com.xiaomai.ageny.bean.ShopRecordBean;
+import com.xiaomai.ageny.bean.ShowHoleBean;
 import com.xiaomai.ageny.bean.StaffBean;
 import com.xiaomai.ageny.bean.TelToNameBean;
 import com.xiaomai.ageny.bean.UnbindRecordBean;
@@ -67,14 +72,16 @@ public interface APIService {
     Flowable<OffDirectDeviceBean> getDirectListBean(
             @Query("sellername") String sellername,
             @Query("linkmobile") String linkmobile,
-            @Query("deviceid") String deviceid);
+            @Query("deviceid") String deviceid,
+            @Query("state") String state);
 
     //离线设备列表（非直属设备）
     @GET(urlhead + "agentCenter/nodirecte/quipment")
     Flowable<OffIndirectDeivceBean> getInDirectListBean(
             @Query("agentname") String agentname,
             @Query("agentmobile") String agentmobile,
-            @Query("deviceid") String deviceid);
+            @Query("deviceid") String deviceid,
+            @Query("state") String state);
 
     //离线设备详情（非直属设备）
     @GET(urlhead + "agentCenter/nodirecte/quipment/details ")
@@ -188,12 +195,17 @@ public interface APIService {
     @GET(urlhead + "agentCenter/user/bill/list")
     Flowable<BillListBean> getBillList();
 
-    //冻结设备情况
+    //冻结设备情况 冻结设备详情
     @GET(urlhead + "agentCenter/user/device/freeze")
     Flowable<FreezeBean> getFreezeListData(
             @Query("filler_state") String filler_state,
             @Query("filler_deviceid") String filler_deviceid,
             @Query("filler_relation") String filler_relation);
+
+
+    //冻结设备代理关系列表
+    @GET(urlhead + "agentCenter/user/device/details")
+    Flowable<FreezeDetailsBean> getFreezeDetailsBean(@Query("deviceid") String deviceid);
 
     //我的订单列表
     @GET(urlhead + "agentCenter/agent/Order")
@@ -299,5 +311,29 @@ public interface APIService {
     //申请记录和采购单详情
     @GET(urlhead + "agentCenter/user/records/details")
     Flowable<ShopBean> getShopDetails(@Query("receiptId") String receiptId);
+
+    //提交采购单
+    @POST(urlhead + "agentCenter/user/purchase/order")
+    Flowable<HintBean> goShop(@Body RequestBody requestBody);
+
+    //设备管理首页
+    @GET(urlhead + "agentCenter/user/device/management")
+    Flowable<DeviceManageBean> getDeviceManageBean();
+
+    //未分配设备
+    @GET(urlhead + "agentCenter/user/undis/device")
+    Flowable<NoAllotDeviceBean> getNoAllotDeviceBean(@Query("deviceid") String deviceid);
+
+    //已分配设备
+    @GET(urlhead + "agentCenter/user/undis/device/allocated")
+    Flowable<AllotDeviceBean> getAllotDeviceBean(@Query("deviceid") String deviceid, @Query("mobile") String mobile);
+
+    //显示充电宝孔数
+    @GET(urlhead + "agentCenter/user/modal/Popup/details")
+    Flowable<ShowHoleBean> showHole(@Query("deviceid") String deviceid);
+
+    //弹出充电宝
+    @GET(urlhead + "agentCenter/user/modal/Popup")
+    Flowable<HintBean> popDevice(@Query("deviceid") String deviceid, @Query("slot") String slot);
 }
 

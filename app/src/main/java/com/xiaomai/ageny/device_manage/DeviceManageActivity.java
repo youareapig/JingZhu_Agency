@@ -6,24 +6,30 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.orhanobut.logger.Logger;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.bean.DeviceManageBean;
 import com.xiaomai.ageny.device_manage.contract.DeviceManageContract;
-import com.xiaomai.ageny.device_manage.device_allot.device_allot_list.DeviceAllotListActivity;
 import com.xiaomai.ageny.device_manage.device_allot.DeviceAllotZxingActivity;
+import com.xiaomai.ageny.device_manage.device_allot.device_allot_list.DeviceAllotListActivity;
 import com.xiaomai.ageny.device_manage.device_alloted.DeviceAllotedActivity;
 import com.xiaomai.ageny.device_manage.device_freeze.DeviceFreezeActivity;
 import com.xiaomai.ageny.device_manage.device_noallot.DeviceNoAllotActivity;
 import com.xiaomai.ageny.device_manage.device_withdraw.DeviceWithDrawListActivity;
 import com.xiaomai.ageny.device_manage.device_withdraw.DeviceWithdrawActivity;
 import com.xiaomai.ageny.device_manage.presenter.DeviceManagePresenter;
+import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter> implements DeviceManageContract.View {
@@ -41,7 +47,16 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
     RelativeLayout btDeviceNoallot;
     @BindView(R.id.bt_device_alloted)
     RelativeLayout btDeviceAlloted;
-
+    @BindView(R.id.otherview)
+    OtherView otherView;
+    @BindView(R.id.device_all_num)
+    TextView deviceAllNum;
+    @BindView(R.id.device_nofreeze_num)
+    TextView deviceNofreezeNum;
+    @BindView(R.id.device_freeze_num)
+    TextView deviceFreezeNum;
+    private Bundle bundle;
+    private String strAll,strAllot,strNoallot;
     @Override
     public int getLayoutId() {
         return R.layout.activity_device_manage;
@@ -49,22 +64,46 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
 
     @Override
     public void initView() {
-
+        bundle=new Bundle();
+        otherView.setHolder(mHolder);
+        mPresenter = new DeviceManagePresenter();
+        mPresenter.attachView(this);
+        mPresenter.getData();
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData();
+            }
+        });
     }
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
     public void onError(Throwable throwable) {
+        otherView.showRetryView();
+    }
 
+    @Override
+    public void onSuccess(DeviceManageBean bean) {
+        if (bean.getCode() == 1) {
+            strAll=bean.getData().getCountBox();
+            strAllot=bean.getData().getFenpeiBox();
+            strNoallot=bean.getData().getWeifenpeiBox();
+            deviceAllNum.setText(strAll);
+            deviceNofreezeNum.setText(strNoallot);
+            deviceFreezeNum.setText(strAllot);
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
     }
 
 
@@ -72,6 +111,7 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.bt_device_withdraw:
                 //撤回
@@ -87,11 +127,17 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
                 break;
             case R.id.bt_device_noallot:
                 //未分配
-                toClass(this, DeviceNoAllotActivity.class);
+                bundle.putString("all",strAll);
+                bundle.putString("allot",strAllot);
+                bundle.putString("noallot",strNoallot);
+                toClass(this, DeviceNoAllotActivity.class,bundle);
                 break;
             case R.id.bt_device_alloted:
                 //已分配
-                toClass(this, DeviceAllotedActivity.class);
+                bundle.putString("all",strAll);
+                bundle.putString("allot",strAllot);
+                bundle.putString("noallot",strNoallot);
+                toClass(this, DeviceAllotedActivity.class,bundle);
                 break;
         }
     }
@@ -150,4 +196,5 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
+
 }

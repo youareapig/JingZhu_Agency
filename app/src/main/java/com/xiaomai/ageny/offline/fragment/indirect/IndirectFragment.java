@@ -17,6 +17,7 @@ import com.xiaomai.ageny.offline.fragment.indirect.contract.IndirectContract;
 import com.xiaomai.ageny.offline.fragment.indirect.presenter.IndirectPresenter;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +42,13 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
         otherView.setHolder(mHolder);
         mPresenter = new IndirectPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("", "", "");
-
+        mPresenter.getData("", "", "", "");
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData("", "", "", "");
+            }
+        });
     }
 
     @Override
@@ -62,7 +68,7 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
@@ -70,12 +76,14 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
         if (bean.getCode() == 1) {
             offlineNum.setText(bean.getData().get(0).getCountlinxianbox());
             list = bean.getData().get(0).getList();
-
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             adapter = new Adapter(R.layout.indirect_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 

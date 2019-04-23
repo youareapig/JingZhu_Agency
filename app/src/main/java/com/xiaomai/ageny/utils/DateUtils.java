@@ -48,13 +48,12 @@ public class DateUtils {
     }
 
     /**
-     * 获取当前时间
+     * 获取当前时间戳
      *
      * @return
      */
-    public static String getCurrentTime_Today() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-        return sdf.format(new Date());
+    public static long getCurrentTime_Today() {
+        return new Date().getTime();
     }
 
     /**
@@ -163,10 +162,39 @@ public class DateUtils {
         return times;
 
     }
-    //13位时间戳
+
+    //13位时间戳年月日
     public static String timeStamp2Date(String time) {
         Long timeLong = Long.parseLong(time);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//要转换的时间格式
+        Date date;
+        try {
+            date = sdf.parse(sdf.format(timeLong));
+            return sdf.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //13位时间戳年月日时分
+    public static String timeStamp2DateYMDHM(String time) {
+        Long timeLong = Long.parseLong(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");//要转换的时间格式
+        Date date;
+        try {
+            date = sdf.parse(sdf.format(timeLong));
+            return sdf.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    //13位时间戳时分
+    public static String timeStamp2DateHM(String time) {
+        Long timeLong = Long.parseLong(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("HH时mm分");//要转换的时间格式
         Date date;
         try {
             date = sdf.parse(sdf.format(timeLong));

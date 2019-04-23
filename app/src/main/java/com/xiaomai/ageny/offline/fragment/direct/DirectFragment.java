@@ -13,6 +13,7 @@ import com.xiaomai.ageny.offline.fragment.direct.contract.DirectContract;
 import com.xiaomai.ageny.offline.fragment.direct.presenter.DirectPresenter;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
+import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,13 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
         otherView.setHolder(mHolder);
         mPresenter = new DirectPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("", "", "");
+        mPresenter.getData("", "", "", "");
+        mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
+            @Override
+            public void onListener() {
+                mPresenter.getData("", "", "", "");
+            }
+        });
     }
 
     @Override
@@ -56,7 +63,7 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
@@ -64,6 +71,9 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
         if (bean.getCode() == 1) {
             offlineNum.setText(bean.getData().get(0).getCountlinxianbox());
             list = bean.getData().get(0).getList();
+            if (list.size() == 0) {
+                otherView.showEmptyView();
+            }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             adapter = new Adapter(R.layout.direct_item, list);
             recycler.setAdapter(adapter);

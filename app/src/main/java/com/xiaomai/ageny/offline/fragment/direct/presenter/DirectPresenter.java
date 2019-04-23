@@ -15,12 +15,12 @@ public class DirectPresenter extends BasePresenter<DirectContract.View> implemen
     }
 
     @Override
-    public void getData(String sellername, String linkmobile, String deviceid) {
+    public void getData(String sellername, String linkmobile, String deviceid,String state) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(sellername, linkmobile, deviceid).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
+        model.getData(sellername, linkmobile, deviceid,state).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
                 .subscribe(new Consumer<OffDirectDeviceBean>() {
                     @Override
                     public void accept(OffDirectDeviceBean bean) throws Exception {

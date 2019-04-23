@@ -4,8 +4,10 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.bean.ShopApplyBean;
+import com.xiaomai.ageny.utils.DateUtils;
 
 import java.util.List;
 
@@ -16,7 +18,8 @@ public class Adapter extends BaseQuickAdapter<ShopApplyBean.DataBean, BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, ShopApplyBean.DataBean item) {
-        helper.setText(R.id.time, item.getApplyTime() + "")
+//        setText(R.id.time, DateUtils.timeStamp2DateYMDHM(item.getApplyTime().getTime()))
+        helper
                 .setText(R.id.state, item.getState().equals("1") ? "已通过" : (item.getState().equals("0") ? "审核中" : "未通过"))
                 .setText(R.id.times, "批次：" + item.getBatch())
                 .setText(R.id.receiver, "收件人：" + item.getReceiptName() + "  " + item.getReceiptMobile())

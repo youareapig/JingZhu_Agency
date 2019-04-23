@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.ShopApplyBean;
@@ -23,9 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Unbinder;
 
 public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements RecordContract.View {
     @BindView(R.id.recycler)
@@ -39,19 +37,22 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
 
     @Override
     protected void initView(View view) {
-        bundle=new Bundle();
+        bundle = new Bundle();
         otherView.setHolder(mHolder);
         mPresenter = new RecordPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("", "", "", "");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
                 mPresenter.getData("", "", "", "");
             }
         });
+    }
 
-
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.getData("", "", "", "");
     }
 
     @Override
@@ -66,6 +67,7 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
 
     @Override
     public void hideLoading() {
+
         otherView.showContentView();
     }
 
@@ -76,6 +78,7 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
 
     @Override
     public void onSuccess(ShopApplyBean bean) {
+        Logger.d("请求成功");
         if (bean.getCode() == 1) {
             list = bean.getData();
             if (list.size() == 0) {
@@ -89,8 +92,8 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
             adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    bundle.putString("id",list.get(position).getReceiptId());
-                    toClass(view.getContext(), RecordDetailsActivity.class,bundle);
+                    bundle.putString("id", list.get(position).getReceiptId());
+                    toClass(view.getContext(), RecordDetailsActivity.class, bundle);
                 }
             });
         } else {

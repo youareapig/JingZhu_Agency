@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.xiaomai.ageny.utils.state_layout.OtherView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/otherview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -69,10 +70,10 @@
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
-                    android:layout_marginTop="@dimen/dp_11"
                     android:id="@+id/recycler"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_11" />
 
                 <TextView
                     android:id="@+id/bt_sure_pop"
@@ -84,7 +85,7 @@
                     android:background="@drawable/tixian_button"
                     android:elevation="@dimen/dp_3"
                     android:gravity="center"
-                    android:text="确认分配"
+                    android:text="确认弹出"
                     android:textColor="#fff"
                     android:textSize="@dimen/sp_17" />
             </LinearLayout>
@@ -98,4 +99,4 @@
 
 
     </RelativeLayout>
-</LinearLayout>
+</com.xiaomai.ageny.utils.state_layout.OtherView>
