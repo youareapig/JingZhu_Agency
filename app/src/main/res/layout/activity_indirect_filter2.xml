@@ -43,6 +43,8 @@
         android:layout_marginLeft="@dimen/dp_21"
         android:gravity="center_vertical"
         android:hint="输入代理名称"
+        android:singleLine="true"
+        android:id="@+id/name"
         android:textColor="#363636"
         android:textSize="@dimen/sp_17"
         android:theme="@style/MyEditText" />
@@ -62,6 +64,9 @@
         android:layout_marginLeft="@dimen/dp_21"
         android:gravity="center_vertical"
         android:hint="输入代理联系人电话号码"
+        android:id="@+id/tel"
+        android:singleLine="true"
+        android:inputType="phone"
         android:textColor="#363636"
         android:textSize="@dimen/sp_17"
         android:theme="@style/MyEditText" />
@@ -80,7 +85,10 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_21"
         android:gravity="center_vertical"
+        android:id="@+id/id"
         android:hint="输入完整设备编号"
+        android:singleLine="true"
+        android:inputType="number"
         android:textColor="#363636"
         android:textSize="@dimen/sp_17"
         android:theme="@style/MyEditText" />

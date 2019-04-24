@@ -83,4 +83,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
+    protected void toClass(Context context, Class<? extends BaseMvpActivity> clazz, Bundle bundle, int reuqestCode) {
+        Intent intent = new Intent(context, clazz);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, reuqestCode);
+    }
+    protected void toClass1(Context context, Class<? extends BaseActivity> clazz, Bundle bundle, int reuqestCode) {
+        Intent intent = new Intent(context, clazz);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, reuqestCode);
+    }
 }

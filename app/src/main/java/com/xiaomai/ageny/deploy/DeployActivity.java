@@ -99,7 +99,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     private static final int MSG_LOAD_SUCCESS = 0x0002;
     private static final int MSG_LOAD_FAILED = 0x0003;
     private boolean isShow = true;
-    private List<String> priceList = new ArrayList<>();
+    private List<String> priceList;
     private String strId, strlatandlng, strcity, stradress, strprice, strtel, strfenrun, strisfreeze, strlat, strlng;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
@@ -116,11 +116,8 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
         instance = this;
         mPresenter = new DeployPresenter();
         mPresenter.attachView(this);
-        priceList.add("1");
-        priceList.add("2");
-        priceList.add("3");
-        priceList.add("4");
-        priceList.add("5");
+        String configJson = SharedPreferencesUtil.getInstance(this).getSP("config");
+        priceList = BaseUtils.getPriceList1(configJson);
         //TODO 城市选择三级联动
         mHandler.sendEmptyMessage(MSG_LOAD_DATA);
     }

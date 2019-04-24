@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.fragment.index.contract;
 
 import com.xiaomai.ageny.base.BaseView;
+import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.IndexBean;
 
 import io.reactivex.Flowable;
@@ -8,6 +9,8 @@ import io.reactivex.Flowable;
 public interface IndexContract {
     interface Model {
         Flowable<IndexBean> getData();
+
+        Flowable<ConfigBean> getConfigBean();
 
     }
 
@@ -23,6 +26,8 @@ public interface IndexContract {
 
         void onSuccess(IndexBean bean);
 
+        void onSuccess(ConfigBean bean);
+
         void onSuccess_Fresh(IndexBean bean);
     }
 
@@ -30,5 +35,7 @@ public interface IndexContract {
         void getData();
 
         void getData_Fresh();
+
+        void getConfigBean();
     }
 }

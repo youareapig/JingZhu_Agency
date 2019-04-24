@@ -11,12 +11,16 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.CustomListener;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.google.gson.Gson;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
 import com.xiaomai.ageny.details.shanghudevicedetails.contract.ShangHuDeviceDetailsContract;
 import com.xiaomai.ageny.details.shanghudevicedetails.presenter.ShangHuDeviceDetailsPresenter;
 import com.xiaomai.ageny.unbundle.unbundle_device.UnbundleDeviceActivity;
+import com.xiaomai.ageny.utils.BaseUtils;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -100,17 +104,13 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
     @Override
     public void initView() {
+        String jsonConfig = SharedPreferencesUtil.getInstance(this).getSP("config");
+        list = BaseUtils.getPriceList(jsonConfig);
         instance = this;
         bundle = new Bundle();
         otherView.setHolder(mHolder);
         deviceId = getIntent().getExtras().getString("id");
 
-        list = new ArrayList<>();
-        list.add("1.5/小时");
-        list.add("2.5/小时");
-        list.add("3.5/小时");
-        list.add("4.5/小时");
-        list.add("5.5/小时");
 
         mPresenter = new ShangHuDeviceDetailsPresenter();
         mPresenter.attachView(this);
@@ -135,7 +135,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
     @Override
     public void onError(Throwable throwable) {
-            otherView.showRetryView();
+        otherView.showRetryView();
     }
 
     @Override
@@ -177,7 +177,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
             monthMoney.setText(data.getMonthMoney());
             pingjunmoney.setText(data.getMonthlyMoney());
 
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 

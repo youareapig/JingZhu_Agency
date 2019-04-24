@@ -39,11 +39,11 @@ public class TaskIndirectFragment extends BaseMvpFragment<TaskIndirectPresenter>
         otherview.setHolder(mHolder);
         mPresenter=new TaskIndirectPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("","","","4");
+        mPresenter.getData("","","","1");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("","","","4");
+                mPresenter.getData("","","","1");
             }
         });
     }

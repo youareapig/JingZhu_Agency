@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.fragment.index.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.fragment.index.contract.IndexContract;
 import com.xiaomai.ageny.fragment.index.model.IndexModel;
@@ -46,6 +47,25 @@ public class IndexPresenter extends BasePresenter<IndexContract.View> implements
                     @Override
                     public void accept(IndexBean indexBean) throws Exception {
                         mView.onSuccess_Fresh(indexBean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void getConfigBean() {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getConfigBean().compose(RxScheduler.<ConfigBean>Flo_io_main())
+                .subscribe(new Consumer<ConfigBean>() {
+                    @Override
+                    public void accept(ConfigBean bean) throws Exception {
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

@@ -2,6 +2,7 @@ package com.xiaomai.ageny.net;
 
 
 import com.xiaomai.ageny.bean.AllotDeviceBean;
+import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.DepositListBean;
 import com.xiaomai.ageny.bean.DeviceManageBean;
 import com.xiaomai.ageny.bean.FreezeDetailsBean;
@@ -67,6 +68,10 @@ public interface APIService {
     @GET(urlhead + "agentCenter/account/captcha/seller")
     Flowable<VerCodeBean> getVercodeUnbundle(
             @Query("mobile") String mobile);
+
+    //系统配置
+    @GET(urlhead + "agentCenter/user/system/config")
+    Flowable<ConfigBean> getConfig();
 
     //首页
     @GET(urlhead + "agentCenter/homepage")

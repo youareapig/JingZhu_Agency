@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.fragment.agency;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.TabAdapter;
 import com.xiaomai.ageny.addagency.add.AddAgencyActivity;
@@ -41,13 +43,14 @@ public class Agency_Fragment extends BaseMvpFragment<AgencyPresenter> implements
     ViewPager viewpage;
     @BindView(R.id.bt_add)
     ImageView btAdd;
-    Unbinder unbinder;
     private List<String> titleList;
     private List<Fragment> fragmentList;
+    private int tabPosition = 0;
+    private Bundle bundle;
 
-    private int tabPosition =0;
     @Override
     protected void initView(View view) {
+        bundle = new Bundle();
         titleList = new ArrayList<>();
         titleList.add("直属代理");
         titleList.add("非直属代理");
@@ -64,7 +67,7 @@ public class Agency_Fragment extends BaseMvpFragment<AgencyPresenter> implements
         xtab.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
-                tabPosition=tab.getPosition();
+                tabPosition = tab.getPosition();
                 viewpage.setCurrentItem(tabPosition);
             }
 
@@ -79,6 +82,7 @@ public class Agency_Fragment extends BaseMvpFragment<AgencyPresenter> implements
             }
         });
     }
+
 
     @Override
     protected int getLayoutId() {
@@ -101,23 +105,26 @@ public class Agency_Fragment extends BaseMvpFragment<AgencyPresenter> implements
     }
 
 
-
     @OnClick({R.id.bt_filter, R.id.bt_add})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_filter:
-                if (tabPosition==0){
+                if (tabPosition == 0) {
                     //筛选直属代理
-                    toClass(getActivity(),DailiFilterActivity.class);
+                    toClass(getActivity(), DailiFilterActivity.class);
                 }
-                if (tabPosition==1){
+                if (tabPosition == 1) {
                     //筛选非直属代理
-                    toClass(getActivity(),FeiDailiFilterActivity.class);
+                    toClass(getActivity(), FeiDailiFilterActivity.class);
                 }
                 break;
             case R.id.bt_add:
-                toClass(getActivity(),AddAgencyActivity.class);
+                toClass(getActivity(), AddAgencyActivity.class);
                 break;
         }
     }
+
+
+
+
 }

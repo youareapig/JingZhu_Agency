@@ -11,12 +11,14 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.DailiListBean;
 import com.xiaomai.ageny.details.feidailidetails.FeiDailiDetailsActivity;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.contract.FeidailiContract;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.presenter.FeidailiPresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -39,7 +41,7 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
     private Adapter adapter;
     private List<DailiListBean.DataBean.ListBean> list;
     private Bundle bundle;
-
+    private String strLev = "", strID = "";
     @Override
     protected void initView(View view) {
         otherView.setHolder(mHolder);
@@ -49,7 +51,7 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("", "", "", "0", "");
+                mPresenter.getData("", strID, strLev, "0", "");
             }
         });
 
@@ -60,7 +62,7 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.getData_Fresh("", "", "", "0", "");
+                        mPresenter.getData_Fresh("", strID, strLev, "0", "");
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -75,7 +77,12 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.getData("", "", "", "0", "");
+        strLev = SharedPreferencesUtil.getInstance(getActivity()).getSP("zhishuLev");
+        strID = SharedPreferencesUtil.getInstance(getActivity()).getSP("zhishuId");
+
+        SharedPreferencesUtil.getInstance(getActivity()).putSP("zhishuLev", strLev);
+        SharedPreferencesUtil.getInstance(getActivity()).putSP("zhishuId", strID);
+        mPresenter.getData("", strID, strLev, "0", "");
     }
 
     @Override

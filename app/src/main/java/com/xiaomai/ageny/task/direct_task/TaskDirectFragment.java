@@ -34,12 +34,13 @@ public class TaskDirectFragment extends BaseMvpFragment<TaskDirectPresenter> imp
     Unbinder unbinder;
     private Adapter adapter;
     private List<OffDirectDeviceBean.DataBean.ListBean> list;
+
     @Override
     protected void initView(View view) {
         otherview.setHolder(mHolder);
-        mPresenter=new TaskDirectPresenter();
+        mPresenter = new TaskDirectPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("","","","1");
+        mPresenter.getData("", "", "", "1");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {

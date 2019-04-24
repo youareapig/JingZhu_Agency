@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.fragment.contact;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.addcontact.AddContactActivity;
 import com.xiaomai.ageny.base.BaseMvpFragment;
@@ -54,7 +56,8 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     OtherView otherView;
     @BindView(R.id.refresh)
     PullToRefreshLayout refreshLayout;
-
+    private String strFilter_ID = "", strFilter_Tel = "";
+    private static final int RECODE = 1;
     private Adapter adapter;
     private List<ContactListBean.DataBean.ListBean> list;
 
@@ -74,7 +77,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("", "", "4");
+                mPresenter.getData(strFilter_Tel, strFilter_ID, "4");
             }
         });
         refreshLayout.setCanLoadMore(false);
@@ -88,7 +91,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
                         makeMoneyIcon.setImageResource(R.mipmap.sort_hover);
                         addTime.setSelected(false);
                         addIcon.setImageResource(R.mipmap.sort_hover_hui);
-                        mPresenter.getData_Fresh("", "", "");
+                        mPresenter.getData_Fresh(strFilter_Tel, strFilter_ID, "4");
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -103,7 +106,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.getData("", "", "4");
+        mPresenter.getData(strFilter_Tel, strFilter_ID, "4");
     }
 
     @Override
@@ -165,7 +168,9 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_filter:
-                toClass(getActivity(), ContactFilterActivity.class);
+                bundle.putString("tel", strFilter_Tel);
+                bundle.putString("id", strFilter_ID);
+                toClass(getActivity(), ContactFilterActivity.class, bundle, RECODE);
                 break;
             case R.id.bt_add:
                 bundle.putInt("isadd", 1);
@@ -177,11 +182,11 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
                 makeMoneyIcon.setImageResource(R.mipmap.sort_hover_hui);
                 if (rank_addTime) {
                     addIcon.setImageResource(R.mipmap.sort_hove);
-                    mPresenter.getData_Fresh("", "", "2");
+                    mPresenter.getData_Fresh(strFilter_Tel, strFilter_ID, "2");
                     rank_addTime = false;
                 } else {
                     addIcon.setImageResource(R.mipmap.sort_hover);
-                    mPresenter.getData_Fresh("", "", "1");
+                    mPresenter.getData_Fresh(strFilter_Tel, strFilter_ID, "1");
                     rank_addTime = true;
                 }
                 break;
@@ -191,11 +196,11 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
                 addIcon.setImageResource(R.mipmap.sort_hover_hui);
                 if (rank_makeMoney) {
                     makeMoneyIcon.setImageResource(R.mipmap.sort_hove);
-                    mPresenter.getData_Fresh("", "", "3");
+                    mPresenter.getData_Fresh(strFilter_Tel, strFilter_ID, "3");
                     rank_makeMoney = false;
                 } else {
                     makeMoneyIcon.setImageResource(R.mipmap.sort_hover);
-                    mPresenter.getData_Fresh("", "", "4");
+                    mPresenter.getData_Fresh(strFilter_Tel, strFilter_ID, "4");
                     rank_makeMoney = true;
                 }
 
@@ -203,4 +208,13 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RECODE && resultCode == 2) {
+            strFilter_ID = data.getStringExtra("id");
+            strFilter_Tel = data.getStringExtra("tel");
+            Logger.d("返回值" + strFilter_Tel + "  " + strFilter_ID);
+        }
+    }
 }

@@ -82,4 +82,14 @@ public abstract class BaseFragment extends Fragment {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
+    protected void toClass(Context context, Class<? extends BaseMvpActivity> clazz, Bundle bundle, int reuqestCode) {
+        Intent intent = new Intent(context, clazz);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, reuqestCode);
+    }
+    protected void toClass1(Context context, Class<? extends BaseActivity> clazz, Bundle bundle, int reuqestCode) {
+        Intent intent = new Intent(context, clazz);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, reuqestCode);
+    }
 }

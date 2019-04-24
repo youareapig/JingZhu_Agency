@@ -14,6 +14,7 @@ import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 import com.xiaomai.ageny.offline.fragment.direct.adapter.Adapter;
 import com.xiaomai.ageny.offline.fragment.direct.contract.DirectContract;
 import com.xiaomai.ageny.offline.fragment.direct.presenter.DirectPresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -33,7 +34,7 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
     OtherView otherView;
     @BindView(R.id.refresh)
     PullToRefreshLayout refreshLayout;
-
+    private String strTel = "", strID = "", strName = "";
     private Adapter adapter;
     private List<OffDirectDeviceBean.DataBean.ListBean> list;
 
@@ -42,11 +43,10 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
         otherView.setHolder(mHolder);
         mPresenter = new DirectPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("", "", "", "");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("", "", "", "");
+                mPresenter.getData(strName, strTel, strID, "");
             }
         });
         refreshLayout.setCanLoadMore(false);
@@ -56,7 +56,7 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.getDataFresh("", "", "", "");
+                        mPresenter.getDataFresh(strName, strTel, strID, "");
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -66,6 +66,17 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
             public void loadMore() {
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        strTel = SharedPreferencesUtil.getInstance(getActivity()).getSP("offzhishuTel");
+        strID = SharedPreferencesUtil.getInstance(getActivity()).getSP("offzhishuId");
+        strName = SharedPreferencesUtil.getInstance(getActivity()).getSP("offzhishuName");
+
+
+        mPresenter.getData(strName, strTel, strID, "");
     }
 
     @Override

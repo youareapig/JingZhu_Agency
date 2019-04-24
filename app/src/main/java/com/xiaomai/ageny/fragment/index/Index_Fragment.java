@@ -19,6 +19,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.google.gson.Gson;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
@@ -26,6 +27,7 @@ import com.uber.autodispose.AutoDisposeConverter;
 import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
+import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.deposit.DepositActivity;
 import com.xiaomai.ageny.device_manage.DeviceManageActivity;
@@ -45,6 +47,7 @@ import com.zhy.m.permission.PermissionGrant;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -106,6 +109,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         mPresenter = new IndexPresenter();
         mPresenter.attachView(this);
         mPresenter.getData();
+        mPresenter.getConfigBean();
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
@@ -196,10 +200,18 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     }
 
 
-
     @Override
     public void onSuccess(IndexBean bean) {
         initData(bean);
+    }
+
+    @Override
+    public void onSuccess(ConfigBean bean) {
+        if (bean.getCode() == 1) {
+            Gson gson = new Gson();
+            String jsonConfig = gson.toJson(bean);
+            SharedPreferencesUtil.getInstance(getActivity()).putSP("config", jsonConfig);
+        }
     }
 
 
