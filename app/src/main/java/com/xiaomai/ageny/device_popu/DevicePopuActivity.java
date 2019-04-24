@@ -41,7 +41,7 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
     private List<String> list;
     private Adapter adapter;
     private String id;
-    private int slotId;
+    private int slotId=1;
 
     @Override
     public int getLayoutId() {

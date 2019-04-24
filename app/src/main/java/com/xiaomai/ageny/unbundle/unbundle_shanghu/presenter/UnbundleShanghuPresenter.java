@@ -22,17 +22,19 @@ public class UnbundleShanghuPresenter extends BasePresenter<UnbundleShanghuContr
         if (!isViewAttached()) {
             return;
         }
-
+        mView.showLoading();
         model.getCode(mobile).compose(RxScheduler.<VerCodeBean>Flo_io_main())
                 .subscribe(new Consumer<VerCodeBean>() {
                     @Override
                     public void accept(VerCodeBean bean) throws Exception {
+                        mView.hideLoading();
                         mView.onSuccess(bean);
 
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
                         mView.onError(throwable);
                     }
                 });

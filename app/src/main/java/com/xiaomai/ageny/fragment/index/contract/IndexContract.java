@@ -8,6 +8,7 @@ import io.reactivex.Flowable;
 public interface IndexContract {
     interface Model {
         Flowable<IndexBean> getData();
+
     }
 
     interface View extends BaseView {
@@ -21,9 +22,13 @@ public interface IndexContract {
         void onError(Throwable throwable);
 
         void onSuccess(IndexBean bean);
+
+        void onSuccess_Fresh(IndexBean bean);
     }
 
     interface Presenter {
         void getData();
+
+        void getData_Fresh();
     }
 }

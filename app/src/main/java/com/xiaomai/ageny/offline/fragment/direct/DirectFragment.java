@@ -1,10 +1,13 @@
 package com.xiaomai.ageny.offline.fragment.direct;
 
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.OffDirectDeviceBean;
@@ -28,6 +31,8 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
     RecyclerView recycler;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
 
     private Adapter adapter;
     private List<OffDirectDeviceBean.DataBean.ListBean> list;
@@ -42,6 +47,23 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
             @Override
             public void onListener() {
                 mPresenter.getData("", "", "", "");
+            }
+        });
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getDataFresh("", "", "", "");
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
             }
         });
     }
@@ -68,6 +90,15 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
 
     @Override
     public void onSuccess(OffDirectDeviceBean bean) {
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessFresh(OffDirectDeviceBean bean) {
+        initData(bean);
+    }
+
+    private void initData(OffDirectDeviceBean bean) {
         if (bean.getCode() == 1) {
             offlineNum.setText(bean.getData().get(0).getCountlinxianbox());
             list = bean.getData().get(0).getList();
@@ -75,14 +106,13 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
                 otherView.showEmptyView();
             }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.direct_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
-
     }
 
 }

@@ -36,4 +36,23 @@ public class NoFreezePresenter extends BasePresenter<NoFreezeContract.View> impl
                     }
                 });
     }
+
+    @Override
+    public void getDataFresh(String filler_state, String filler_deviceid, String filler_relation) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(filler_state,filler_deviceid,filler_relation).compose(RxScheduler.<FreezeBean>Flo_io_main())
+                .subscribe(new Consumer<FreezeBean>() {
+                    @Override
+                    public void accept(FreezeBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+    }
 }

@@ -22,9 +22,13 @@ public interface MyBillContract {
         void onError(Throwable throwable);
 
         void onSuccess(BillListBean bean);
+
+        void onSuccessFresh(BillListBean bean);
     }
 
     interface Presenter {
         void getData();
+
+        void getDataFresh();
     }
 }

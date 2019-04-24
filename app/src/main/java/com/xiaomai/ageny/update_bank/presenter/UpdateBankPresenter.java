@@ -21,18 +21,20 @@ public class UpdateBankPresenter extends BasePresenter<UpdateBankContract.View> 
         if (!isViewAttached()) {
             return;
         }
+        mView.showLoading();
         model.updateBank(body).compose(RxScheduler.<HintBean>Flo_io_main())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {
+                        mView.hideLoading();
                         mView.onSuccess(bean);
 
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
                         mView.onError(throwable);
-
                     }
                 });
 

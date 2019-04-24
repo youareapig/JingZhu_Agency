@@ -2,6 +2,7 @@ package com.xiaomai.ageny.staff_manage;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.xiaomai.ageny.MainActivity;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.add_staff.AddStaffActivity;
@@ -37,14 +40,14 @@ public class StaffManageActivity extends BaseMvpActivity<StaffManagePresenter> i
 
     @BindView(R.id.back)
     RelativeLayout back;
-    @BindView(R.id.bt_manage)
-    TextView btManage;
     @BindView(R.id.recycler)
     RecyclerView recycler;
     @BindView(R.id.bt_addstaff)
     LinearLayout btAddstaff;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
 
     private Adapter adapter;
     private List<StaffBean.DataBean.ListBean> list;
@@ -67,6 +70,23 @@ public class StaffManageActivity extends BaseMvpActivity<StaffManagePresenter> i
             @Override
             public void onListener() {
                 mPresenter.getStaffListBean("", "");
+            }
+        });
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getStaffListBeanFresh("", "");
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
             }
         });
 
@@ -95,6 +115,15 @@ public class StaffManageActivity extends BaseMvpActivity<StaffManagePresenter> i
 
     @Override
     public void onSuccess(StaffBean bean) {
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessFresh(StaffBean bean) {
+        initData(bean);
+    }
+
+    private void initData(StaffBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
             if (list.size() == 0) {

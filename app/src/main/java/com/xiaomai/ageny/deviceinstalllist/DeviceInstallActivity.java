@@ -75,6 +75,7 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
             }
         });
         //下拉上啦
+        refresh.setCanLoadMore(false);
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {

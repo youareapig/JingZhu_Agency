@@ -37,4 +37,25 @@ public class ShopNotePresenter extends BasePresenter<ShopNoteContract.View> impl
                     }
                 });
     }
+
+    @Override
+    public void getDataFresh(String bath, String mobile, String page, String page_size) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(bath, mobile, page, page_size).compose(RxScheduler.<ShopRecordBean>Flo_io_main())
+                .subscribe(new Consumer<ShopRecordBean>() {
+                    @Override
+                    public void accept(ShopRecordBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+
+                    }
+                });
+    }
 }

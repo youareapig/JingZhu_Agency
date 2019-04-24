@@ -13,7 +13,9 @@ import com.xiaomai.ageny.addagency.add.contract.AddAgencyContract;
 import com.xiaomai.ageny.addagency.add.presenter.AddAgencyPresenter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
+import com.xiaomai.ageny.utils.CustomDialog;
 import com.xiaomai.ageny.utils.MaptoJson;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -49,6 +51,7 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
     private boolean btfirmIsSelect = true;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
+    private CustomDialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -66,24 +69,24 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
 
     @Override
     public void showLoading() {
-
+        dialog = new CustomDialog(this);
+        dialog.show();
     }
 
     @Override
     public void hideLoading() {
-
+        dialog.dismiss();
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        dialog.dismiss();
     }
 
     @Override
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
-            ToastUtil.showShortToast(bean.getMessage());
-            finish();
+            ShowDialogUtils.showdialog(this,"添加代理成功");
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

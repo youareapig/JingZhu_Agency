@@ -49,7 +49,7 @@ public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresente
     private List<String> titleList;
     private List<Fragment> fragmentList;
     private String id;
-
+    public static ShanghuDeviceActivity instance;
     @Override
     public int getLayoutId() {
         return R.layout.activity_shanghu_device;
@@ -58,7 +58,7 @@ public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresente
     @Override
     public void initView() {
         id = getIntent().getExtras().getString("id");
-
+        instance=this;
         titleList = new ArrayList<>();
         titleList.add("在线设备");
         titleList.add("离线设备");
@@ -96,6 +96,7 @@ public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresente
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.bt_filter:
                 toClass(this, ShangHuDeviceFilterActivity.class);

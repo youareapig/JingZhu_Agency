@@ -35,4 +35,23 @@ public class OffDevicePresenter extends BasePresenter<OffDeviceContract.View> im
                     }
                 });
     }
+
+    @Override
+    public void getDataFresh(String sellerid, String state, String deviceid, String device_type) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(sellerid, state, deviceid, device_type).compose(RxScheduler.<ContactDeviceListBean>Flo_io_main())
+                .subscribe(new Consumer<ContactDeviceListBean>() {
+                    @Override
+                    public void accept(ContactDeviceListBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+    }
 }

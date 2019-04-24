@@ -36,19 +36,18 @@ public class DeployPresenter extends BasePresenter<DeployContract.View> implemen
         if (!isViewAttached()) {
             return;
         }
-        mView.showLoading();
         model.getData(mobile).compose(RxScheduler.<TelToNameBean>Flo_io_main())
                 .subscribe(new Consumer<TelToNameBean>() {
                     @Override
                     public void accept(TelToNameBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.onError(throwable);
                         mView.hideLoading();
+                        mView.onError(throwable);
                     }
                 });
     }
@@ -63,15 +62,19 @@ public class DeployPresenter extends BasePresenter<DeployContract.View> implemen
         if (!isViewAttached()) {
             return;
         }
+        mView.showLoading();
         model.getDeploy(requestBody).compose(RxScheduler.<HintBean>Flo_io_main())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {
+                        mView.hideLoading();
                         mView.onDeploy(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
+                        mView.onError(throwable);
                     }
                 });
     }

@@ -37,4 +37,25 @@ public class UnbundleRecordPresenter extends BasePresenter<UnbundleRecordContrac
                     }
                 });
     }
+
+    @Override
+    public void getDataFresh(String page, String page_size, String linkman, String linkmobile) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(page, page_size, linkman, linkmobile).compose(RxScheduler.<UnbindRecordBean>Flo_io_main())
+                .subscribe(new Consumer<UnbindRecordBean>() {
+                    @Override
+                    public void accept(UnbindRecordBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+
+                    }
+                });
+    }
 }

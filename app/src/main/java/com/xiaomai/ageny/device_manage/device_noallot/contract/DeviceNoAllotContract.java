@@ -21,9 +21,13 @@ public interface DeviceNoAllotContract {
         void onError(Throwable throwable);
 
         void onSuccess(NoAllotDeviceBean bean);
+
+        void onSuccessFresh(NoAllotDeviceBean bean);
     }
 
     interface Presenter {
-       void getData(String deviceid);
+        void getData(String deviceid);
+
+        void getDataFresh(String deviceid);
     }
 }

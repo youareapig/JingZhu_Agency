@@ -2,6 +2,7 @@ package com.xiaomai.ageny.shanghudevice.fragment.offdevice;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.ContactDeviceListBean;
@@ -33,7 +36,8 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
     RecyclerView recycler;
     @BindView(R.id.otherview)
     OtherView otherView;
-    Unbinder unbinder;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
     private List<ContactDeviceListBean.DataBean.ListBean> list;
     private Adapter adapter;
     private String id;
@@ -54,6 +58,24 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
             @Override
             public void onListener() {
                 mPresenter.getData(id, "0", "", "");
+            }
+        });
+
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getDataFresh(id, "0", "", "");
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
             }
         });
     }
@@ -80,13 +102,24 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
 
     @Override
     public void onSuccess(ContactDeviceListBean bean) {
-        if (bean.getCode()==1){
+
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessFresh(ContactDeviceListBean bean) {
+        initData(bean);
+    }
+
+    private void initData(ContactDeviceListBean bean) {
+        if (bean.getCode() == 1) {
             list = bean.getData().getList();
-            if (list.size()==0){
+            if (list.size() == 0) {
                 otherView.showEmptyView();
             }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             recycler.addItemDecoration(new SpacesItemDecoration(9));
+            recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.shanghudevice_off_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
@@ -97,9 +130,8 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
                     toClass(view.getContext(), ShanghuDeviceDetailsActivity.class, bundle);
                 }
             });
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
     }
 }

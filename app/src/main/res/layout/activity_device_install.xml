@@ -50,64 +50,64 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.jwenfeng.library.pulltorefresh.PullToRefreshLayout
-            android:id="@+id/refresh"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v4.widget.NestedScrollView
+            <com.jwenfeng.library.pulltorefresh.PullToRefreshLayout
+                android:id="@+id/refresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
+                <android.support.v4.widget.NestedScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent">
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
-        </com.jwenfeng.library.pulltorefresh.PullToRefreshLayout>
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                </android.support.v4.widget.NestedScrollView>
+            </com.jwenfeng.library.pulltorefresh.PullToRefreshLayout>
 
 
-        <RelativeLayout
-            android:id="@+id/bt_install"
-            android:layout_width="@dimen/dp_260"
-            android:layout_height="@dimen/dp_44"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/dp_44"
-            android:background="@drawable/tixian_button"
-            android:elevation="@dimen/dp_3">
+            <RelativeLayout
+                android:id="@+id/bt_install"
+                android:layout_width="@dimen/dp_260"
+                android:layout_height="@dimen/dp_44"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp_44"
+                android:background="@drawable/tixian_button"
+                android:elevation="@dimen/dp_3">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="@dimen/dp_22"
-                    android:layout_height="@dimen/dp_22"
-                    android:src="@mipmap/add_white_icon" />
-
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_9"
-                    android:text="设备部署"
-                    android:textColor="#F6F6F6"
-                    android:textSize="@dimen/sp_17" />
-            </LinearLayout>
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_22"
+                        android:layout_height="@dimen/dp_22"
+                        android:src="@mipmap/add_white_icon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_9"
+                        android:text="设备部署"
+                        android:textColor="#F6F6F6"
+                        android:textSize="@dimen/sp_17" />
+                </LinearLayout>
+            </RelativeLayout>
         </RelativeLayout>
-    </RelativeLayout>
     </com.xiaomai.ageny.utils.state_layout.OtherView>
 </LinearLayout>

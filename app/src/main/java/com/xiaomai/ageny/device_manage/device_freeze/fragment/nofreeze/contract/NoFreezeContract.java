@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public interface NoFreezeContract {
     interface Model {
-        Flowable<FreezeBean> getData(String filler_state,String filler_deviceid,String filler_relation);
+        Flowable<FreezeBean> getData(String filler_state, String filler_deviceid, String filler_relation);
     }
 
     interface View extends BaseView {
@@ -22,9 +22,13 @@ public interface NoFreezeContract {
         void onError(Throwable throwable);
 
         void onSuccess(FreezeBean bean);
+
+        void onSuccessFresh(FreezeBean bean);
     }
 
     interface Presenter {
-        void getData(String filler_state,String filler_deviceid,String filler_relation);
+        void getData(String filler_state, String filler_deviceid, String filler_relation);
+
+        void getDataFresh(String filler_state, String filler_deviceid, String filler_relation);
     }
 }

@@ -31,7 +31,25 @@ public class DailiPresenter extends BasePresenter<DailiContract.View> implements
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.hideLoading();
+                        mView.onError(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void getData_Fresh(String mobile, String deviceid, String grade, String directly, String isbytime) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(mobile, deviceid, grade, directly, isbytime).compose(RxScheduler.<DailiListBean>Flo_io_main())
+                .subscribe(new Consumer<DailiListBean>() {
+                    @Override
+                    public void accept(DailiListBean bean) throws Exception {
+                        mView.onSuccess_Fresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
                     }
                 });

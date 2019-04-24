@@ -21,8 +21,10 @@ import com.xiaomai.ageny.addcontact.presenter.AddContactPresenter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.utils.BaseUtils;
+import com.xiaomai.ageny.utils.CustomDialog;
 import com.xiaomai.ageny.utils.DateUtils;
 import com.xiaomai.ageny.utils.MaptoJson;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 
@@ -77,6 +79,7 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
     private TimePickerView pvCustomTime;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
+    private CustomDialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -128,22 +131,24 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
 
     @Override
     public void showLoading() {
+        dialog = new CustomDialog(this);
+        dialog.show();
     }
 
     @Override
     public void hideLoading() {
+        dialog.dismiss();
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        dialog.dismiss();
     }
 
     @Override
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
-            ToastUtil.showShortToast(bean.getMessage());
-            finish();
+            ShowDialogUtils.showdialog(this, bean.getMessage());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,11 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
+import com.uber.autodispose.AutoDisposeConverter;
+import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.IndexBean;
@@ -86,11 +91,14 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     RelativeLayout tastCenter;
     @BindView(R.id.num)
     TextView Num;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
 
     public AMapLocationClient mLocationClient = null;
     public AMapLocationListener mLocationListener = new MyAMapLocationListener();
     public AMapLocationClientOption mLocationOption = null;
     private String strTaskNum;
+    private boolean ISSHOW = true;
 
     @Override
     protected void initView(View view) {
@@ -104,9 +112,24 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 mPresenter.getData();
             }
         });
-//        showDialog();
         MPermissions.requestPermissions(Index_Fragment.this, 10, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getData_Fresh();
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
 
+            @Override
+            public void loadMore() {
+            }
+        });
     }
 
 
@@ -172,8 +195,20 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         otherView.showRetryView();
     }
 
+
+
     @Override
     public void onSuccess(IndexBean bean) {
+        initData(bean);
+    }
+
+
+    @Override
+    public void onSuccess_Fresh(IndexBean bean) {
+        initData(bean);
+    }
+
+    private void initData(IndexBean bean) {
         if (bean.getCode() == 1) {
             IndexBean.DataBean data = bean.getData();
             strTaskNum = data.getCountTask();
@@ -189,7 +224,9 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             offLine.setText("离线：" + data.getOffLineCount() + "台");
             onLine.setText("在线：" + data.getOnLineCount() + "台");
             if (!TextUtils.isEmpty(strTaskNum)) {
-                showDialog();
+                if (ISSHOW) {
+                    showDialog();
+                }
                 tastCenter.setVisibility(View.VISIBLE);
                 Num.setText(strTaskNum);
             } else {
@@ -199,8 +236,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
-
     }
 
     @OnClick({R.id.bt_index_tixian, R.id.bt_index_bill, R.id.bt_index_devicemanager, R.id.bt_index_devicemake, R.id.bt_index_order, R.id.bt_off_line, R.id.taskCenter})
@@ -252,6 +287,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         });
         dialog.setView(v);
         dialog.show();
+        ISSHOW = false;
     }
 
     @Override

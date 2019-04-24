@@ -21,9 +21,13 @@ public interface DeviceAllotedContract {
         void onError(Throwable throwable);
 
         void onSuccess(AllotDeviceBean bean);
+
+        void onSuccessFresh(AllotDeviceBean bean);
     }
 
     interface Presenter {
         void getData(String deviceid, String mobile);
+
+        void getDataFresh(String deviceid, String mobile);
     }
 }

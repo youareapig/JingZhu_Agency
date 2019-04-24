@@ -25,14 +25,14 @@ public class UpdateAgencyPresenter extends BasePresenter<UpdateAgencyContract.Vi
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.onError(throwable);
                         mView.hideLoading();
+                        mView.onError(throwable);
                     }
                 });
     }

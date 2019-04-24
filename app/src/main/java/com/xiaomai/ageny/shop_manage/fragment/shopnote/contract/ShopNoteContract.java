@@ -21,9 +21,13 @@ public interface ShopNoteContract {
         void onError(Throwable throwable);
 
         void onSuccess(ShopRecordBean bean);
+
+        void onSuccessFresh(ShopRecordBean bean);
     }
 
     interface Presenter {
         void getData(String bath, String mobile, String page, String page_size);
+
+        void getDataFresh(String bath, String mobile, String page, String page_size);
     }
 }

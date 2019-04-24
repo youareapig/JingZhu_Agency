@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.fragment.contact;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.addcontact.AddContactActivity;
 import com.xiaomai.ageny.base.BaseMvpFragment;
@@ -49,6 +52,8 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     ImageView makeMoneyIcon;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
 
     private Adapter adapter;
     private List<ContactListBean.DataBean.ListBean> list;
@@ -61,6 +66,8 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     protected void initView(View view) {
         otherView.setHolder(mHolder);
         makeMoney.setSelected(true);
+        makeMoneyIcon.setImageResource(R.mipmap.sort_hover);
+
         bundle = new Bundle();
         mPresenter = new ContactPresenter();
         mPresenter.attachView(this);
@@ -68,6 +75,27 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
             @Override
             public void onListener() {
                 mPresenter.getData("", "", "4");
+            }
+        });
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        makeMoney.setSelected(true);
+                        makeMoneyIcon.setImageResource(R.mipmap.sort_hover);
+                        addTime.setSelected(false);
+                        addIcon.setImageResource(R.mipmap.sort_hover_hui);
+                        mPresenter.getData_Fresh("", "", "");
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
             }
         });
     }
@@ -100,6 +128,15 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
 
     @Override
     public void onSuccess(ContactListBean bean) {
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccess_Fresh(ContactListBean bean) {
+        initData(bean);
+    }
+
+    private void initData(ContactListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
             if (list.size() == 0) {
@@ -107,6 +144,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
             }
             totleCount.setText("共：" + list.size() + "家");
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.contact_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
@@ -114,7 +152,6 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     bundle.putString("id", list.get(position).getId());
-
                     toClass(view.getContext(), ContactDetailsActivity.class, bundle);
                 }
             });
@@ -122,9 +159,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
     }
-
 
     @OnClick({R.id.bt_filter, R.id.bt_add, R.id.add_time, R.id.make_money})
     public void onViewClicked(View view) {
@@ -142,11 +177,11 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
                 makeMoneyIcon.setImageResource(R.mipmap.sort_hover_hui);
                 if (rank_addTime) {
                     addIcon.setImageResource(R.mipmap.sort_hove);
-                    mPresenter.getData("", "", "2");
+                    mPresenter.getData_Fresh("", "", "2");
                     rank_addTime = false;
                 } else {
                     addIcon.setImageResource(R.mipmap.sort_hover);
-                    mPresenter.getData("", "", "1");
+                    mPresenter.getData_Fresh("", "", "1");
                     rank_addTime = true;
                 }
                 break;
@@ -156,11 +191,11 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
                 addIcon.setImageResource(R.mipmap.sort_hover_hui);
                 if (rank_makeMoney) {
                     makeMoneyIcon.setImageResource(R.mipmap.sort_hove);
-                    mPresenter.getData("", "", "3");
+                    mPresenter.getData_Fresh("", "", "3");
                     rank_makeMoney = false;
                 } else {
                     makeMoneyIcon.setImageResource(R.mipmap.sort_hover);
-                    mPresenter.getData("", "", "4");
+                    mPresenter.getData_Fresh("", "", "4");
                     rank_makeMoney = true;
                 }
 

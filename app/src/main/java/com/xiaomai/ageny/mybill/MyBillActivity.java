@@ -1,12 +1,14 @@
 package com.xiaomai.ageny.mybill;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
@@ -37,6 +39,9 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
     TextView tvOrderMoney;
     @BindView(R.id.otherview)
     OtherView otherview;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
+
     private Adapter adapter;
     private List<BillListBean.DataBean.ListBean> list;
 
@@ -57,6 +62,24 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
         mPresenter = new MyBillPresenter();
         mPresenter.attachView(this);
         mPresenter.getData();
+
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getDataFresh();
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
+            }
+        });
     }
 
     @Override
@@ -76,11 +99,21 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
 
     @Override
     public void onSuccess(BillListBean bean) {
+        initData(bean);
+
+    }
+
+    @Override
+    public void onSuccessFresh(BillListBean bean) {
+        initData(bean);
+    }
+
+    private void initData(BillListBean bean) {
         if (bean.getCode() == 1) {
             tvAllMoney.setText(bean.getData().getTotal_earn());
             tvOrderMoney.setText(bean.getData().getTotal_price());
             list = bean.getData().getList();
-            if (list.size()==0){
+            if (list.size() == 0) {
                 otherview.showEmptyView();
             }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -88,17 +121,16 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
             adapter = new Adapter(R.layout.mybill_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
     }
-
 
     @OnClick({R.id.back, R.id.recycler})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.recycler:
                 break;

@@ -2,6 +2,7 @@ package com.xiaomai.ageny.shanghudevice.fragment.ondevice;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
@@ -36,8 +39,9 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
     RecyclerView recycler;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
 
-    Unbinder unbinder;
     private List<ContactDeviceListBean.DataBean.ListBean> list;
     private Adapter adapter;
     private String id;
@@ -58,6 +62,23 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
             @Override
             public void onListener() {
                 mPresenter.getData(id, "1", "", "");
+            }
+        });
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getDataFresh(id, "1", "", "");
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
             }
         });
     }
@@ -84,6 +105,15 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
 
     @Override
     public void onSuccess(ContactDeviceListBean bean) {
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessFresh(ContactDeviceListBean bean) {
+        initData(bean);
+    }
+
+    private void initData(ContactDeviceListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
             if (list.size() == 0) {
@@ -91,6 +121,7 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
             }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             recycler.addItemDecoration(new SpacesItemDecoration(9));
+            recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.shanghudevice_on_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
@@ -104,7 +135,6 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
     }
 
 }

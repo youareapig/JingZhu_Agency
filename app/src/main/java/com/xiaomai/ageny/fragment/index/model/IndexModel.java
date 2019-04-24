@@ -11,4 +11,5 @@ public class IndexModel implements IndexContract.Model {
     public Flowable<IndexBean> getData() {
         return RetrofitClient.getInstance().getApi().getIndexBean();
     }
+
 }

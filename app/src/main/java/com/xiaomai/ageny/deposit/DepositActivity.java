@@ -21,8 +21,10 @@ import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.deposit.contract.DepositContract;
 import com.xiaomai.ageny.deposit.presenter.DepositPresenter;
 import com.xiaomai.ageny.update_bank.UpdateBankActivity;
+import com.xiaomai.ageny.utils.CustomDialog;
 import com.xiaomai.ageny.utils.HideUtil;
 import com.xiaomai.ageny.utils.MaptoJson;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 
@@ -73,7 +75,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
     private Bundle bundle;
-
+    private CustomDialog customDialog;
     @Override
     public int getLayoutId() {
         return R.layout.activity_deposit;
@@ -100,17 +102,18 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
 
     @Override
     public void showLoading() {
-        otherView.showLoadingView();
+        customDialog=new CustomDialog(this);
+        customDialog.show();
     }
 
     @Override
     public void hideLoading() {
-        otherView.showContentView();
+        customDialog.dismiss();
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
@@ -134,13 +137,15 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
                 name.setText(strname);
                 tel.setText(HideUtil.hideMobile(strtel));
             }
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 
     @Override
     public void onSuccessDeposit(HintBean bean) {
         if (bean.getCode() == 1) {
-            toClass1(this, DepositSuccessActivity.class);
+            ShowDialogUtils.showdialog(this, "提现成功~");
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

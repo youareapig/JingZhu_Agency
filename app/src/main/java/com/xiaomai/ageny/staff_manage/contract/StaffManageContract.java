@@ -26,11 +26,15 @@ public interface StaffManageContract {
 
         void onSuccess(StaffBean bean);
 
+        void onSuccessFresh(StaffBean bean);
+
         void onSuccess(HintBean bean);
     }
 
     interface Presenter {
         void getStaffListBean(String page, String page_size);
+
+        void getStaffListBeanFresh(String page, String page_size);
 
         void staffDelete(RequestBody body);
     }

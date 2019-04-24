@@ -63,6 +63,11 @@ public interface APIService {
     Flowable<VerCodeBean> getVercode(
             @Query("mobile") String mobile);
 
+    //获取解绑验证码
+    @GET(urlhead + "agentCenter/account/captcha/seller")
+    Flowable<VerCodeBean> getVercodeUnbundle(
+            @Query("mobile") String mobile);
+
     //首页
     @GET(urlhead + "agentCenter/homepage")
     Flowable<IndexBean> getIndexBean();

@@ -21,9 +21,11 @@ public interface ReturnMoneyContract {
         void onError(Throwable throwable);
 
         void onSuccess(FreezeBean bean);
+        void onSuccessFresh(FreezeBean bean);
     }
 
     interface Presenter {
         void getData(String filler_state,String filler_deviceid,String filler_relation);
+        void getDataFresh(String filler_state,String filler_deviceid,String filler_relation);
     }
 }

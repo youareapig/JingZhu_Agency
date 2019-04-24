@@ -37,9 +37,11 @@ import com.xiaomai.ageny.deploy.contract.DeployContract;
 import com.xiaomai.ageny.deploy.presenter.DeployPresenter;
 import com.xiaomai.ageny.fragment.index.Index_Fragment;
 import com.xiaomai.ageny.utils.BaseUtils;
+import com.xiaomai.ageny.utils.CustomDialog;
 import com.xiaomai.ageny.utils.GetJsonDataUtil;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
@@ -102,6 +104,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
     public static DeployActivity instance;
+    private CustomDialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -110,7 +113,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
     @Override
     public void initView() {
-        instance=this;
+        instance = this;
         mPresenter = new DeployPresenter();
         mPresenter.attachView(this);
         priceList.add("1");
@@ -125,17 +128,18 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
     @Override
     public void showLoading() {
-
+        dialog = new CustomDialog(this);
+        dialog.show();
     }
 
     @Override
     public void hideLoading() {
-
+        dialog.dismiss();
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        dialog.dismiss();
     }
 
     //验证电话号码结果
@@ -164,7 +168,13 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     @Override
     public void onDeploy(HintBean bean) {
         if (bean.getCode() == 1) {
-            toClass1(this, DeploySuccessActivity.class);
+            ShowDialogUtils.showdialog(this, "设备部署成功");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, 1000);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

@@ -21,9 +21,11 @@ public interface DailiContract {
         void onError(Throwable throwable);
 
         void onSuccess(DailiListBean bean);
+        void onSuccess_Fresh(DailiListBean bean);
     }
 
     interface Presenter {
         void getData(String mobile, String deviceid, String grade, String directly, String isbytime);
+        void getData_Fresh(String mobile, String deviceid, String grade, String directly, String isbytime);
     }
 }

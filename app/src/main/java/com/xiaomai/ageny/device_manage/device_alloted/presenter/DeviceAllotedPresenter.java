@@ -36,4 +36,25 @@ public class DeviceAllotedPresenter extends BasePresenter<DeviceAllotedContract.
                     }
                 });
     }
+
+    @Override
+    public void getDataFresh(String deviceid, String mobile) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(deviceid, mobile).compose(RxScheduler.<AllotDeviceBean>Flo_io_main())
+                .subscribe(new Consumer<AllotDeviceBean>() {
+                    @Override
+                    public void accept(AllotDeviceBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+
+                    }
+                });
+    }
 }

@@ -40,6 +40,25 @@ public class StaffManagePresenter extends BasePresenter<StaffManageContract.View
     }
 
     @Override
+    public void getStaffListBeanFresh(String page, String page_size) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getStaffListBean(page, page_size).compose(RxScheduler.<StaffBean>Flo_io_main())
+                .subscribe(new Consumer<StaffBean>() {
+                    @Override
+                    public void accept(StaffBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+    }
+
+    @Override
     public void staffDelete(RequestBody body) {
         if (!isViewAttached()) {
             return;

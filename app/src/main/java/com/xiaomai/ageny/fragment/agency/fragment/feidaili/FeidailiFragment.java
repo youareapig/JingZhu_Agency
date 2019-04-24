@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.fragment.agency.fragment.feidaili;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.DailiListBean;
@@ -30,6 +33,9 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
     RecyclerView recycler;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
+
     private Adapter adapter;
     private List<DailiListBean.DataBean.ListBean> list;
     private Bundle bundle;
@@ -47,6 +53,23 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
             }
         });
 
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getData_Fresh("", "", "", "0", "");
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
+            }
+        });
     }
 
     @Override
@@ -77,12 +100,22 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
 
     @Override
     public void onSuccess(DailiListBean bean) {
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccess_Fresh(DailiListBean bean) {
+        initData(bean);
+    }
+
+    private void initData(DailiListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
             if (list.size() == 0) {
                 otherView.showEmptyView();
             }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.feidaili_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();

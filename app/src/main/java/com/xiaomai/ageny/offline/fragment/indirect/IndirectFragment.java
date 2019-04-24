@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.offline.fragment.indirect;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
@@ -34,6 +37,8 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
     RecyclerView recycler;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
     private Adapter adapter;
     private List<OffIndirectDeivceBean.DataBean.ListBean> list;
 
@@ -47,6 +52,23 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
             @Override
             public void onListener() {
                 mPresenter.getData("", "", "", "");
+            }
+        });
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getData_Fresh("", "", "", "");
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
             }
         });
     }
@@ -73,6 +95,16 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
 
     @Override
     public void onSuccess(OffIndirectDeivceBean bean) {
+        initData(bean);
+
+    }
+
+    @Override
+    public void onSuccess_Fresh(OffIndirectDeivceBean bean) {
+        initData(bean);
+    }
+
+    private void initData(OffIndirectDeivceBean bean) {
         if (bean.getCode() == 1) {
             offlineNum.setText(bean.getData().get(0).getCountlinxianbox());
             list = bean.getData().get(0).getList();
@@ -80,14 +112,13 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
                 otherView.showEmptyView();
             }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.indirect_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
     }
-
 
 }

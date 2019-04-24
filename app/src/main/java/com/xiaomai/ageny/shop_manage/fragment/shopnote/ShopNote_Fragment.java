@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.shop_manage.fragment.shopnote;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
@@ -36,13 +39,15 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
     TextView btShop;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
     private List<ShopRecordBean.DataBean.ListBean> list;
     private Adapter adapter;
     private Bundle bundle;
 
     @Override
     protected void initView(View view) {
-        bundle=new Bundle();
+        bundle = new Bundle();
         otherView.setHolder(mHolder);
         mPresenter = new ShopNotePresenter();
         mPresenter.attachView(this);
@@ -54,6 +59,23 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
             }
         });
 
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getDataFresh("", "", "", "");
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
+            }
+        });
     }
 
     @Override
@@ -78,6 +100,15 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
 
     @Override
     public void onSuccess(ShopRecordBean bean) {
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessFresh(ShopRecordBean bean) {
+        initData(bean);
+    }
+
+    private void initData(ShopRecordBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
             if (list.size() == 0) {
@@ -91,15 +122,14 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
             adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    bundle.putString("id",list.get(position).getReceiptId());
-                    toClass(view.getContext(), ShopNoteDetailsActivity.class,bundle);
+                    bundle.putString("id", list.get(position).getReceiptId());
+                    toClass(view.getContext(), ShopNoteDetailsActivity.class, bundle);
                 }
             });
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
-
 
     @OnClick(R.id.bt_shop)
     public void onViewClicked() {

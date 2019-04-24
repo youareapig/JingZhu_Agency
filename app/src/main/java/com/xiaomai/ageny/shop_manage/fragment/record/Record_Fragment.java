@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.shop_manage.fragment.record;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
@@ -30,7 +33,8 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
     RecyclerView recycler;
     @BindView(R.id.otherview)
     OtherView otherView;
-
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
     private List<ShopApplyBean.DataBean> list;
     private Adapter adapter;
     private Bundle bundle;
@@ -45,6 +49,23 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
             @Override
             public void onListener() {
                 mPresenter.getData("", "", "", "");
+            }
+        });
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getDataFresh("", "", "", "");
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
             }
         });
     }
@@ -78,7 +99,16 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
 
     @Override
     public void onSuccess(ShopApplyBean bean) {
-        Logger.d("请求成功");
+
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessFresh(ShopApplyBean bean) {
+        initData(bean);
+    }
+
+    private void initData(ShopApplyBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData();
             if (list.size() == 0) {
@@ -99,8 +129,6 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
     }
-
 
 }

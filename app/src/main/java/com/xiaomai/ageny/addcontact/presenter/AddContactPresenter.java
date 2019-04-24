@@ -13,7 +13,7 @@ public class AddContactPresenter extends BasePresenter<AddContactContract.View> 
     private AddContactContract.Model model;
 
     public AddContactPresenter() {
-        model=new AddContactModel();
+        model = new AddContactModel();
     }
 
     @Override
@@ -21,15 +21,18 @@ public class AddContactPresenter extends BasePresenter<AddContactContract.View> 
         if (!isViewAttached()) {
             return;
         }
+        mView.showLoading();
         model.getData(requestBody).compose(RxScheduler.<HintBean>Flo_io_main())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {
+                        mView.hideLoading();
                         mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
                         mView.onError(throwable);
                     }
                 });
@@ -40,15 +43,18 @@ public class AddContactPresenter extends BasePresenter<AddContactContract.View> 
         if (!isViewAttached()) {
             return;
         }
+        mView.showLoading();
         model.AddContanct(requestBody).compose(RxScheduler.<HintBean>Flo_io_main())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {
+                        mView.hideLoading();
                         mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
                         mView.onError(throwable);
                     }
                 });

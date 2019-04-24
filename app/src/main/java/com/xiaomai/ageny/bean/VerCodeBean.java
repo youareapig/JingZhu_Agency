@@ -4,7 +4,7 @@ public class VerCodeBean {
 
     /**
      * code : 1
-     * data : 4840
+     * data : 9380
      * message : 获得验证码成功
      */
 

@@ -34,16 +34,16 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends BaseActiv
         }
         super.onDestroy();
     }
-/*    *//**
+    /**
      * 绑定生命周期 防止MVP内存泄漏
      *
      * @param <T>
      * @return
-     *//*
+     */
     @Override
     public <T> AutoDisposeConverter<T> bindAutoDispose() {
         return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider
                 .from(this, Lifecycle.Event.ON_DESTROY));
-    }*/
+    }
 
 }

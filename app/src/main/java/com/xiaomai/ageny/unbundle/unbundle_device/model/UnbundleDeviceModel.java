@@ -11,7 +11,7 @@ import okhttp3.RequestBody;
 public class UnbundleDeviceModel implements UnbundleDeviceContract.Model {
     @Override
     public Flowable<VerCodeBean> getCode(String mobile) {
-        return RetrofitClient.getInstance().getApi().getVercode(mobile);
+        return RetrofitClient.getInstance().getApi().getVercodeUnbundle(mobile);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.device_manage.device_freeze.fragment.returnmoney;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.FreezeBean;
@@ -31,10 +34,12 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
     RecyclerView recycler;
     @BindView(R.id.otherview)
     OtherView otherView;
-    Unbinder unbinder;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
     private Adapter adapter;
     private List<FreezeBean.DataBean.ListBean> list;
     private Bundle bundle;
+
     @Override
     protected void initView(View view) {
         bundle = new Bundle();
@@ -48,6 +53,23 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
             }
         });
         mPresenter.getData("3", "", "");
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getDataFresh("3", "", "");
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
+            }
+        });
 
     }
 
@@ -73,12 +95,24 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
 
     @Override
     public void onSuccess(FreezeBean bean) {
+        initData(bean);
+
+    }
+
+    @Override
+    public void onSuccessFresh(FreezeBean bean) {
+        initData(bean);
+
+    }
+
+    private void initData(FreezeBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
             if (list.size() == 0) {
                 otherView.showEmptyView();
             }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.freeze_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
@@ -86,14 +120,12 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     bundle.putString("id", list.get(position).getDeviceid());
-                    bundle.putString("state","3");
-                    toClass(view.getContext(), DeviceFreezDetailsActivity.class,bundle);
+                    bundle.putString("state", "3");
+                    toClass(view.getContext(), DeviceFreezDetailsActivity.class, bundle);
                 }
             });
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
     }
-
 }

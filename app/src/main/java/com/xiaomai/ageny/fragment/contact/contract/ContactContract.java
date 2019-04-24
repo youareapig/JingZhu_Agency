@@ -7,7 +7,7 @@ import io.reactivex.Flowable;
 
 public interface ContactContract {
     interface Model {
-        Flowable<ContactListBean> getData(String mobile,String sellerId,String isbyearn);
+        Flowable<ContactListBean> getData(String mobile, String sellerId, String isbyearn);
     }
 
     interface View extends BaseView {
@@ -21,9 +21,13 @@ public interface ContactContract {
         void onError(Throwable throwable);
 
         void onSuccess(ContactListBean bean);
+
+        void onSuccess_Fresh(ContactListBean bean);
     }
 
     interface Presenter {
-       void getData(String mobile,String sellerId,String isbyearn);
+        void getData(String mobile, String sellerId, String isbyearn);
+
+        void getData_Fresh(String mobile, String sellerId, String isbyearn);
     }
 }

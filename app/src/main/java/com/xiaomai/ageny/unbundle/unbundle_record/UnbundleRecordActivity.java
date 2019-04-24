@@ -1,12 +1,15 @@
 package com.xiaomai.ageny.unbundle.unbundle_record;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.UnbindRecordBean;
@@ -35,6 +38,8 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
     RecyclerView recycler;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout refreshLayout;
 
     private Adapter adapter;
     private List<UnbindRecordBean.DataBean> list;
@@ -56,6 +61,24 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
                 mPresenter.getData("", "", "", "");
             }
         });
+
+        refreshLayout.setCanLoadMore(false);
+        refreshLayout.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getDataFresh("", "", "", "");
+                        refreshLayout.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
+            }
+        });
     }
 
     @Override
@@ -75,19 +98,29 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
 
     @Override
     public void onSuccess(UnbindRecordBean bean) {
+        initData(bean);
+
+    }
+
+    @Override
+    public void onSuccessFresh(UnbindRecordBean bean) {
+        initData(bean);
+    }
+
+    private void initData(UnbindRecordBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData();
             if (list.size() == 0) {
                 otherView.showEmptyView();
             }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+            recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.unbundle_record_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
     }
 
     @OnClick({R.id.back, R.id.bt_filter})

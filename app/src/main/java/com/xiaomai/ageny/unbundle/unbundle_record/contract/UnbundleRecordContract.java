@@ -21,9 +21,13 @@ public interface UnbundleRecordContract {
         void onError(Throwable throwable);
 
         void onSuccess(UnbindRecordBean bean);
+
+        void onSuccessFresh(UnbindRecordBean bean);
     }
 
     interface Presenter {
         void getData(String page, String page_size, String linkman, String linkmobile);
+
+        void getDataFresh(String page, String page_size, String linkman, String linkmobile);
     }
 }

@@ -35,4 +35,24 @@ public class MyBillPresenter extends BasePresenter<MyBillContract.View> implemen
                     }
                 });
     }
+
+    @Override
+    public void getDataFresh() {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData().compose(RxScheduler.<BillListBean>Flo_io_main())
+                .subscribe(new Consumer<BillListBean>() {
+                    @Override
+                    public void accept(BillListBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+
+                    }
+                });
+    }
 }

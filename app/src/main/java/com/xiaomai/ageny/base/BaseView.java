@@ -23,4 +23,5 @@ public interface BaseView {
      * @param <T>
      * @return
      */
+    <T> AutoDisposeConverter<T> bindAutoDispose();
 }

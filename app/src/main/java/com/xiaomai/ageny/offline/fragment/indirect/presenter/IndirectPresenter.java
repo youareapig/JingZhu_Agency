@@ -10,28 +10,47 @@ import io.reactivex.functions.Consumer;
 
 public class IndirectPresenter extends BasePresenter<IndirectContract.View> implements IndirectContract.Presenter {
     private IndirectContract.Model model;
+
     public IndirectPresenter() {
-        model=new IndirectModel();
+        model = new IndirectModel();
     }
 
     @Override
-    public void getData(String agentname, String agentmobile, String deviceid,String state) {
+    public void getData(String agentname, String agentmobile, String deviceid, String state) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(agentname, agentmobile, deviceid,state).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
+        model.getData(agentname, agentmobile, deviceid, state).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
                 .subscribe(new Consumer<OffIndirectDeivceBean>() {
                     @Override
                     public void accept(OffIndirectDeivceBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void getData_Fresh(String agentname, String agentmobile, String deviceid, String state) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(agentname, agentmobile, deviceid, state).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
+                .subscribe(new Consumer<OffIndirectDeivceBean>() {
+                    @Override
+                    public void accept(OffIndirectDeivceBean bean) throws Exception {
+                        mView.onSuccess_Fresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
                     }
                 });
     }

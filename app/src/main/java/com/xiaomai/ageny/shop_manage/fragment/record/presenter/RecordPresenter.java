@@ -37,4 +37,25 @@ public class RecordPresenter extends BasePresenter<RecordContract.View> implemen
                     }
                 });
     }
+
+    @Override
+    public void getDataFresh(String bath, String state, String page, String page_size) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(bath, state, page, page_size).compose(RxScheduler.<ShopApplyBean>Flo_io_main())
+                .subscribe(new Consumer<ShopApplyBean>() {
+                    @Override
+                    public void accept(ShopApplyBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+
+                    }
+                });
+    }
 }

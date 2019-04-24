@@ -36,4 +36,23 @@ public class ContactPresenter extends BasePresenter<ContactContract.View> implem
                     }
                 });
     }
+
+    @Override
+    public void getData_Fresh(String mobile, String sellerId, String isbyearn) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(mobile, sellerId, isbyearn).compose(RxScheduler.<ContactListBean>Flo_io_main())
+                .subscribe(new Consumer<ContactListBean>() {
+                    @Override
+                    public void accept(ContactListBean bean) throws Exception {
+                        mView.onSuccess_Fresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+    }
 }

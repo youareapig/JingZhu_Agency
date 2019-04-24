@@ -21,9 +21,13 @@ public interface OffDeviceContract {
         void onError(Throwable throwable);
 
         void onSuccess(ContactDeviceListBean bean);
+
+        void onSuccessFresh(ContactDeviceListBean bean);
     }
 
     interface Presenter {
-        void getData(String sellerid,String state,String deviceid,String device_type);
+        void getData(String sellerid, String state, String deviceid, String device_type);
+
+        void getDataFresh(String sellerid, String state, String deviceid, String device_type);
     }
 }

@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.unbundle.unbundle_shanghu;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -11,13 +12,16 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.VerCodeBean;
+import com.xiaomai.ageny.details.contactdetails.ContactDetailsActivity;
 import com.xiaomai.ageny.unbundle.UnbundleFaileActivity;
 import com.xiaomai.ageny.unbundle.UnbundleSuccessActivity;
 import com.xiaomai.ageny.unbundle.unbundle_shanghu.contract.UnbundleShanghuContract;
 import com.xiaomai.ageny.unbundle.unbundle_shanghu.presenter.UnbundleShanghuPresenter;
 import com.xiaomai.ageny.utils.CountDownTimerUtils;
+import com.xiaomai.ageny.utils.CustomDialog;
 import com.xiaomai.ageny.utils.HideUtil;
 import com.xiaomai.ageny.utils.MaptoJson;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -48,6 +52,7 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
     private Bundle bundle;
+    private CustomDialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -72,25 +77,26 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
 
     @Override
     public void showLoading() {
-
+        dialog = new CustomDialog(this);
+        dialog.show();
     }
 
     @Override
     public void hideLoading() {
-
+        dialog.dismiss();
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        dialog.dismiss();
     }
 
     @Override
     public void onSuccess(VerCodeBean bean) {
-        if (bean.getCode()==1){
-            CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(btGetCode, 5000, 1000);
+        if (bean.getCode() == 1) {
+            CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(btGetCode, 60000, 1000);
             mCountDownTimerUtils.start();
-        } else  {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
@@ -98,13 +104,17 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
     @Override
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
-            bundle.putInt("unbundletype", 1);
-            toClass1(this, UnbundleSuccessActivity.class, bundle);
-            finish();
+            ShowDialogUtils.showdialog(this, bean.getMessage());
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                    ContactDetailsActivity.instance.finish();
+                }
+            }, 1000);
+
         } else {
-            bundle.putInt("unbundletype", 1);
-            toClass1(this, UnbundleFaileActivity.class, bundle);
-            finish();
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 

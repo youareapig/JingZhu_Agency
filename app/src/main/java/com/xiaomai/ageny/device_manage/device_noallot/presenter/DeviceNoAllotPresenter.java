@@ -37,4 +37,25 @@ public class DeviceNoAllotPresenter extends BasePresenter<DeviceNoAllotContract.
                     }
                 });
     }
+
+    @Override
+    public void getDataFresh(String deviceid) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(deviceid).compose(RxScheduler.<NoAllotDeviceBean>Flo_io_main())
+                .subscribe(new Consumer<NoAllotDeviceBean>() {
+                    @Override
+                    public void accept(NoAllotDeviceBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+
+                    }
+                });
+    }
 }
