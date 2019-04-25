@@ -13,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xiaomai.ageny.R;
-import com.xiaomai.ageny.addbank.DepositSuccessActivity;
 import com.xiaomai.ageny.addbank.BankActivity;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;

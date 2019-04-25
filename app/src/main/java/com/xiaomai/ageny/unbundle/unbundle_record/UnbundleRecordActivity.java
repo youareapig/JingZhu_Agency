@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.unbundle.unbundle_record;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,6 +44,8 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
 
     private Adapter adapter;
     private List<UnbindRecordBean.DataBean> list;
+    private String strName = "", strTel = "";
+    private Bundle bundle;
 
     @Override
     public int getLayoutId() {
@@ -51,14 +54,14 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
 
     @Override
     public void initView() {
+        bundle = new Bundle();
         otherView.setHolder(mHolder);
         mPresenter = new UnbundleRecordPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("", "", "", "");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("", "", "", "");
+                mPresenter.getData("", "", strName, strTel);
             }
         });
 
@@ -69,7 +72,7 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.getDataFresh("", "", "", "");
+                        mPresenter.getDataFresh("", "", strName, strTel);
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -79,6 +82,12 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
             public void loadMore() {
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.getData("", "", strName, strTel);
     }
 
     @Override
@@ -130,8 +139,19 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
                 finish();
                 break;
             case R.id.bt_filter:
-                toClass1(this, UnbundleRecordFilterActivity.class);
+                bundle.putString("name", strName);
+                bundle.putString("tel", strTel);
+                toClass1(this, UnbundleRecordFilterActivity.class, bundle, 1);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 2) {
+            strName = data.getStringExtra("name");
+            strTel = data.getStringExtra("tel");
         }
     }
 }

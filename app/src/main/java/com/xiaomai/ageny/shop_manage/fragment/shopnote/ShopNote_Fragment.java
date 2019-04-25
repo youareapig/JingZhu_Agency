@@ -20,6 +20,7 @@ import com.xiaomai.ageny.details.shop_note_details.ShopNoteDetailsActivity;
 import com.xiaomai.ageny.shop_manage.fragment.shopnote.contract.ShopNoteContract;
 import com.xiaomai.ageny.shop_manage.fragment.shopnote.presenter.ShopNotePresenter;
 import com.xiaomai.ageny.shop_manage.goshop.GoShopActivity;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -44,6 +45,7 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
     private List<ShopRecordBean.DataBean.ListBean> list;
     private Adapter adapter;
     private Bundle bundle;
+    private String strTimes = "", strTel = "";
 
     @Override
     protected void initView(View view) {
@@ -51,11 +53,10 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
         otherView.setHolder(mHolder);
         mPresenter = new ShopNotePresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("", "", "", "");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("", "", "", "");
+                mPresenter.getData(strTimes, strTel, "", "");
             }
         });
 
@@ -66,7 +67,7 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.getDataFresh("", "", "", "");
+                        mPresenter.getDataFresh(strTimes, strTel, "", "");
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -76,6 +77,14 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
             public void loadMore() {
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        strTimes = SharedPreferencesUtil.getInstance(getActivity()).getSP("shop_times");
+        strTel = SharedPreferencesUtil.getInstance(getActivity()).getSP("shop_tel");
+        mPresenter.getData(strTimes, strTel, "", "");
     }
 
     @Override

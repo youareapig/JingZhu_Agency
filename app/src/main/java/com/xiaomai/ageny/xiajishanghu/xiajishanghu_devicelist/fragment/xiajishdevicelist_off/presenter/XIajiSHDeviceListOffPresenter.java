@@ -35,4 +35,23 @@ public class XIajiSHDeviceListOffPresenter extends BasePresenter<XIajiSHDeviceLi
                     }
                 });
     }
+
+    @Override
+    public void getDataFresh(String id, String deviceid, String dentails, String state) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(id, deviceid, dentails, state).compose(RxScheduler.<XiajiListBean>Flo_io_main())
+                .subscribe(new Consumer<XiajiListBean>() {
+                    @Override
+                    public void accept(XiajiListBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+    }
 }

@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.task.direct_task;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.OffDirectDeviceBean;
@@ -31,7 +34,9 @@ public class TaskDirectFragment extends BaseMvpFragment<TaskDirectPresenter> imp
     RecyclerView recycler;
     @BindView(R.id.otherview)
     OtherView otherview;
-    Unbinder unbinder;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout finishRefresh;
+
     private Adapter adapter;
     private List<OffDirectDeviceBean.DataBean.ListBean> list;
 
@@ -47,7 +52,26 @@ public class TaskDirectFragment extends BaseMvpFragment<TaskDirectPresenter> imp
                 mPresenter.getData("", "", "", "1");
             }
         });
+
+        finishRefresh.setCanLoadMore(false);
+        finishRefresh.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getDataFresh("", "", "", "1");
+                        finishRefresh.finishRefresh();
+                    }
+                }, 1000);
+            }
+
+            @Override
+            public void loadMore() {
+            }
+        });
     }
+
 
     @Override
     protected int getLayoutId() {
@@ -66,11 +90,20 @@ public class TaskDirectFragment extends BaseMvpFragment<TaskDirectPresenter> imp
 
     @Override
     public void onError(Throwable throwable) {
-        //item tast_direct_item
+        otherview.showRetryView();
     }
 
     @Override
     public void onSuccess(OffDirectDeviceBean bean) {
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessFresh(OffDirectDeviceBean bean) {
+        initData(bean);
+    }
+
+    private void initData(OffDirectDeviceBean bean) {
         if (bean.getCode() == 1) {
             offlineNum.setText(bean.getData().get(0).getCountlinxianbox());
             list = bean.getData().get(0).getList();
@@ -78,6 +111,7 @@ public class TaskDirectFragment extends BaseMvpFragment<TaskDirectPresenter> imp
                 otherview.showEmptyView();
             }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.task_direct_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();

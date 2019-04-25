@@ -19,6 +19,7 @@ import com.xiaomai.ageny.bean.ContactDeviceListBean;
 import com.xiaomai.ageny.details.shanghudevicedetails.ShanghuDeviceDetailsActivity;
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.contract.OnDeviceContract;
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.presenter.OnDevicePresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -46,6 +47,7 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
     private Adapter adapter;
     private String id;
     private Bundle bundle;
+    private String deviceId = "", slotNum = "";
 
     public OnDeviecFragment(String id) {
         this.id = id;
@@ -57,11 +59,11 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
         bundle = new Bundle();
         mPresenter = new OnDevicePresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(id, "1", "", "");
+
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(id, "1", "", "");
+                mPresenter.getData(id, "1", deviceId, slotNum);
             }
         });
         refreshLayout.setCanLoadMore(false);
@@ -71,7 +73,7 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.getDataFresh(id, "1", "", "");
+                        mPresenter.getDataFresh(id, "1", deviceId, slotNum);
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -81,6 +83,14 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
             public void loadMore() {
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        deviceId = SharedPreferencesUtil.getInstance(getActivity()).getSP("contanct_device_id");
+        slotNum = SharedPreferencesUtil.getInstance(getActivity()).getSP("contanct_device_slot");
+        mPresenter.getData(id, "1", deviceId, slotNum);
     }
 
     @Override

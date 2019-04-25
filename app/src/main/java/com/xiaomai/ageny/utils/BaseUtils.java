@@ -35,7 +35,7 @@ public class BaseUtils {
         List<String> priceList = bean.getData().getPrice();
         List<String> list = new ArrayList<>();
         for (int i = 0; i < priceList.size(); i++) {
-            double doublePrice = (Double.valueOf(priceList.get(i))) / 100;
+            double doublePrice = (Double.valueOf(priceList.get(i))) ;
             list.add(doublePrice + "/小时");
         }
         return list;
@@ -48,7 +48,7 @@ public class BaseUtils {
         List<String> priceList = bean.getData().getPrice();
         List<String> list = new ArrayList<>();
         for (int i = 0; i < priceList.size(); i++) {
-            double doublePrice = (Double.valueOf(priceList.get(i))) / 100;
+            double doublePrice = (Double.valueOf(priceList.get(i)));
             list.add(doublePrice + "");
         }
         return list;

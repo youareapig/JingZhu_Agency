@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.deviceinstalllist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -50,6 +51,7 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     private String strAnzhuangrenTel = "";
     private String strTime = "";
     private int page = 1;
+    private Bundle bundle;
 
     @Override
     public int getLayoutId() {
@@ -59,19 +61,13 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     @Override
     public void initView() {
         otherView.setHolder(mHolder);
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            strChiyourenTel = bundle.getString("cyren");
-            strAnzhuangrenTel = bundle.getString("azren");
-            strTime = bundle.getString("time");
-        }
-
+        bundle = new Bundle();
         mPresenter = new DeviceInstallPresenter();
         mPresenter.attachView(this);
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getDeviceInstallListData("", "", "");
+                mPresenter.getDeviceInstallListData(strChiyourenTel, strAnzhuangrenTel, strTime);
             }
         });
         //下拉上啦
@@ -106,7 +102,7 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     @Override
     protected void onStart() {
         super.onStart();
-        mPresenter.getDeviceInstallListData("", "", "");
+        mPresenter.getDeviceInstallListData(strChiyourenTel, strAnzhuangrenTel, strTime);
     }
 
     @Override
@@ -126,6 +122,15 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     @Override
     public void onSuccess(DeviceInstallListBean bean) {
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccess_Refresh(DeviceInstallListBean bean) {
+        initData(bean);
+    }
+
+    private void initData(DeviceInstallListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
             if (list.size() == 0) {
@@ -141,12 +146,6 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
         }
     }
 
-    @Override
-    public void onSuccess_Refresh(DeviceInstallListBean bean) {
-
-    }
-
-
     @OnClick({R.id.back, R.id.bt_filter, R.id.bt_install})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -154,7 +153,10 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
                 finish();
                 break;
             case R.id.bt_filter:
-                toClass(this, DeviceInstallFilterActivity.class);
+                bundle.putString("chiyou", strChiyourenTel);
+                bundle.putString("anzhuang", strAnzhuangrenTel);
+                bundle.putString("time", strTime);
+                toClass(this, DeviceInstallFilterActivity.class, bundle, 1);
                 break;
             case R.id.bt_install:
                 toClass(this, DeployActivity.class);
@@ -162,4 +164,13 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 2) {
+            strChiyourenTel = data.getStringExtra("chiyou");
+            strAnzhuangrenTel = data.getStringExtra("anzhuang");
+            strTime = data.getStringExtra("time");
+        }
+    }
 }

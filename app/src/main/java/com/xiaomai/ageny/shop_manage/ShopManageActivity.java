@@ -17,6 +17,7 @@ import com.xiaomai.ageny.order.fragment.lowerorder.LowerOrderFragment;
 import com.xiaomai.ageny.order.fragment.myorder.MyOderFragment;
 import com.xiaomai.ageny.shop_manage.fragment.record.Record_Fragment;
 import com.xiaomai.ageny.shop_manage.fragment.shopnote.ShopNote_Fragment;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -94,5 +95,15 @@ public class ShopManageActivity extends BaseActivity {
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferencesUtil.getInstance(this).putSP("record_times", "");
+        SharedPreferencesUtil.getInstance(this).putSP("record_tel", "");
+        SharedPreferencesUtil.getInstance(this).putSP("record_state", "");
+        SharedPreferencesUtil.getInstance(this).putSP("shop_times", "");
+        SharedPreferencesUtil.getInstance(this).putSP("shop_tel", "");
     }
 }

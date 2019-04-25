@@ -19,6 +19,7 @@ import com.xiaomai.ageny.details.devcie_freeze_details.DeviceFreezDetailsActivit
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.Adapter;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.nofreeze.contract.NoFreezeContract;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.nofreeze.presenter.NoFreezePresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -39,9 +40,9 @@ public class NoFreeze_Fragment extends BaseMvpFragment<NoFreezePresenter> implem
     PullToRefreshLayout refreshLayout;
     private Adapter adapter;
     private List<FreezeBean.DataBean.ListBean> list;
-    private String deviceId, relation;
     private CallBackListener callBackListener;
     private Bundle bundle;
+    private String strId, strState;
 
     @Override
     protected void initView(View view) {
@@ -50,11 +51,10 @@ public class NoFreeze_Fragment extends BaseMvpFragment<NoFreezePresenter> implem
         callBackListener = (CallBackListener) getActivity();
         mPresenter = new NoFreezePresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("1", "", "");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("1", "", "");
+                mPresenter.getData("1", strId, strState);
             }
         });
 
@@ -65,7 +65,7 @@ public class NoFreeze_Fragment extends BaseMvpFragment<NoFreezePresenter> implem
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.getDataFresh("1", "", "");
+                        mPresenter.getDataFresh("1", strId, strState);
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -75,6 +75,22 @@ public class NoFreeze_Fragment extends BaseMvpFragment<NoFreezePresenter> implem
             public void loadMore() {
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        strId = SharedPreferencesUtil.getInstance(getActivity()).getSP("freezed_id");
+        strState = SharedPreferencesUtil.getInstance(getActivity()).getSP("freezed_state");
+        switch (strState) {
+            case "直属":
+                strState = "1";
+                break;
+            case "非直属":
+                strState = "0";
+                break;
+        }
+        mPresenter.getData("1", strId, strState);
     }
 
     @Override

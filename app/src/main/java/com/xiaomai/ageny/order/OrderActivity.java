@@ -21,6 +21,7 @@ import com.xiaomai.ageny.order.contract.OrderContract;
 import com.xiaomai.ageny.order.fragment.lowerorder.LowerOrderFragment;
 import com.xiaomai.ageny.order.fragment.myorder.MyOderFragment;
 import com.xiaomai.ageny.order.presenter.OrderPresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,8 @@ public class OrderActivity extends BaseMvpActivity<OrderPresenter> implements Or
     ViewPager viewpage;
     private List<String> titleList;
     private List<Fragment> fragmentList;
-    private int tabPosition =0;
+    private int tabPosition = 0;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_order;
@@ -66,7 +68,7 @@ public class OrderActivity extends BaseMvpActivity<OrderPresenter> implements Or
         xtab.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(XTabLayout.Tab tab) {
-                tabPosition=tab.getPosition();
+                tabPosition = tab.getPosition();
                 viewpage.setCurrentItem(tabPosition);
             }
 
@@ -104,13 +106,28 @@ public class OrderActivity extends BaseMvpActivity<OrderPresenter> implements Or
             case R.id.back:
                 break;
             case R.id.bt_filter:
-                if (tabPosition==0){
+                if (tabPosition == 0) {
                     toClass(this, MyOrderFilterActivity.class);
                 }
-                if (tabPosition==1){
-                    toClass(this,LowerOrderFilterActivity.class);
+                if (tabPosition == 1) {
+                    toClass(this, LowerOrderFilterActivity.class);
                 }
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferencesUtil.getInstance(this).putSP("myorder_id", "");
+        SharedPreferencesUtil.getInstance(this).putSP("myorder_name", "");
+        SharedPreferencesUtil.getInstance(this).putSP("myorder_star", "");
+        SharedPreferencesUtil.getInstance(this).putSP("myorder_end", "");
+        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_days", "");
+        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_id", "");
+        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_tel", "");
+        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_star", "");
+        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_end", "");
+        SharedPreferencesUtil.getInstance(this).putSP("myorder_days", "");
     }
 }

@@ -18,6 +18,7 @@ import com.xiaomai.ageny.bean.ContactDeviceListBean;
 import com.xiaomai.ageny.details.shanghudevicedetails.ShanghuDeviceDetailsActivity;
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.contract.OffDeviceContract;
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.presenter.OffDevicePresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -42,6 +43,7 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
     private Adapter adapter;
     private String id;
     private Bundle bundle;
+    private String deviceId = "", slotNum = "";
 
     public OffDeviceFragment(String id) {
         this.id = id;
@@ -53,11 +55,11 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
         otherView.setHolder(mHolder);
         mPresenter = new OffDevicePresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(id, "0", "", "");
+        mPresenter.getData(id, "0", deviceId, slotNum);
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(id, "0", "", "");
+                mPresenter.getData(id, "0", deviceId, slotNum);
             }
         });
 
@@ -68,7 +70,7 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.getDataFresh(id, "0", "", "");
+                        mPresenter.getDataFresh(id, "0", deviceId, slotNum);
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -78,6 +80,14 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
             public void loadMore() {
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        deviceId = SharedPreferencesUtil.getInstance(getActivity()).getSP("contanct_device_id");
+        slotNum = SharedPreferencesUtil.getInstance(getActivity()).getSP("contanct_device_slot");
+        mPresenter.getData(id, "0", deviceId, slotNum);
     }
 
     @Override

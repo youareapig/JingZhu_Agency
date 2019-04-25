@@ -1,13 +1,17 @@
 package com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.fragment.xiajishdevicelist_off;
 
 import android.annotation.SuppressLint;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
+import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.XiajiListBean;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -27,9 +31,11 @@ public class XiajiSHDeviceListOff_Fragment extends BaseMvpFragment<XIajiSHDevice
     RecyclerView recycler;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.refresh)
+    PullToRefreshLayout finishRefresh;
     private List<XiajiListBean.DataBean> list;
     private Adapter adapter;
-    private String id;
+    private String id, deviceId, price;
 
     public XiajiSHDeviceListOff_Fragment(String id) {
         this.id = id;
@@ -40,14 +46,37 @@ public class XiajiSHDeviceListOff_Fragment extends BaseMvpFragment<XIajiSHDevice
         otherView.setHolder(mHolder);
         mPresenter = new XIajiSHDeviceListOffPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(id, "", "", "0");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(id, "", "", "0");
+                mPresenter.getData(id, deviceId, price, "0");
             }
         });
+        finishRefresh.setCanLoadMore(false);
+        finishRefresh.setRefreshListener(new BaseRefreshListener() {
+            @Override
+            public void refresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPresenter.getDataFresh(id, deviceId, price, "0");
+                        finishRefresh.finishRefresh();
+                    }
+                }, 1000);
+            }
 
+            @Override
+            public void loadMore() {
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        deviceId = SharedPreferencesUtil.getInstance(getActivity()).getSP("xiajiId");
+        price = SharedPreferencesUtil.getInstance(getActivity()).getSP("xiajiPrice");
+        mPresenter.getData(id, deviceId, price, "0");
     }
 
     @Override
@@ -72,6 +101,11 @@ public class XiajiSHDeviceListOff_Fragment extends BaseMvpFragment<XIajiSHDevice
 
     @Override
     public void onSuccess(XiajiListBean bean) {
+        initData(bean);
+
+    }
+
+    private void initData(XiajiListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData();
             if (list.size() == 0) {
@@ -85,7 +119,11 @@ public class XiajiSHDeviceListOff_Fragment extends BaseMvpFragment<XIajiSHDevice
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
+    }
 
+    @Override
+    public void onSuccessFresh(XiajiListBean bean) {
+        initData(bean);
     }
 
 

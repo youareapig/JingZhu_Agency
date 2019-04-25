@@ -18,6 +18,7 @@ import com.xiaomai.ageny.offline.contract.OfflineContract;
 import com.xiaomai.ageny.offline.fragment.direct.DirectFragment;
 import com.xiaomai.ageny.offline.fragment.indirect.IndirectFragment;
 import com.xiaomai.ageny.offline.presenter.OfflinePresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,8 +112,18 @@ public class OfflineActivity extends BaseMvpActivity<OfflinePresenter> implement
                 if (tabPosition == 1) {
                     toClass(this, IndirectFilterActivity.class);
                 }
-
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferencesUtil.getInstance(this).putSP("offzhishuTel", "");
+        SharedPreferencesUtil.getInstance(this).putSP("offzhishuId", "");
+        SharedPreferencesUtil.getInstance(this).putSP("offzhishuName", "");
+        SharedPreferencesUtil.getInstance(this).putSP("offfeizhishuTel", "");
+        SharedPreferencesUtil.getInstance(this).putSP("offfeizhishuId", "");
+        SharedPreferencesUtil.getInstance(this).putSP("offfeizhishuName", "");
     }
 }

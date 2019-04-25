@@ -80,8 +80,6 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
         strLev = SharedPreferencesUtil.getInstance(getActivity()).getSP("zhishuLev");
         strID = SharedPreferencesUtil.getInstance(getActivity()).getSP("zhishuId");
 
-        SharedPreferencesUtil.getInstance(getActivity()).putSP("zhishuLev", strLev);
-        SharedPreferencesUtil.getInstance(getActivity()).putSP("zhishuId", strID);
         mPresenter.getData("", strID, strLev, "0", "");
     }
 

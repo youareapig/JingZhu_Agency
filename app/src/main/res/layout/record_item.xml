@@ -50,7 +50,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="@dimen/dp_17"
             android:paddingTop="@dimen/dp_10"
@@ -106,6 +106,7 @@
                 android:textSize="@dimen/sp_14" />
 
             <LinearLayout
+                android:id="@+id/failview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"

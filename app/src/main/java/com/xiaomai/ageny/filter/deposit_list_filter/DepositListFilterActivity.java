@@ -8,10 +8,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.logger.Logger;
+import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.filter.deposit_list_filter.contract.DepositListFilterContract;
 import com.xiaomai.ageny.filter.deposit_list_filter.presenter.DepositListFilterPresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
 
 import java.util.ArrayList;
@@ -34,6 +37,7 @@ public class DepositListFilterActivity extends BaseMvpActivity<DepositListFilter
     TextView filterBtSubmit;
     private List<String> list;
     private Adapter adapter;
+    private int state = 0;
 
     @Override
     public int getLayoutId() {
@@ -43,6 +47,7 @@ public class DepositListFilterActivity extends BaseMvpActivity<DepositListFilter
     @Override
     public void initView() {
         list = new ArrayList<>();
+        list.add("全部");
         list.add("申请中");
         list.add("已通过");
         list.add("未通过");
@@ -54,6 +59,7 @@ public class DepositListFilterActivity extends BaseMvpActivity<DepositListFilter
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                state = position;
                 adapter.setSelectItem(position);
                 adapter.notifyDataSetChanged();
             }
@@ -80,10 +86,16 @@ public class DepositListFilterActivity extends BaseMvpActivity<DepositListFilter
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.filter_bt_reset:
+                adapter.setSelectItem(0);
+                adapter.notifyDataSetChanged();
                 break;
             case R.id.filter_bt_submit:
+                Logger.d("选择" + list.get(state));
+                SharedPreferencesUtil.getInstance(this).putSP("deposit_state", state == 0 ? "" : list.get(state));
+                finish();
                 break;
         }
     }

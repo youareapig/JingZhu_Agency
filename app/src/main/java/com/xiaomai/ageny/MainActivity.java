@@ -15,6 +15,7 @@ import com.xiaomai.ageny.fragment.agency.Agency_Fragment;
 import com.xiaomai.ageny.fragment.contact.Contact_Fragment;
 import com.xiaomai.ageny.fragment.index.Index_Fragment;
 import com.xiaomai.ageny.fragment.mine.Mine_Fragment;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.ArrayList;
@@ -190,4 +191,5 @@ public class MainActivity extends BaseActivity {
                 break;
         }
     }
+
 }

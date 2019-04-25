@@ -21,6 +21,7 @@ import com.xiaomai.ageny.shanghudevice.contract.ShangHuDeviceContract;
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.OffDeviceFragment;
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.OnDeviecFragment;
 import com.xiaomai.ageny.shanghudevice.presenter.ShangHuDevicePresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -50,6 +51,7 @@ public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresente
     private List<Fragment> fragmentList;
     private String id;
     public static ShanghuDeviceActivity instance;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_shanghu_device;
@@ -58,7 +60,7 @@ public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresente
     @Override
     public void initView() {
         id = getIntent().getExtras().getString("id");
-        instance=this;
+        instance = this;
         titleList = new ArrayList<>();
         titleList.add("在线设备");
         titleList.add("离线设备");
@@ -102,5 +104,13 @@ public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresente
                 toClass(this, ShangHuDeviceFilterActivity.class);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //清空筛选条件
+        SharedPreferencesUtil.getInstance(this).putSP("contanct_device_id", "");
+        SharedPreferencesUtil.getInstance(this).putSP("contanct_device_slot", "");
     }
 }

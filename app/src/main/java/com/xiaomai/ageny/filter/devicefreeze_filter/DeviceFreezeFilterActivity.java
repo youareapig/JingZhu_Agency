@@ -14,6 +14,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.device_manage.device_freeze.DeviceFreezeActivity;
 import com.xiaomai.ageny.filter.devicefreeze_filter.contract.DeviceFreezeFilterContract;
 import com.xiaomai.ageny.filter.devicefreeze_filter.presenter.DeviceFreezeFilterPresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
 
 import java.util.ArrayList;
@@ -38,9 +39,9 @@ public class DeviceFreezeFilterActivity extends BaseMvpActivity<DeviceFreezeFilt
     private List<String> list;
     private Adapter adapter;
     private String strId = "";
-    private String strRelation = "";
+    private int state;
     private Bundle bundle;
-    private int tabposition;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_device_freeze_filter;
@@ -48,10 +49,8 @@ public class DeviceFreezeFilterActivity extends BaseMvpActivity<DeviceFreezeFilt
 
     @Override
     public void initView() {
-        Bundle bundle1=getIntent().getExtras();
-        if (bundle1!=null){
-            tabposition=bundle1.getInt("tabposition");
-        }
+        strId = SharedPreferencesUtil.getInstance(this).getSP("freezed_id");
+        deviceId.setText(strId);
 
         bundle = new Bundle();
         list = new ArrayList<>();
@@ -68,7 +67,7 @@ public class DeviceFreezeFilterActivity extends BaseMvpActivity<DeviceFreezeFilt
             public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
                 adapter.setSelectItem(position);
                 adapter.notifyDataSetChanged();
-                strRelation = list.get(position);
+                state = position;
             }
         });
     }
@@ -93,15 +92,17 @@ public class DeviceFreezeFilterActivity extends BaseMvpActivity<DeviceFreezeFilt
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.filter_bt_reset:
+                deviceId.setText("");
+                adapter.setSelectItem(0);
+                adapter.notifyDataSetChanged();
                 break;
             case R.id.filter_bt_submit:
-                strId = deviceId.getText().toString().trim();
-                bundle.putString("filler_deviceid", strId);
-                bundle.putString("filler_relation", strRelation);
-                bundle.putInt("tabposition", tabposition);
-                toClass(this, DeviceFreezeActivity.class, bundle);
+                strId = deviceId.getText().toString();
+                SharedPreferencesUtil.getInstance(this).putSP("freezed_id", strId);
+                SharedPreferencesUtil.getInstance(this).putSP("freezed_state", state == 0 ? "" : list.get(state));
                 finish();
                 break;
         }

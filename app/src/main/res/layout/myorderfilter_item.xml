@@ -8,7 +8,6 @@
         android:layout_width="@dimen/dp_66"
         android:layout_height="@dimen/dp_29"
         android:gravity="center"
-        android:text="6槽"
         android:textColor="#363636"
         android:textSize="@dimen/sp_13" />
 </LinearLayout>

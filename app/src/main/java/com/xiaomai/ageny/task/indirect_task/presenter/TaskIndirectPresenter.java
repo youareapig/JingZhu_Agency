@@ -24,14 +24,32 @@ public class TaskIndirectPresenter extends BasePresenter<TaskIndirectContract.Vi
                 .subscribe(new Consumer<OffIndirectDeivceBean>() {
                     @Override
                     public void accept(OffIndirectDeivceBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void getDataFresh(String agentname, String agentmobile, String deviceid, String state) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(agentname, agentmobile, deviceid,state).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
+                .subscribe(new Consumer<OffIndirectDeivceBean>() {
+                    @Override
+                    public void accept(OffIndirectDeivceBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
                     }
                 });
     }

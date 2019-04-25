@@ -44,6 +44,8 @@
         android:layout_marginLeft="@dimen/dp_21"
         android:gravity="center_vertical"
         android:hint="输入持有人联系方式"
+        android:inputType="number"
+        android:singleLine="true"
         android:textColor="#363636"
         android:textSize="@dimen/sp_17"
         android:theme="@style/MyEditText" />
@@ -64,6 +66,8 @@
         android:layout_marginLeft="@dimen/dp_21"
         android:gravity="center_vertical"
         android:hint="输入部署设备人联系方式筛选查询"
+        android:inputType="number"
+        android:singleLine="true"
         android:textColor="#363636"
         android:textSize="@dimen/sp_17"
         android:theme="@style/MyEditText" />
@@ -83,6 +87,7 @@
         android:layout_height="@dimen/dp_44"
         android:layout_marginLeft="@dimen/dp_21"
         android:gravity="center_vertical"
+        android:hint="选择部署时间"
         android:textColor="#363636"
         android:textSize="@dimen/sp_16" />
 

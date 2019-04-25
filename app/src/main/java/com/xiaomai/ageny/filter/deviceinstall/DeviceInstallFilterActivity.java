@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.filter.deviceinstall;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -47,8 +48,13 @@ public class DeviceInstallFilterActivity extends BaseMvpActivity<DeviceInstallFi
 
     @Override
     public void initView() {
-        bundle = new Bundle();
-
+        bundle = getIntent().getExtras();
+        strChiyourenTel = bundle.getString("chiyou");
+        strAnzhuangrenTel = bundle.getString("anzhuang");
+        strTime = bundle.getString("time");
+        anzhuangrenTel.setText(strAnzhuangrenTel);
+        chiyourenTel.setText(strChiyourenTel);
+        filterTime.setText(strTime);
     }
 
     @Override
@@ -83,15 +89,19 @@ public class DeviceInstallFilterActivity extends BaseMvpActivity<DeviceInstallFi
                 pvTime.show();
                 break;
             case R.id.filter_bt_reset:
+                chiyourenTel.setText("");
+                anzhuangrenTel.setText("");
+                filterTime.setText("");
                 break;
             case R.id.filter_bt_submit:
                 strChiyourenTel = chiyourenTel.getText().toString().trim();
                 strAnzhuangrenTel = anzhuangrenTel.getText().toString().trim();
                 strTime = filterTime.getText().toString().trim();
-                bundle.putString("cyren", strChiyourenTel);
-                bundle.putString("azren", strAnzhuangrenTel);
-                bundle.putString("time", strTime);
-                toClass(this, DeviceInstallActivity.class, bundle);
+                Intent intent = new Intent();
+                intent.putExtra("chiyou", strChiyourenTel);
+                intent.putExtra("anzhuang", strAnzhuangrenTel);
+                intent.putExtra("time", strTime);
+                setResult(2, intent);
                 finish();
                 break;
         }

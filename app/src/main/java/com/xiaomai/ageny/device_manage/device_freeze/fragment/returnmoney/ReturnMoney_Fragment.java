@@ -18,6 +18,7 @@ import com.xiaomai.ageny.details.devcie_freeze_details.DeviceFreezDetailsActivit
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.Adapter;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.returnmoney.contract.ReturnMoneyContract;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.returnmoney.presenter.ReturnMoneyPresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -39,6 +40,7 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
     private Adapter adapter;
     private List<FreezeBean.DataBean.ListBean> list;
     private Bundle bundle;
+    private String strId, strState;
 
     @Override
     protected void initView(View view) {
@@ -49,10 +51,9 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("3", "", "");
+                mPresenter.getData("3", strId, strState);
             }
         });
-        mPresenter.getData("3", "", "");
         refreshLayout.setCanLoadMore(false);
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
@@ -60,7 +61,7 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.getDataFresh("3", "", "");
+                        mPresenter.getDataFresh("3", strId, strState);
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -71,6 +72,22 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
             }
         });
 
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        strId = SharedPreferencesUtil.getInstance(getActivity()).getSP("freezed_id");
+        strState = SharedPreferencesUtil.getInstance(getActivity()).getSP("freezed_state");
+        switch (strState) {
+            case "直属":
+                strState = "1";
+                break;
+            case "非直属":
+                strState = "0";
+                break;
+        }
+        mPresenter.getData("3", strId, strState);
     }
 
     @Override

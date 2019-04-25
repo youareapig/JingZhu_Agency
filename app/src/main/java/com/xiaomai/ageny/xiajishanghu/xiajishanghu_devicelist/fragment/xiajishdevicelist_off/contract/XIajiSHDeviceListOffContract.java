@@ -21,9 +21,13 @@ public interface XIajiSHDeviceListOffContract {
         void onError(Throwable throwable);
 
         void onSuccess(XiajiListBean bean);
+
+        void onSuccessFresh(XiajiListBean bean);
     }
 
     interface Presenter {
         void getData(String id, String deviceid, String dentails, String state);
+
+        void getDataFresh(String id, String deviceid, String dentails, String state);
     }
 }

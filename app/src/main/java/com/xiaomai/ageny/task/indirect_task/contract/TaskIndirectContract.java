@@ -21,9 +21,13 @@ public interface TaskIndirectContract {
         void onError(Throwable throwable);
 
         void onSuccess(OffIndirectDeivceBean bean);
+
+        void onSuccessFresh(OffIndirectDeivceBean bean);
     }
 
     interface Presenter {
-        void getData(String agentname,String agentmobile,String deviceid,String state);
+        void getData(String agentname, String agentmobile, String deviceid, String state);
+
+        void getDataFresh(String agentname, String agentmobile, String deviceid, String state);
     }
 }

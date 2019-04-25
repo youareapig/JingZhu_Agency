@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.device_manage.device_alloted;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.AllotDeviceBean;
@@ -52,6 +54,8 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
     private List<AllotDeviceBean.DataBean> list;
     private Adapter adapter;
     private String strAll, strAllot, strNoallot;
+    private String strTel, strId;
+    private Bundle mBundle;
 
     @Override
     public int getLayoutId() {
@@ -60,6 +64,7 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
 
     @Override
     public void initView() {
+        mBundle = new Bundle();
         Bundle bundle = getIntent().getExtras();
         strAll = bundle.getString("all");
         strAllot = bundle.getString("allot");
@@ -73,11 +78,10 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
         otherview1.setHolder(holder);
         mPresenter = new DeviceAllotedPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("", "");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("", "");
+                mPresenter.getData(strId, strTel);
             }
         });
         refreshLayout.setCanLoadMore(false);
@@ -87,7 +91,7 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.getDataFresh("", "");
+                        mPresenter.getDataFresh(strId, strTel);
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -97,6 +101,12 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
             public void loadMore() {
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.getData(strId, strTel);
     }
 
     @Override
@@ -148,9 +158,18 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
                 finish();
                 break;
             case R.id.bt_filter:
-                toClass(this, DeviceAllotedFilterActivity.class);
+                mBundle.putString("tel", strTel);
+                mBundle.putString("id", strId);
+                toClass(this, DeviceAllotedFilterActivity.class, mBundle, 1);
                 break;
         }
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 2) {
+            strId = data.getStringExtra("id");
+            strTel = data.getStringExtra("tel");
+        }
+    }
 }

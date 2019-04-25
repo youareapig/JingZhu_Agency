@@ -24,14 +24,33 @@ public class TaskDirectPresenter extends BasePresenter<TaskDirectContract.View> 
                 .subscribe(new Consumer<OffDirectDeviceBean>() {
                     @Override
                     public void accept(OffDirectDeviceBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
+                        mView.onError(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void getDataFresh(String sellername, String linkmobile, String deviceid, String state) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(sellername, linkmobile, deviceid,state).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
+                .subscribe(new Consumer<OffDirectDeviceBean>() {
+                    @Override
+                    public void accept(OffDirectDeviceBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
                     }
                 });
     }

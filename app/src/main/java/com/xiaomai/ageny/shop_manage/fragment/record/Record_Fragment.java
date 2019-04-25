@@ -19,6 +19,7 @@ import com.xiaomai.ageny.bean.ShopApplyBean;
 import com.xiaomai.ageny.details.record_details.RecordDetailsActivity;
 import com.xiaomai.ageny.shop_manage.fragment.record.contract.RecordContract;
 import com.xiaomai.ageny.shop_manage.fragment.record.presenter.RecordPresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -38,6 +39,7 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
     private List<ShopApplyBean.DataBean> list;
     private Adapter adapter;
     private Bundle bundle;
+    private String strTimes, strTel, strState;
 
     @Override
     protected void initView(View view) {
@@ -48,7 +50,7 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("", "", "", "");
+                mPresenter.getData(strTimes, strState, strTel, "", "");
             }
         });
         refreshLayout.setCanLoadMore(false);
@@ -58,7 +60,7 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.getDataFresh("", "", "", "");
+                        mPresenter.getDataFresh(strTimes, strState, strTel, "", "");
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -73,7 +75,21 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.getData("", "", "", "");
+        strTimes = SharedPreferencesUtil.getInstance(getActivity()).getSP("record_times");
+        strTel = SharedPreferencesUtil.getInstance(getActivity()).getSP("record_tel");
+        strState = SharedPreferencesUtil.getInstance(getActivity()).getSP("record_state");
+        switch (strState) {
+            case "已通过":
+                strState = "1";
+                break;
+            case "申请中":
+                strState = "0";
+                break;
+            case "未通过":
+                strState = "-1";
+                break;
+        }
+        mPresenter.getData(strTimes, strState, strTel, "", "");
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.device_manage.device_noallot;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -53,6 +54,8 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
     private List<NoAllotDeviceBean.DataBean> list;
     private Adapter adapter;
     private String strAll, strAllot, strNoallot;
+    private String strId;
+    private Bundle mBundle;
 
     @Override
     public int getLayoutId() {
@@ -61,7 +64,7 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
 
     @Override
     public void initView() {
-
+        mBundle = new Bundle();
         Bundle bundle = getIntent().getExtras();
         strAll = bundle.getString("all");
         strAllot = bundle.getString("allot");
@@ -75,11 +78,11 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
         otherview1.setHolder(holder);
         mPresenter = new DeviceNoAllotPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("");
+
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("");
+                mPresenter.getData(strId);
             }
         });
         refreshLayout.setCanLoadMore(false);
@@ -89,7 +92,7 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        mPresenter.getDataFresh("");
+                        mPresenter.getDataFresh(strId);
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -99,6 +102,12 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
             public void loadMore() {
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mPresenter.getData(strId);
     }
 
     @Override
@@ -150,8 +159,17 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
                 finish();
                 break;
             case R.id.bt_filter:
-                toClass(this, DeviceNoAllotFilterActivity.class);
+                mBundle.putString("id", strId);
+                toClass(this, DeviceNoAllotFilterActivity.class, mBundle, 1);
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 2) {
+            strId = data.getStringExtra("id");
         }
     }
 

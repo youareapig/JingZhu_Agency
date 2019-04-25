@@ -315,6 +315,7 @@ public interface APIService {
     @GET(urlhead + "agentCenter/user/records/list")
     Flowable<ShopApplyBean> getShopApplyBean(@Query("bath") String bath,
                                              @Query("state") String state,
+                                             @Query("mobile") String mobile,
                                              @Query("page") String page,
                                              @Query("page_size") String page_size);
 

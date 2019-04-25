@@ -16,12 +16,12 @@ public class RecordPresenter extends BasePresenter<RecordContract.View> implemen
     }
 
     @Override
-    public void getData(String bath, String state, String page, String page_size) {
+    public void getData(String bath, String state,String moble, String page, String page_size) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(bath, state, page, page_size).compose(RxScheduler.<ShopApplyBean>Flo_io_main())
+        model.getData(bath, state,moble, page, page_size).compose(RxScheduler.<ShopApplyBean>Flo_io_main())
                 .subscribe(new Consumer<ShopApplyBean>() {
                     @Override
                     public void accept(ShopApplyBean bean) throws Exception {
@@ -39,11 +39,11 @@ public class RecordPresenter extends BasePresenter<RecordContract.View> implemen
     }
 
     @Override
-    public void getDataFresh(String bath, String state, String page, String page_size) {
+    public void getDataFresh(String bath, String state,String moble, String page, String page_size) {
         if (!isViewAttached()) {
             return;
         }
-        model.getData(bath, state, page, page_size).compose(RxScheduler.<ShopApplyBean>Flo_io_main())
+        model.getData(bath, state,moble, page, page_size).compose(RxScheduler.<ShopApplyBean>Flo_io_main())
                 .subscribe(new Consumer<ShopApplyBean>() {
                     @Override
                     public void accept(ShopApplyBean bean) throws Exception {

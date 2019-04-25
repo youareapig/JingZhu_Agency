@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.xiaomai.ageny.utils.state_layout.OtherView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/otherview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/otherview"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <android.support.v4.widget.NestedScrollView
+    <com.jwenfeng.library.pulltorefresh.PullToRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler"
+            <android.support.v4.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_11" />
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="@dimen/dp_11" />
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+    </com.jwenfeng.library.pulltorefresh.PullToRefreshLayout>
 
 </com.xiaomai.ageny.utils.state_layout.OtherView>

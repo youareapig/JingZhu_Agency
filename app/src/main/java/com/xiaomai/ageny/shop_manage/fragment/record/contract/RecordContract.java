@@ -7,7 +7,7 @@ import io.reactivex.Flowable;
 
 public interface RecordContract {
     interface Model {
-        Flowable<ShopApplyBean> getData(String bath, String state, String page, String page_size);
+        Flowable<ShopApplyBean> getData(String bath, String state,String moble, String page, String page_size);
     }
 
     interface View extends BaseView {
@@ -26,8 +26,8 @@ public interface RecordContract {
     }
 
     interface Presenter {
-        void getData(String bath, String state, String page, String page_size);
+        void getData(String bath, String state, String moble,String page, String page_size);
 
-        void getDataFresh(String bath, String state, String page, String page_size);
+        void getDataFresh(String bath, String state,String moble, String page, String page_size);
     }
 }

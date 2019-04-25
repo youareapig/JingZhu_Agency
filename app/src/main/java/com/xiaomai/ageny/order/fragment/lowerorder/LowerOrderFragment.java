@@ -19,6 +19,7 @@ import com.xiaomai.ageny.bean.LowerOrderBean;
 import com.xiaomai.ageny.details.orderdetails.lowerorderdetails.LowerOrderDetailsActivity;
 import com.xiaomai.ageny.order.fragment.lowerorder.contract.LowerOrderContract;
 import com.xiaomai.ageny.order.fragment.lowerorder.presenter.LowerOrderPresenter;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -45,6 +46,7 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
     private Adapter adapter;
     private Bundle bundle;
     private int page = 1;
+    private String strId, strTel, strStar, strEnd;
 
     @Override
     protected void initView(View view) {
@@ -52,14 +54,14 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
         bundle = new Bundle();
         mPresenter = new LowerOrderPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData("", "", "", "", "1", App.pageSize);
+
         /**
          * 加载更多
          * */
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("", "", "", "", "1", App.pageSize);
+                mPresenter.getData(strId, strTel, strStar, strEnd, "1", App.pageSize);
             }
         });
         refresh.setRefreshListener(new BaseRefreshListener() {
@@ -68,11 +70,9 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (list != null) {
-                            list.clear();
-                        }
+
                         page = 1;
-                        mPresenter.getData("", "", "", "", "1", App.pageSize);
+                        mPresenter.getData(strId, strTel, strStar, strEnd, "1", App.pageSize);
                         refresh.finishRefresh();
                     }
                 }, 1000);
@@ -84,12 +84,22 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
                     @Override
                     public void run() {
                         page++;
-                        mPresenter.getRefrsh("", "", "", "", page + "", App.pageSize);
+                        mPresenter.getRefrsh(strId, strTel, strStar, strEnd, page + "", App.pageSize);
                         refresh.finishLoadMore();
                     }
                 }, 1000);
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        strId = SharedPreferencesUtil.getInstance(getActivity()).getSP("lowerorder_id");
+        strTel = SharedPreferencesUtil.getInstance(getActivity()).getSP("lowerorder_tel");
+        strStar = SharedPreferencesUtil.getInstance(getActivity()).getSP("lowerorder_star");
+        strEnd = SharedPreferencesUtil.getInstance(getActivity()).getSP("lowerorder_end");
+        mPresenter.getData(strId, strTel, strStar, strEnd, "1", App.pageSize);
     }
 
     @Override
@@ -114,11 +124,12 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
 
     @Override
     public void onSuccess(LowerOrderBean bean) {
+        list.clear();
         if (bean.getCode() == 1) {
             orderTotleMoney.setText(bean.getData().getCountRentPrice());
             earn.setText(bean.getData().getCountEarn());
             list.addAll(bean.getData().getList());
-            if (list.size()==0){
+            if (list.size() == 0) {
                 otherview.showEmptyView();
                 refresh.setCanLoadMore(false);
             }
@@ -147,7 +158,7 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
             adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
             if (bean.getData().getList().size() == 0) {
                 ToastUtil.showShortToast("没有更多数据");
-            }else {
+            } else {
                 ToastUtil.showShortToast(bean.getMessage());
             }
         }

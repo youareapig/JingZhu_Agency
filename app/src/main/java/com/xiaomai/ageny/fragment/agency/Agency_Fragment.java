@@ -25,6 +25,7 @@ import com.xiaomai.ageny.fragment.agency.fragment.feidaili.FeidailiFragment;
 import com.xiaomai.ageny.fragment.agency.presenter.AgencyPresenter;
 import com.xiaomai.ageny.order.fragment.lowerorder.LowerOrderFragment;
 import com.xiaomai.ageny.order.fragment.myorder.MyOderFragment;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,7 +125,13 @@ public class Agency_Fragment extends BaseMvpFragment<AgencyPresenter> implements
         }
     }
 
-
-
-
+    @Override
+    public void onStop() {
+        super.onStop();
+        //清空筛选条件
+        SharedPreferencesUtil.getInstance(getActivity()).putSP("feizhishuTel", "");
+        SharedPreferencesUtil.getInstance(getActivity()).putSP("feizhishuId", "");
+        SharedPreferencesUtil.getInstance(getActivity()).putSP("zhishuId", "");
+        SharedPreferencesUtil.getInstance(getActivity()).putSP("zhishuLev", "");
+    }
 }

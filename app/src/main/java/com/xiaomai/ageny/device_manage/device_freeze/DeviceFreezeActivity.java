@@ -18,6 +18,7 @@ import com.xiaomai.ageny.device_manage.device_freeze.fragment.nofreeze.NoFreeze_
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.returnmoney.ReturnMoney_Fragment;
 import com.xiaomai.ageny.device_manage.device_freeze.presenter.DeviceFreezePresenter;
 import com.xiaomai.ageny.filter.devicefreeze_filter.DeviceFreezeFilterActivity;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,7 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
     TextView tvTixianDongjie;
     private List<String> titleList;
     private List<Fragment> fragmentList;
-    private String id, reletion;
-    private int tabposition = 0;
+
 
     @Override
     public int getLayoutId() {
@@ -53,12 +53,6 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
 
     @Override
     public void initView() {
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            id = bundle.getString("filler_deviceid");
-            reletion = bundle.getString("filler_relation");
-            tabposition = bundle.getInt("tabposition");
-        }
 
         titleList = new ArrayList<>();
         titleList.add("未解冻");
@@ -99,9 +93,7 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
             case R.id.back:
                 break;
             case R.id.bt_filter:
-                Bundle bundle1 = new Bundle();
-                bundle1.putInt("tabposition", tabposition);
-                toClass(this, DeviceFreezeFilterActivity.class, bundle1);
+                toClass(this, DeviceFreezeFilterActivity.class);
                 break;
         }
     }
@@ -111,6 +103,13 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
     public void callback(String nofreeze_device, String nofreeze_momney) {
         tvTixianMoney.setText(nofreeze_device);
         tvTixianDongjie.setText(nofreeze_momney);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferencesUtil.getInstance(this).putSP("freezed_id", "");
+        SharedPreferencesUtil.getInstance(this).putSP("freezed_state", "");
     }
 }
 

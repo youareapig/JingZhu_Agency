@@ -11,6 +11,7 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.TabAdapter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.filter.xiajishfilter.XiajiSHFilterActivity;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.contract.XiajiSHDeviceListContract;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.fragment.xiajishdevicelist_on.XiajiSHDeviceListOn_Fragment;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.fragment.xiajishdevicelist_off.XiajiSHDeviceListOff_Fragment;
@@ -84,5 +85,12 @@ public class XiajiSHDeviceListActivity extends BaseMvpActivity<XiajiSHDeviceList
                 toClass(this, XiajiSHFilterActivity.class);
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferencesUtil.getInstance(this).putSP("xiajiId", "");
+        SharedPreferencesUtil.getInstance(this).putSP("xiajiPrice","");
     }
 }
