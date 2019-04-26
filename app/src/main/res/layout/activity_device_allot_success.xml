@@ -64,6 +64,7 @@
             android:textSize="@dimen/sp_16" />
 
         <TextView
+            android:id="@+id/bt_devicelist"
             android:layout_width="@dimen/dp_260"
             android:layout_height="@dimen/dp_44"
             android:layout_gravity="center_horizontal"
@@ -76,7 +77,7 @@
             android:textSize="@dimen/sp_17" />
 
         <TextView
-            android:id="@+id/bt_back_index"
+            android:id="@+id/bt_devicemanage"
             android:layout_width="@dimen/dp_260"
             android:layout_height="@dimen/dp_44"
             android:layout_gravity="center_horizontal"

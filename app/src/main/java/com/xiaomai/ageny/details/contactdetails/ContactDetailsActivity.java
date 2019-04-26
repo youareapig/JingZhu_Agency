@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.orhanobut.logger.Logger;
-import com.xiaomai.ageny.MainActivity;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.addcontact.AddContactActivity;
 import com.xiaomai.ageny.base.BaseMvpActivity;
@@ -33,10 +32,6 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
     TextView btUnbundle;
     @BindView(R.id.bt_shanghudevice)
     RelativeLayout btShanghudevice;
-    @BindView(R.id.rent)
-    TextView rent;
-    @BindView(R.id.rentting)
-    TextView rentting;
     @BindView(R.id.off_line)
     TextView offLine;
     @BindView(R.id.on_line)
@@ -63,6 +58,8 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
     TextView addtime;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.index_device_allcount)
+    TextView indexDeviceAllcount;
 
     private Bundle bundle;
     private String id, strStorename, strLinkName, strLinkTel, strAdress, strYingye, strPersoncount;
@@ -76,7 +73,7 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
     @Override
     public void initView() {
         otherView.setHolder(mHolder);
-        instance=this;
+        instance = this;
     }
 
     @Override
@@ -85,7 +82,7 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
         bundle = new Bundle();
         ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
         id = getIntent().getExtras().getString("id");
-        Logger.d("id-----"+id);
+        Logger.d("id-----" + id);
         mPresenter = new ContactDetailsPresenter();
         mPresenter.attachView(this);
         mPresenter.getData(id);
@@ -122,13 +119,12 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
             yesterdayMoney.setText(data.getYestoday_earn());
             todayMoney.setText(data.getDay_earn());
             monthMoney.setText(data.getMonth_earn());
-            rent.setText("待租借：" + data.getNoRentCount() + "个");
-            rentting.setText("租借中：" + data.getRentCount() + "个");
-            offLine.setText("离线：" + data.getOffLineCount() + "台");
-            onLine.setText("在线：" + data.getOnLineCount() + "台");
+            offLine.setText("离线：" + data.getOffLineCount());
+            onLine.setText("在线：" + data.getOnLineCount());
+            indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
             deviceId.setText("编号：" + id);
 
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
@@ -147,7 +143,7 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
             name.setText("联系人：" + strLinkName);
             tel.setText("联系方式：" + strLinkTel);
             addtime.setText("添加时间：" + userInfoBean.getData().getCreateTimestr());
-        }else {
+        } else {
             ToastUtil.showShortToast(userInfoBean.getMessage());
         }
 
@@ -184,4 +180,10 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }

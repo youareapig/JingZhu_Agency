@@ -4,7 +4,9 @@ package com.xiaomai.ageny.net;
 import com.xiaomai.ageny.bean.AllotDeviceBean;
 import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.DepositListBean;
+import com.xiaomai.ageny.bean.DeviceAllotListBean;
 import com.xiaomai.ageny.bean.DeviceManageBean;
+import com.xiaomai.ageny.bean.DeviceWithDrawListBean;
 import com.xiaomai.ageny.bean.FreezeDetailsBean;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.AgencyDetailsBean;
@@ -35,6 +37,7 @@ import com.xiaomai.ageny.bean.ShopBean;
 import com.xiaomai.ageny.bean.ShopRecordBean;
 import com.xiaomai.ageny.bean.ShowHoleBean;
 import com.xiaomai.ageny.bean.StaffBean;
+import com.xiaomai.ageny.bean.TelBean;
 import com.xiaomai.ageny.bean.TelToNameBean;
 import com.xiaomai.ageny.bean.UnbindRecordBean;
 import com.xiaomai.ageny.bean.UserInfoBean;
@@ -346,5 +349,25 @@ public interface APIService {
     //弹出充电宝
     @GET(urlhead + "agentCenter/user/modal/Popup")
     Flowable<HintBean> popDevice(@Query("deviceid") String deviceid, @Query("slot") String slot);
+
+    //设备撤回列表
+    @GET(urlhead + "agentCenter/user/devicerecall/info")
+    Flowable<DeviceWithDrawListBean> withDrawDeviceListBean(@Query("deviceid") String deviceid);
+
+    //设备撤回
+    @GET(urlhead + "agentCenter/user/recall")
+    Flowable<HintBean> withDrawDeviceBean(@Query("deviceid") String deviceid);
+
+    //设备分配列表
+    @GET(urlhead + "agentCenter/user/deviced/bution/getsao")
+    Flowable<DeviceAllotListBean> allotDeviceListBean(@Query("deviceid") String deviceid);
+
+    //设备分配验证手机号
+    @GET(urlhead + "agentCenter/user/mobile/getRealname")
+    Flowable<TelBean> sureTel(@Query("mobile") String mobile);
+
+    //设备分配提交
+    @POST(urlhead + "agentCenter/user/deviced/bution")
+    Flowable<HintBean> allotSubmit(@Body RequestBody requestBody);
 }
 

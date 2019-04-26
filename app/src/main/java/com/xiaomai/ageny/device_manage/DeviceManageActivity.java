@@ -14,14 +14,17 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.DeviceManageBean;
 import com.xiaomai.ageny.device_manage.contract.DeviceManageContract;
-import com.xiaomai.ageny.device_manage.device_allot.DeviceAllotZxingActivity;
+import com.xiaomai.ageny.device_manage.device_allot.device_allot_zxing.DeviceAllotZxingActivity;
 import com.xiaomai.ageny.device_manage.device_allot.device_allot_list.DeviceAllotListActivity;
 import com.xiaomai.ageny.device_manage.device_alloted.DeviceAllotedActivity;
 import com.xiaomai.ageny.device_manage.device_freeze.DeviceFreezeActivity;
 import com.xiaomai.ageny.device_manage.device_noallot.DeviceNoAllotActivity;
-import com.xiaomai.ageny.device_manage.device_withdraw.DeviceWithDrawListActivity;
-import com.xiaomai.ageny.device_manage.device_withdraw.DeviceWithdrawActivity;
+import com.xiaomai.ageny.device_manage.device_withdraw.withdraw_zxing.DeviceWithdrawActivity;
 import com.xiaomai.ageny.device_manage.presenter.DeviceManagePresenter;
+import com.xiaomai.ageny.greendao.gen.DaoSession;
+import com.xiaomai.ageny.greendao.gen.DeviceDaoDao;
+import com.xiaomai.ageny.utils.DaoSessionManager;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -29,7 +32,6 @@ import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter> implements DeviceManageContract.View {
@@ -56,7 +58,10 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
     @BindView(R.id.device_freeze_num)
     TextView deviceFreezeNum;
     private Bundle bundle;
-    private String strAll,strAllot,strNoallot;
+    private String strAll, strAllot, strNoallot;
+    private DaoSession daoSession;
+    private DeviceDaoDao deviceDaoDao;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_device_manage;
@@ -64,7 +69,7 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
 
     @Override
     public void initView() {
-        bundle=new Bundle();
+        bundle = new Bundle();
         otherView.setHolder(mHolder);
         mPresenter = new DeviceManagePresenter();
         mPresenter.attachView(this);
@@ -93,11 +98,29 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        try {
+            daoSession = DaoSessionManager.getInstace()
+                    .getDaoSession(this);
+            //查询所有数据
+            deviceDaoDao = daoSession.getDeviceDaoDao();
+            deviceDaoDao.deleteAll();
+            Logger.d("清空数据");
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.d("清空数据失败");
+        }
+
+    }
+
+    @Override
     public void onSuccess(DeviceManageBean bean) {
         if (bean.getCode() == 1) {
-            strAll=bean.getData().getCountBox();
-            strAllot=bean.getData().getFenpeiBox();
-            strNoallot=bean.getData().getWeifenpeiBox();
+            strAll = bean.getData().getCountBox();
+            strAllot = bean.getData().getFenpeiBox();
+            strNoallot = bean.getData().getWeifenpeiBox();
             deviceAllNum.setText(strAll);
             deviceNofreezeNum.setText(strNoallot);
             deviceFreezeNum.setText(strAllot);
@@ -127,17 +150,20 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
                 break;
             case R.id.bt_device_noallot:
                 //未分配
-                bundle.putString("all",strAll);
-                bundle.putString("allot",strAllot);
-                bundle.putString("noallot",strNoallot);
-                toClass(this, DeviceNoAllotActivity.class,bundle);
+                bundle.putString("all", strAll);
+                bundle.putString("allot", strAllot);
+                bundle.putString("noallot", strNoallot);
+                toClass(this, DeviceNoAllotActivity.class, bundle);
                 break;
             case R.id.bt_device_alloted:
                 //已分配
-                bundle.putString("all",strAll);
-                bundle.putString("allot",strAllot);
-                bundle.putString("noallot",strNoallot);
-                toClass(this, DeviceAllotedActivity.class,bundle);
+                bundle.putString("all", strAll);
+                bundle.putString("allot", strAllot);
+                bundle.putString("noallot", strNoallot);
+                SharedPreferencesUtil.getInstance(this).putSP("all", strAll);
+                SharedPreferencesUtil.getInstance(this).putSP("fenpei", strAllot);
+                SharedPreferencesUtil.getInstance(this).putSP("weifenpei", strNoallot);
+                toClass(this, DeviceAllotedActivity.class);
                 break;
         }
     }
@@ -162,22 +188,7 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //撤回设备
-        if (requestCode == 1) {
-            if (null != data) {
-                Bundle bundle = data.getExtras();
-                if (bundle == null) {
-                    return;
-                }
-                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-                    String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    toClass(this, DeviceWithDrawListActivity.class);
-                    Logger.d("解析成功结果:" + result);
-                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    Logger.d("解析失败");
-                }
-            }
-        }
+
         if (requestCode == 2) {
             if (null != data) {
                 Bundle bundle = data.getExtras();

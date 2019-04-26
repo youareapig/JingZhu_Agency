@@ -1,7 +1,9 @@
 package com.xiaomai.ageny.utils;
 
 import com.google.gson.Gson;
+import com.xiaomai.ageny.bean.daobean.DeviceDao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +13,7 @@ import okhttp3.RequestBody;
 
 /**
  * Map转Json字符串工具类
- *
- * */
+ */
 public class MaptoJson {
 
     public static RequestBody toJsonOne(String s, List<String> keylist, List<String> valulist) {
@@ -28,8 +29,9 @@ public class MaptoJson {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonStr);
         return requestBody;
     }
+
     public static RequestBody toJsonZero(List<String> keylist, List<String> valulist) {
-         Map<String, String> map = new HashMap<>();
+        Map<String, String> map = new HashMap<>();
         for (int i = 0; i < keylist.size(); i++) {
             map.put(keylist.get(i), valulist.get(i));
         }
@@ -38,4 +40,26 @@ public class MaptoJson {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonStr);
         return requestBody;
     }
+
+    public static RequestBody toJson(List<DeviceDao> list, String strtel) {
+        List<Map<String, String>> mlist = new ArrayList<>();
+        Map<String, String> map = new HashMap<>();
+        for (int i = 0; i < list.size(); i++) {
+            map.put("deviceid", list.get(i).getDeviceId());
+            map.put("strandedTime", list.get(i).getStopTime());
+            map.put("deviceType", list.get(i).getType());
+            map.put("time", list.get(i).getTime());
+            mlist.add(map);
+        }
+        Map<String, Object> map1 = new HashMap<>();
+        map1.put("mobile", strtel);
+        map1.put("boxlist", mlist);
+
+        Gson gson = new Gson();
+        String jsonStr = gson.toJson(map1);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), jsonStr);
+        return requestBody;
+    }
+
+
 }

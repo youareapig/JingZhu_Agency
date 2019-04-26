@@ -1,14 +1,13 @@
-package com.xiaomai.ageny.device_manage.device_withdraw.contract;
+package com.xiaomai.ageny.device_manage.device_allot.device_allot_zxing.contract;
 
 import com.xiaomai.ageny.base.BaseView;
-import com.xiaomai.ageny.bean.DeviceWithDrawListBean;
-import com.xiaomai.ageny.bean.HintBean;
+import com.xiaomai.ageny.bean.DeviceAllotListBean;
 
 import io.reactivex.Flowable;
 
-public interface DeviceWithDrawListContract {
+public interface DeviceAllotZxingContract {
     interface Model {
-        Flowable<HintBean> getData(String deviceid);
+        Flowable<DeviceAllotListBean> getData(String deviceid);
     }
 
     interface View extends BaseView {
@@ -21,8 +20,7 @@ public interface DeviceWithDrawListContract {
         @Override
         void onError(Throwable throwable);
 
-        void onSuccess(HintBean bean);
-
+        void onSuccess(DeviceAllotListBean bean);
     }
 
     interface Presenter {

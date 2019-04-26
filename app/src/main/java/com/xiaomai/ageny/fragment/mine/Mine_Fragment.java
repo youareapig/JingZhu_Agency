@@ -161,11 +161,10 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
                         Logger.d("解析成功结果:" + result);
                         String headurl = BaseUtils.subFrontString(result, "=");
                         String shadurl = BaseUtils.subBehindString(result, "=");
-                        Bundle mBundle = new Bundle();
-                        mBundle.putString("id", shadurl);
-                        toClass(getActivity(), DevicePopuActivity.class,mBundle);
                         if (headurl.equals(App.ZxingBaseUrl)) {
-
+                            Bundle mBundle = new Bundle();
+                            mBundle.putString("id", shadurl);
+                            toClass(getActivity(), DevicePopuActivity.class,mBundle);
                         } else {
                             ToastUtil.showShortToast("请扫描正确二维码");
                         }

@@ -2,9 +2,6 @@ package com.xiaomai.ageny.fragment.index;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -22,9 +19,6 @@ import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
-import com.orhanobut.logger.Logger;
-import com.uber.autodispose.AutoDisposeConverter;
-import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.ConfigBean;
@@ -44,11 +38,6 @@ import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,10 +59,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     TextView btIndexTixian;
     @BindView(R.id.deposit_money)
     TextView depositMoney;
-    @BindView(R.id.rent)
-    TextView rent;
-    @BindView(R.id.rentting)
-    TextView rentting;
+
     @BindView(R.id.off_line)
     TextView offLine;
     @BindView(R.id.on_line)
@@ -100,6 +86,9 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     public AMapLocationClient mLocationClient = null;
     public AMapLocationListener mLocationListener = new MyAMapLocationListener();
     public AMapLocationClientOption mLocationOption = null;
+    @BindView(R.id.index_device_allcount)
+    TextView indexDeviceAllcount;
+    Unbinder unbinder;
     private String strTaskNum;
     private boolean ISSHOW = true;
 
@@ -146,6 +135,14 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     @PermissionGrant(10)
     public void getLocation() {
         getPositioning();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
     class MyAMapLocationListener implements AMapLocationListener {
@@ -231,10 +228,9 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             monthMoney.setText(data.getMonth_earn());
             txIndexMoney.setText(data.getUnliquidated());
             depositMoney.setText("已提现金额：" + data.getFreeze_money());
-            rent.setText("待租借：" + data.getNoRentCount() + "个");
-            rentting.setText("租借中：" + data.getRentCount() + "个");
-            offLine.setText("离线：" + data.getOffLineCount() + "台");
-            onLine.setText("在线：" + data.getOnLineCount() + "台");
+            offLine.setText(data.getOffLineCount());
+            onLine.setText(data.getOnLineCount());
+            indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
             if (!TextUtils.isEmpty(strTaskNum)) {
                 if (ISSHOW) {
                     showDialog();

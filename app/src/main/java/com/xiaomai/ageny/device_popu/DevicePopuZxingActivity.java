@@ -12,10 +12,8 @@ import com.uuzuche.lib_zxing.activity.CaptureFragment;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseActivity;
-import com.xiaomai.ageny.device_manage.device_allot.DeviceAllotZxingActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DevicePopuZxingActivity extends BaseActivity {

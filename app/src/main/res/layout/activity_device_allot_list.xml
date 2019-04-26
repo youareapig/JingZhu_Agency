@@ -43,80 +43,91 @@
         android:background="#fff"
         android:src="@mipmap/img_01" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_32"
-        android:layout_marginLeft="@dimen/dp_12"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_13"
-        android:background="@drawable/frame_dp16"
-        android:elevation="@dimen/dp_3"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:layout_width="@dimen/dp_13"
-            android:layout_height="@dimen/dp_9"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:background="@color/appbar" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:text="已扫描设备总计："
-            android:textColor="#363636"
-            android:textSize="@dimen/sp_14" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="3"
-            android:textColor="@color/appbar"
-            android:textSize="@dimen/sp_14" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="台"
-            android:textColor="#363636"
-            android:textSize="@dimen/sp_14" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_50"
-            android:text="提示：左滑可删除设备"
-            android:textColor="#666666"
-            android:textSize="@dimen/sp_12" />
-    </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
         android:focusableInTouchMode="true">
 
-        <android.support.v4.widget.NestedScrollView
+        <com.xiaomai.ageny.utils.state_layout.OtherView
+            android:id="@+id/otherview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="@dimen/dp_32"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_13"
+                android:background="@drawable/frame_dp16"
+                android:elevation="@dimen/dp_3"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler"
+                <ImageView
+                    android:layout_width="@dimen/dp_13"
+                    android:layout_height="@dimen/dp_9"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:background="@color/appbar" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="已扫描设备总计："
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:id="@+id/num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="3"
+                    android:textColor="@color/appbar"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="台"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_14" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_50"
+                    android:text="提示：左滑可删除设备"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/dp_90" />
-            </LinearLayout>
-        </android.support.v4.widget.NestedScrollView>
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/dp_90" />
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+
+
+        </com.xiaomai.ageny.utils.state_layout.OtherView>
 
         <TextView
             android:id="@+id/bt_saoyisao"

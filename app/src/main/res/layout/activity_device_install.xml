@@ -108,6 +108,48 @@
                         android:textSize="@dimen/sp_17" />
                 </LinearLayout>
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/bt_staff"
+                android:layout_width="@dimen/dp_260"
+                android:layout_height="@dimen/dp_44"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/dp_44"
+                android:elevation="@dimen/dp_3"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="@dimen/dp_260"
+                    android:layout_height="@dimen/dp_44"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/filter_bt_reset"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/reset_button"
+                        android:gravity="center"
+                        android:text="部署"
+                        android:textColor="#F6F6F6"
+                        android:textSize="@dimen/sp_17" />
+
+                    <TextView
+                        android:id="@+id/filter_bt_submit"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/submit_button"
+                        android:gravity="center"
+                        android:text="退出登录"
+                        android:textColor="#F6F6F6"
+                        android:textSize="@dimen/sp_17" />
+                </LinearLayout>
+            </RelativeLayout>
+
         </RelativeLayout>
     </com.xiaomai.ageny.utils.state_layout.OtherView>
 </LinearLayout>

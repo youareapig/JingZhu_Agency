@@ -61,6 +61,7 @@
                 android:textSize="@dimen/sp_15" />
 
             <TextView
+                android:id="@+id/id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="DASD1231312"
@@ -84,6 +85,7 @@
                 android:textSize="@dimen/sp_15" />
 
             <TextView
+                android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5口6台"
@@ -131,6 +133,7 @@
                 android:textSize="@dimen/sp_15" />
 
             <TextView
+                android:id="@+id/tel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="15983655656"

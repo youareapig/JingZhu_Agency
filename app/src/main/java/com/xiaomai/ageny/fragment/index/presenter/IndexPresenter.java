@@ -70,7 +70,6 @@ public class IndexPresenter extends BasePresenter<IndexContract.View> implements
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.onError(throwable);
                     }
                 });
     }

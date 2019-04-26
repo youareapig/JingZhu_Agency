@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'org.greenrobot.greendao'
 android {
     signingConfigs {
         jingzhu_agency {
@@ -33,6 +33,12 @@ android {
             signingConfig signingConfigs.jingzhu_agency
         }
     }
+    greendao {
+        schemaVersion 1
+        daoPackage 'com.xiaomai.ageny.greendao.gen'
+        targetGenDir 'src/main/java'
+    }
+
 }
 
 dependencies {
@@ -86,5 +92,10 @@ dependencies {
     implementation 'org.greenrobot:eventbus:3.0.0'
     //高德地图定位
     implementation 'com.amap.api:location:latest.integration'
+    //greendao 数据库
+    implementation 'org.greenrobot:greendao:3.1.0'
+    implementation 'org.greenrobot:greendao-generator:3.1.0'
+    //动画
+    implementation 'com.airbnb.android:lottie:1.0.1'
 
 }

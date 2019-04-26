@@ -1,14 +1,21 @@
-<FrameLayout android:id="@+id/id_loading_and_retry"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/id_loading_and_retry"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00000000"
     tools:context=".MainActivity">
-        <ProgressBar
-            android:id="@+id/m_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
+
+    <ProgressBar
+        android:id="@+id/m_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+    <!--    <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loading.json"
+            app:lottie_loop="true" />-->
 </FrameLayout>

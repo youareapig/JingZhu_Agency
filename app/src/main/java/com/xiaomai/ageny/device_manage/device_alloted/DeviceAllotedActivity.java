@@ -18,6 +18,7 @@ import com.xiaomai.ageny.bean.AllotDeviceBean;
 import com.xiaomai.ageny.device_manage.device_alloted.contract.DeviceAllotedContract;
 import com.xiaomai.ageny.device_manage.device_alloted.presenter.DeviceAllotedPresenter;
 import com.xiaomai.ageny.filter.device_alloted_filter.DeviceAllotedFilterActivity;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -65,10 +66,9 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
     @Override
     public void initView() {
         mBundle = new Bundle();
-        Bundle bundle = getIntent().getExtras();
-        strAll = bundle.getString("all");
-        strAllot = bundle.getString("allot");
-        strNoallot = bundle.getString("noallot");
+        strAll = SharedPreferencesUtil.getInstance(this).getSP("all");
+        strAllot = SharedPreferencesUtil.getInstance(this).getSP("fenpei");
+        strNoallot =SharedPreferencesUtil.getInstance(this).getSP("weifenpei");
         deviceAllNum.setText(strAll);
         deviceAllot.setText(strAllot);
         deviceNoallot.setText(strNoallot);

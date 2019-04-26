@@ -109,11 +109,11 @@
         <activity android:name=".device_manage.device_freeze.DeviceFreezeActivity" />
         <activity android:name=".filter.devicefreeze_filter.DeviceFreezeFilterActivity" />
         <activity android:name=".details.devcie_freeze_details.DeviceFreezDetailsActivity" />
-        <activity android:name=".device_manage.device_withdraw.DeviceWithdrawActivity" />
+        <activity android:name=".device_manage.device_withdraw.withdraw_zxing.DeviceWithdrawActivity" />
         <activity android:name=".deploy.DeployZxingActivity" />
         <activity android:name=".device_manage.device_withdraw.DeviceWithDrawListActivity" />
         <activity android:name=".device_manage.device_withdraw.DeviceWithSuccessActivity" />
-        <activity android:name=".device_manage.device_allot.DeviceAllotZxingActivity" />
+        <activity android:name=".device_manage.device_allot.device_allot_zxing.DeviceAllotZxingActivity" />
         <activity android:name=".device_manage.device_allot.device_allot_list.DeviceAllotListActivity" />
         <activity android:name=".device_manage.device_allot.device_allot_agency.DeviceAllotAgencyActivity" />
         <activity android:name=".device_manage.device_allot.DeviceAllotSuccessActivity" />

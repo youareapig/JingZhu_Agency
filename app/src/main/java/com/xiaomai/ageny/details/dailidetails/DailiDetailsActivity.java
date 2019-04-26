@@ -33,10 +33,6 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
     RelativeLayout back;
     @BindView(R.id.device_more)
     RelativeLayout deviceMore;
-    @BindView(R.id.rent)
-    TextView rent;
-    @BindView(R.id.rentting)
-    TextView rentting;
     @BindView(R.id.off_line)
     TextView offLine;
     @BindView(R.id.on_line)
@@ -79,6 +75,8 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
     LinearLayout firmView;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.index_device_allcount)
+    TextView indexDeviceAllcount;
     private String id, strFenrun, strLinkName, strLinkTel, strAddress, strAddTime, strFirmName;
     private int isperson;
     private Bundle bundle;
@@ -126,7 +124,7 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
 
     @Override
     public void onError(Throwable throwable) {
-            otherView.showRetryView();
+        otherView.showRetryView();
     }
 
     @Override
@@ -137,10 +135,9 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
             allMoney.setText(data.getTotal_earn());
             monthMoney.setText(data.getMonth_earn());
             todayMoney.setText(data.getDay_earn());
-            rent.setText("待租借：" + data.getNoRentCount() + "个");
-            rentting.setText("租借中：" + data.getRentCount() + "个");
-            offLine.setText("离线：" + data.getOffLineCount() + "台");
-            onLine.setText("在线：" + data.getOnLineCount() + "台");
+            offLine.setText("离线：" + data.getOffLineCount());
+            onLine.setText("在线：" + data.getOnLineCount());
+            indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -219,4 +216,10 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
         }
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
 }
