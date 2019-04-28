@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/appbar</item>
+
     </style>
 
     <style name="titlesytle">
@@ -30,7 +31,7 @@
 
     <style name="MyEditText">
         <item name="colorControlNormal">#E6E6E6</item>
-        <item name="colorControlActivated">@android:color/holo_orange_dark</item>
+        <item name="colorControlActivated">@color/appbar</item>
     </style>
 
     <style name="FullScreenDialog">
@@ -50,5 +51,12 @@
         <item name="android:windowNoTitle">true</item><!--无标题-->
         <item name="android:backgroundDimEnabled">false</item><!--模糊-->
         <item name="android:backgroundDimAmount">0.6</item>
+    </style>
+    <!-- 启动白屏问题-->
+    <style name="StartStyle" parent="AppTheme">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

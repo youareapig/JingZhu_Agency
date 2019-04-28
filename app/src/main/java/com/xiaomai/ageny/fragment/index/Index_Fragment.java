@@ -19,10 +19,15 @@ import com.amap.api.location.AMapLocationListener;
 import com.google.gson.Gson;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
+import com.orhanobut.logger.Logger;
+import com.vector.update_app.UpdateAppBean;
+import com.vector.update_app.UpdateAppManager;
+import com.vector.update_app.UpdateCallback;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.IndexBean;
+import com.xiaomai.ageny.bean.UpdateBean;
 import com.xiaomai.ageny.deposit.DepositActivity;
 import com.xiaomai.ageny.device_manage.DeviceManageActivity;
 import com.xiaomai.ageny.deviceinstalllist.DeviceInstallActivity;
@@ -32,12 +37,17 @@ import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.order.OrderActivity;
 import com.xiaomai.ageny.task.TaskActivity;
+import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
+import com.xiaomai.ageny.utils.update.UpdateAppHttpUtil;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -88,17 +98,19 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     public AMapLocationClientOption mLocationOption = null;
     @BindView(R.id.index_device_allcount)
     TextView indexDeviceAllcount;
-    Unbinder unbinder;
     private String strTaskNum;
     private boolean ISSHOW = true;
+    private int locatinVercode;
 
     @Override
     protected void initView(View view) {
+        locatinVercode = BaseUtils.getLocationCode(getActivity());
         otherView.setHolder(mHolder);
         mPresenter = new IndexPresenter();
         mPresenter.attachView(this);
         mPresenter.getData();
         mPresenter.getConfigBean();
+        mPresenter.getUpdate();
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
@@ -137,13 +149,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         getPositioning();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
 
     class MyAMapLocationListener implements AMapLocationListener {
         @Override
@@ -200,6 +205,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     @Override
     public void onSuccess(IndexBean bean) {
         initData(bean);
+
     }
 
     @Override
@@ -217,6 +223,16 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         initData(bean);
     }
 
+    @Override
+    public void onSuccess(UpdateBean bean) {
+        int nowVercode = Integer.valueOf(bean.getNewVersion());
+        Logger.d("当前版本" + locatinVercode + "最新版本" + nowVercode);
+        if (locatinVercode < nowVercode) {
+            Logger.d("-----更新-------");
+            update();
+        }
+    }
+
     private void initData(IndexBean bean) {
         if (bean.getCode() == 1) {
             IndexBean.DataBean data = bean.getData();
@@ -231,16 +247,15 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             offLine.setText(data.getOffLineCount());
             onLine.setText(data.getOnLineCount());
             indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
-            if (!TextUtils.isEmpty(strTaskNum)) {
+            if (TextUtils.isEmpty(strTaskNum) || strTaskNum.equals("0")) {
+                tastCenter.setVisibility(View.GONE);
+            } else {
                 if (ISSHOW) {
                     showDialog();
                 }
                 tastCenter.setVisibility(View.VISIBLE);
                 Num.setText(strTaskNum);
-            } else {
-                tastCenter.setVisibility(View.GONE);
             }
-
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -296,6 +311,44 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         dialog.setView(v);
         dialog.show();
         ISSHOW = false;
+    }
+
+    private void update() {
+        new UpdateAppManager.Builder()
+                .setActivity(getActivity())
+                .setUpdateUrl("http://192.168.0.81:8080/agentCenter/account/version/update")
+                .setHttpManager(new UpdateAppHttpUtil())
+                .setTopPic(R.mipmap.top_8)
+                .build()
+                .checkNewApp(new UpdateCallback() {
+                    @Override
+                    protected UpdateAppBean parseJson(String json) {
+                        UpdateAppBean updateAppBean = new UpdateAppBean();
+                        try {
+                            JSONObject jsonObject = new JSONObject(json);
+                            updateAppBean
+                                    //（必须）是否更新Yes,No
+                                    .setUpdate(jsonObject.optString("udate"))
+                                    //（必须）新版本号，
+                                    .setNewVersion(jsonObject.optString("newVersion"))
+                                    //（必须）下载地址
+                                    .setApkFileUrl(jsonObject.optString("apkFileUrl"))
+                                    //（必须）更新内容
+                                    .setUpdateLog(jsonObject.optString("updateLog"))
+                                    //大小，不设置不显示大小，可以不设置
+                                    .setTargetSize(jsonObject.optString("targetSize"))
+                                    //是否强制更新，可以不设置constraint
+                                    .setConstraint(jsonObject.optBoolean("cons"))
+                                    //设置md5，可以不设置
+                                    .setNewMd5(jsonObject.optString("newMd5"));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        return updateAppBean;
+                    }
+
+                });
+
     }
 
     @Override

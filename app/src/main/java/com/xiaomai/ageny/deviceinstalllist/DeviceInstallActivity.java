@@ -11,15 +11,17 @@ import android.widget.TextView;
 
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
-import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.DeviceInstallListBean;
+import com.xiaomai.ageny.bean.LoginOutBean;
 import com.xiaomai.ageny.deploy.DeployActivity;
 import com.xiaomai.ageny.deviceinstalllist.adapter.Adapter;
 import com.xiaomai.ageny.deviceinstalllist.contract.DeviceInstallContract;
 import com.xiaomai.ageny.deviceinstalllist.presenter.DeviceInstallPresenter;
 import com.xiaomai.ageny.filter.deviceinstall.DeviceInstallFilterActivity;
+import com.xiaomai.ageny.login.LoginActivity;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -44,6 +46,12 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     PullToRefreshLayout refresh;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.bt_bushu)
+    TextView btBushu;
+    @BindView(R.id.bt_loginout)
+    TextView btLoginout;
+    @BindView(R.id.bt_staff)
+    RelativeLayout btStaff;
 
     private Adapter adapter;
     private List<DeviceInstallListBean.DataBean.ListBean> list;
@@ -52,6 +60,8 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     private String strTime = "";
     private int page = 1;
     private Bundle bundle;
+    private Bundle mBundle;
+    private String role;
 
     @Override
     public int getLayoutId() {
@@ -60,6 +70,18 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     @Override
     public void initView() {
+        mBundle = getIntent().getExtras();
+        if (mBundle != null) {
+            role = mBundle.getString("role");
+            if (role.equals("1")) {
+                //代理
+                btInstall.setVisibility(View.VISIBLE);
+                btStaff.setVisibility(View.GONE);
+            } else {
+                btInstall.setVisibility(View.GONE);
+                btStaff.setVisibility(View.VISIBLE);
+            }
+        }
         otherView.setHolder(mHolder);
         bundle = new Bundle();
         mPresenter = new DeviceInstallPresenter();
@@ -130,6 +152,18 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
         initData(bean);
     }
 
+    @Override
+    public void onSuccess(LoginOutBean bean) {
+        if (bean.getCode() == 1) {
+            SharedPreferencesUtil.getInstance(this).putSP("token", "");
+            toClass_Empty(this, LoginActivity.class);
+            finish();
+        } else {
+            ToastUtil.showShortToast("注销失败");
+        }
+
+    }
+
     private void initData(DeviceInstallListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
@@ -146,7 +180,7 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
         }
     }
 
-    @OnClick({R.id.back, R.id.bt_filter, R.id.bt_install})
+    @OnClick({R.id.back, R.id.bt_filter, R.id.bt_install, R.id.bt_bushu, R.id.bt_loginout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -161,6 +195,13 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
             case R.id.bt_install:
                 toClass(this, DeployActivity.class);
                 break;
+            case R.id.bt_bushu:
+                toClass(this, DeployActivity.class);
+                break;
+            case R.id.bt_loginout:
+                //退出登录
+                mPresenter.loginOut();
+                break;
         }
     }
 
@@ -173,4 +214,6 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
             strTime = data.getStringExtra("time");
         }
     }
+
+
 }

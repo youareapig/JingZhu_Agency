@@ -3,6 +3,7 @@ package com.xiaomai.ageny.deviceinstalllist.presenter;
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.DeviceInstallListBean;
 import com.xiaomai.ageny.bean.IndexBean;
+import com.xiaomai.ageny.bean.LoginOutBean;
 import com.xiaomai.ageny.deviceinstalllist.contract.DeviceInstallContract;
 import com.xiaomai.ageny.deviceinstalllist.model.DeviceInstallModel;
 import com.xiaomai.ageny.net.RxScheduler;
@@ -42,7 +43,7 @@ public class DeviceInstallPresenter extends BasePresenter<DeviceInstallContract.
         if (!isViewAttached()) {
             return;
         }
-        model.getDeviceInstallListData(chiyou,anzhuang,time).compose(RxScheduler.<DeviceInstallListBean>Flo_io_main())
+        model.getDeviceInstallListBean_Refresh(page, chiyou, anzhuang, time).compose(RxScheduler.<DeviceInstallListBean>Flo_io_main())
                 .subscribe(new Consumer<DeviceInstallListBean>() {
                     @Override
                     public void accept(DeviceInstallListBean bean) throws Exception {
@@ -52,6 +53,30 @@ public class DeviceInstallPresenter extends BasePresenter<DeviceInstallContract.
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void loginOut() {
+        if (!isViewAttached()) {
+            return;
+        }
+        mView.showLoading();
+        model.loginOut().compose(RxScheduler.<LoginOutBean>Flo_io_main())
+                .subscribe(new Consumer<LoginOutBean>() {
+                    @Override
+                    public void accept(LoginOutBean bean) throws Exception {
+                        mView.hideLoading();
+                        mView.onSuccess(bean);
+
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.hideLoading();
+                        mView.onError(throwable);
+
                     }
                 });
     }

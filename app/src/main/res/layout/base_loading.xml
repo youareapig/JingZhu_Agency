@@ -7,15 +7,21 @@
     android:background="#00000000"
     tools:context=".MainActivity">
 
-    <ProgressBar
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="@dimen/dp_120"
+        android:layout_height="@dimen/dp_240"
+        android:layout_gravity="center"
+       />
+    <!--<ProgressBar
         android:id="@+id/m_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center" />
-    <!--    <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="loading.json"
-            app:lottie_loop="true" />-->
+        android:layout_gravity="center" />-->
+    <!--        <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="loading.json"
+                app:lottie_loop="true" />-->
 </FrameLayout>

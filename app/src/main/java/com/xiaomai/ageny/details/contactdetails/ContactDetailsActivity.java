@@ -119,8 +119,8 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
             yesterdayMoney.setText(data.getYestoday_earn());
             todayMoney.setText(data.getDay_earn());
             monthMoney.setText(data.getMonth_earn());
-            offLine.setText("离线：" + data.getOffLineCount());
-            onLine.setText("在线：" + data.getOnLineCount());
+            offLine.setText(data.getOffLineCount());
+            onLine.setText(data.getOnLineCount());
             indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
             deviceId.setText("编号：" + id);
 

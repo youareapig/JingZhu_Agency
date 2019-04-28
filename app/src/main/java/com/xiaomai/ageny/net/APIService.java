@@ -23,6 +23,8 @@ import com.xiaomai.ageny.bean.DeviceInstallListBean;
 import com.xiaomai.ageny.bean.FreezeBean;
 import com.xiaomai.ageny.bean.HisSellerBean;
 import com.xiaomai.ageny.bean.IndexBean;
+import com.xiaomai.ageny.bean.LoginBean;
+import com.xiaomai.ageny.bean.LoginOutBean;
 import com.xiaomai.ageny.bean.LowerOrderBean;
 import com.xiaomai.ageny.bean.LowerOrderDetailsBean;
 import com.xiaomai.ageny.bean.MyBankBean;
@@ -40,6 +42,7 @@ import com.xiaomai.ageny.bean.StaffBean;
 import com.xiaomai.ageny.bean.TelBean;
 import com.xiaomai.ageny.bean.TelToNameBean;
 import com.xiaomai.ageny.bean.UnbindRecordBean;
+import com.xiaomai.ageny.bean.UpdateBean;
 import com.xiaomai.ageny.bean.UserInfoBean;
 import com.xiaomai.ageny.bean.VerCodeBean;
 import com.xiaomai.ageny.bean.XiajiListBean;
@@ -75,6 +78,14 @@ public interface APIService {
     //系统配置
     @GET(urlhead + "agentCenter/user/system/config")
     Flowable<ConfigBean> getConfig();
+
+    //用户登录
+    @POST(urlhead + "agentCenter/account/loginAPP")
+    Flowable<LoginBean> loginBean(@Body RequestBody requestBody);
+
+    //退出登录
+    @POST(urlhead + "agentCenter/account/logout")
+    Flowable<LoginOutBean> loginOutBean();
 
     //首页
     @GET(urlhead + "agentCenter/homepage")
@@ -369,5 +380,9 @@ public interface APIService {
     //设备分配提交
     @POST(urlhead + "agentCenter/user/deviced/bution")
     Flowable<HintBean> allotSubmit(@Body RequestBody requestBody);
+
+    //app版本更新
+    @GET(urlhead + "agentCenter/account/version/update")
+    Flowable<UpdateBean> getUpdate();
 }
 

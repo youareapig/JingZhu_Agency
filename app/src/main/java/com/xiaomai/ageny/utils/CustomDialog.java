@@ -15,7 +15,7 @@ public class CustomDialog extends ProgressDialog {
     public CustomDialog(Context context) {
         super(context, R.style.MyCustomDialog);
 
-        setCanceledOnTouchOutside(true);
+        setCanceledOnTouchOutside(false);
         getWindow().setDimAmount(0);
     }
 

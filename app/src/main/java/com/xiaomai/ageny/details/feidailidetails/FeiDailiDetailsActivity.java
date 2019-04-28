@@ -118,8 +118,8 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
             allMoney.setText(data.getTotal_earn());
             monthMoney.setText(data.getMonth_earn());
             todayMoney.setText(data.getDay_earn());
-            offLine.setText("离线：" + data.getOffLineCount() );
-            onLine.setText("在线：" + data.getOnLineCount());
+            offLine.setText(data.getOffLineCount());
+            onLine.setText(data.getOnLineCount());
             indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
         } else {
             ToastUtil.showShortToast(bean.getMessage());

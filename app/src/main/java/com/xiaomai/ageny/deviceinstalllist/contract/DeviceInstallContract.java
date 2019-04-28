@@ -3,13 +3,17 @@ package com.xiaomai.ageny.deviceinstalllist.contract;
 import com.xiaomai.ageny.base.BaseView;
 import com.xiaomai.ageny.bean.DeviceInstallListBean;
 import com.xiaomai.ageny.bean.IndexBean;
+import com.xiaomai.ageny.bean.LoginOutBean;
 
 import io.reactivex.Flowable;
 
 public interface DeviceInstallContract {
     interface Model {
-        Flowable<DeviceInstallListBean> getDeviceInstallListData(String chiyou,String anzhuang,String time);
-        Flowable<DeviceInstallListBean> getDeviceInstallListBean_Refresh(int page,String chiyou,String anzhuang,String time);
+        Flowable<DeviceInstallListBean> getDeviceInstallListData(String chiyou, String anzhuang, String time);
+
+        Flowable<DeviceInstallListBean> getDeviceInstallListBean_Refresh(int page, String chiyou, String anzhuang, String time);
+
+        Flowable<LoginOutBean> loginOut();
     }
 
     interface View extends BaseView {
@@ -23,11 +27,17 @@ public interface DeviceInstallContract {
         void onError(Throwable throwable);
 
         void onSuccess(DeviceInstallListBean bean);
+
         void onSuccess_Refresh(DeviceInstallListBean bean);
+
+        void onSuccess(LoginOutBean bean);
     }
 
     interface Presenter {
-        void getDeviceInstallListData(String chiyou,String anzhuang,String time);
-        void getDeviceInstallListBean_Refresh(int page,String chiyou,String anzhuang,String time);
+        void getDeviceInstallListData(String chiyou, String anzhuang, String time);
+
+        void getDeviceInstallListBean_Refresh(int page, String chiyou, String anzhuang, String time);
+
+        void loginOut();
     }
 }

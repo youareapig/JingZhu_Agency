@@ -19,6 +19,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
         ndk {
             abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a', 'x86', 'x86_64', 'mips'
         }
@@ -37,6 +38,11 @@ android {
         schemaVersion 1
         daoPackage 'com.xiaomai.ageny.greendao.gen'
         targetGenDir 'src/main/java'
+    }
+    //阴影效果
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
 }
@@ -96,6 +102,13 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.1.0'
     implementation 'org.greenrobot:greendao-generator:3.1.0'
     //动画
-    implementation 'com.airbnb.android:lottie:1.0.1'
+    implementation 'com.airbnb.android:lottie:2.5.1'
+    //版本更新
+    implementation 'com.qianwen:update-app:3.5.2'
+    implementation 'com.qianwen:okhttp-utils:3.8.0'
+    implementation 'com.lzy.net:okgo:3.0.4'
+    //阴影效果
+    implementation 'com.github.bigmanLau:CardviewFix:1.0.3'
+
 
 }

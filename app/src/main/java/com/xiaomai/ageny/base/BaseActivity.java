@@ -2,6 +2,7 @@ package com.xiaomai.ageny.base;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
     public Bundle savedInstanceState;
     public OtherViewHolder mHolder;
-    public boolean isNetWork=true;
+    public boolean isNetWork = true;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,14 +81,16 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void toClass_Empty(Context context, Class<? extends BaseActivity> clazz) {
         Intent intent = new Intent(context, clazz);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         context.startActivity(intent);
     }
+
     protected void toClass(Context context, Class<? extends BaseMvpActivity> clazz, Bundle bundle, int reuqestCode) {
         Intent intent = new Intent(context, clazz);
         intent.putExtras(bundle);
         startActivityForResult(intent, reuqestCode);
     }
+
     protected void toClass1(Context context, Class<? extends BaseActivity> clazz, Bundle bundle, int reuqestCode) {
         Intent intent = new Intent(context, clazz);
         intent.putExtras(bundle);

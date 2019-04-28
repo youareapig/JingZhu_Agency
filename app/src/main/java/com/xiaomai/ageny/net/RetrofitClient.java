@@ -4,6 +4,9 @@ package com.xiaomai.ageny.net;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.xiaomai.ageny.App;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+
 import java.io.IOException;
 
 import okhttp3.Interceptor;
@@ -51,10 +54,11 @@ public class RetrofitClient {
         return new Interceptor() {
             @Override
             public Response intercept(@NonNull Chain chain) throws IOException {
+                String token=SharedPreferencesUtil.getInstance(App.context).getSP("token");
                 Request original = chain.request();
                 Request.Builder requestBuilder = original.newBuilder()
                         //添加Token
-                        .header("token", "a8fd8281-a607-4782-b74d-8c9948fe5b5b");
+                        .header("token", token);
                 Request request = requestBuilder.build();
                 return chain.proceed(request);
             }

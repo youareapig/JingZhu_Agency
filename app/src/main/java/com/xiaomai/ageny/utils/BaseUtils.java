@@ -1,5 +1,9 @@
 package com.xiaomai.ageny.utils;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+
 import com.google.gson.Gson;
 import com.xiaomai.ageny.bean.ConfigBean;
 
@@ -35,7 +39,7 @@ public class BaseUtils {
         List<String> priceList = bean.getData().getPrice();
         List<String> list = new ArrayList<>();
         for (int i = 0; i < priceList.size(); i++) {
-            double doublePrice = (Double.valueOf(priceList.get(i))) ;
+            double doublePrice = (Double.valueOf(priceList.get(i)));
             list.add(doublePrice + "/小时");
         }
         return list;
@@ -52,5 +56,16 @@ public class BaseUtils {
             list.add(doublePrice + "");
         }
         return list;
+    }
+
+    //获取当前版本号
+    public static int getLocationCode(Context context) {
+        try {
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 }
