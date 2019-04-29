@@ -26,6 +26,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //禁止横屏
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setContentView(getLayoutId());
         this.savedInstanceState = savedInstanceState;
         unbinder = ButterKnife.bind(this);
@@ -81,7 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void toClass_Empty(Context context, Class<? extends BaseActivity> clazz) {
         Intent intent = new Intent(context, clazz);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }
 

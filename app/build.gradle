@@ -109,6 +109,8 @@ dependencies {
     implementation 'com.lzy.net:okgo:3.0.4'
     //阴影效果
     implementation 'com.github.bigmanLau:CardviewFix:1.0.3'
+    //fastjson
+    implementation 'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
 
 
 }

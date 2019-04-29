@@ -102,5 +102,6 @@ public class XiaJiSH_ListActivity extends BaseMvpActivity<XiajiSHPresenter> impl
 
     @OnClick(R.id.back)
     public void onViewClicked() {
+        finish();
     }
 }

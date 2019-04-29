@@ -127,6 +127,7 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.bt_person:
 //                btPerson.setSelected(true);

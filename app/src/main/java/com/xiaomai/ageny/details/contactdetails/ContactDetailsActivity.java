@@ -154,6 +154,7 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.bt_shanghudevice:
                 bundle.putString("id", id);
@@ -180,10 +181,4 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

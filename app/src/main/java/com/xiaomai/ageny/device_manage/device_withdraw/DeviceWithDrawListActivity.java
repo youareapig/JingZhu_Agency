@@ -95,6 +95,7 @@ public class DeviceWithDrawListActivity extends BaseMvpActivity<DeviceWithDrawLi
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.bt_sure_withdraw:
                 mPresenter.getData(strid);

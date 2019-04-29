@@ -169,7 +169,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/dp_120">
+                android:layout_marginTop="@dimen/dp_100">
 
 
                 <TextView
@@ -181,7 +181,9 @@
                     android:layout_marginBottom="@dimen/dp_40"
                     android:background="@drawable/tixian_button"
                     android:gravity="center"
+                    android:layout_centerInParent="true"
                     android:text="确认解绑"
+                    android:elevation="@dimen/dp_2"
                     android:textColor="#fff"
                     android:textSize="@dimen/sp_17" />
 

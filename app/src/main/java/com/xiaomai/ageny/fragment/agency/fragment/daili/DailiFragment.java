@@ -110,7 +110,7 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
 
         strTel = SharedPreferencesUtil.getInstance(getActivity()).getSP("feizhishuTel");
         strID = SharedPreferencesUtil.getInstance(getActivity()).getSP("feizhishuId");
-        Logger.d("取出："+strTel+"   "+strID);
+        Logger.d("取出：" + strTel + "   " + strID);
 
 
         mPresenter.getData(strTel, strID, "", "1", "6");

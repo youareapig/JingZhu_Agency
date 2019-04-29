@@ -16,6 +16,7 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.bigman.wmzx.customcardview.library.CardView;
 import com.google.gson.Gson;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
@@ -87,7 +88,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     @BindView(R.id.otherview)
     OtherView otherView;
     @BindView(R.id.taskCenter)
-    RelativeLayout tastCenter;
+    CardView tastCenter;
     @BindView(R.id.num)
     TextView Num;
     @BindView(R.id.refresh)
@@ -117,7 +118,8 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 mPresenter.getData();
             }
         });
-        MPermissions.requestPermissions(Index_Fragment.this, 10, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+        //高德定位
+//        MPermissions.requestPermissions(Index_Fragment.this, 10, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
         refreshLayout.setCanLoadMore(false);
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override

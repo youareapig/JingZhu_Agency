@@ -73,6 +73,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="@dimen/dp_58"
+                android:elevation="@dimen/dp_2"
                 android:background="@drawable/tixian_button"
                 android:gravity="center"
                 android:orientation="horizontal">

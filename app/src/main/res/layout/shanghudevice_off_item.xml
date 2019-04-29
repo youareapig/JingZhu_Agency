@@ -7,7 +7,7 @@
     android:layout_marginRight="@dimen/dp_12"
     android:orientation="horizontal"
     android:background="@drawable/index_frame"
-    android:elevation="@dimen/dp_3"
+    android:elevation="@dimen/dp_2"
     android:paddingLeft="@dimen/dp_6">
 
     <LinearLayout

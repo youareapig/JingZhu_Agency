@@ -263,6 +263,7 @@
                 android:background="@drawable/goshop_button"
                 android:gravity="center"
                 android:text="提交申请"
+                android:elevation="@dimen/dp_2"
                 android:textColor="#fff"
                 android:textSize="@dimen/sp_17" />
         </LinearLayout>

@@ -42,7 +42,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/dp_44"
             android:background="@drawable/tixian_button"
-            android:elevation="@dimen/dp_3"
+            android:elevation="@dimen/dp_2"
             android:gravity="center"
             android:text="我要采购"
             android:textColor="#fff"

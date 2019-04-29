@@ -1,146 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <LinearLayout
+    <com.bigman.wmzx.customcardview.library.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_13"
         android:layout_marginTop="@dimen/dp_8"
         android:layout_marginRight="@dimen/dp_12"
-        android:background="@drawable/offline_frame"
         android:layout_marginBottom="@dimen/dp_9"
-        android:elevation="@dimen/dp_3"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_31">
-
-            <TextView
-                android:id="@+id/orderId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:text="20192218403687786"
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_13" />
-
-            <TextView
-                android:id="@+id/orderTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="@dimen/dp_13"
-                android:text="2019-02-13 16:45"
-                android:textColor="#878787"
-                android:textSize="@dimen/sp_12" />
-
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:background="#E6E6E6" />
+        app:cardBackgroundColor="#fff"
+        app:cardCornerRadius="@dimen/dp_5"
+        app:cardElevation="@dimen/dp_2"
+        app:topDelta="0">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_96"
-            android:layout_marginLeft="@dimen/dp_14"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_height="@dimen/dp_31">
 
                 <TextView
-                    android:id="@+id/storename"
+                    android:id="@+id/orderId"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_11"
-                    android:text="兵哥豌豆面(武侯店)"
-                    android:singleLine="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_15"
+                    android:text="20192218403687786"
                     android:textColor="#363636"
-                    android:textSize="@dimen/sp_14" />
+                    android:textSize="@dimen/sp_13" />
 
                 <TextView
-                    android:id="@+id/name"
+                    android:id="@+id/orderTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_11"
-                    android:text="所属代理：杨幂"
-                    android:singleLine="true"
-                    android:textColor="#363636"
-                    android:textSize="@dimen/sp_14" />
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_13"
+                    android:text="2019-02-13 16:45"
+                    android:textColor="#878787"
+                    android:textSize="@dimen/sp_12" />
 
-                <TextView
-                    android:id="@+id/rentTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_11"
-                    android:text="租借时间：20:36:58"
-                    android:textColor="#363636"
-                    android:textSize="@dimen/sp_14" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <View
-                android:layout_width="@dimen/dp_1"
-                android:layout_height="@dimen/dp_33"
-                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
                 android:background="#E6E6E6" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/pay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_11"
-                    android:text="实付金额：12元"
-                    android:textColor="#363636"
-                    android:textSize="@dimen/sp_14" />
+                android:layout_height="@dimen/dp_96"
+                android:layout_marginLeft="@dimen/dp_14"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/dp_11"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/storename"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="为我赚取:"
+                        android:layout_marginTop="@dimen/dp_11"
+                        android:singleLine="true"
+                        android:text="兵哥豌豆面(武侯店)"
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
-                        android:id="@+id/make_money"
+                        android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="300"
-                        android:textColor="#E55C5C"
+                        android:layout_marginTop="@dimen/dp_11"
+                        android:singleLine="true"
+                        android:text="所属代理：杨幂"
+                        android:textColor="#363636"
                         android:textSize="@dimen/sp_14" />
 
                     <TextView
+                        android:id="@+id/rentTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="元"
+                        android:layout_marginTop="@dimen/dp_11"
+                        android:text="租借时间：20:36:58"
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_14" />
                 </LinearLayout>
 
+                <View
+                    android:layout_width="@dimen/dp_1"
+                    android:layout_height="@dimen/dp_33"
+                    android:layout_gravity="center"
+                    android:background="#E6E6E6" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/pay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_11"
+                        android:text="实付金额：12元"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_11"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="为我赚取:"
+                            android:textColor="#363636"
+                            android:textSize="@dimen/sp_14" />
+
+                        <TextView
+                            android:id="@+id/make_money"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="300"
+                            android:textColor="#E55C5C"
+                            android:textSize="@dimen/sp_14" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="元"
+                            android:textColor="#363636"
+                            android:textSize="@dimen/sp_14" />
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+
+    </com.bigman.wmzx.customcardview.library.CardView>
 </LinearLayout>

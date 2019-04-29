@@ -118,7 +118,7 @@ public class DeviceAllotListActivity extends BaseMvpActivity<DeviceAllotListPres
 
     }
 
-    @OnClick({R.id.back, R.id.bt_next, R.id.recycler, R.id.bt_saoyisao})
+    @OnClick({R.id.back, R.id.bt_next, R.id.bt_saoyisao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -132,8 +132,7 @@ public class DeviceAllotListActivity extends BaseMvpActivity<DeviceAllotListPres
                 }
 
                 break;
-            case R.id.recycler:
-                break;
+
             case R.id.bt_saoyisao:
                 MPermissions.requestPermissions(this, 4, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
                 break;

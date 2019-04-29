@@ -22,11 +22,10 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPresenter> implements IndirectDetailsContract.View {
 
-    @BindView(R.id.back)
-    RelativeLayout back;
     @BindView(R.id.recycler)
     RecyclerView recycler;
     @BindView(R.id.deviceId)
@@ -41,6 +40,8 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
     OtherView otherView;
     @BindView(R.id.liuzhuanView)
     LinearLayout liuzhuanView;
+    @BindView(R.id.back)
+    RelativeLayout back;
     private Adapter adapter;
     private List<OffIndirectDeivceDetailsBean.DataBean.ListBean> list;
     private String id;
@@ -73,7 +74,7 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
@@ -85,9 +86,9 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
             time.setText(bean.getData().getFenpeitime());
 
             list = bean.getData().getList();
-            if (list.size()==0){
+            if (list.size() == 0) {
                 liuzhuanView.setVisibility(View.GONE);
-            }else {
+            } else {
                 liuzhuanView.setVisibility(View.VISIBLE);
                 recycler.setNestedScrollingEnabled(false);
                 recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -96,11 +97,16 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
                 adapter.openLoadAnimation();
             }
 
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 
 
     }
 
+
+    @OnClick(R.id.back)
+    public void onViewClicked() {
+        finish();
+    }
 }

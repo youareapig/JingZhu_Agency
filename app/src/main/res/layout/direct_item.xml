@@ -10,8 +10,8 @@
         android:layout_marginLeft="@dimen/dp_13"
         android:layout_marginTop="@dimen/dp_3"
         android:layout_marginRight="@dimen/dp_12"
-        android:background="@drawable/offline_frame"
-        android:elevation="@dimen/dp_3"
+        android:background="@drawable/offline_frame_index"
+        android:elevation="@dimen/dp_1"
         android:orientation="horizontal">
 
         <ImageView
@@ -48,7 +48,7 @@
         android:layout_marginLeft="@dimen/dp_13"
         android:layout_marginTop="@dimen/dp_4"
         android:layout_marginRight="@dimen/dp_12"
-        android:background="@drawable/offline_frame"
-        android:elevation="@dimen/dp_3"
-        android:layout_marginBottom="@dimen/dp_15"/>
+        android:background="@drawable/offline_frame_index_bottom"
+        android:elevation="@dimen/dp_1"
+        android:layout_marginBottom="@dimen/dp_8"/>
 </LinearLayout>

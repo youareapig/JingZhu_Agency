@@ -177,7 +177,7 @@
         android:layout_marginTop="@dimen/dp_203"
         android:background="@drawable/save_button"
         android:gravity="center"
-        android:elevation="@dimen/dp_1"
+        android:elevation="@dimen/dp_2"
         android:text="保存"
         android:textColor="#fff"
         android:textSize="@dimen/sp_17" />

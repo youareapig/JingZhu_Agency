@@ -11,7 +11,7 @@
         android:layout_marginRight="@dimen/dp_13"
         android:layout_marginBottom="@dimen/dp_3"
         android:background="@drawable/frame_dp5"
-        android:elevation="@dimen/dp_3"
+        android:elevation="@dimen/dp_1"
         android:orientation="vertical">
 
         <LinearLayout

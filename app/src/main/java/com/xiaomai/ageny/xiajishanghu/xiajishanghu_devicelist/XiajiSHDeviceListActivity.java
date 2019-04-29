@@ -80,6 +80,7 @@ public class XiajiSHDeviceListActivity extends BaseMvpActivity<XiajiSHDeviceList
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.bt_filter:
                 toClass(this, XiajiSHFilterActivity.class);

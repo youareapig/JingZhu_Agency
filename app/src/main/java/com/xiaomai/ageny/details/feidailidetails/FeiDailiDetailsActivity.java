@@ -152,6 +152,7 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.device_more:
                 bundle.putString("id", id);
@@ -166,10 +167,4 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }
