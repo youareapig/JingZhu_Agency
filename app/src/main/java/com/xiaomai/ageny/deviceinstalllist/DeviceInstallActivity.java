@@ -91,7 +91,7 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
             public void onListener() {
                 mPresenter.getDeviceInstallListData(strChiyourenTel, strAnzhuangrenTel, strTime);
             }
-        });
+        });  
         //下拉上啦
         refresh.setCanLoadMore(false);
         refresh.setRefreshListener(new BaseRefreshListener() {
