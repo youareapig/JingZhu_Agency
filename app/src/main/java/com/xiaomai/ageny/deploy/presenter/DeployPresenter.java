@@ -79,6 +79,11 @@ public class DeployPresenter extends BasePresenter<DeployContract.View> implemen
                 });
     }
 
+    @Override
+    public void stopLocation() {
+        mLocationClient.stopLocation();
+    }
+
     // 高德定位
     public void getPositioning() {
         mLocationClient = new AMapLocationClient(App.context);

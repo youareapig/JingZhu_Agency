@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.xiaomai.ageny.base.BaseActivity;
 import com.xiaomai.ageny.fragment.agency.Agency_Fragment;
@@ -16,6 +18,7 @@ import com.xiaomai.ageny.fragment.contact.Contact_Fragment;
 import com.xiaomai.ageny.fragment.index.Index_Fragment;
 import com.xiaomai.ageny.fragment.mine.Mine_Fragment;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import java.util.ArrayList;
@@ -62,6 +65,7 @@ public class MainActivity extends BaseActivity {
     private int currentIndex = 0;
     private FragmentManager fragmentManager;
     private static final String CURRENT_FRAGMENT = "STATE_FRAGMENT_SHOW";
+    private long exitTime = 0;
 
     @Override
     public int getLayoutId() {
@@ -112,6 +116,20 @@ public class MainActivity extends BaseActivity {
         transaction.commit();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                ToastUtil.showShortToast("再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
     private void restoreFragment() {
         FragmentTransaction mBeginTreansaction = fragmentManager.beginTransaction();

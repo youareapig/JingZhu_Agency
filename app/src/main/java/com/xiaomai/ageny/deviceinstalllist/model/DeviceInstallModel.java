@@ -16,8 +16,8 @@ public class DeviceInstallModel implements DeviceInstallContract.Model {
     }
 
     @Override
-    public Flowable<DeviceInstallListBean> getDeviceInstallListBean_Refresh(int page, String chiyou, String anzhuang, String time) {
-        return null;
+    public Flowable<DeviceInstallListBean> getDeviceInstallListBean_Refresh( String chiyou, String anzhuang, String time) {
+        return  RetrofitClient.getInstance().getApi().getDeviceInstallListBean(chiyou,anzhuang,time);
     }
 
     @Override

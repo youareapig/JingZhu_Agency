@@ -39,11 +39,11 @@ public class DeviceInstallPresenter extends BasePresenter<DeviceInstallContract.
     }
 
     @Override
-    public void getDeviceInstallListBean_Refresh(int page, String chiyou, String anzhuang, String time) {
+    public void getDeviceInstallListBean_Refresh( String chiyou, String anzhuang, String time) {
         if (!isViewAttached()) {
             return;
         }
-        model.getDeviceInstallListBean_Refresh(page, chiyou, anzhuang, time).compose(RxScheduler.<DeviceInstallListBean>Flo_io_main())
+        model.getDeviceInstallListBean_Refresh(chiyou, anzhuang, time).compose(RxScheduler.<DeviceInstallListBean>Flo_io_main())
                 .subscribe(new Consumer<DeviceInstallListBean>() {
                     @Override
                     public void accept(DeviceInstallListBean bean) throws Exception {

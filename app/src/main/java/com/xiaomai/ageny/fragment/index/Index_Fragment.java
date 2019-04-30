@@ -94,9 +94,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     @BindView(R.id.refresh)
     PullToRefreshLayout refreshLayout;
 
-    public AMapLocationClient mLocationClient = null;
-    public AMapLocationListener mLocationListener = new MyAMapLocationListener();
-    public AMapLocationClientOption mLocationOption = null;
     @BindView(R.id.index_device_allcount)
     TextView indexDeviceAllcount;
     private String strTaskNum;
@@ -105,6 +102,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
     @Override
     protected void initView(View view) {
+        //获取当前版本号
         locatinVercode = BaseUtils.getLocationCode(getActivity());
         otherView.setHolder(mHolder);
         mPresenter = new IndexPresenter();
@@ -118,8 +116,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 mPresenter.getData();
             }
         });
-        //高德定位
-//        MPermissions.requestPermissions(Index_Fragment.this, 10, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
         refreshLayout.setCanLoadMore(false);
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
@@ -141,49 +137,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        MPermissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    @PermissionGrant(10)
-    public void getLocation() {
-        getPositioning();
-    }
-
-
-    class MyAMapLocationListener implements AMapLocationListener {
-        @Override
-        public void onLocationChanged(AMapLocation aMapLocation) {
-            if (aMapLocation != null) {
-                if (aMapLocation.getErrorCode() == 0) {
-
-                    SharedPreferencesUtil.getInstance(getActivity()).putSP("lat", aMapLocation.getLatitude() + "");
-                    SharedPreferencesUtil.getInstance(getActivity()).putSP("lng", aMapLocation.getLongitude() + "");
-                    SharedPreferencesUtil.getInstance(getActivity()).putSP("city", aMapLocation.getCity() + "");
-                }
-
-            }
-
-        }
-    }
-
-    // 高德定位
-    public void getPositioning() {
-        mLocationClient = new AMapLocationClient(getActivity());
-        mLocationClient.setLocationListener(mLocationListener);
-        mLocationOption = new AMapLocationClientOption();
-        mLocationOption.setOnceLocationLatest(true);
-        mLocationOption.setOnceLocation(true);
-        mLocationOption.setNeedAddress(true);
-        mLocationOption.setMockEnable(true);
-        mLocationOption.setInterval(5000);
-        mLocationClient.setLocationOption(mLocationOption);
-        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
-        mLocationClient.startLocation();
-    }
-
-    @Override
     protected int getLayoutId() {
         return R.layout.index_fragment;
     }
@@ -191,6 +144,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     @Override
     public void showLoading() {
         otherView.showLoadingView();
+
     }
 
     @Override
@@ -207,7 +161,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     @Override
     public void onSuccess(IndexBean bean) {
         initData(bean);
-
     }
 
     @Override
@@ -219,7 +172,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         }
     }
 
-
     @Override
     public void onSuccess_Fresh(IndexBean bean) {
         initData(bean);
@@ -229,9 +181,11 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     public void onSuccess(UpdateBean bean) {
         int nowVercode = Integer.valueOf(bean.getNewVersion());
         Logger.d("当前版本" + locatinVercode + "最新版本" + nowVercode);
+        /**
+         * 当前版本号小于系统版本号时进行更新
+         * */
         if (locatinVercode < nowVercode) {
-            Logger.d("-----更新-------");
-            update();
+            mPresenter.updateMethod(getActivity());
         }
     }
 
@@ -290,6 +244,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         }
     }
 
+    //任务列表弹框
     private void showDialog() {
         final AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.FullScreenDialog).create();
         LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -315,48 +270,5 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         ISSHOW = false;
     }
 
-    private void update() {
-        new UpdateAppManager.Builder()
-                .setActivity(getActivity())
-                .setUpdateUrl("http://192.168.0.81:8080/agentCenter/account/version/update")
-                .setHttpManager(new UpdateAppHttpUtil())
-                .setTopPic(R.mipmap.top_8)
-                .build()
-                .checkNewApp(new UpdateCallback() {
-                    @Override
-                    protected UpdateAppBean parseJson(String json) {
-                        UpdateAppBean updateAppBean = new UpdateAppBean();
-                        try {
-                            JSONObject jsonObject = new JSONObject(json);
-                            updateAppBean
-                                    //（必须）是否更新Yes,No
-                                    .setUpdate(jsonObject.optString("udate"))
-                                    //（必须）新版本号，
-                                    .setNewVersion(jsonObject.optString("newVersion"))
-                                    //（必须）下载地址
-                                    .setApkFileUrl(jsonObject.optString("apkFileUrl"))
-                                    //（必须）更新内容
-                                    .setUpdateLog(jsonObject.optString("updateLog"))
-                                    //大小，不设置不显示大小，可以不设置
-                                    .setTargetSize(jsonObject.optString("targetSize"))
-                                    //是否强制更新，可以不设置constraint
-                                    .setConstraint(jsonObject.optBoolean("cons"))
-                                    //设置md5，可以不设置
-                                    .setNewMd5(jsonObject.optString("newMd5"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        return updateAppBean;
-                    }
 
-                });
-
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        //停止定位
-        mLocationClient.stopLocation();
-    }
 }

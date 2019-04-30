@@ -1,5 +1,8 @@
 package com.xiaomai.ageny.fragment.index.contract;
 
+import android.app.Activity;
+import android.content.Context;
+
 import com.xiaomai.ageny.base.BaseView;
 import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.IndexBean;
@@ -34,6 +37,7 @@ public interface IndexContract {
         void onSuccess_Fresh(IndexBean bean);
 
         void onSuccess(UpdateBean bean);
+
     }
 
     interface Presenter {
@@ -44,5 +48,7 @@ public interface IndexContract {
         void getConfigBean();
 
         void getUpdate();
+
+        void updateMethod(Activity activity);
     }
 }

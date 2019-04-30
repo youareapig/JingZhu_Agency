@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.DeviceInstallListBean;
@@ -58,7 +59,6 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     private String strChiyourenTel = "";
     private String strAnzhuangrenTel = "";
     private String strTime = "";
-    private int page = 1;
     private Bundle bundle;
     private Bundle mBundle;
     private String role;
@@ -100,8 +100,7 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        page = 1;
-                        mPresenter.getDeviceInstallListBean_Refresh(page, strChiyourenTel, strAnzhuangrenTel, strTime);
+                        mPresenter.getDeviceInstallListBean_Refresh(strChiyourenTel, strAnzhuangrenTel, strTime);
                         refresh.finishRefresh();
                     }
                 }, 1000);
@@ -109,14 +108,6 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
             @Override
             public void loadMore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        page++;
-                        mPresenter.getDeviceInstallListBean_Refresh(page, strChiyourenTel, strAnzhuangrenTel, strTime);
-                        refresh.finishLoadMore();
-                    }
-                }, 1000);
             }
         });
     }
@@ -125,6 +116,7 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     protected void onStart() {
         super.onStart();
         mPresenter.getDeviceInstallListData(strChiyourenTel, strAnzhuangrenTel, strTime);
+
     }
 
     @Override

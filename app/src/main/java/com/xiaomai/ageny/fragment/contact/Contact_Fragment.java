@@ -41,7 +41,6 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     RecyclerView recycler;
     @BindView(R.id.bt_add)
     ImageView btAdd;
-    Unbinder unbinder;
     @BindView(R.id.add_time)
     TextView addTime;
     @BindView(R.id.make_money)

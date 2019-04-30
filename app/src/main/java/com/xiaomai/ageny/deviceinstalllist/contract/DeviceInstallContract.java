@@ -11,7 +11,7 @@ public interface DeviceInstallContract {
     interface Model {
         Flowable<DeviceInstallListBean> getDeviceInstallListData(String chiyou, String anzhuang, String time);
 
-        Flowable<DeviceInstallListBean> getDeviceInstallListBean_Refresh(int page, String chiyou, String anzhuang, String time);
+        Flowable<DeviceInstallListBean> getDeviceInstallListBean_Refresh(String chiyou, String anzhuang, String time);
 
         Flowable<LoginOutBean> loginOut();
     }
@@ -36,7 +36,7 @@ public interface DeviceInstallContract {
     interface Presenter {
         void getDeviceInstallListData(String chiyou, String anzhuang, String time);
 
-        void getDeviceInstallListBean_Refresh(int page, String chiyou, String anzhuang, String time);
+        void getDeviceInstallListBean_Refresh(String chiyou, String anzhuang, String time);
 
         void loginOut();
     }

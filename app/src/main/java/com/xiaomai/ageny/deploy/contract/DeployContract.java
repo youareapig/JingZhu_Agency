@@ -38,5 +38,7 @@ public interface DeployContract {
         void getLocation();
 
         void getDeploy(RequestBody requestBody);
+
+        void stopLocation();
     }
 }

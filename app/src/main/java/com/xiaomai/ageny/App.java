@@ -12,6 +12,8 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import cn.leo.click.SingleClickManager;
+
 public class App extends Application {
     public static Context context;
     public static String pageSize = "15";
@@ -36,5 +38,7 @@ public class App extends Application {
                 .init(this)
                 .debug(true, "okHttp")
                 .timeout(20 * 1000);
+        //初始化点击间隔时间
+        SingleClickManager.setClickInterval(1000);
     }
 }

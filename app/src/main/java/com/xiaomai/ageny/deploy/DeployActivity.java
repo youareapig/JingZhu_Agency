@@ -183,6 +183,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.bt_saoyisao:
                 MPermissions.requestPermissions(this, 1, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -433,4 +434,9 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.stopLocation();
+    }
 }
