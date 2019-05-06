@@ -287,6 +287,8 @@
                         android:layout_marginLeft="@dimen/dp_13"
                         android:hint="请填写分润比例"
                         android:paddingLeft="@dimen/dp_6"
+                        android:singleLine="true"
+                        android:inputType="number"
                         android:textColor="#363636"
                         android:textColorHint="#B6B6B6"
                         android:textSize="@dimen/sp_16"

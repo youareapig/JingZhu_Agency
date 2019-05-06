@@ -12,11 +12,12 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import cn.jpush.android.api.JPushInterface;
 import cn.leo.click.SingleClickManager;
 
 public class App extends Application {
     public static Context context;
-    public static String pageSize = "15";
+    public static String pageSize = "20";
     public static String ZxingBaseUrl = "https://www.jzcdsc.com/rent?id";
 
     @Override
@@ -40,5 +41,9 @@ public class App extends Application {
                 .timeout(20 * 1000);
         //初始化点击间隔时间
         SingleClickManager.setClickInterval(1000);
+
+        //初始化极光推送
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
     }
 }

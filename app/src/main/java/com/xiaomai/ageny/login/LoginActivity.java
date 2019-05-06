@@ -2,10 +2,12 @@ package com.xiaomai.ageny.login;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.MainActivity;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
@@ -26,6 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements LoginContract.View {
 
@@ -92,11 +95,10 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
 
     @Override
     public void onSuccess(VerCodeBean bean) {
-
         if (bean.getCode() == 1) {
             CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(btIndexGetcode, 60000, 1000);
             mCountDownTimerUtils.start();
-        } else if (TextUtils.isEmpty(bean.getData())) {
+        } else{
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

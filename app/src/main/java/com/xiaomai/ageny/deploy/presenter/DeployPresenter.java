@@ -36,6 +36,7 @@ public class DeployPresenter extends BasePresenter<DeployContract.View> implemen
         if (!isViewAttached()) {
             return;
         }
+        mView.showLoading();
         model.getData(mobile).compose(RxScheduler.<TelToNameBean>Flo_io_main())
                 .subscribe(new Consumer<TelToNameBean>() {
                     @Override

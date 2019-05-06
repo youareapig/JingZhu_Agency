@@ -34,6 +34,7 @@ import com.xiaomai.ageny.device_manage.DeviceManageActivity;
 import com.xiaomai.ageny.deviceinstalllist.DeviceInstallActivity;
 import com.xiaomai.ageny.fragment.index.contract.IndexContract;
 import com.xiaomai.ageny.fragment.index.presenter.IndexPresenter;
+import com.xiaomai.ageny.login.LoginActivity;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.order.OrderActivity;
@@ -213,7 +214,8 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 Num.setText(strTaskNum);
             }
         } else {
-            ToastUtil.showShortToast(bean.getMessage());
+            //其他设备登录,回到登录界面
+            restLoginDialog();
         }
     }
 
@@ -268,6 +270,25 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         dialog.setView(v);
         dialog.show();
         ISSHOW = false;
+    }
+
+    //重新登录
+    private void restLoginDialog() {
+        final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.dialog_other_login, null);
+        builder.setView(view);
+        builder.setCancelable(false);
+        builder.show();
+        view.findViewById(R.id.bt_sure).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferencesUtil.getInstance(getActivity()).putSP("token", "");
+                toClass_Empty(getActivity(), LoginActivity.class);
+                getActivity().finish();
+                builder.dismiss();
+            }
+        });
     }
 
 
