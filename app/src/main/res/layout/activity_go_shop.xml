@@ -55,7 +55,6 @@
                 android:layout_marginLeft="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
                 android:hint="输入采购批次"
-                android:inputType="number"
                 android:paddingLeft="@dimen/dp_9"
                 android:singleLine="true"
                 android:textColorHint="#B6B6B6"
@@ -261,9 +260,9 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="@dimen/dp_44"
                 android:background="@drawable/goshop_button"
+                android:elevation="@dimen/dp_2"
                 android:gravity="center"
                 android:text="提交申请"
-                android:elevation="@dimen/dp_2"
                 android:textColor="#fff"
                 android:textSize="@dimen/sp_17" />
         </LinearLayout>

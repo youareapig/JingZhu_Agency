@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public class ShangHuDeviceDetailsModel implements ShangHuDeviceDetailsContract.Model {
     @Override
-    public Flowable<ContactDeviceDetailsBean> getData(String id) {
-        return RetrofitClient.getInstance().getApi().getContactDeviceDetailsBean(id);
+    public Flowable<ContactDeviceDetailsBean> getData(String id,String msgid) {
+        return RetrofitClient.getInstance().getApi().getContactDeviceDetailsBean(id,msgid);
     }
 }

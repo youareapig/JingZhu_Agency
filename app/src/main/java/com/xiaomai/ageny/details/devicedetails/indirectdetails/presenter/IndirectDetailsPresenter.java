@@ -16,12 +16,12 @@ public class IndirectDetailsPresenter extends BasePresenter<IndirectDetailsContr
     }
 
     @Override
-    public void getData(String deviceid) {
+    public void getData(String deviceid,String msgid) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(deviceid).compose(RxScheduler.<OffIndirectDeivceDetailsBean>Flo_io_main())
+        model.getData(deviceid,msgid).compose(RxScheduler.<OffIndirectDeivceDetailsBean>Flo_io_main())
                 .subscribe(new Consumer<OffIndirectDeivceDetailsBean>() {
                     @Override
                     public void accept(OffIndirectDeivceDetailsBean bean) throws Exception {

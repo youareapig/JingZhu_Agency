@@ -126,13 +126,11 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
         }
     }
 
-    @OnClick({R.id.back, R.id.recycler})
+    @OnClick({R.id.back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
-                break;
-            case R.id.recycler:
                 break;
         }
     }

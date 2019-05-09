@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.addcontact;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -149,6 +150,12 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
             ShowDialogUtils.showdialog(this, bean.getMessage());
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, 1000);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -250,6 +257,8 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
 
     private void initCustomTimePickerStart() {
         //时间选择器 ，自定义布局
+        //隐藏软键盘
+        BaseUtils.hideInput(this);
         pvCustomTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调

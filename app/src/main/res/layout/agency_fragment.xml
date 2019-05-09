@@ -64,7 +64,6 @@
                 android:layout_height="match_parent" />
         </LinearLayout>
 
-
         <ImageView
             android:id="@+id/bt_add"
             android:layout_width="@dimen/dp_57"

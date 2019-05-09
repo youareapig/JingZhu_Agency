@@ -6,7 +6,7 @@ public class OffDirectDeviceBean {
 
     /**
      * code : 1
-     * data : [{"countlinxianbox":"7","linkTel":"","list":[{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000093","details":"2.00","lixiantime":"97","stock":"6"}],"linktel":"","sellerid":"120","sellername":"成都慈爱直属医院2楼护士站"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000668","details":"2.00","lixiantime":"81","stock":"6"}],"linktel":"","sellerid":"118","sellername":"成都慈爱直属医院3楼护士站"},{"box":[{"boxaddress":"成都市二号雅舍(武侯区清河路西南方向160米)二号雅舍(武侯区清河路西南方向160米)","boxid":"JZCB061901000685","details":"1.50","lixiantime":"82","stock":"6"}],"linktel":"13880076060","sellerid":"1026","sellername":"丰涛火锅"},{"box":[{"boxaddress":"四川省成都市金牛区金仙桥路10号","boxid":"JZCB061901000828","details":"2.00","lixiantime":"123","stock":"6"}],"linktel":"","sellerid":"121","sellername":"城视医院"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000966","details":"2.00","lixiantime":"171","stock":"6"}],"linktel":"","sellerid":"114","sellername":"成都慈爱直属医院1楼接待大厅"},{"box":[{"boxaddress":"四川省成都市金牛区金仙桥路10号","boxid":"JZCB061901000976","details":"2.00","lixiantime":"129","stock":"6"}],"linktel":"","sellerid":"122","sellername":"城视医院1楼住院部"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000992","details":"2.00","lixiantime":"87","stock":"6"}],"linktel":"","sellerid":"116","sellername":"成都慈爱直属医院5楼护士站"}],"sellerid":"","sellername":""}]
+     * data : [{"countlinxianbox":"7","linkTel":"","list":[{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000093","details":"2.00","lixiantime":"577","stock":"6","updtime":""}],"linktel":"","sellerid":"120","sellername":"成都慈爱直属医院2楼护士站"},{"box":[{"boxaddress":"小天竺园公寓东(小天北巷)","boxid":"JZCB061901000094","details":"1.50","lixiantime":"689","stock":"6","updtime":""}],"linktel":"","sellerid":"323","sellername":"路华茶房"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000668","details":"2.00","lixiantime":"561","stock":"6","updtime":""}],"linktel":"","sellerid":"118","sellername":"成都慈爱直属医院3楼护士站"},{"box":[{"boxaddress":"四川省成都市金牛区金仙桥路10号","boxid":"JZCB061901000828","details":"2.00","lixiantime":"602","stock":"6","updtime":""}],"linktel":"","sellerid":"121","sellername":"城视医院"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000966","details":"2.00","lixiantime":"651","stock":"6","updtime":""}],"linktel":"","sellerid":"114","sellername":"成都慈爱直属医院1楼接待大厅"},{"box":[{"boxaddress":"四川省成都市金牛区金仙桥路10号","boxid":"JZCB061901000976","details":"2.00","lixiantime":"609","stock":"6","updtime":""}],"linktel":"","sellerid":"122","sellername":"城视医院1楼住院部"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000992","details":"2.00","lixiantime":"566","stock":"6","updtime":""}],"linktel":"","sellerid":"116","sellername":"成都慈爱直属医院5楼护士站"}],"sellerid":"","sellername":""}]
      * message : 4.6离线的直属设备成功
      */
 
@@ -42,7 +42,7 @@ public class OffDirectDeviceBean {
         /**
          * countlinxianbox : 7
          * linkTel :
-         * list : [{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000093","details":"2.00","lixiantime":"97","stock":"6"}],"linktel":"","sellerid":"120","sellername":"成都慈爱直属医院2楼护士站"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000668","details":"2.00","lixiantime":"81","stock":"6"}],"linktel":"","sellerid":"118","sellername":"成都慈爱直属医院3楼护士站"},{"box":[{"boxaddress":"成都市二号雅舍(武侯区清河路西南方向160米)二号雅舍(武侯区清河路西南方向160米)","boxid":"JZCB061901000685","details":"1.50","lixiantime":"82","stock":"6"}],"linktel":"13880076060","sellerid":"1026","sellername":"丰涛火锅"},{"box":[{"boxaddress":"四川省成都市金牛区金仙桥路10号","boxid":"JZCB061901000828","details":"2.00","lixiantime":"123","stock":"6"}],"linktel":"","sellerid":"121","sellername":"城视医院"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000966","details":"2.00","lixiantime":"171","stock":"6"}],"linktel":"","sellerid":"114","sellername":"成都慈爱直属医院1楼接待大厅"},{"box":[{"boxaddress":"四川省成都市金牛区金仙桥路10号","boxid":"JZCB061901000976","details":"2.00","lixiantime":"129","stock":"6"}],"linktel":"","sellerid":"122","sellername":"城视医院1楼住院部"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000992","details":"2.00","lixiantime":"87","stock":"6"}],"linktel":"","sellerid":"116","sellername":"成都慈爱直属医院5楼护士站"}]
+         * list : [{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000093","details":"2.00","lixiantime":"577","stock":"6","updtime":""}],"linktel":"","sellerid":"120","sellername":"成都慈爱直属医院2楼护士站"},{"box":[{"boxaddress":"小天竺园公寓东(小天北巷)","boxid":"JZCB061901000094","details":"1.50","lixiantime":"689","stock":"6","updtime":""}],"linktel":"","sellerid":"323","sellername":"路华茶房"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000668","details":"2.00","lixiantime":"561","stock":"6","updtime":""}],"linktel":"","sellerid":"118","sellername":"成都慈爱直属医院3楼护士站"},{"box":[{"boxaddress":"四川省成都市金牛区金仙桥路10号","boxid":"JZCB061901000828","details":"2.00","lixiantime":"602","stock":"6","updtime":""}],"linktel":"","sellerid":"121","sellername":"城视医院"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000966","details":"2.00","lixiantime":"651","stock":"6","updtime":""}],"linktel":"","sellerid":"114","sellername":"成都慈爱直属医院1楼接待大厅"},{"box":[{"boxaddress":"四川省成都市金牛区金仙桥路10号","boxid":"JZCB061901000976","details":"2.00","lixiantime":"609","stock":"6","updtime":""}],"linktel":"","sellerid":"122","sellername":"城视医院1楼住院部"},{"box":[{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000992","details":"2.00","lixiantime":"566","stock":"6","updtime":""}],"linktel":"","sellerid":"116","sellername":"成都慈爱直属医院5楼护士站"}]
          * sellerid :
          * sellername :
          */
@@ -95,7 +95,7 @@ public class OffDirectDeviceBean {
 
         public static class ListBean {
             /**
-             * box : [{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000093","details":"2.00","lixiantime":"97","stock":"6"}]
+             * box : [{"boxaddress":"四川省成都市武侯区洗面桥街17号","boxid":"JZCB061901000093","details":"2.00","lixiantime":"577","stock":"6","updtime":""}]
              * linktel :
              * sellerid : 120
              * sellername : 成都慈爱直属医院2楼护士站
@@ -143,8 +143,9 @@ public class OffDirectDeviceBean {
                  * boxaddress : 四川省成都市武侯区洗面桥街17号
                  * boxid : JZCB061901000093
                  * details : 2.00
-                 * lixiantime : 97
+                 * lixiantime : 577
                  * stock : 6
+                 * updtime :
                  */
 
                 private String boxaddress;
@@ -152,6 +153,7 @@ public class OffDirectDeviceBean {
                 private String details;
                 private String lixiantime;
                 private String stock;
+                private String updtime;
 
                 public String getBoxaddress() {
                     return boxaddress;
@@ -191,6 +193,14 @@ public class OffDirectDeviceBean {
 
                 public void setStock(String stock) {
                     this.stock = stock;
+                }
+
+                public String getUpdtime() {
+                    return updtime;
+                }
+
+                public void setUpdtime(String updtime) {
+                    this.updtime = updtime;
                 }
             }
         }

@@ -1,6 +1,12 @@
 package com.xiaomai.ageny;
 
+import android.annotation.TargetApi;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -93,6 +99,7 @@ public class MainActivity extends BaseActivity {
             showFragment();
 
         }
+
     }
 
     @Override
@@ -209,5 +216,6 @@ public class MainActivity extends BaseActivity {
                 break;
         }
     }
+
 
 }

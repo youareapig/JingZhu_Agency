@@ -7,6 +7,7 @@ import com.xiaomai.ageny.base.BaseView;
 import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.bean.UpdateBean;
+import com.xiaomai.ageny.bean.UserInfoBean;
 
 import io.reactivex.Flowable;
 
@@ -17,6 +18,8 @@ public interface IndexContract {
         Flowable<ConfigBean> getConfigBean();
 
         Flowable<UpdateBean> getUpdate();
+
+        Flowable<UserInfoBean> getAlias();
 
     }
 
@@ -38,6 +41,8 @@ public interface IndexContract {
 
         void onSuccess(UpdateBean bean);
 
+        void onSuccess(UserInfoBean bean);
+
     }
 
     interface Presenter {
@@ -50,5 +55,7 @@ public interface IndexContract {
         void getUpdate();
 
         void updateMethod(Activity activity);
+
+        void getAlias();
     }
 }

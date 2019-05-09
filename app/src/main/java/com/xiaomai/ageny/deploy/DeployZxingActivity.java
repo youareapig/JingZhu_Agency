@@ -82,6 +82,7 @@ public class DeployZxingActivity extends BaseActivity {
                 }
                 break;
             case R.id.back:
+                finish();
                 break;
         }
     }

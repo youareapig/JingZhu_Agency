@@ -39,6 +39,7 @@ import com.xiaomai.ageny.bean.ShopBean;
 import com.xiaomai.ageny.bean.ShopRecordBean;
 import com.xiaomai.ageny.bean.ShowHoleBean;
 import com.xiaomai.ageny.bean.StaffBean;
+import com.xiaomai.ageny.bean.SystemNoticeBean;
 import com.xiaomai.ageny.bean.TelBean;
 import com.xiaomai.ageny.bean.TelToNameBean;
 import com.xiaomai.ageny.bean.UnbindRecordBean;
@@ -110,7 +111,7 @@ public interface APIService {
     //离线设备详情（非直属设备）
     @GET(urlhead + "agentCenter/nodirecte/quipment/details ")
     Flowable<OffIndirectDeivceDetailsBean> getInDirectDetailsBean(
-            @Query("deviceid") String deviceid);
+            @Query("deviceid") String deviceid, @Query("msgid") String msgid);
 
     //商户列表
     @GET(urlhead + "agentCenter/seller/list")
@@ -141,7 +142,7 @@ public interface APIService {
     //商户设备详情
     @GET(urlhead + "agentCenter/device/info")
     Flowable<ContactDeviceDetailsBean> getContactDeviceDetailsBean(
-            @Query("deviceid") String deviceid);
+            @Query("deviceid") String deviceid, @Query("msgid") String msgid);
 
     //修改商户资料
     @POST(urlhead + "agentCenter/seller/save")
@@ -384,5 +385,9 @@ public interface APIService {
     //app版本更新
     @GET(urlhead + "agentCenter/account/version/update")
     Flowable<UpdateBean> getUpdate();
+
+    //系统消息列表
+    @GET(urlhead + "agentCenter/user/systeminfo")
+    Flowable<SystemNoticeBean> getSystemData(@Query("page") String page, @Query("page_size") String page_size);
 }
 

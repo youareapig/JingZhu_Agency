@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="2000"
+                    android:text="0"
                     android:textColor="#fff"
                     android:textSize="@dimen/sp_28" />
 
@@ -133,7 +133,7 @@
                                 android:id="@+id/all_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="17,098.45"
+                                android:text="0"
                                 android:textColor="#fff"
                                 android:textSize="@dimen/sp_17" />
                         </LinearLayout>
@@ -162,7 +162,7 @@
                                 android:id="@+id/month_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="17,4.45"
+                                android:text="0"
                                 android:textColor="#fff"
                                 android:textSize="@dimen/sp_17" />
                         </LinearLayout>
@@ -191,7 +191,7 @@
                                 android:id="@+id/today_money"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="17,098.45"
+                                android:text="0"
                                 android:textColor="#fff"
                                 android:textSize="@dimen/sp_17" />
                         </LinearLayout>
@@ -295,7 +295,7 @@
                                         android:id="@+id/index_device_allcount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="45454"
+                                        android:text="0"
                                         android:textColor="#363636"
                                         android:textSize="@dimen/sp_16" />
 
@@ -339,7 +339,7 @@
                                         android:id="@+id/on_line"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="45454"
+                                        android:text="0"
                                         android:textColor="#67AB52"
                                         android:textSize="@dimen/sp_16" />
 
@@ -383,7 +383,7 @@
                                         android:id="@+id/off_line"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="45454"
+                                        android:text="0"
                                         android:textColor="#E55C5C"
                                         android:textSize="@dimen/sp_16" />
 
@@ -488,7 +488,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_11"
-                            android:text="商户总数：108家"
+                            android:text="商户总数：0家"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -510,7 +510,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_11"
-                            android:text="订单总量：19886个"
+                            android:text="订单总量：0个"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -532,7 +532,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_11"
-                            android:text="订单总金额：10,5450.27元"
+                            android:text="订单总金额：0元"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -619,7 +619,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_11"
-                            android:text="编号：JDASD1231312"
+                            android:text="编号："
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -641,7 +641,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_11"
-                            android:text="分润比例：20%"
+                            android:text="分润比例："
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -663,7 +663,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_11"
-                            android:text="联系人：欧小帅"
+                            android:text="联系人："
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -685,7 +685,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_11"
-                            android:text="联系方式：184 8368 4867"
+                            android:text="联系方式："
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -707,7 +707,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_11"
-                            android:text="负责区域：成都市武侯区武兴路"
+                            android:text="负责区域："
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -729,7 +729,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_11"
-                            android:text="添加时间：2018-12-08"
+                            android:text="添加时间："
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -752,7 +752,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_11"
-                            android:text="企业名称：斯柯达旗舰店"
+                            android:text="企业名称："
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>

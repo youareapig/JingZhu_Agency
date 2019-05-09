@@ -92,7 +92,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
     private OptionsPickerView pvCustomOptions;
     private List<String> list;
-    private String strPrice, strlinktel;
+    private String strPrice, strlinktel,strunbindtel;
     private String deviceId;
     private Bundle bundle;
     public static ShanghuDeviceDetailsActivity instance;
@@ -114,11 +114,11 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
         mPresenter = new ShangHuDeviceDetailsPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(deviceId);
+        mPresenter.getData(deviceId,"");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(deviceId);
+                mPresenter.getData(deviceId,"");
             }
         });
     }
@@ -143,6 +143,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
         if (bean.getCode() == 1) {
             ContactDeviceDetailsBean.DataBean data = bean.getData();
             strlinktel = data.getSellerLinkTel();
+            strunbindtel=data.getLinkTel();
 
             id.setText(data.getBoxId());
             lat.setText(data.getBoxlatitude() + "," + data.getBoxlongitude());
@@ -192,7 +193,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
                 break;
             case R.id.bt_unbundle:
                 bundle.putString("id", deviceId);
-                bundle.putString("tel", strlinktel);
+                bundle.putString("tel", strunbindtel);
 
                 toClass(this, UnbundleDeviceActivity.class, bundle);
                 break;

@@ -43,11 +43,11 @@
             android:layout_marginRight="@dimen/dp_13"
             app:cardBackgroundColor="#fff"
             app:cardCornerRadius="@dimen/dp_5"
+            android:id="@+id/view_addbank"
             app:cardElevation="@dimen/dp_2"
             app:topDelta="0">
 
             <LinearLayout
-                android:id="@+id/view_addbank"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_74"
                 android:gravity="center_vertical"

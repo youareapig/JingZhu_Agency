@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bigman.wmzx.customcardview.library.CardView;
 import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
@@ -39,12 +40,12 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
     @BindView(R.id.otherview)
     OtherView otherView;
     @BindView(R.id.liuzhuanView)
-    LinearLayout liuzhuanView;
+    CardView liuzhuanView;
     @BindView(R.id.back)
     RelativeLayout back;
     private Adapter adapter;
     private List<OffIndirectDeivceDetailsBean.DataBean.ListBean> list;
-    private String id;
+    private String id, msgid;
 
     @Override
     public int getLayoutId() {
@@ -55,10 +56,11 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
     public void initView() {
         otherView.setHolder(mHolder);
         id = getIntent().getStringExtra("id");
+        msgid = getIntent().getStringExtra("msgid");
         mPresenter = new IndirectDetailsPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(id);
-        Logger.d("id---" + id);
+        mPresenter.getData(id, msgid);
+        Logger.d("id---" + id+ " msgid---"+msgid );
 
     }
 

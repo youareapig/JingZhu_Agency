@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.addagency.update;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -50,6 +51,7 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
     EditText fenrun;
     @BindView(R.id.bt_save)
     TextView btSave;
+
 
     private String id, strFenrun, strLinkName, strLinkTel, strAddress, strFirmName;
     private int isperson;
@@ -117,6 +119,12 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
             ShowDialogUtils.showdialog(this,"更新资料成功");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, 1000);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -130,17 +138,17 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
                 finish();
                 break;
             case R.id.bt_person:
-//                btPerson.setSelected(true);
-//                btFirm.setSelected(false);
-//                viewFirm.setVisibility(View.GONE);
-//                firmName.setText("");
-//                btfirmIsSelect = false;
+                btPerson.setSelected(true);
+                btFirm.setSelected(false);
+                viewFirm.setVisibility(View.GONE);
+                firmName.setText("");
+                btfirmIsSelect = false;
                 break;
             case R.id.bt_firm:
-//                btPerson.setSelected(false);
-//                btFirm.setSelected(true);
-//                viewFirm.setVisibility(View.VISIBLE);
-//                btfirmIsSelect = true;
+                btPerson.setSelected(false);
+                btFirm.setSelected(true);
+                viewFirm.setVisibility(View.VISIBLE);
+                btfirmIsSelect = true;
                 break;
             case R.id.bt_save:
                 id = agencyId.getText().toString().trim();

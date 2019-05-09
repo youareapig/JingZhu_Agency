@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bigman.wmzx.customcardview.library.CardView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.addbank.BankActivity;
@@ -47,7 +48,7 @@ public class MyBankCardActivity extends BaseMvpActivity<MyBankCardPresenter> imp
     @BindView(R.id.bt_addbank)
     TextView btAddbank;
     @BindView(R.id.view_addbank)
-    LinearLayout viewAddbank;
+    CardView viewAddbank;
     @BindView(R.id.view_bank)
     RelativeLayout viewBank;
 

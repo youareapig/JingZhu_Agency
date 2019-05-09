@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.addagency.add;
 
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.utils.CustomDialog;
 import com.xiaomai.ageny.utils.MaptoJson;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 
@@ -47,11 +49,14 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
     EditText fenrun;
     @BindView(R.id.bt_save)
     TextView btSave;
+    @BindView(R.id.maxfenrun)
+    TextView maxFenrun;
     private String strFenrun, strLinkName, strLinkTel, strAddress, strFirmName;
     private boolean btfirmIsSelect = true;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
     private CustomDialog dialog;
+    private String reward;
 
     @Override
     public int getLayoutId() {
@@ -62,9 +67,12 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
     public void initView() {
         ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
         //默认选中企业
-        btFirm.setSelected(true);
+        btPerson.setSelected(true);
+        viewFirm.setVisibility(View.GONE);
         mPresenter = new AddAgencyPresenter();
         mPresenter.attachView(this);
+        reward = SharedPreferencesUtil.getInstance(this).getSP("reward");
+        maxFenrun.setText(reward);
     }
 
     @Override
@@ -86,7 +94,13 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
     @Override
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
-            ShowDialogUtils.showdialog(this,"添加代理成功");
+            ShowDialogUtils.showdialog(this, "添加代理成功");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, 1000);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -98,6 +112,7 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.bt_person:
                 btPerson.setSelected(true);

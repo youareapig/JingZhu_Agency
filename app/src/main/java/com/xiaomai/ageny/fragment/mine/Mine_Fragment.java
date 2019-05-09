@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.fragment.mine;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,9 +24,11 @@ import com.xiaomai.ageny.device_popu.DevicePopuActivity;
 import com.xiaomai.ageny.device_popu.DevicePopuZxingActivity;
 import com.xiaomai.ageny.fragment.mine.contract.MineContract;
 import com.xiaomai.ageny.fragment.mine.presenter.MinePresenter;
+import com.xiaomai.ageny.login.LoginActivity;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.setting.SettingActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -36,6 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.jpush.android.api.JPushInterface;
 
 public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements MineContract.View {
     @BindView(R.id.bt_device_manage)
@@ -62,6 +66,10 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
     TextView userscale;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.weidu)
+    TextView weiDu;
+    private String countunread, strLevel;
+    private Bundle bundle = new Bundle();
 
     @Override
     protected void initView(View view) {
@@ -75,6 +83,18 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
                 mPresenter.getData();
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        countunread = SharedPreferencesUtil.getInstance(getActivity()).getSP("countunread");
+        if (countunread.equals("0")) {
+            weiDu.setVisibility(View.GONE);
+        } else {
+            weiDu.setVisibility(View.VISIBLE);
+            weiDu.setText(countunread);
+        }
     }
 
     @Override
@@ -107,6 +127,9 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
             usertel.setText("绑定手机：" + data.getMobile());
             usertype.setText(data.getParent_name());
             userscale.setText(data.getReward());
+            strLevel = data.getLevel();
+        } else if (bean.getCode() == -10) {
+            restLoginDialog();
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -129,7 +152,8 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
                 MPermissions.requestPermissions(this, 4, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
                 break;
             case R.id.bt_setting:
-                toClass(getActivity(), SettingActivity.class);
+                bundle.putString("lev", strLevel);
+                toClass(getActivity(), SettingActivity.class, bundle);
                 break;
         }
     }
@@ -164,7 +188,7 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
                         if (headurl.equals(App.ZxingBaseUrl)) {
                             Bundle mBundle = new Bundle();
                             mBundle.putString("id", shadurl);
-                            toClass(getActivity(), DevicePopuActivity.class,mBundle);
+                            toClass(getActivity(), DevicePopuActivity.class, mBundle);
                         } else {
                             ToastUtil.showShortToast("请扫描正确二维码");
                         }
@@ -181,4 +205,23 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    //重新登录
+    private void restLoginDialog() {
+        final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.dialog_other_login, null);
+        builder.setView(view);
+        builder.setCancelable(false);
+        builder.show();
+        view.findViewById(R.id.bt_sure).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferencesUtil.getInstance(getActivity()).putSP("token", "");
+                toClass_Empty(getActivity(), LoginActivity.class);
+                getActivity().finish();
+                JPushInterface.deleteAlias(getActivity(), 1);
+                builder.dismiss();
+            }
+        });
+    }
 }

@@ -28,6 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 import cn.jpush.android.api.JPushInterface;
 
 public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements LoginContract.View {
@@ -78,14 +79,16 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     public void onSuccess(LoginBean bean) {
         if (bean.getCode() == 1) {
             SharedPreferencesUtil.getInstance(this).putSP("token", bean.getData().getWeixinToken());
+            //最大分润比例
+            SharedPreferencesUtil.getInstance(this).putSP("reward", bean.getData().getReward());
+            SharedPreferencesUtil.getInstance(this).putSP("role", bean.getData().getRole());
             if (bean.getData().getRole().equals("1")) {
                 //代理
                 toClass1(this, MainActivity.class);
                 finish();
             } else {
-                //员工
-                bundle.putString("role", bean.getData().getRole());
-                toClass(this, DeviceInstallActivity.class, bundle);
+                //员工2 代理  1
+                toClass(this, DeviceInstallActivity.class);
                 finish();
             }
         } else {
@@ -98,7 +101,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
         if (bean.getCode() == 1) {
             CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(btIndexGetcode, 60000, 1000);
             mCountDownTimerUtils.start();
-        } else{
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
@@ -131,8 +134,20 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
 
                     mPresenter.login(MaptoJson.toJsonZero(keyList, valueList));
                 }
-//                toClass1(this, MainActivity.class);
                 break;
+        }
+    }
+
+    @OnTextChanged({R.id.et_index_tel, R.id.et_index_code})
+    public void onTextChanged(CharSequence text) {
+        strTel = etIndexTel.getText().toString().trim();
+        strCode = etIndexCode.getText().toString().trim();
+        if (TextUtils.isEmpty(strTel) || TextUtils.isEmpty(strCode)) {
+            btLogin.setBackgroundResource(R.drawable.goshop_button);
+            btLogin.setEnabled(false);
+        } else {
+            btLogin.setBackgroundResource(R.drawable.goshop_button_true);
+            btLogin.setEnabled(true);
         }
     }
 }

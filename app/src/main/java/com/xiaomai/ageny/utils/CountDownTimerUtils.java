@@ -24,7 +24,7 @@ public class CountDownTimerUtils extends CountDownTimer {
     @Override
     public void onTick(long millisUntilFinished) {
         mTextView.setClickable(false); //设置不可点击
-        mTextView.setText("已发送" + millisUntilFinished / 1000 + "s");  //设置倒计时时间
+        mTextView.setText(millisUntilFinished / 1000 + "s");  //设置倒计时时间
         mTextView.setTextColor(Color.parseColor("#117AE7"));
         //mTextView.setBackgroundResource(R.drawable.vercode); //设置按钮为灰色，这时是不能点击的
         SpannableString spannableString = new SpannableString(mTextView.getText().toString());

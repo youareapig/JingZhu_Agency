@@ -3,6 +3,7 @@ package com.xiaomai.ageny.fragment.index.model;
 import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.bean.UpdateBean;
+import com.xiaomai.ageny.bean.UserInfoBean;
 import com.xiaomai.ageny.fragment.index.contract.IndexContract;
 import com.xiaomai.ageny.net.RetrofitClient;
 
@@ -22,6 +23,11 @@ public class IndexModel implements IndexContract.Model {
     @Override
     public Flowable<UpdateBean> getUpdate() {
         return RetrofitClient.getInstance().getApi().getUpdate();
+    }
+
+    @Override
+    public Flowable<UserInfoBean> getAlias() {
+        return RetrofitClient.getInstance().getApi().getUserInfo();
     }
 
 }

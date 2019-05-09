@@ -7,7 +7,7 @@ import io.reactivex.Flowable;
 
 public interface ShangHuDeviceDetailsContract {
     interface Model {
-        Flowable<ContactDeviceDetailsBean> getData(String id);
+        Flowable<ContactDeviceDetailsBean> getData(String id,String msgid);
     }
 
     interface View extends BaseView {
@@ -24,6 +24,6 @@ public interface ShangHuDeviceDetailsContract {
     }
 
     interface Presenter {
-        void getData(String id);
+        void getData(String id,String msgid);
     }
 }

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.xiaomai.ageny.utils.state_layout.OtherView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/otherview"
     android:orientation="vertical"
     tools:context=".xiajishanghu.xiajishanghulist.XiaJiSH_ListActivity">
+
     <RelativeLayout style="@style/titlesytle">
 
         <RelativeLayout
@@ -24,9 +24,18 @@
             style="@style/titletext"
             android:text="商户列表" />
     </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
-</com.xiaomai.ageny.utils.state_layout.OtherView>
+    <com.xiaomai.ageny.utils.state_layout.OtherView
+        android:id="@+id/otherview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </com.xiaomai.ageny.utils.state_layout.OtherView>
+
+
+</LinearLayout>

@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public class DirectDetailsModel implements DirectDetailsContract.Model {
     @Override
-    public Flowable<ContactDeviceDetailsBean> getData(String deviceid) {
-        return RetrofitClient.getInstance().getApi().getContactDeviceDetailsBean(deviceid);
+    public Flowable<ContactDeviceDetailsBean> getData(String deviceid,String msgid) {
+        return RetrofitClient.getInstance().getApi().getContactDeviceDetailsBean(deviceid,msgid);
     }
 }

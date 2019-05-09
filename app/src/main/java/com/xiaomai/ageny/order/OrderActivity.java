@@ -104,6 +104,7 @@ public class OrderActivity extends BaseMvpActivity<OrderPresenter> implements Or
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.bt_filter:
                 if (tabPosition == 0) {

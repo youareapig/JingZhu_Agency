@@ -89,9 +89,9 @@ public class RecordDetailsActivity extends BaseMvpActivity<RecordDetailsPresente
             times.setText(data.getBatch());
             smallNum.setText(data.getDeviceSmallcount() + "台");
             bigNum.setText(data.getDeviceBigcount() + "台");
-            remark.setText(data.getExamination());
+            remark.setText(data.getDetails());
             state.setText(data.getState().equals("1") ? "已通过" : (data.getState().equals("0") ? "审核中" : "未通过"));
-            info.setText(data.getDetails());
+            info.setText(data.getExamination());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

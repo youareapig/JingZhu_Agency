@@ -181,7 +181,7 @@
             </com.bigman.wmzx.customcardview.library.CardView>
 
             <com.bigman.wmzx.customcardview.library.CardView
-
+                android:id="@+id/liuzhuanView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_12"
@@ -194,7 +194,6 @@
                 app:topDelta="0">
 
                 <LinearLayout
-                    android:id="@+id/liuzhuanView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">

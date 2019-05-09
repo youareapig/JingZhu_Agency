@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.deviceinstalllist.contract;
 
 import com.xiaomai.ageny.base.BaseView;
+import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.DeviceInstallListBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.bean.LoginOutBean;
@@ -14,6 +15,8 @@ public interface DeviceInstallContract {
         Flowable<DeviceInstallListBean> getDeviceInstallListBean_Refresh(String chiyou, String anzhuang, String time);
 
         Flowable<LoginOutBean> loginOut();
+
+        Flowable<ConfigBean> getConfigBean();
     }
 
     interface View extends BaseView {
@@ -31,6 +34,8 @@ public interface DeviceInstallContract {
         void onSuccess_Refresh(DeviceInstallListBean bean);
 
         void onSuccess(LoginOutBean bean);
+
+        void onSuccess(ConfigBean bean);
     }
 
     interface Presenter {
@@ -39,5 +44,7 @@ public interface DeviceInstallContract {
         void getDeviceInstallListBean_Refresh(String chiyou, String anzhuang, String time);
 
         void loginOut();
+
+        void getConfigBean();
     }
 }

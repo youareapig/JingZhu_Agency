@@ -91,6 +91,8 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     TextView location;
     @BindView(R.id.personname)
     TextView personName;
+    @BindView(R.id.maxfenrun)
+    TextView maxFenrun;
     private List<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
@@ -100,11 +102,12 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     private static final int MSG_LOAD_FAILED = 0x0003;
     private boolean isShow = true;
     private List<String> priceList;
-    private String strId, strlatandlng, strcity, stradress, strprice, strtel, strfenrun, strisfreeze, strlat, strlng;
+    private String strId, strlatandlng, strcity, stradress, strprice, strtel, strfenrun, strisfreeze, strlat, strlng, strDeviceid, strmaxFenrun;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
     public static DeployActivity instance;
     private CustomDialog dialog;
+
 
     @Override
     public int getLayoutId() {
@@ -113,6 +116,10 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
     @Override
     public void initView() {
+        strDeviceid = getIntent().getExtras().getString("deviceId");
+        deviceId.setText(strDeviceid);
+        strmaxFenrun = SharedPreferencesUtil.getInstance(this).getSP("reward");
+        maxFenrun.setText(strmaxFenrun);
         instance = this;
         mPresenter = new DeployPresenter();
         mPresenter.attachView(this);
@@ -120,6 +127,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
         priceList = BaseUtils.getPriceList1(configJson);
         //TODO 城市选择三级联动
         mHandler.sendEmptyMessage(MSG_LOAD_DATA);
+        MPermissions.requestPermissions(this, 21, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
     }
 
 
@@ -157,8 +165,8 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
         strlat = aMapLocation.getLatitude() + "";
         strlng = aMapLocation.getLongitude() + "";
         latandlng.setText(strlat + "," + strlng);
-        cityName.setText(aMapLocation.getCity() + "");
-        adress.setText(aMapLocation.getProvince() + aMapLocation.getCity() + aMapLocation.getDistrict() + aMapLocation.getStreet());
+        cityName.setText(aMapLocation.getProvince() + aMapLocation.getCity() + aMapLocation.getDistrict());
+        adress.setText(aMapLocation.getStreet() + aMapLocation.getStreetNum());
     }
 
     //部署返回结果
@@ -186,7 +194,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
                 finish();
                 break;
             case R.id.bt_saoyisao:
-                MPermissions.requestPermissions(this, 1, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
+
                 break;
             case R.id.bt_choosecity:
                 if (isShow) {
@@ -254,62 +262,16 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        MPermissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
-    @PermissionGrant(1)
-    public void requestCameraSuccess() {
-        goCamera();
-    }
-
-    //打开相机，二维码
-    private void goCamera() {
-        Intent intent = new Intent(this, DeployZxingActivity.class);
-        startActivityForResult(intent, 1);
-    }
-
     @PermissionGrant(20)
     public void getLocation() {
         //获取当前定位
         mPresenter.getLocation();
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            if (null != data) {
-                Bundle bundle = data.getExtras();
-                if (bundle == null) {
-                    return;
-                }
-                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-                    String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    try {
-                        String headurl = BaseUtils.subFrontString(result, "=");
-                        String shadurl = BaseUtils.subBehindString(result, "=");
-
-                        Logger.d("解析成功结果:" + result);
-                        Logger.d("头---" + headurl + "尾---" + shadurl);
-                        if (headurl.equals(App.ZxingBaseUrl)) {
-                            deviceId.setText(shadurl);
-                        } else {
-                            ToastUtil.showShortToast("请扫描正确二维码");
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        ToastUtil.showShortToast("请扫描正确二维码");
-                    }
-
-                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    Logger.d("解析失败");
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
+    @PermissionGrant(21)
+    public void getLocation21() {
+        //获取当前定位
+        mPresenter.getLocation();
     }
 
     @SuppressLint("HandlerLeak")
@@ -437,6 +399,6 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.stopLocation();
+//        mPresenter.stopLocation();
     }
 }

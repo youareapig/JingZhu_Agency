@@ -76,6 +76,7 @@
                         android:background="@drawable/saoyisao_button"
                         android:gravity="center"
                         android:text="扫一扫"
+                        android:visibility="gone"
                         android:textColor="#fff"
                         android:textSize="@dimen/sp_13" />
 
@@ -304,12 +305,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/dp_26"
+                        android:layout_marginLeft="@dimen/dp_8"
                         android:text="ps：最大分润比例"
                         android:textColor="#707070"
                         android:textSize="@dimen/sp_13" />
 
                     <TextView
+                        android:id="@+id/maxfenrun"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="10%"

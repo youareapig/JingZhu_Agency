@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ToastUtil;
 
 import java.io.IOException;
 
@@ -54,7 +55,7 @@ public class RetrofitClient {
         return new Interceptor() {
             @Override
             public Response intercept(@NonNull Chain chain) throws IOException {
-                String token=SharedPreferencesUtil.getInstance(App.context).getSP("token");
+                String token = SharedPreferencesUtil.getInstance(App.context).getSP("token");
                 Request original = chain.request();
                 Request.Builder requestBuilder = original.newBuilder()
                         //添加Token
@@ -78,6 +79,21 @@ public class RetrofitClient {
 
         return interceptor;
     }
+
+    private Interceptor tokenInterceptor = new Interceptor() {
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            Request request = chain.request();
+            Response response = chain.proceed(request);
+            if (response != null) {
+                if (response.code() == 1) {
+                    ToastUtil.showShortToast("统一返回码处理成功");
+                }
+            }
+            return response;
+        }
+    };
+
 
     public APIService getApi() {
         //初始化一个client,不然retrofit会自己默认添加一个

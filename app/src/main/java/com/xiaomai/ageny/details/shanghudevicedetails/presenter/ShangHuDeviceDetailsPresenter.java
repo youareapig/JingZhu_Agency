@@ -16,12 +16,12 @@ public class ShangHuDeviceDetailsPresenter extends BasePresenter<ShangHuDeviceDe
     }
 
     @Override
-    public void getData(String id) {
+    public void getData(String id,String msgid) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(id).compose(RxScheduler.<ContactDeviceDetailsBean>Flo_io_main())
+        model.getData(id,msgid).compose(RxScheduler.<ContactDeviceDetailsBean>Flo_io_main())
                 .subscribe(new Consumer<ContactDeviceDetailsBean>() {
                     @Override
                     public void accept(ContactDeviceDetailsBean bean) throws Exception {

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.bigman.wmzx.customcardview.library.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_12"
+        android:layout_marginRight="@dimen/dp_13"
+        android:layout_marginBottom="@dimen/dp_5"
+        app:cardBackgroundColor="#fff"
+        app:cardCornerRadius="@dimen/dp_5"
+        app:cardElevation="@dimen/dp_2"
+        app:topDelta="0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/dp_10">
+
+                    <ImageView
+                        android:id="@+id/item_icon"
+                        android:layout_width="@dimen/dp_13"
+                        android:layout_height="@dimen/dp_12"
+                        android:src="@mipmap/news_icon" />
+
+                    <TextView
+                        android:id="@+id/item_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_5"
+                        android:text="你有一台设备"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_29"
+                    android:layout_marginBottom="@dimen/dp_8"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/item_deviceid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_3"
+                        android:text="设备编号：123456"
+                        android:textColor="#464646"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/item_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_3"
+                        android:text="商户联系人：123456"
+                        android:textColor="#464646"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/item_adress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_3"
+                        android:text="设备地址：123456"
+                        android:textColor="#464646"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/item_yjtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_3"
+                        android:text="预警时间：123456"
+                        android:textColor="#464646"
+                        android:textSize="@dimen/sp_12" />
+
+                    <TextView
+                        android:id="@+id/item_ystime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp_3"
+                        android:text="遗失时间：123456"
+                        android:textColor="#464646"
+                        android:textSize="@dimen/sp_12" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="@dimen/dp_64"
+                android:layout_height="@dimen/dp_10"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/sign_icon" />
+        </RelativeLayout>
+    </com.bigman.wmzx.customcardview.library.CardView>
+</LinearLayout>

@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.deviceinstalllist.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.DeviceInstallListBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.bean.LoginOutBean;
@@ -77,6 +78,24 @@ public class DeviceInstallPresenter extends BasePresenter<DeviceInstallContract.
                         mView.hideLoading();
                         mView.onError(throwable);
 
+                    }
+                });
+    }
+
+    @Override
+    public void getConfigBean() {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getConfigBean().compose(RxScheduler.<ConfigBean>Flo_io_main())
+                .subscribe(new Consumer<ConfigBean>() {
+                    @Override
+                    public void accept(ConfigBean bean) throws Exception {
+                        mView.onSuccess(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
                     }
                 });
     }

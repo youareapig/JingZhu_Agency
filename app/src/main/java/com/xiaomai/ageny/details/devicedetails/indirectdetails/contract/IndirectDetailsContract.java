@@ -7,7 +7,7 @@ import io.reactivex.Flowable;
 
 public interface IndirectDetailsContract {
     interface Model {
-        Flowable<OffIndirectDeivceDetailsBean> getData(String deviceid);
+        Flowable<OffIndirectDeivceDetailsBean> getData(String deviceid,String msgid);
     }
 
     interface View extends BaseView {
@@ -24,6 +24,6 @@ public interface IndirectDetailsContract {
     }
 
     interface Presenter {
-        void getData(String deviceid);
+        void getData(String deviceid,String msgid);
     }
 }

@@ -16,10 +16,11 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="@dimen/dp_13"
-            android:layout_height="@dimen/dp_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
-            android:src="@mipmap/index_icon_hover" />
+            android:layout_marginRight="@dimen/dp_5"
+            android:src="@mipmap/icon_blue" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,7 +33,6 @@
             android:id="@+id/offline_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2568"
             android:textColor="@color/appbar"
             android:textSize="@dimen/sp_14" />
 

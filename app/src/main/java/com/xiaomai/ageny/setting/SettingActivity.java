@@ -1,6 +1,8 @@
 package com.xiaomai.ageny.setting;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ import com.xiaomai.ageny.utils.ToastUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 public class SettingActivity extends BaseMvpActivity<SettingPresenter> implements SettingContract.View {
 
@@ -41,7 +44,7 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
     TextView btLoginout;
 
     private CustomDialog dialog;
-
+    private String strLev;
 
     @Override
     public int getLayoutId() {
@@ -50,6 +53,12 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
 
     @Override
     public void initView() {
+        strLev = getIntent().getExtras().getString("lev");
+        if (strLev.equals("1")) {
+            btShopManage.setVisibility(View.VISIBLE);
+        } else {
+            btShopManage.setVisibility(View.GONE);
+        }
         ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
         mPresenter = new SettingPresenter();
         mPresenter.attachView(this);
@@ -74,9 +83,12 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
     @Override
     public void onSuccess(LoginOutBean bean) {
         if (bean.getCode() == 1) {
+            JPushInterface.deleteAlias(this, 1);
             SharedPreferencesUtil.getInstance(this).putSP("token", "");
             toClass_Empty(this, LoginActivity.class);
             finish();
+        } else if (bean.getCode() == -10) {
+            restLoginDialog();
         } else {
             ToastUtil.showShortToast("注销失败");
         }
@@ -111,5 +123,24 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
                 mPresenter.loginOut();
                 break;
         }
+    }
+
+    private void restLoginDialog() {
+        final AlertDialog builder = new AlertDialog.Builder(this).create();
+        LayoutInflater layoutInflater = this.getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.dialog_other_login, null);
+        builder.setView(view);
+        builder.setCancelable(false);
+        builder.show();
+        view.findViewById(R.id.bt_sure).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferencesUtil.getInstance(SettingActivity.this).putSP("token", "");
+                toClass_Empty(SettingActivity.this, LoginActivity.class);
+                SettingActivity.this.finish();
+                JPushInterface.deleteAlias(SettingActivity.this, 1);
+                builder.dismiss();
+            }
+        });
     }
 }

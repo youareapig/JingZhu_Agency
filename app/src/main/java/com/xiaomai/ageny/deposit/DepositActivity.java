@@ -20,6 +20,7 @@ import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.deposit.contract.DepositContract;
 import com.xiaomai.ageny.deposit.presenter.DepositPresenter;
 import com.xiaomai.ageny.update_bank.UpdateBankActivity;
+import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.CustomDialog;
 import com.xiaomai.ageny.utils.HideUtil;
 import com.xiaomai.ageny.utils.MaptoJson;
@@ -75,6 +76,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
     private List<String> valueList = new ArrayList<>();
     private Bundle bundle;
     private CustomDialog customDialog;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_deposit;
@@ -101,7 +103,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
 
     @Override
     public void showLoading() {
-        customDialog=new CustomDialog(this);
+        customDialog = new CustomDialog(this);
         customDialog.show();
     }
 
@@ -160,7 +162,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
             if (servicemoney < 1) {
                 servicemoney = 1;
             }
-            serviceMoney.setText(servicemoney + "");
+            serviceMoney.setText(BaseUtils.formatDouble4(servicemoney));
         }
 
     }

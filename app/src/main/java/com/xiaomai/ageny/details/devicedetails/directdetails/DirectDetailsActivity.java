@@ -6,6 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
@@ -69,7 +70,7 @@ public class DirectDetailsActivity extends BaseMvpActivity<DirectDetailsPresente
     TextView city;
     @BindView(R.id.otherview)
     OtherView otherView;
-    private String deviceid;
+    private String deviceid,msgid;
 
     @Override
     public int getLayoutId() {
@@ -80,9 +81,11 @@ public class DirectDetailsActivity extends BaseMvpActivity<DirectDetailsPresente
     public void initView() {
         otherView.setHolder(mHolder);
         deviceid = getIntent().getStringExtra("id");
+        msgid = getIntent().getStringExtra("msgid");
         mPresenter = new DirectDetailsPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(deviceid);
+        mPresenter.getData(deviceid,msgid);
+        Logger.d("id---" + id+ " msgid---"+msgid );
     }
 
     @Override

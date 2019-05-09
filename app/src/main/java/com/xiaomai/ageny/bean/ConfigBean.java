@@ -6,7 +6,7 @@ public class ConfigBean {
 
     /**
      * code : 1
-     * data : {"price":["100","150","200"]}
+     * data : {"countunread":"0","price":["1.00","1.50","2.00"]}
      * message : 2.30系统设置
      */
 
@@ -39,7 +39,21 @@ public class ConfigBean {
     }
 
     public static class DataBean {
+        /**
+         * countunread : 0
+         * price : ["1.00","1.50","2.00"]
+         */
+
+        private String countunread;
         private List<String> price;
+
+        public String getCountunread() {
+            return countunread;
+        }
+
+        public void setCountunread(String countunread) {
+            this.countunread = countunread;
+        }
 
         public List<String> getPrice() {
             return price;

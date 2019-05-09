@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.xiaomai.ageny.R;
+import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.NetWorkUtils;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 
@@ -45,6 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         unbinder.unbind();
         ImmersionBar.with(this).destroy();
     }
+
 
     /**
      * 设置布局

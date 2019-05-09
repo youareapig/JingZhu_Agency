@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.base.BaseActivity;
+import com.xiaomai.ageny.deviceinstalllist.DeviceInstallActivity;
 import com.xiaomai.ageny.login.LoginActivity;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 
@@ -40,13 +41,26 @@ public class StartActivity extends AppCompatActivity {
             public void onAnimationEnd(Animation animation) {
                 try {
                     String token = SharedPreferencesUtil.getInstance(StartActivity.this).getSP("token");
-                    Logger.d("ttttt" + token);
+                    String role = SharedPreferencesUtil.getInstance(StartActivity.this).getSP("role");
                     if (TextUtils.isEmpty(token)) {
                         startActivity(new Intent(StartActivity.this, LoginActivity.class));
                         finish();
                     } else {
-                        startActivity(new Intent(StartActivity.this, MainActivity.class));
-                        finish();
+                        if (!TextUtils.isEmpty(role)){
+                            if (role.equals("1")){
+                                //代理
+                                startActivity(new Intent(StartActivity.this, MainActivity.class));
+                                finish();
+                            }else if (role.equals("2")){
+                                //员工
+                                startActivity(new Intent(StartActivity.this, DeviceInstallActivity.class));
+                                finish();
+                            }
+                        }else {
+                            startActivity(new Intent(StartActivity.this, LoginActivity.class));
+                            finish();
+                        }
+
                     }
                 } catch (Exception e) {
                     startActivity(new Intent(StartActivity.this, LoginActivity.class));
@@ -60,51 +74,5 @@ public class StartActivity extends AppCompatActivity {
             }
         });
     }
-
-//    @BindView(R.id.img)
-//    ImageView img;
-//
-//    @Override
-//    public int getLayoutId() {
-//        return R.layout.activity_start;
-//    }
-//
-//    @Override
-//    public void initView() {
-//        ImmersionBar.with(this).transparentBar().fitsSystemWindows(false).statusBarDarkFont(false).init();
-//        AlphaAnimation animation = new AlphaAnimation(0.1f, 1.0f);
-//        animation.setDuration(3000);
-//        img.startAnimation(animation);
-//        animation.setAnimationListener(new Animation.AnimationListener() {
-//            @Override
-//            public void onAnimationStart(Animation animation) {
-//
-//            }
-//
-//            @Override
-//            public void onAnimationEnd(Animation animation) {
-//                try {
-//                    String token = SharedPreferencesUtil.getInstance(StartActivity.this).getSP("token");
-//                    Logger.d("ttttt" + token);
-//                    if (TextUtils.isEmpty(token)) {
-//                        toClass1(StartActivity.this, LoginActivity.class);
-//                        finish();
-//                    } else {
-//                        toClass1(StartActivity.this, MainActivity.class);
-//                        finish();
-//                    }
-//                } catch (Exception e) {
-//                    toClass1(StartActivity.this, LoginActivity.class);
-//                    finish();
-//                }
-//            }
-//
-//            @Override
-//            public void onAnimationRepeat(Animation animation) {
-//
-//            }
-//        });
-//    }
-
 
 }

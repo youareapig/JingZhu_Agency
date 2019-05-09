@@ -29,6 +29,7 @@ import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.bean.UpdateBean;
+import com.xiaomai.ageny.bean.UserInfoBean;
 import com.xiaomai.ageny.deposit.DepositActivity;
 import com.xiaomai.ageny.device_manage.DeviceManageActivity;
 import com.xiaomai.ageny.deviceinstalllist.DeviceInstallActivity;
@@ -38,6 +39,7 @@ import com.xiaomai.ageny.login.LoginActivity;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.order.OrderActivity;
+import com.xiaomai.ageny.system_notice.SystemNoticeActivity;
 import com.xiaomai.ageny.task.TaskActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
@@ -55,6 +57,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import cn.jpush.android.api.JPushInterface;
 
 public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements IndexContract.View {
     @BindView(R.id.yesterday_money)
@@ -94,6 +97,8 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     TextView Num;
     @BindView(R.id.refresh)
     PullToRefreshLayout refreshLayout;
+    @BindView(R.id.bt_notice)
+    RelativeLayout btNotice;
 
     @BindView(R.id.index_device_allcount)
     TextView indexDeviceAllcount;
@@ -109,8 +114,8 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         mPresenter = new IndexPresenter();
         mPresenter.attachView(this);
         mPresenter.getData();
-        mPresenter.getConfigBean();
         mPresenter.getUpdate();
+        mPresenter.getAlias();
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
@@ -136,6 +141,11 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         });
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mPresenter.getConfigBean();
+    }
 
     @Override
     protected int getLayoutId() {
@@ -170,6 +180,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             Gson gson = new Gson();
             String jsonConfig = gson.toJson(bean);
             SharedPreferencesUtil.getInstance(getActivity()).putSP("config", jsonConfig);
+            SharedPreferencesUtil.getInstance(getActivity()).putSP("countunread", bean.getData().getCountunread());
         }
     }
 
@@ -190,6 +201,17 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         }
     }
 
+    @Override
+    public void onSuccess(UserInfoBean bean) {
+        //设置别名
+        if (bean.getCode() == 1) {
+            JPushInterface.setAlias(getActivity(), 1, bean.getData().getAgent_number());
+        } else {
+            Logger.d("别名设置失败");
+        }
+
+    }
+
     private void initData(IndexBean bean) {
         if (bean.getCode() == 1) {
             IndexBean.DataBean data = bean.getData();
@@ -200,7 +222,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             allMoney.setText(data.getTotal_earn());
             monthMoney.setText(data.getMonth_earn());
             txIndexMoney.setText(data.getUnliquidated());
-            depositMoney.setText("已提现金额：" + data.getFreeze_money());
+            depositMoney.setText("已提现金额：" + data.getFreeze_money() + "元");
             offLine.setText(data.getOffLineCount());
             onLine.setText(data.getOnLineCount());
             indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
@@ -213,13 +235,14 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 tastCenter.setVisibility(View.VISIBLE);
                 Num.setText(strTaskNum);
             }
-        } else {
-            //其他设备登录,回到登录界面
+        } else if (bean.getCode() == -10) {
             restLoginDialog();
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 
-    @OnClick({R.id.bt_index_tixian, R.id.bt_index_bill, R.id.bt_index_devicemanager, R.id.bt_index_devicemake, R.id.bt_index_order, R.id.bt_off_line, R.id.taskCenter})
+    @OnClick({R.id.bt_index_tixian, R.id.bt_index_bill, R.id.bt_index_devicemanager, R.id.bt_index_devicemake, R.id.bt_index_order, R.id.bt_off_line, R.id.taskCenter, R.id.bt_notice})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_index_tixian:
@@ -242,6 +265,9 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 break;
             case R.id.taskCenter:
                 toClass1(getActivity(), TaskActivity.class);
+                break;
+            case R.id.bt_notice:
+                toClass(getActivity(), SystemNoticeActivity.class);
                 break;
         }
     }
@@ -286,6 +312,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 SharedPreferencesUtil.getInstance(getActivity()).putSP("token", "");
                 toClass_Empty(getActivity(), LoginActivity.class);
                 getActivity().finish();
+                JPushInterface.deleteAlias(getActivity(), 1);
                 builder.dismiss();
             }
         });

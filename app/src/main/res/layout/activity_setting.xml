@@ -59,7 +59,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/dp_14"
-                        android:text="竞猪充电-代理端V1.0"
+                        android:text="京猪充电-代理端V1.0"
                         android:textColor="#363636"
 
                         android:textSize="@dimen/sp_15" />

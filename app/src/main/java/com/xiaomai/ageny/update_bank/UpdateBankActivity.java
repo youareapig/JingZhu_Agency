@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.update_bank;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -88,6 +89,12 @@ public class UpdateBankActivity extends BaseMvpActivity<UpdateBankPresenter> imp
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
             ShowDialogUtils.showdialog(this, "资料修改成功~");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, 1000);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

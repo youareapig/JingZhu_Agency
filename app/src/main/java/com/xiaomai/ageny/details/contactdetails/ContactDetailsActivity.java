@@ -60,9 +60,11 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
     OtherView otherView;
     @BindView(R.id.index_device_allcount)
     TextView indexDeviceAllcount;
+    @BindView(R.id.adress)
+    TextView addRess;
 
     private Bundle bundle;
-    private String id, strStorename, strLinkName, strLinkTel, strAdress, strYingye, strPersoncount;
+    private String id, strStorename, strLinkName, strLinkTel, strAdress, strYingye, strPersoncount, strAgentMoble;
     public static ContactDetailsActivity instance;
 
     @Override
@@ -138,11 +140,13 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
             strAdress = userInfoBean.getData().getAddress();
             strYingye = userInfoBean.getData().getOpenTime();
             strPersoncount = userInfoBean.getData().getPersonCost();
+            strAgentMoble = userInfoBean.getData().getAgentMobile();
 
             storename.setText("商户名称：" + strStorename);
             name.setText("联系人：" + strLinkName);
             tel.setText("联系方式：" + strLinkTel);
             addtime.setText("添加时间：" + userInfoBean.getData().getCreateTimestr());
+            addRess.setText("商户地址：" + userInfoBean.getData().getAddress());
         } else {
             ToastUtil.showShortToast(userInfoBean.getMessage());
         }
@@ -163,7 +167,7 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
             case R.id.bt_unbundle:
                 bundle.putString("sellerId", id);
                 bundle.putString("sellerName", strStorename);
-                bundle.putString("mobile", strLinkTel);
+                bundle.putString("mobile", strAgentMoble);
 
                 toClass(this, UnbundleShanghuActivity.class, bundle);
                 break;

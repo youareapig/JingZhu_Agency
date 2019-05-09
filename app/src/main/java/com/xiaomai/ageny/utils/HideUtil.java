@@ -9,8 +9,14 @@ public class HideUtil {
         if (TextUtils.isEmpty(cardNo)) {
             return cardNo;
         } else {
-            String substring = cardNo.substring(cardNo.length() - 4, cardNo.length());
-            String str = "****   ****   ****   " + substring;
+            String hou = cardNo.substring(cardNo.length() - 4, cardNo.length());
+            String qian = cardNo.substring(0, 4);
+            int xingCount = cardNo.length() - 8;
+            String strXing = "";
+            for (int i = 0; i < xingCount; i++) {
+                strXing += "*";
+            }
+            String str = qian + strXing + hou;
 
             return str;
         }

@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.fragment.agency.fragment.feidaili;
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,6 +19,7 @@ import com.xiaomai.ageny.bean.DailiListBean;
 import com.xiaomai.ageny.details.feidailidetails.FeiDailiDetailsActivity;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.contract.FeidailiContract;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.presenter.FeidailiPresenter;
+import com.xiaomai.ageny.login.LoginActivity;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -29,6 +31,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import cn.jpush.android.api.JPushInterface;
 
 public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> implements FeidailiContract.View {
     @BindView(R.id.recycler)
@@ -42,6 +45,7 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
     private List<DailiListBean.DataBean.ListBean> list;
     private Bundle bundle;
     private String strLev = "", strID = "";
+
     @Override
     protected void initView(View view) {
         otherView.setHolder(mHolder);
@@ -131,9 +135,30 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
                     toClass(view.getContext(), FeiDailiDetailsActivity.class, bundle);
                 }
             });
+        } else if (bean.getCode() == -10) {
+            restLoginDialog();
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
 
+    //重新登录
+    private void restLoginDialog() {
+        final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.dialog_other_login, null);
+        builder.setView(view);
+        builder.setCancelable(false);
+        builder.show();
+        view.findViewById(R.id.bt_sure).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SharedPreferencesUtil.getInstance(getActivity()).putSP("token", "");
+                toClass_Empty(getActivity(), LoginActivity.class);
+                getActivity().finish();
+                JPushInterface.deleteAlias(getActivity(), 1);
+                builder.dismiss();
+            }
+        });
+    }
 }

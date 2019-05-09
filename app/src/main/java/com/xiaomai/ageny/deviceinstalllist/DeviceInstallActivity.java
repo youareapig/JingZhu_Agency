@@ -1,31 +1,42 @@
 package com.xiaomai.ageny.deviceinstalllist;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
+import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
+import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.DeviceInstallListBean;
 import com.xiaomai.ageny.bean.LoginOutBean;
 import com.xiaomai.ageny.deploy.DeployActivity;
+import com.xiaomai.ageny.deploy.DeployZxingActivity;
 import com.xiaomai.ageny.deviceinstalllist.adapter.Adapter;
 import com.xiaomai.ageny.deviceinstalllist.contract.DeviceInstallContract;
 import com.xiaomai.ageny.deviceinstalllist.presenter.DeviceInstallPresenter;
 import com.xiaomai.ageny.filter.deviceinstall.DeviceInstallFilterActivity;
 import com.xiaomai.ageny.login.LoginActivity;
+import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
+import com.zhy.m.permission.MPermissions;
+import com.zhy.m.permission.PermissionGrant;
 
 import java.util.List;
 
@@ -60,7 +71,6 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     private String strAnzhuangrenTel = "";
     private String strTime = "";
     private Bundle bundle;
-    private Bundle mBundle;
     private String role;
 
     @Override
@@ -70,22 +80,26 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     @Override
     public void initView() {
-        mBundle = getIntent().getExtras();
-        if (mBundle != null) {
-            role = mBundle.getString("role");
-            if (role.equals("1")) {
-                //代理
-                btInstall.setVisibility(View.VISIBLE);
-                btStaff.setVisibility(View.GONE);
-            } else {
-                btInstall.setVisibility(View.GONE);
-                btStaff.setVisibility(View.VISIBLE);
-            }
-        }
+        role = SharedPreferencesUtil.getInstance(this).getSP("role");
+
         otherView.setHolder(mHolder);
         bundle = new Bundle();
         mPresenter = new DeviceInstallPresenter();
         mPresenter.attachView(this);
+        if (!TextUtils.isEmpty(role)) {
+            if (role.equals("1")) {
+                //代理
+                btInstall.setVisibility(View.VISIBLE);
+                btStaff.setVisibility(View.GONE);
+                back.setVisibility(View.VISIBLE);
+            } else {
+                //员工
+                btInstall.setVisibility(View.GONE);
+                btStaff.setVisibility(View.VISIBLE);
+                mPresenter.getConfigBean();
+                back.setVisibility(View.GONE);
+            }
+        }
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
@@ -156,6 +170,15 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     }
 
+    @Override
+    public void onSuccess(ConfigBean bean) {
+        if (bean.getCode() == 1) {
+            Gson gson = new Gson();
+            String jsonConfig = gson.toJson(bean);
+            SharedPreferencesUtil.getInstance(this).putSP("config", jsonConfig);
+        }
+    }
+
     private void initData(DeviceInstallListBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData().getList();
@@ -185,10 +208,10 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
                 toClass(this, DeviceInstallFilterActivity.class, bundle, 1);
                 break;
             case R.id.bt_install:
-                toClass(this, DeployActivity.class);
+                MPermissions.requestPermissions(this, 1, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
                 break;
             case R.id.bt_bushu:
-                toClass(this, DeployActivity.class);
+                MPermissions.requestPermissions(this, 15, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
                 break;
             case R.id.bt_loginout:
                 //退出登录
@@ -198,12 +221,63 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        MPermissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @PermissionGrant(1)
+    public void requestCameraSuccess() {
+        goCamera();
+    }
+
+    @PermissionGrant(15)
+    public void requestCameraSuccess15() {
+        goCamera();
+    }
+
+    //打开相机，二维码
+    private void goCamera() {
+        Intent intent = new Intent(this, DeployZxingActivity.class);
+        startActivityForResult(intent, 5);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == 2) {
             strChiyourenTel = data.getStringExtra("chiyou");
             strAnzhuangrenTel = data.getStringExtra("anzhuang");
             strTime = data.getStringExtra("time");
+        } else if (requestCode == 5) {
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+                    try {
+                        String headurl = BaseUtils.subFrontString(result, "=");
+                        String shadurl = BaseUtils.subBehindString(result, "=");
+
+                        Logger.d("解析成功结果:" + result);
+                        Logger.d("头---" + headurl + "尾---" + shadurl);
+                        if (headurl.equals(App.ZxingBaseUrl)) {
+                            bundle.putString("deviceId", shadurl);
+                            toClass(this, DeployActivity.class, bundle);
+                        } else {
+                            ToastUtil.showShortToast("请扫描正确二维码");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        ToastUtil.showShortToast("请扫描正确二维码");
+                    }
+
+                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+                    Logger.d("解析失败");
+                }
+            }
         }
     }
 

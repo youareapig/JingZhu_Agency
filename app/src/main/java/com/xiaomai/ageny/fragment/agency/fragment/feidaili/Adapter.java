@@ -20,8 +20,9 @@ public class Adapter extends BaseQuickAdapter<DailiListBean.DataBean.ListBean, B
                 .setText(R.id.rent_count, item.getCount())
                 .setText(R.id.offlin_count, item.getBoxcount())
                 .setText(R.id.onlinecount, item.getZaixianbox())
-                .setText(R.id.agencyId, item.getParentid())
-                .setText(R.id.shangjiName, item.getParentRealname());
+                .setText(R.id.agencyId, item.getId())
+                .setText(R.id.shangjiName, item.getParentRealname())
+                .setImageResource(R.id.icon, item.getLevel().equals("2") ? R.mipmap.icon_agent_one : (item.getLevel().equals("3") ? R.mipmap.icon_agent_two:R.mipmap.icon_agent_three));
 
     }
 }

@@ -20,6 +20,7 @@
             android:textSize="@dimen/sp_19" />
 
         <RelativeLayout
+            android:id="@+id/bt_notice"
             android:layout_width="@dimen/dp_19"
             android:layout_height="@dimen/dp_19"
             android:layout_alignParentRight="true"
