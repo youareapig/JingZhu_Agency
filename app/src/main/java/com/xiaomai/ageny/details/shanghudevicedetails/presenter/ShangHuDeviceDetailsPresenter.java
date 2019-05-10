@@ -2,6 +2,7 @@ package com.xiaomai.ageny.details.shanghudevicedetails.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.details.shanghudevicedetails.contract.ShangHuDeviceDetailsContract;
 import com.xiaomai.ageny.details.shanghudevicedetails.model.ShangHuDeviceDetailsModel;
 import com.xiaomai.ageny.net.RxScheduler;
@@ -22,6 +23,7 @@ public class ShangHuDeviceDetailsPresenter extends BasePresenter<ShangHuDeviceDe
         }
         mView.showLoading();
         model.getData(id,msgid).compose(RxScheduler.<ContactDeviceDetailsBean>Flo_io_main())
+                .as(mView.<ContactDeviceDetailsBean>bindAutoDispose())
                 .subscribe(new Consumer<ContactDeviceDetailsBean>() {
                     @Override
                     public void accept(ContactDeviceDetailsBean bean) throws Exception {

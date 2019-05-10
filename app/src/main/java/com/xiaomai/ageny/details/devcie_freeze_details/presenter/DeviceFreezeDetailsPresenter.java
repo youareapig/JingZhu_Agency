@@ -3,6 +3,7 @@ package com.xiaomai.ageny.details.devcie_freeze_details.presenter;
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.FreezeBean;
 import com.xiaomai.ageny.bean.FreezeDetailsBean;
+import com.xiaomai.ageny.bean.ShowHoleBean;
 import com.xiaomai.ageny.details.devcie_freeze_details.contract.DeviceFreezeDetailsContract;
 import com.xiaomai.ageny.details.devcie_freeze_details.model.DeviceFreezeDetailsModel;
 import com.xiaomai.ageny.net.RxScheduler;
@@ -23,6 +24,7 @@ public class DeviceFreezeDetailsPresenter extends BasePresenter<DeviceFreezeDeta
         }
         mView.showLoading();
         model.getData(deviceid).compose(RxScheduler.<FreezeDetailsBean>Flo_io_main())
+                .as(mView.<FreezeDetailsBean>bindAutoDispose())
                 .subscribe(new Consumer<FreezeDetailsBean>() {
                     @Override
                     public void accept(FreezeDetailsBean bean) throws Exception {
@@ -46,6 +48,7 @@ public class DeviceFreezeDetailsPresenter extends BasePresenter<DeviceFreezeDeta
         }
         mView.showLoading();
         model.getData(filler_state, deviceid, filler_relation).compose(RxScheduler.<FreezeBean>Flo_io_main())
+                .as(mView.<FreezeBean>bindAutoDispose())
                 .subscribe(new Consumer<FreezeBean>() {
                     @Override
                     public void accept(FreezeBean bean) throws Exception {

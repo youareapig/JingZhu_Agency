@@ -2,6 +2,7 @@ package com.xiaomai.ageny.details.contactdetails.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.ContactDetailsBean;
+import com.xiaomai.ageny.bean.ContactDeviceListBean;
 import com.xiaomai.ageny.bean.ContactUserInfoBean;
 import com.xiaomai.ageny.details.contactdetails.contract.ContactDetailsContract;
 import com.xiaomai.ageny.details.contactdetails.model.ContactDetailsModel;
@@ -24,6 +25,7 @@ public class ContactDetailsPresenter extends BasePresenter<ContactDetailsContrac
         }
         mView.showLoading();
         model.getData(id).compose(RxScheduler.<ContactDetailsBean>Flo_io_main())
+                .as(mView.<ContactDetailsBean>bindAutoDispose())
                 .subscribe(new Consumer<ContactDetailsBean>() {
                     @Override
                     public void accept(ContactDetailsBean bean) throws Exception {
@@ -46,6 +48,7 @@ public class ContactDetailsPresenter extends BasePresenter<ContactDetailsContrac
         }
         mView.showLoading();
         model.getUserInfo(id, tel).compose(RxScheduler.<ContactUserInfoBean>Flo_io_main())
+                .as(mView.<ContactUserInfoBean>bindAutoDispose())
                 .subscribe(new Consumer<ContactUserInfoBean>() {
                     @Override
                     public void accept(ContactUserInfoBean bean) throws Exception {

@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.task.indirect_task.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
 import com.xiaomai.ageny.net.RxScheduler;
 import com.xiaomai.ageny.task.indirect_task.contract.TaskIndirectContract;
@@ -21,6 +22,7 @@ public class TaskIndirectPresenter extends BasePresenter<TaskIndirectContract.Vi
         }
         mView.showLoading();
         model.getData(agentname, agentmobile, deviceid,state).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
+                .as(mView.<OffIndirectDeivceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffIndirectDeivceBean>() {
                     @Override
                     public void accept(OffIndirectDeivceBean bean) throws Exception {
@@ -41,6 +43,7 @@ public class TaskIndirectPresenter extends BasePresenter<TaskIndirectContract.Vi
             return;
         }
         model.getData(agentname, agentmobile, deviceid,state).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
+                .as(mView.<OffIndirectDeivceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffIndirectDeivceBean>() {
                     @Override
                     public void accept(OffIndirectDeivceBean bean) throws Exception {

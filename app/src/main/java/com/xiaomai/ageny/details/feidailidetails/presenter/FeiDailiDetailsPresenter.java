@@ -26,6 +26,7 @@ public class FeiDailiDetailsPresenter extends BasePresenter<FeiDailiDetailsContr
         }
         mView.showLoading();
         model.getData(agentid).compose(RxScheduler.<AgencyDetailsBean>Flo_io_main())
+                .as(mView.<AgencyDetailsBean>bindAutoDispose())
                 .subscribe(new Consumer<AgencyDetailsBean>() {
                     @Override
                     public void accept(AgencyDetailsBean bean) throws Exception {
@@ -47,6 +48,7 @@ public class FeiDailiDetailsPresenter extends BasePresenter<FeiDailiDetailsContr
         }
         mView.showLoading();
         model.getHisSeller(agentid).compose(RxScheduler.<HisSellerBean>Flo_io_main())
+                .as(mView.<HisSellerBean>bindAutoDispose())
                 .subscribe(new Consumer<HisSellerBean>() {
                     @Override
                     public void accept(HisSellerBean bean) throws Exception {
@@ -68,6 +70,7 @@ public class FeiDailiDetailsPresenter extends BasePresenter<FeiDailiDetailsContr
         }
         mView.showLoading();
         model.getAgencyUserInfo(agentid).compose(RxScheduler.<AgencyUserInfoBean>Flo_io_main())
+                .as(mView.<AgencyUserInfoBean>bindAutoDispose())
                 .subscribe(new Consumer<AgencyUserInfoBean>() {
                     @Override
                     public void accept(AgencyUserInfoBean bean) throws Exception {

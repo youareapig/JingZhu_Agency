@@ -21,6 +21,7 @@ public class OffDevicePresenter extends BasePresenter<OffDeviceContract.View> im
         }
         mView.showLoading();
         model.getData(sellerid, state, deviceid, device_type).compose(RxScheduler.<ContactDeviceListBean>Flo_io_main())
+                .as(mView.<ContactDeviceListBean>bindAutoDispose())
                 .subscribe(new Consumer<ContactDeviceListBean>() {
                     @Override
                     public void accept(ContactDeviceListBean bean) throws Exception {
@@ -42,6 +43,7 @@ public class OffDevicePresenter extends BasePresenter<OffDeviceContract.View> im
             return;
         }
         model.getData(sellerid, state, deviceid, device_type).compose(RxScheduler.<ContactDeviceListBean>Flo_io_main())
+                .as(mView.<ContactDeviceListBean>bindAutoDispose())
                 .subscribe(new Consumer<ContactDeviceListBean>() {
                     @Override
                     public void accept(ContactDeviceListBean bean) throws Exception {

@@ -9,6 +9,7 @@ import com.vector.update_app.UpdateCallback;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.ConfigBean;
+import com.xiaomai.ageny.bean.ContactListBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.bean.UpdateBean;
 import com.xiaomai.ageny.bean.UserInfoBean;
@@ -36,6 +37,7 @@ public class IndexPresenter extends BasePresenter<IndexContract.View> implements
         }
         mView.showLoading();
         model.getData().compose(RxScheduler.<IndexBean>Flo_io_main())
+                .as(mView.<IndexBean>bindAutoDispose())
                 .subscribe(new Consumer<IndexBean>() {
                     @Override
                     public void accept(IndexBean indexBean) throws Exception {
@@ -56,6 +58,7 @@ public class IndexPresenter extends BasePresenter<IndexContract.View> implements
             return;
         }
         model.getData().compose(RxScheduler.<IndexBean>Flo_io_main())
+                .as(mView.<IndexBean>bindAutoDispose())
                 .subscribe(new Consumer<IndexBean>() {
                     @Override
                     public void accept(IndexBean indexBean) throws Exception {
@@ -75,6 +78,7 @@ public class IndexPresenter extends BasePresenter<IndexContract.View> implements
             return;
         }
         model.getConfigBean().compose(RxScheduler.<ConfigBean>Flo_io_main())
+                .as(mView.<ConfigBean>bindAutoDispose())
                 .subscribe(new Consumer<ConfigBean>() {
                     @Override
                     public void accept(ConfigBean bean) throws Exception {
@@ -93,6 +97,7 @@ public class IndexPresenter extends BasePresenter<IndexContract.View> implements
             return;
         }
         model.getUpdate().compose(RxScheduler.<UpdateBean>Flo_io_main())
+                .as(mView.<UpdateBean>bindAutoDispose())
                 .subscribe(new Consumer<UpdateBean>() {
                     @Override
                     public void accept(UpdateBean bean) throws Exception {
@@ -150,6 +155,7 @@ public class IndexPresenter extends BasePresenter<IndexContract.View> implements
             return;
         }
         model.getAlias().compose(RxScheduler.<UserInfoBean>Flo_io_main())
+                .as(mView.<UserInfoBean>bindAutoDispose())
                 .subscribe(new Consumer<UserInfoBean>() {
                     @Override
                     public void accept(UserInfoBean bean) throws Exception {

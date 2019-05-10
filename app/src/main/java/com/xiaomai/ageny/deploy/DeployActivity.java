@@ -197,9 +197,9 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
                 break;
             case R.id.bt_choosecity:
-                if (isShow) {
-                    showPickerView();
-                }
+//                if (isShow) {
+//                    showPickerView();
+//                }
                 break;
             case R.id.bt_getlocation:
                 MPermissions.requestPermissions(this, 20, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
@@ -236,7 +236,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
                     keyList.add("is_freeze");
 
                     valueList.add(strId);
-                    valueList.add(stradress);
+                    valueList.add(strcity+","+stradress);
                     valueList.add(strprice);
                     valueList.add(strlng);
                     valueList.add(strlat);
@@ -383,6 +383,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
     //单项选择
     private void initNoLinkOptionsPicker() {
+        BaseUtils.hideInput(this);
         OptionsPickerView pvNoLinkOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
 
             @Override

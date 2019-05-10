@@ -27,8 +27,10 @@ import com.xiaomai.ageny.fragment.mine.presenter.MinePresenter;
 import com.xiaomai.ageny.login.LoginActivity;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.setting.SettingActivity;
+import com.xiaomai.ageny.system_notice.SystemNoticeActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -68,6 +70,8 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
     OtherView otherView;
     @BindView(R.id.weidu)
     TextView weiDu;
+    @BindView(R.id.bt_notice)
+    RelativeLayout btNotice;
     private String countunread, strLevel;
     private Bundle bundle = new Bundle();
 
@@ -129,14 +133,14 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
             userscale.setText(data.getReward());
             strLevel = data.getLevel();
         } else if (bean.getCode() == -10) {
-            restLoginDialog();
+            ShowDialogUtils.restLoginDialog(getActivity());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
 
 
-    @OnClick({R.id.bt_device_manage, R.id.bt_deposit_list, R.id.bt_myorder, R.id.bt_popup, R.id.bt_setting})
+    @OnClick({R.id.bt_device_manage, R.id.bt_deposit_list, R.id.bt_myorder, R.id.bt_popup, R.id.bt_setting,R.id.bt_notice})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_device_manage:
@@ -154,6 +158,9 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
             case R.id.bt_setting:
                 bundle.putString("lev", strLevel);
                 toClass(getActivity(), SettingActivity.class, bundle);
+                break;
+            case R.id.bt_notice:
+                toClass(getActivity(), SystemNoticeActivity.class);
                 break;
         }
     }
@@ -205,23 +212,4 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    //重新登录
-    private void restLoginDialog() {
-        final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_other_login, null);
-        builder.setView(view);
-        builder.setCancelable(false);
-        builder.show();
-        view.findViewById(R.id.bt_sure).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferencesUtil.getInstance(getActivity()).putSP("token", "");
-                toClass_Empty(getActivity(), LoginActivity.class);
-                getActivity().finish();
-                JPushInterface.deleteAlias(getActivity(), 1);
-                builder.dismiss();
-            }
-        });
-    }
 }

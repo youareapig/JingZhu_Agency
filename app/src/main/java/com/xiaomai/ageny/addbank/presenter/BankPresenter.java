@@ -3,6 +3,7 @@ package com.xiaomai.ageny.addbank.presenter;
 import com.xiaomai.ageny.addbank.contract.BankContract;
 import com.xiaomai.ageny.addbank.model.BankModel;
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.net.RxScheduler;
 
@@ -23,6 +24,7 @@ public class BankPresenter extends BasePresenter<BankContract.View> implements B
         }
         mView.showLoading();
         model.addBank(body).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {

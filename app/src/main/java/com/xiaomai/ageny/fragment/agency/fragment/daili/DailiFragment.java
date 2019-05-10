@@ -24,6 +24,7 @@ import com.xiaomai.ageny.fragment.agency.fragment.daili.contract.DailiContract;
 import com.xiaomai.ageny.fragment.agency.fragment.daili.presenter.DailiPresenter;
 import com.xiaomai.ageny.login.LoginActivity;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -170,7 +171,7 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
                 }
             });
         } else if (bean.getCode() == -10) {
-            restLoginDialog();
+            ShowDialogUtils.restLoginDialog(getActivity());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -230,23 +231,4 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
         }
     }
 
-    //重新登录
-    private void restLoginDialog() {
-        final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_other_login, null);
-        builder.setView(view);
-        builder.setCancelable(false);
-        builder.show();
-        view.findViewById(R.id.bt_sure).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferencesUtil.getInstance(getActivity()).putSP("token", "");
-                toClass_Empty(getActivity(), LoginActivity.class);
-                getActivity().finish();
-                JPushInterface.deleteAlias(getActivity(), 1);
-                builder.dismiss();
-            }
-        });
-    }
 }

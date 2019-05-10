@@ -9,6 +9,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.bean.HintBean;
+import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 import com.xiaomai.ageny.bean.TelToNameBean;
 import com.xiaomai.ageny.deploy.DeployActivity;
 import com.xiaomai.ageny.deploy.contract.DeployContract;
@@ -38,6 +39,7 @@ public class DeployPresenter extends BasePresenter<DeployContract.View> implemen
         }
         mView.showLoading();
         model.getData(mobile).compose(RxScheduler.<TelToNameBean>Flo_io_main())
+                .as(mView.<TelToNameBean>bindAutoDispose())
                 .subscribe(new Consumer<TelToNameBean>() {
                     @Override
                     public void accept(TelToNameBean bean) throws Exception {
@@ -65,6 +67,7 @@ public class DeployPresenter extends BasePresenter<DeployContract.View> implemen
         }
         mView.showLoading();
         model.getDeploy(requestBody).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {

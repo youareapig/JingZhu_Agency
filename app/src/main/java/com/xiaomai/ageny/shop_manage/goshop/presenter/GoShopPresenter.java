@@ -2,6 +2,7 @@ package com.xiaomai.ageny.shop_manage.goshop.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.HintBean;
+import com.xiaomai.ageny.bean.ShopBean;
 import com.xiaomai.ageny.net.RxScheduler;
 import com.xiaomai.ageny.shop_manage.goshop.contract.GoShopContract;
 import com.xiaomai.ageny.shop_manage.goshop.model.GoShopModel;
@@ -23,6 +24,7 @@ public class GoShopPresenter extends BasePresenter<GoShopContract.View> implemen
         }
         mView.showLoading();
         model.getData(body).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {

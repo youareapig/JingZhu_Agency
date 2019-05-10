@@ -46,9 +46,9 @@ public class MyBankCardActivity extends BaseMvpActivity<MyBankCardPresenter> imp
     @BindView(R.id.otherview)
     OtherView otherview;
     @BindView(R.id.bt_addbank)
-    TextView btAddbank;
+    LinearLayout btAddbank;
     @BindView(R.id.view_addbank)
-    CardView viewAddbank;
+    LinearLayout viewAddbank;
     @BindView(R.id.view_bank)
     RelativeLayout viewBank;
 

@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.unbundle.unbundle_device.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.BillListBean;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.VerCodeBean;
 import com.xiaomai.ageny.net.RxScheduler;
@@ -24,6 +25,7 @@ public class UnbundleDevicePresenter extends BasePresenter<UnbundleDeviceContrac
         }
         mView.showLoading();
         model.getCode(mobile).compose(RxScheduler.<VerCodeBean>Flo_io_main())
+                .as(mView.<VerCodeBean>bindAutoDispose())
                 .subscribe(new Consumer<VerCodeBean>() {
                     @Override
                     public void accept(VerCodeBean bean) throws Exception {
@@ -46,6 +48,7 @@ public class UnbundleDevicePresenter extends BasePresenter<UnbundleDeviceContrac
         }
         mView.showLoading();
         model.getDeviceDelete(body).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
+import com.xiaomai.ageny.device_manage.DeviceManageActivity;
 import com.xiaomai.ageny.device_manage.device_withdraw.contract.DeviceWithDrawListContract;
 import com.xiaomai.ageny.device_manage.device_withdraw.presenter.DeviceWithDrawListPresenter;
 import com.xiaomai.ageny.utils.CustomDialog;
@@ -82,6 +83,7 @@ public class DeviceWithDrawListActivity extends BaseMvpActivity<DeviceWithDrawLi
                 @Override
                 public void run() {
                     finish();
+                    DeviceManageActivity.instance.finish();
                 }
             }, 1000);
 

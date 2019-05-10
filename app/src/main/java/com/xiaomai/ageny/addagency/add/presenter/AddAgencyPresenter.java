@@ -23,6 +23,7 @@ public class AddAgencyPresenter extends BasePresenter<AddAgencyContract.View> im
         }
         mView.showLoading();
         model.getData(body).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {

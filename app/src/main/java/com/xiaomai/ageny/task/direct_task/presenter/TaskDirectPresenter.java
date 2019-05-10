@@ -1,7 +1,9 @@
 package com.xiaomai.ageny.task.direct_task.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.LoginBean;
 import com.xiaomai.ageny.bean.OffDirectDeviceBean;
+import com.xiaomai.ageny.bean.VerCodeBean;
 import com.xiaomai.ageny.net.RxScheduler;
 import com.xiaomai.ageny.task.direct_task.contract.TaskDirectContract;
 import com.xiaomai.ageny.task.direct_task.model.TaskDirectModel;
@@ -21,6 +23,7 @@ public class TaskDirectPresenter extends BasePresenter<TaskDirectContract.View> 
         }
         mView.showLoading();
         model.getData(sellername, linkmobile, deviceid,state).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
+                .as(mView.<OffDirectDeviceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffDirectDeviceBean>() {
                     @Override
                     public void accept(OffDirectDeviceBean bean) throws Exception {
@@ -42,6 +45,7 @@ public class TaskDirectPresenter extends BasePresenter<TaskDirectContract.View> 
             return;
         }
         model.getData(sellername, linkmobile, deviceid,state).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
+                .as(mView.<OffDirectDeviceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffDirectDeviceBean>() {
                     @Override
                     public void accept(OffDirectDeviceBean bean) throws Exception {

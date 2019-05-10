@@ -2,6 +2,7 @@ package com.xiaomai.ageny.mybill.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.BillListBean;
+import com.xiaomai.ageny.bean.DeviceManageBean;
 import com.xiaomai.ageny.mybill.contract.MyBillContract;
 import com.xiaomai.ageny.mybill.model.MyBillModel;
 import com.xiaomai.ageny.net.RxScheduler;
@@ -21,6 +22,7 @@ public class MyBillPresenter extends BasePresenter<MyBillContract.View> implemen
         }
         mView.showLoading();
         model.getData().compose(RxScheduler.<BillListBean>Flo_io_main())
+                .as(mView.<BillListBean>bindAutoDispose())
                 .subscribe(new Consumer<BillListBean>() {
                     @Override
                     public void accept(BillListBean bean) throws Exception {
@@ -42,6 +44,7 @@ public class MyBillPresenter extends BasePresenter<MyBillContract.View> implemen
             return;
         }
         model.getData().compose(RxScheduler.<BillListBean>Flo_io_main())
+                .as(mView.<BillListBean>bindAutoDispose())
                 .subscribe(new Consumer<BillListBean>() {
                     @Override
                     public void accept(BillListBean bean) throws Exception {

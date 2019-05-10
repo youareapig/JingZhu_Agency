@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.offline.fragment.indirect.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
 import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
 import com.xiaomai.ageny.net.RxScheduler;
 import com.xiaomai.ageny.offline.fragment.indirect.contract.IndirectContract;
@@ -42,6 +43,7 @@ public class IndirectPresenter extends BasePresenter<IndirectContract.View> impl
             return;
         }
         model.getData(agentname, agentmobile, deviceid, state).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
+                .as(mView.<OffIndirectDeivceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffIndirectDeivceBean>() {
                     @Override
                     public void accept(OffIndirectDeivceBean bean) throws Exception {

@@ -4,6 +4,7 @@ import com.xiaomai.ageny.addcontact.contract.AddContactContract;
 import com.xiaomai.ageny.addcontact.model.AddContactModel;
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.HintBean;
+import com.xiaomai.ageny.bean.LowerOrderBean;
 import com.xiaomai.ageny.net.RxScheduler;
 
 import io.reactivex.functions.Consumer;
@@ -23,6 +24,7 @@ public class AddContactPresenter extends BasePresenter<AddContactContract.View> 
         }
         mView.showLoading();
         model.getData(requestBody).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {
@@ -45,6 +47,7 @@ public class AddContactPresenter extends BasePresenter<AddContactContract.View> 
         }
         mView.showLoading();
         model.AddContanct(requestBody).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {

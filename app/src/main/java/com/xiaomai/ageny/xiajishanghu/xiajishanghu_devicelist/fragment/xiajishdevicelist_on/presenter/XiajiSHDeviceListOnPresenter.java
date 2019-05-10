@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.fragment.xiajishdevicelist_on.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.ShopRecordBean;
 import com.xiaomai.ageny.bean.XiajiListBean;
 import com.xiaomai.ageny.net.RxScheduler;
 import com.xiaomai.ageny.xiajishanghu.xiajishanghu_devicelist.fragment.xiajishdevicelist_on.contract.XiajiSHDeviceListOnContract;
@@ -22,6 +23,7 @@ public class XiajiSHDeviceListOnPresenter extends BasePresenter<XiajiSHDeviceLis
         }
         mView.showLoading();
         model.getData(id, deviceid, dentails, state).compose(RxScheduler.<XiajiListBean>Flo_io_main())
+                .as(mView.<XiajiListBean>bindAutoDispose())
                 .subscribe(new Consumer<XiajiListBean>() {
                     @Override
                     public void accept(XiajiListBean bean) throws Exception {
@@ -42,6 +44,7 @@ public class XiajiSHDeviceListOnPresenter extends BasePresenter<XiajiSHDeviceLis
             return;
         }
         model.getData(id, deviceid, dentails, state).compose(RxScheduler.<XiajiListBean>Flo_io_main())
+                .as(mView.<XiajiListBean>bindAutoDispose())
                 .subscribe(new Consumer<XiajiListBean>() {
                     @Override
                     public void accept(XiajiListBean bean) throws Exception {

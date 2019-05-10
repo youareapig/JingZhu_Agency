@@ -2,6 +2,8 @@ package com.xiaomai.ageny.login.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.LoginBean;
+import com.xiaomai.ageny.bean.OffDirectDeviceBean;
+import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
 import com.xiaomai.ageny.bean.VerCodeBean;
 import com.xiaomai.ageny.login.contract.LoginContract;
 import com.xiaomai.ageny.login.model.LoginModel;
@@ -24,6 +26,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         }
         mView.showLoading();
         model.login(body).compose(RxScheduler.<LoginBean>Flo_io_main())
+                .as(mView.<LoginBean>bindAutoDispose())
                 .subscribe(new Consumer<LoginBean>() {
                     @Override
                     public void accept(LoginBean bean) throws Exception {
@@ -48,6 +51,7 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         }
         mView.showLoading();
         model.getCode(mobile).compose(RxScheduler.<VerCodeBean>Flo_io_main())
+                .as(mView.<VerCodeBean>bindAutoDispose())
                 .subscribe(new Consumer<VerCodeBean>() {
                     @Override
                     public void accept(VerCodeBean bean) throws Exception {

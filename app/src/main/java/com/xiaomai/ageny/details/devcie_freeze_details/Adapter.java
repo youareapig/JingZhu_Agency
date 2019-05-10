@@ -28,7 +28,7 @@ public class Adapter extends BaseQuickAdapter<FreezeDetailsBean.DataBean.ListBea
     protected void convert(BaseViewHolder helper, FreezeDetailsBean.DataBean.ListBean item) {
         TextView agencytype = helper.getView(R.id.agencytype);
         ImageView icon = helper.getView(R.id.icon);
-        switch (item.getType()) {
+        switch (item.getLevel()) {
             case "1":
                 agencytype.setText("总代理：");
                 icon.setImageResource(R.mipmap.icon_agent_all);

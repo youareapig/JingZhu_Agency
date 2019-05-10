@@ -61,6 +61,7 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
     private String strAll, strAllot, strNoallot;
     private DaoSession daoSession;
     private DeviceDaoDao deviceDaoDao;
+    public static DeviceManageActivity instance;
 
     @Override
     public int getLayoutId() {
@@ -69,6 +70,7 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
 
     @Override
     public void initView() {
+        instance=this;
         bundle = new Bundle();
         otherView.setHolder(mHolder);
         mPresenter = new DeviceManagePresenter();

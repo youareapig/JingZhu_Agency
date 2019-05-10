@@ -22,6 +22,7 @@ public class LowerOrderPresenter extends BasePresenter<LowerOrderContract.View> 
         }
         mView.showLoading();
         model.getData(orderid, sellername, startTime, endTime,page,pagesize).compose(RxScheduler.<LowerOrderBean>Flo_io_main())
+                .as(mView.<LowerOrderBean>bindAutoDispose())
                 .subscribe(new Consumer<LowerOrderBean>() {
                     @Override
                     public void accept(LowerOrderBean bean) throws Exception {
@@ -42,6 +43,7 @@ public class LowerOrderPresenter extends BasePresenter<LowerOrderContract.View> 
             return;
         }
         model.getRefrsh(orderid, sellername, startTime, endTime,page,pagesize).compose(RxScheduler.<LowerOrderBean>Flo_io_main())
+                .as(mView.<LowerOrderBean>bindAutoDispose())
                 .subscribe(new Consumer<LowerOrderBean>() {
                     @Override
                     public void accept(LowerOrderBean bean) throws Exception {

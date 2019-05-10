@@ -17,7 +17,7 @@ public class Adapter extends BaseQuickAdapter<UnbindRecordBean.DataBean, BaseVie
     @Override
     protected void convert(BaseViewHolder helper, UnbindRecordBean.DataBean item) {
         helper.setText(R.id.storename, "商户名称：" + item.getSellerName())
-                .setText(R.id.linkname, "商户联系人：" + item.getSellerLinkman())
+                .setText(R.id.linkname, "商户联系人：" + item.getSellerLinkman() + "  " + item.getSellerLinktel())
                 .setText(R.id.reason, "解绑原因：" + item.getInfo())
                 .setText(R.id.time, "解绑时间：" + item.getApplyTime());
 

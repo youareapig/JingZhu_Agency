@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.device_popu.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.AllotDeviceBean;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.ShowHoleBean;
 import com.xiaomai.ageny.device_popu.contract.DevicePopuContract;
@@ -23,6 +24,7 @@ public class DevicePopuPresenter extends BasePresenter<DevicePopuContract.View> 
         }
         mView.showLoading();
         model.popu(deviceid, slot).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {
@@ -45,6 +47,7 @@ public class DevicePopuPresenter extends BasePresenter<DevicePopuContract.View> 
             return;
         }
         model.getData(deviceid).compose(RxScheduler.<ShowHoleBean>Flo_io_main())
+                .as(mView.<ShowHoleBean>bindAutoDispose())
                 .subscribe(new Consumer<ShowHoleBean>() {
                     @Override
                     public void accept(ShowHoleBean bean) throws Exception {

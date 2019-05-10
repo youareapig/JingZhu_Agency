@@ -2,6 +2,7 @@ package com.xiaomai.ageny.device_manage.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.DeviceManageBean;
+import com.xiaomai.ageny.bean.MyOrderDetailsBean;
 import com.xiaomai.ageny.device_manage.contract.DeviceManageContract;
 import com.xiaomai.ageny.device_manage.model.DeviceManageModel;
 import com.xiaomai.ageny.net.RxScheduler;
@@ -22,6 +23,7 @@ public class DeviceManagePresenter extends BasePresenter<DeviceManageContract.Vi
         }
         mView.showLoading();
         model.getData().compose(RxScheduler.<DeviceManageBean>Flo_io_main())
+                .as(mView.<DeviceManageBean>bindAutoDispose())
                 .subscribe(new Consumer<DeviceManageBean>() {
                     @Override
                     public void accept(DeviceManageBean bean) throws Exception {

@@ -63,8 +63,8 @@ import retrofit2.http.Query;
  * Description：
  */
 public interface APIService {
-    //    public String urlhead = "chargeAgent-0.0.1-SNAPSHOT/";
-    public String urlhead = "";
+        public String urlhead = "chargeAgent-0.0.1-SNAPSHOT/";
+//    public String urlhead = "";
 
     //获取验证码
     @GET(urlhead + "agentCenter/account/captcha")

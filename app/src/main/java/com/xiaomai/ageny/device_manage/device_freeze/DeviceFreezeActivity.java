@@ -91,6 +91,7 @@ public class DeviceFreezeActivity extends BaseMvpActivity<DeviceFreezePresenter>
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.bt_filter:
                 toClass(this, DeviceFreezeFilterActivity.class);

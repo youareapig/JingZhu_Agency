@@ -22,6 +22,7 @@ public class XIajiSHDeviceListOffPresenter extends BasePresenter<XIajiSHDeviceLi
         }
         mView.showLoading();
         model.getData(id, deviceid, dentails, state).compose(RxScheduler.<XiajiListBean>Flo_io_main())
+                .as(mView.<XiajiListBean>bindAutoDispose())
                 .subscribe(new Consumer<XiajiListBean>() {
                     @Override
                     public void accept(XiajiListBean bean) throws Exception {
@@ -42,6 +43,7 @@ public class XIajiSHDeviceListOffPresenter extends BasePresenter<XIajiSHDeviceLi
             return;
         }
         model.getData(id, deviceid, dentails, state).compose(RxScheduler.<XiajiListBean>Flo_io_main())
+                .as(mView.<XiajiListBean>bindAutoDispose())
                 .subscribe(new Consumer<XiajiListBean>() {
                     @Override
                     public void accept(XiajiListBean bean) throws Exception {

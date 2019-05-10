@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.device_manage.device_allot.device_allot_agency;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -14,14 +15,17 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.TelBean;
 import com.xiaomai.ageny.bean.daobean.DeviceDao;
+import com.xiaomai.ageny.device_manage.DeviceManageActivity;
 import com.xiaomai.ageny.device_manage.device_allot.DeviceAllotSuccessActivity;
 import com.xiaomai.ageny.device_manage.device_allot.device_allot_agency.contract.DeviceAllotAgencyContract;
 import com.xiaomai.ageny.device_manage.device_allot.device_allot_agency.presenter.DeviceAllotAgencyPresenter;
+import com.xiaomai.ageny.device_manage.device_allot.device_allot_list.DeviceAllotListActivity;
 import com.xiaomai.ageny.greendao.gen.DaoSession;
 import com.xiaomai.ageny.greendao.gen.DeviceDaoDao;
 import com.xiaomai.ageny.utils.CustomDialog;
 import com.xiaomai.ageny.utils.DaoSessionManager;
 import com.xiaomai.ageny.utils.MaptoJson;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -92,7 +96,7 @@ public class DeviceAllotAgencyActivity extends BaseMvpActivity<DeviceAllotAgency
         if (bean.getCode() == 1) {
             name.setText(bean.getData());
         } else {
-            name.setText("未知");
+            name.setText(bean.getMessage());
         }
 
     }
@@ -100,9 +104,17 @@ public class DeviceAllotAgencyActivity extends BaseMvpActivity<DeviceAllotAgency
     @Override
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
-            toClass1(this, DeviceAllotSuccessActivity.class);
+//            toClass1(this, DeviceAllotSuccessActivity.class);
             deviceDaoDao.deleteAll();
-            finish();
+            ShowDialogUtils.showdialog(this,"设备分配成功");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                    DeviceAllotListActivity.instance.finish();
+                    DeviceManageActivity.instance.finish();
+                }
+            }, 1000);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

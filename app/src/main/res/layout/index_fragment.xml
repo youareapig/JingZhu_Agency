@@ -33,6 +33,7 @@
                 android:src="@mipmap/news" />
 
             <ImageView
+                android:id="@+id/redicon"
                 android:layout_width="@dimen/dp_6"
                 android:layout_height="@dimen/dp_6"
                 android:layout_alignParentRight="true"

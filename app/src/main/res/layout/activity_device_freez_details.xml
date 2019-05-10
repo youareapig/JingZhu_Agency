@@ -279,6 +279,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/jiedong_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_25"
@@ -303,6 +304,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/huikuan_view"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_25"

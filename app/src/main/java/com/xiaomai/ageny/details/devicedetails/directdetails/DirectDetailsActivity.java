@@ -12,6 +12,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
 import com.xiaomai.ageny.details.devicedetails.directdetails.contract.DirectDetailsContract;
 import com.xiaomai.ageny.details.devicedetails.directdetails.presenter.DirectDetailsPresenter;
+import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import butterknife.BindView;
@@ -109,13 +110,15 @@ public class DirectDetailsActivity extends BaseMvpActivity<DirectDetailsPresente
             ContactDeviceDetailsBean.DataBean data = bean.getData();
             id.setText(data.getBoxId());
             lat.setText(data.getBoxlatitude() + "," + data.getBoxlongitude());
-            city.setText("");
-            address.setText(data.getBoxaddress());
+            //分割地址
+            String[] arrAddress = BaseUtils.spliteUtils(data.getBoxaddress(), ",");
+            city.setText(arrAddress[0]);
+            address.setText(arrAddress[1]);
             devicePrice.setText(data.getBoxdetails() + "/元小时");
             devicetype.setText(data.getBoxslot() + "槽");
             fenrun.setText(data.getBoxsellerreward());
-            freezeMoney.setText("冻结金额：" + data.getFreeze_money());
-            nofreezemoney.setText("已解冻金额：" + data.getUnfreeze_money());
+            freezeMoney.setText(data.getFreeze_money()+"元");
+            nofreezemoney.setText(data.getUnfreeze_money()+"元");
             storename.setText(data.getSellername());
             linkname.setText(data.getSellerLinkman());
             linktel.setText(data.getSellerLinkTel());

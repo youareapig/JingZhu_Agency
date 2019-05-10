@@ -2,6 +2,7 @@ package com.xiaomai.ageny.shop_manage.fragment.record.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.ShopApplyBean;
+import com.xiaomai.ageny.bean.XiajiListBean;
 import com.xiaomai.ageny.net.RxScheduler;
 import com.xiaomai.ageny.shop_manage.fragment.record.contract.RecordContract;
 import com.xiaomai.ageny.shop_manage.fragment.record.model.RecordModel;
@@ -22,6 +23,7 @@ public class RecordPresenter extends BasePresenter<RecordContract.View> implemen
         }
         mView.showLoading();
         model.getData(bath, state,moble, page, page_size).compose(RxScheduler.<ShopApplyBean>Flo_io_main())
+                .as(mView.<ShopApplyBean>bindAutoDispose())
                 .subscribe(new Consumer<ShopApplyBean>() {
                     @Override
                     public void accept(ShopApplyBean bean) throws Exception {
@@ -44,6 +46,7 @@ public class RecordPresenter extends BasePresenter<RecordContract.View> implemen
             return;
         }
         model.getData(bath, state,moble, page, page_size).compose(RxScheduler.<ShopApplyBean>Flo_io_main())
+                .as(mView.<ShopApplyBean>bindAutoDispose())
                 .subscribe(new Consumer<ShopApplyBean>() {
                     @Override
                     public void accept(ShopApplyBean bean) throws Exception {

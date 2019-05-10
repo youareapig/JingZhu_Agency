@@ -17,7 +17,7 @@ public class Adapter extends BaseQuickAdapter<AgencySellerListBean.DataBean, Bas
     @Override
     protected void convert(BaseViewHolder helper, AgencySellerListBean.DataBean item) {
         helper.setText(R.id.name, item.getName())
-                .setText(R.id.id, item.getId())
+                .setText(R.id.id, item.getSellerId())
                 .setText(R.id.onlinecount, item.getZaixian())
                 .setText(R.id.offlin_count, item.getLixian());
 

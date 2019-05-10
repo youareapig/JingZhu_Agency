@@ -209,7 +209,7 @@ public class DeviceAllotListActivity extends BaseMvpActivity<DeviceAllotListPres
     private void myDialog1() {
         builder = new AlertDialog.Builder(this).create();
         LayoutInflater layoutInflater = this.getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_staff_delete, null);
+        View view = layoutInflater.inflate(R.layout.dialog_device_delete, null);
         builder.setView(view);
         builder.setCanceledOnTouchOutside(false);
         builder.show();

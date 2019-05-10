@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.fragment.mine.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
 import com.xiaomai.ageny.bean.UserInfoBean;
 import com.xiaomai.ageny.fragment.mine.contract.MineContract;
 import com.xiaomai.ageny.fragment.mine.model.MineModel;
@@ -22,6 +23,7 @@ public class MinePresenter extends BasePresenter<MineContract.View> implements M
         }
         mView.showLoading();
         model.getData().compose(RxScheduler.<UserInfoBean>Flo_io_main())
+                .as(mView.<UserInfoBean>bindAutoDispose())
                 .subscribe(new Consumer<UserInfoBean>() {
                     @Override
                     public void accept(UserInfoBean bean) throws Exception {

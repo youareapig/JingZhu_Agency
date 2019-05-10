@@ -2,6 +2,7 @@ package com.xiaomai.ageny.device_manage.device_withdraw.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.DeviceWithDrawListBean;
+import com.xiaomai.ageny.bean.FreezeBean;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.device_manage.device_withdraw.contract.DeviceWithDrawListContract;
 import com.xiaomai.ageny.device_manage.device_withdraw.model.DeviceWithDrawListModel;
@@ -24,6 +25,7 @@ public class DeviceWithDrawListPresenter extends BasePresenter<DeviceWithDrawLis
         }
         mView.showLoading();
         model.getData(deviceid).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {

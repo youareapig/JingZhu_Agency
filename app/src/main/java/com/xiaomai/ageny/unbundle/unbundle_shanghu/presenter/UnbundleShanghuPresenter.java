@@ -24,6 +24,7 @@ public class UnbundleShanghuPresenter extends BasePresenter<UnbundleShanghuContr
         }
         mView.showLoading();
         model.getCode(mobile).compose(RxScheduler.<VerCodeBean>Flo_io_main())
+                .as(mView.<VerCodeBean>bindAutoDispose())
                 .subscribe(new Consumer<VerCodeBean>() {
                     @Override
                     public void accept(VerCodeBean bean) throws Exception {
@@ -47,6 +48,7 @@ public class UnbundleShanghuPresenter extends BasePresenter<UnbundleShanghuContr
         }
         mView.showLoading();
         model.unbundleContanctBean(body).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {

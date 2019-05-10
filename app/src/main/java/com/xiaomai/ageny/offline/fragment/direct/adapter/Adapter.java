@@ -23,7 +23,8 @@ public class Adapter extends BaseQuickAdapter<OffDirectDeviceBean.DataBean.ListB
 
     @Override
     protected void convert(BaseViewHolder helper, OffDirectDeviceBean.DataBean.ListBean item) {
-        helper.setText(R.id.item_storename, item.getSellername());
+        helper.setText(R.id.item_storename, item.getSellername())
+                .setText(R.id.tel, item.getLinktel());
         RecyclerView recyclerView = helper.getView(R.id.item_recycler);
         final List<OffDirectDeviceBean.DataBean.ListBean.BoxBean> list = item.getBox();
 

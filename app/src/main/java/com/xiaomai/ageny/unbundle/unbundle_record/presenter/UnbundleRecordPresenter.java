@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.unbundle.unbundle_record.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.UnbindRecordBean;
 import com.xiaomai.ageny.net.RxScheduler;
 import com.xiaomai.ageny.unbundle.unbundle_record.contract.UnbundleRecordContract;
@@ -22,6 +23,7 @@ public class UnbundleRecordPresenter extends BasePresenter<UnbundleRecordContrac
         }
         mView.showLoading();
         model.getData(page, page_size, linkman, linkmobile).compose(RxScheduler.<UnbindRecordBean>Flo_io_main())
+                .as(mView.<UnbindRecordBean>bindAutoDispose())
                 .subscribe(new Consumer<UnbindRecordBean>() {
                     @Override
                     public void accept(UnbindRecordBean bean) throws Exception {
@@ -44,6 +46,7 @@ public class UnbundleRecordPresenter extends BasePresenter<UnbundleRecordContrac
             return;
         }
         model.getData(page, page_size, linkman, linkmobile).compose(RxScheduler.<UnbindRecordBean>Flo_io_main())
+                .as(mView.<UnbindRecordBean>bindAutoDispose())
                 .subscribe(new Consumer<UnbindRecordBean>() {
                     @Override
                     public void accept(UnbindRecordBean bean) throws Exception {

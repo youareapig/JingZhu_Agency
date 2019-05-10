@@ -3,6 +3,9 @@ package com.xiaomai.ageny.details.devcie_freeze_details;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -48,6 +51,10 @@ public class DeviceFreezDetailsActivity extends BaseMvpActivity<DeviceFreezeDeta
     RecyclerView recycler;
     @BindView(R.id.otherview)
     OtherView otherview;
+    @BindView(R.id.jiedong_view)
+    LinearLayout jiedongView;
+    @BindView(R.id.huikuan_view)
+    LinearLayout huikuanView;
     private String id, state;
     private List<FreezeDetailsBean.DataBean.ListBean> list;
     private Adapter adapter;
@@ -111,8 +118,19 @@ public class DeviceFreezDetailsActivity extends BaseMvpActivity<DeviceFreezeDeta
             freezeMoney.setText(data.getFreezeMoney() + "元");
             freezedmoney.setText(data.getUnfreezeMoney() + "元");
             nofreezemoney.setText(data.getNofreezeMoney() + "元");
-            freezetime.setText(data.getUnfreezeTime());
-            returntime.setText(data.getRemitTime());
+            if (TextUtils.isEmpty(data.getUnfreezeTime())) {
+                jiedongView.setVisibility(View.GONE);
+            } else {
+                jiedongView.setVisibility(View.VISIBLE);
+                freezetime.setText(data.getUnfreezeTime());
+            }
+            if (TextUtils.isEmpty(data.getRemitTime())) {
+                huikuanView.setVisibility(View.GONE);
+            } else {
+                huikuanView.setVisibility(View.VISIBLE);
+                returntime.setText(data.getRemitTime());
+            }
+
 
         } else {
             ToastUtil.showShortToast(bean.getMessage());
@@ -123,5 +141,12 @@ public class DeviceFreezDetailsActivity extends BaseMvpActivity<DeviceFreezeDeta
     @OnClick(R.id.back)
     public void onViewClicked() {
         finish();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

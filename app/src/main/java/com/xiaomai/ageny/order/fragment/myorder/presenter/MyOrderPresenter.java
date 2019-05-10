@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.order.fragment.myorder.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.LoginOutBean;
 import com.xiaomai.ageny.bean.MyOrderBean;
 import com.xiaomai.ageny.net.RxScheduler;
 import com.xiaomai.ageny.order.fragment.myorder.contract.MyOrderContract;
@@ -21,6 +22,7 @@ public class MyOrderPresenter extends BasePresenter<MyOrderContract.View> implem
         }
         mView.showLoading();
         model.getData(orderid, sellername, startTime, endTime,page,pagesize).compose(RxScheduler.<MyOrderBean>Flo_io_main())
+                .as(mView.<MyOrderBean>bindAutoDispose())
                 .subscribe(new Consumer<MyOrderBean>() {
                     @Override
                     public void accept(MyOrderBean bean) throws Exception {
@@ -41,6 +43,7 @@ public class MyOrderPresenter extends BasePresenter<MyOrderContract.View> implem
             return;
         }
         model.getRefrsh(orderid, sellername, startTime, endTime,page,pagesize).compose(RxScheduler.<MyOrderBean>Flo_io_main())
+                .as(mView.<MyOrderBean>bindAutoDispose())
                 .subscribe(new Consumer<MyOrderBean>() {
                     @Override
                     public void accept(MyOrderBean bean) throws Exception {

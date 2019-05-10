@@ -24,6 +24,7 @@ public class DepositPresenter extends BasePresenter<DepositContract.View> implem
         }
         mView.showLoading();
         model.getData().compose(RxScheduler.<IndexBean>Flo_io_main())
+                .as(mView.<IndexBean>bindAutoDispose())
                 .subscribe(new Consumer<IndexBean>() {
                     @Override
                     public void accept(IndexBean indexBean) throws Exception {
@@ -45,6 +46,7 @@ public class DepositPresenter extends BasePresenter<DepositContract.View> implem
             return;
         }
         model.getDepositBean(requestBody).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean indexBean) throws Exception {

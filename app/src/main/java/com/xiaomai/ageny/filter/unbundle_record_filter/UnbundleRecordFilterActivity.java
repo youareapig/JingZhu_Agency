@@ -56,8 +56,8 @@ public class UnbundleRecordFilterActivity extends BaseActivity {
                 tel.setText("");
                 break;
             case R.id.filter_bt_submit:
-                strName=name.getText().toString().trim();
-                strTel=tel.getText().toString().trim();
+                strName = name.getText().toString().trim();
+                strTel = tel.getText().toString().trim();
                 Intent intent = new Intent();
                 intent.putExtra("name", strName);
                 intent.putExtra("tel", strTel);

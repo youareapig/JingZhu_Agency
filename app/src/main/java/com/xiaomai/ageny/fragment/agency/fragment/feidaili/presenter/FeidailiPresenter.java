@@ -2,6 +2,7 @@ package com.xiaomai.ageny.fragment.agency.fragment.feidaili.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.DailiListBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.contract.FeidailiContract;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.model.FeidailiModel;
 import com.xiaomai.ageny.net.RxScheduler;
@@ -21,6 +22,7 @@ public class FeidailiPresenter extends BasePresenter<FeidailiContract.View> impl
         }
         mView.showLoading();
         model.getData(mobile, deviceid, grade, directly, isbytime).compose(RxScheduler.<DailiListBean>Flo_io_main())
+                .as(mView.<DailiListBean>bindAutoDispose())
                 .subscribe(new Consumer<DailiListBean>() {
                     @Override
                     public void accept(DailiListBean bean) throws Exception {
@@ -42,6 +44,7 @@ public class FeidailiPresenter extends BasePresenter<FeidailiContract.View> impl
             return;
         }
         model.getData(mobile, deviceid, grade, directly, isbytime).compose(RxScheduler.<DailiListBean>Flo_io_main())
+                .as(mView.<DailiListBean>bindAutoDispose())
                 .subscribe(new Consumer<DailiListBean>() {
                     @Override
                     public void accept(DailiListBean bean) throws Exception {

@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.deposit_list.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.DailiListBean;
 import com.xiaomai.ageny.bean.DepositListBean;
 import com.xiaomai.ageny.deposit_list.contract.DepositListContract;
 import com.xiaomai.ageny.deposit_list.model.DepositListModel;
@@ -22,6 +23,7 @@ public class DepositListPresenter extends BasePresenter<DepositListContract.View
         }
         mView.showLoading();
         model.getData(page, page_size, state, orderid, price_start, price_end).compose(RxScheduler.<DepositListBean>Flo_io_main())
+                .as(mView.<DepositListBean>bindAutoDispose())
                 .subscribe(new Consumer<DepositListBean>() {
                     @Override
                     public void accept(DepositListBean bean) throws Exception {
@@ -42,6 +44,7 @@ public class DepositListPresenter extends BasePresenter<DepositListContract.View
             return;
         }
         model.getData_Fresh(page, page_size, state, orderid, price_start, price_end).compose(RxScheduler.<DepositListBean>Flo_io_main())
+                .as(mView.<DepositListBean>bindAutoDispose())
                 .subscribe(new Consumer<DepositListBean>() {
                     @Override
                     public void accept(DepositListBean bean) throws Exception {

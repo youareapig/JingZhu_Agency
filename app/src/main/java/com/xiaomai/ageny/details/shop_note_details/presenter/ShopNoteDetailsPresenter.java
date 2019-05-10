@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.details.shop_note_details.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.DailiListBean;
 import com.xiaomai.ageny.bean.ShopBean;
 import com.xiaomai.ageny.details.shop_note_details.contract.ShopNoteDetailsContract;
 import com.xiaomai.ageny.details.shop_note_details.model.ShopNoteDetailsModel;
@@ -22,6 +23,7 @@ public class ShopNoteDetailsPresenter extends BasePresenter<ShopNoteDetailsContr
         }
         mView.showLoading();
         model.getData(receiptId).compose(RxScheduler.<ShopBean>Flo_io_main())
+                .as(mView.<ShopBean>bindAutoDispose())
                 .subscribe(new Consumer<ShopBean>() {
                     @Override
                     public void accept(ShopBean bean) throws Exception {

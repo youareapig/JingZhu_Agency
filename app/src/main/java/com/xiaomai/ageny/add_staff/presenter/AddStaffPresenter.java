@@ -4,6 +4,7 @@ import com.xiaomai.ageny.add_staff.contract.AddStaffContract;
 import com.xiaomai.ageny.add_staff.model.AddStaffModel;
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.HintBean;
+import com.xiaomai.ageny.bean.ShopBean;
 import com.xiaomai.ageny.net.RxScheduler;
 
 import io.reactivex.functions.Consumer;
@@ -22,6 +23,7 @@ public class AddStaffPresenter extends BasePresenter<AddStaffContract.View> impl
             return;
         }
         model.addStaff(body).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {

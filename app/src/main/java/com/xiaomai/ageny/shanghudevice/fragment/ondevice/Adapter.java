@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.bean.ContactDeviceListBean;
+import com.xiaomai.ageny.utils.BaseUtils;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class Adapter extends BaseQuickAdapter<ContactDeviceListBean.DataBean.Lis
         helper.setText(R.id.money, item.getMoney())
                 .setText(R.id.deviceId, item.getId())
                 .setText(R.id.lat, "经纬度：" + item.getLatitude() + "," + item.getLongitude())
-                .setText(R.id.address, item.getBoxAddress())
+                .setText(R.id.address, BaseUtils.replaceString(item.getBoxAddress(), ",", ""))
                 .setText(R.id.cao_count,item.getStock()+"槽")
                 .setText(R.id.price, item.getDetails() + "元/小时");
 

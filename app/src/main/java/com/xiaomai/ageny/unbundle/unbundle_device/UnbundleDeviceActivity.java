@@ -126,7 +126,7 @@ public class UnbundleDeviceActivity extends BaseMvpActivity<UnbundleDevicePresen
                 break;
             case R.id.bt_unbundle:
                 if (TextUtils.isEmpty(strcode)) {
-                    TextUtils.isEmpty("请输入验证码");
+                    ToastUtil.showShortToast("请输入验证码");
                 } else {
                     keyList.add("deviceid");
                     keyList.add("captca");

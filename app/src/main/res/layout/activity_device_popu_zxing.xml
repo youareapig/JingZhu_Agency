@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp_85"
-            android:text="须知：\n1.这能弹出直属商户的充电宝"
+            android:text="须知：\n1.只能弹出直属商户的充电宝"
             android:textColor="#fff"
             android:textSize="@dimen/sp_14" />
     </LinearLayout>

@@ -61,9 +61,17 @@ public class OtherView extends LinearLayout {
         if (mHolder == null){
             throw new RuntimeException("OtherView::请先设置OtherHolder");
         }
-        mHolder.mLoadingView.setVisibility(mViewType == KEY_LOADING ? VISIBLE : GONE);
-        mHolder.mEmptyView.setVisibility(mViewType == KEY_EMPTY ? VISIBLE : GONE);
-        mHolder.mRetryView.setVisibility(mViewType == KEY_RETRY ? VISIBLE : GONE);
+        if (mHolder.mEmptyView!=null){
+            mHolder.mEmptyView.setVisibility(mViewType == KEY_EMPTY ? VISIBLE : GONE);
+        }
+        if (mHolder.mLoadingView!=null){
+            mHolder.mLoadingView.setVisibility(mViewType == KEY_LOADING ? VISIBLE : GONE);
+        }
+        if (mHolder.mRetryView!=null){
+            mHolder.mRetryView.setVisibility(mViewType == KEY_RETRY ? VISIBLE : GONE);
+        }
+
+
     }
 
 

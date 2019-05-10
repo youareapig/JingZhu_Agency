@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.xiaomai.ageny.BuildConfig;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.LoginOutBean;
@@ -42,6 +43,8 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
     RelativeLayout btShopManage;
     @BindView(R.id.bt_loginout)
     TextView btLoginout;
+    @BindView(R.id.versionName)
+    TextView versionName;
 
     private CustomDialog dialog;
     private String strLev;
@@ -53,6 +56,7 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
 
     @Override
     public void initView() {
+        versionName.setText(BuildConfig.VERSION_NAME);
         strLev = getIntent().getExtras().getString("lev");
         if (strLev.equals("1")) {
             btShopManage.setVisibility(View.VISIBLE);

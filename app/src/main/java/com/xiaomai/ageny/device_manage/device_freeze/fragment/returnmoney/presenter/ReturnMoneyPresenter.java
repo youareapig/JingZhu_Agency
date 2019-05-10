@@ -21,6 +21,7 @@ public class ReturnMoneyPresenter extends BasePresenter<ReturnMoneyContract.View
         }
         mView.showLoading();
         model.getData(filler_state,filler_deviceid,filler_relation).compose(RxScheduler.<FreezeBean>Flo_io_main())
+                .as(mView.<FreezeBean>bindAutoDispose())
                 .subscribe(new Consumer<FreezeBean>() {
                     @Override
                     public void accept(FreezeBean bean) throws Exception {
@@ -42,6 +43,7 @@ public class ReturnMoneyPresenter extends BasePresenter<ReturnMoneyContract.View
             return;
         }
         model.getData(filler_state,filler_deviceid,filler_relation).compose(RxScheduler.<FreezeBean>Flo_io_main())
+                .as(mView.<FreezeBean>bindAutoDispose())
                 .subscribe(new Consumer<FreezeBean>() {
                     @Override
                     public void accept(FreezeBean bean) throws Exception {

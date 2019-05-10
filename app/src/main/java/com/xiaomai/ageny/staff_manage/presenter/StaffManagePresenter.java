@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.staff_manage.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.ContactDetailsBean;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.StaffBean;
 import com.xiaomai.ageny.net.RxScheduler;
@@ -24,6 +25,7 @@ public class StaffManagePresenter extends BasePresenter<StaffManageContract.View
         }
         mView.showLoading();
         model.getStaffListBean(page, page_size).compose(RxScheduler.<StaffBean>Flo_io_main())
+                .as(mView.<StaffBean>bindAutoDispose())
                 .subscribe(new Consumer<StaffBean>() {
                     @Override
                     public void accept(StaffBean bean) throws Exception {
@@ -45,6 +47,7 @@ public class StaffManagePresenter extends BasePresenter<StaffManageContract.View
             return;
         }
         model.getStaffListBean(page, page_size).compose(RxScheduler.<StaffBean>Flo_io_main())
+                .as(mView.<StaffBean>bindAutoDispose())
                 .subscribe(new Consumer<StaffBean>() {
                     @Override
                     public void accept(StaffBean bean) throws Exception {
@@ -64,6 +67,7 @@ public class StaffManagePresenter extends BasePresenter<StaffManageContract.View
             return;
         }
         model.staffDelete(body).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {

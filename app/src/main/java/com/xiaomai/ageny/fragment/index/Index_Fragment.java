@@ -2,12 +2,15 @@ package com.xiaomai.ageny.fragment.index;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -43,6 +46,7 @@ import com.xiaomai.ageny.system_notice.SystemNoticeActivity;
 import com.xiaomai.ageny.task.TaskActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -99,6 +103,8 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     PullToRefreshLayout refreshLayout;
     @BindView(R.id.bt_notice)
     RelativeLayout btNotice;
+    @BindView(R.id.redicon)
+    ImageView redIcon;
 
     @BindView(R.id.index_device_allcount)
     TextView indexDeviceAllcount;
@@ -106,8 +112,13 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     private boolean ISSHOW = true;
     private int locatinVercode;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void initView(View view) {
+        Logger.d("通知是否打开---" + BaseUtils.isNotificationEnable(getActivity()));
+        if (!BaseUtils.isNotificationEnable(getActivity()) && TextUtils.isEmpty(SharedPreferencesUtil.getInstance(getActivity()).getSP("opennotice"))) {
+            ShowDialogUtils.openNotice(getActivity());
+        }
         //获取当前版本号
         locatinVercode = BaseUtils.getLocationCode(getActivity());
         otherView.setHolder(mHolder);
@@ -160,6 +171,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
     @Override
     public void hideLoading() {
+
         otherView.showContentView();
     }
 
@@ -181,6 +193,11 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             String jsonConfig = gson.toJson(bean);
             SharedPreferencesUtil.getInstance(getActivity()).putSP("config", jsonConfig);
             SharedPreferencesUtil.getInstance(getActivity()).putSP("countunread", bean.getData().getCountunread());
+            if (bean.getData().getCountunread().equals("0")) {
+                redIcon.setVisibility(View.GONE);
+            } else {
+                redIcon.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -236,7 +253,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 Num.setText(strTaskNum);
             }
         } else if (bean.getCode() == -10) {
-            restLoginDialog();
+            ShowDialogUtils.restLoginDialog(getActivity());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -296,26 +313,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         dialog.setView(v);
         dialog.show();
         ISSHOW = false;
-    }
-
-    //重新登录
-    private void restLoginDialog() {
-        final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_other_login, null);
-        builder.setView(view);
-        builder.setCancelable(false);
-        builder.show();
-        view.findViewById(R.id.bt_sure).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferencesUtil.getInstance(getActivity()).putSP("token", "");
-                toClass_Empty(getActivity(), LoginActivity.class);
-                getActivity().finish();
-                JPushInterface.deleteAlias(getActivity(), 1);
-                builder.dismiss();
-            }
-        });
     }
 
 

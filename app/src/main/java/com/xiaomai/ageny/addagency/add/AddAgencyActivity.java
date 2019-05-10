@@ -52,7 +52,7 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
     @BindView(R.id.maxfenrun)
     TextView maxFenrun;
     private String strFenrun, strLinkName, strLinkTel, strAddress, strFirmName;
-    private boolean btfirmIsSelect = true;
+    private boolean btfirmIsSelect = false;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
     private CustomDialog dialog;
@@ -66,7 +66,7 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
     @Override
     public void initView() {
         ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
-        //默认选中企业
+        //默认选中个人
         btPerson.setSelected(true);
         viewFirm.setVisibility(View.GONE);
         mPresenter = new AddAgencyPresenter();

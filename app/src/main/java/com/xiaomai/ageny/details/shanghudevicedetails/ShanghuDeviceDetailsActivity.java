@@ -92,7 +92,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
     private OptionsPickerView pvCustomOptions;
     private List<String> list;
-    private String strPrice, strlinktel,strunbindtel;
+    private String strPrice, strlinktel, strunbindtel;
     private String deviceId;
     private Bundle bundle;
     public static ShanghuDeviceDetailsActivity instance;
@@ -114,11 +114,11 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
         mPresenter = new ShangHuDeviceDetailsPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(deviceId,"");
+        mPresenter.getData(deviceId, "");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(deviceId,"");
+                mPresenter.getData(deviceId, "");
             }
         });
     }
@@ -143,17 +143,19 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
         if (bean.getCode() == 1) {
             ContactDeviceDetailsBean.DataBean data = bean.getData();
             strlinktel = data.getSellerLinkTel();
-            strunbindtel=data.getLinkTel();
+            strunbindtel = data.getLinkTel();
 
             id.setText(data.getBoxId());
             lat.setText(data.getBoxlatitude() + "," + data.getBoxlongitude());
-            city.setText("");
-            address.setText(data.getBoxaddress());
+            //分割地址
+            String[] arrAddress = BaseUtils.spliteUtils(data.getBoxaddress(), ",");
+            city.setText(arrAddress[0]);
+            address.setText(arrAddress[1]);
             devicePrice.setText(data.getBoxdetails() + "/元小时");
             devicetype.setText(data.getBoxslot() + "槽");
             fenrun.setText(data.getBoxsellerreward());
-            freezeMoney.setText("冻结金额：" + data.getFreeze_money());
-            nofreezemoney.setText("已解冻金额：" + data.getUnfreeze_money());
+            freezeMoney.setText(data.getFreeze_money());
+            nofreezemoney.setText(data.getUnfreeze_money());
             storename.setText(data.getSellername());
             linkname.setText(data.getSellerLinkman());
             linktel.setText(strlinktel);

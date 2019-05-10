@@ -20,8 +20,8 @@ public class Adapter extends BaseQuickAdapter<FreezeBean.DataBean.ListBean, Base
                 .setText(R.id.id, item.getDeviceid())
                 .setText(R.id.haveman, "持有人：" + item.getSellerLinkman())
                 .setText(R.id.installman, "安装人：" + item.getInstallMan())
-                .setText(R.id.freeze_money, item.getFreezeMoney())
-                .setText(R.id.nofreezemoney, item.getNofreezeMoney())
+                .setText(R.id.freeze_money, item.getNofreezeMoney())
+                .setText(R.id.nofreezemoney, item.getUnfreezeMoney())
                 .setText(R.id.relation, item.getRelation().equals("0") ? "非直属" : "直属");
 
     }

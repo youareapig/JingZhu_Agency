@@ -5,6 +5,7 @@ import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.DeviceInstallListBean;
 import com.xiaomai.ageny.bean.IndexBean;
 import com.xiaomai.ageny.bean.LoginOutBean;
+import com.xiaomai.ageny.bean.NoAllotDeviceBean;
 import com.xiaomai.ageny.deviceinstalllist.contract.DeviceInstallContract;
 import com.xiaomai.ageny.deviceinstalllist.model.DeviceInstallModel;
 import com.xiaomai.ageny.net.RxScheduler;
@@ -25,6 +26,7 @@ public class DeviceInstallPresenter extends BasePresenter<DeviceInstallContract.
         }
         mView.showLoading();
         model.getDeviceInstallListData(chiyou,anzhuang,time).compose(RxScheduler.<DeviceInstallListBean>Flo_io_main())
+                .as(mView.<DeviceInstallListBean>bindAutoDispose())
                 .subscribe(new Consumer<DeviceInstallListBean>() {
                     @Override
                     public void accept(DeviceInstallListBean bean) throws Exception {
@@ -45,6 +47,7 @@ public class DeviceInstallPresenter extends BasePresenter<DeviceInstallContract.
             return;
         }
         model.getDeviceInstallListBean_Refresh(chiyou, anzhuang, time).compose(RxScheduler.<DeviceInstallListBean>Flo_io_main())
+                .as(mView.<DeviceInstallListBean>bindAutoDispose())
                 .subscribe(new Consumer<DeviceInstallListBean>() {
                     @Override
                     public void accept(DeviceInstallListBean bean) throws Exception {
@@ -65,6 +68,7 @@ public class DeviceInstallPresenter extends BasePresenter<DeviceInstallContract.
         }
         mView.showLoading();
         model.loginOut().compose(RxScheduler.<LoginOutBean>Flo_io_main())
+                .as(mView.<LoginOutBean>bindAutoDispose())
                 .subscribe(new Consumer<LoginOutBean>() {
                     @Override
                     public void accept(LoginOutBean bean) throws Exception {
@@ -88,6 +92,7 @@ public class DeviceInstallPresenter extends BasePresenter<DeviceInstallContract.
             return;
         }
         model.getConfigBean().compose(RxScheduler.<ConfigBean>Flo_io_main())
+                .as(mView.<ConfigBean>bindAutoDispose())
                 .subscribe(new Consumer<ConfigBean>() {
                     @Override
                     public void accept(ConfigBean bean) throws Exception {

@@ -26,6 +26,7 @@ import com.xiaomai.ageny.fragment.contact.contract.ContactContract;
 import com.xiaomai.ageny.fragment.contact.presenter.ContactPresenter;
 import com.xiaomai.ageny.login.LoginActivity;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -71,8 +72,8 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     @Override
     protected void initView(View view) {
         otherView.setHolder(mHolder);
-        addTime.setSelected(true);
-        addIcon.setImageResource(R.mipmap.sort_hover);
+        makeMoney.setSelected(true);
+        makeMoneyIcon.setImageResource(R.mipmap.sort_hover);
 
         bundle = new Bundle();
         mPresenter = new ContactPresenter();
@@ -80,7 +81,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(strFilter_Tel, strFilter_ID, "1");
+                mPresenter.getData(strFilter_Tel, strFilter_ID, "4");
             }
         });
         refreshLayout.setCanLoadMore(false);
@@ -94,7 +95,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
                         makeMoneyIcon.setImageResource(R.mipmap.sort_hover);
                         addTime.setSelected(false);
                         addIcon.setImageResource(R.mipmap.sort_hover_hui);
-                        mPresenter.getData_Fresh(strFilter_Tel, strFilter_ID, "1");
+                        mPresenter.getData_Fresh(strFilter_Tel, strFilter_ID, "4");
                         refreshLayout.finishRefresh();
                     }
                 }, 1000);
@@ -109,7 +110,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
     @Override
     public void onStart() {
         super.onStart();
-        mPresenter.getData(strFilter_Tel, strFilter_ID, "1");
+        mPresenter.getData(strFilter_Tel, strFilter_ID, "4");
     }
 
     @Override
@@ -163,7 +164,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
             });
 
         } else if (bean.getCode() == -10) {
-            restLoginDialog();
+            ShowDialogUtils.restLoginDialog(getActivity());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -223,23 +224,5 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
         }
     }
 
-    //重新登录
-    private void restLoginDialog() {
-        final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
-        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.dialog_other_login, null);
-        builder.setView(view);
-        builder.setCancelable(false);
-        builder.show();
-        view.findViewById(R.id.bt_sure).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SharedPreferencesUtil.getInstance(getActivity()).putSP("token", "");
-                toClass_Empty(getActivity(), LoginActivity.class);
-                getActivity().finish();
-                JPushInterface.deleteAlias(getActivity(), 1);
-                builder.dismiss();
-            }
-        });
-    }
+
 }

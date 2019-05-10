@@ -129,7 +129,7 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
                 break;
             case R.id.bt_unbundle:
                 if (TextUtils.isEmpty(strvercode) || TextUtils.isEmpty(strReson)) {
-                    TextUtils.isEmpty("请输入验证码或者解绑原因");
+                    ToastUtil.showShortToast("请输入验证码和者解绑原因");
                 } else {
                     keyList.add("sellerId");
                     keyList.add("sellerName");

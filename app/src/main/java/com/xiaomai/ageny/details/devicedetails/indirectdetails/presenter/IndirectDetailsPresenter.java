@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.details.devicedetails.indirectdetails.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.ContactUserInfoBean;
 import com.xiaomai.ageny.bean.OffIndirectDeivceDetailsBean;
 import com.xiaomai.ageny.details.devicedetails.indirectdetails.contract.IndirectDetailsContract;
 import com.xiaomai.ageny.details.devicedetails.indirectdetails.model.IndirectDetailsModel;
@@ -22,6 +23,7 @@ public class IndirectDetailsPresenter extends BasePresenter<IndirectDetailsContr
         }
         mView.showLoading();
         model.getData(deviceid,msgid).compose(RxScheduler.<OffIndirectDeivceDetailsBean>Flo_io_main())
+                .as(mView.<OffIndirectDeivceDetailsBean>bindAutoDispose())
                 .subscribe(new Consumer<OffIndirectDeivceDetailsBean>() {
                     @Override
                     public void accept(OffIndirectDeivceDetailsBean bean) throws Exception {

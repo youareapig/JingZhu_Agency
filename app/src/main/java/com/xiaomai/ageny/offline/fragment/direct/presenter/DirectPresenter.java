@@ -2,6 +2,7 @@ package com.xiaomai.ageny.offline.fragment.direct.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.OffDirectDeviceBean;
+import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
 import com.xiaomai.ageny.net.RxScheduler;
 import com.xiaomai.ageny.offline.fragment.direct.contract.DirectContract;
 import com.xiaomai.ageny.offline.fragment.direct.model.DirectModel;
@@ -21,6 +22,7 @@ public class DirectPresenter extends BasePresenter<DirectContract.View> implemen
         }
         mView.showLoading();
         model.getData(sellername, linkmobile, deviceid,state).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
+                .as(mView.<OffDirectDeviceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffDirectDeviceBean>() {
                     @Override
                     public void accept(OffDirectDeviceBean bean) throws Exception {
@@ -41,6 +43,7 @@ public class DirectPresenter extends BasePresenter<DirectContract.View> implemen
             return;
         }
         model.getData(sellername, linkmobile, deviceid,state).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
+                .as(mView.<OffDirectDeviceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffDirectDeviceBean>() {
                     @Override
                     public void accept(OffDirectDeviceBean bean) throws Exception {

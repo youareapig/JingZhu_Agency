@@ -28,23 +28,23 @@
 
     </RelativeLayout>
 
-    <com.xiaomai.ageny.utils.state_layout.OtherView
-        android:id="@+id/otherview"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-
-        <RelativeLayout
+        <com.xiaomai.ageny.utils.state_layout.OtherView
+            android:id="@+id/otherview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
 
             <com.jwenfeng.library.pulltorefresh.PullToRefreshLayout
+                android:id="@+id/refresh"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/refresh">
+                android:layout_height="match_parent">
 
                 <android.support.v4.widget.NestedScrollView
                     android:layout_width="match_parent"
@@ -65,32 +65,34 @@
                 </android.support.v4.widget.NestedScrollView>
             </com.jwenfeng.library.pulltorefresh.PullToRefreshLayout>
 
+        </com.xiaomai.ageny.utils.state_layout.OtherView>
 
-            <LinearLayout
-                android:id="@+id/bt_addstaff"
-                android:layout_width="@dimen/dp_260"
-                android:layout_height="@dimen/dp_44"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/dp_58"
-                android:elevation="@dimen/dp_2"
-                android:background="@drawable/tixian_button"
-                android:gravity="center"
-                android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/bt_addstaff"
+            android:layout_width="@dimen/dp_260"
+            android:layout_height="@dimen/dp_44"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_44"
+            android:background="@drawable/tixian_button"
+            android:elevation="@dimen/dp_2"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="@dimen/dp_22"
-                    android:layout_height="@dimen/dp_22"
-                    android:src="@mipmap/add_card_bai" />
+            <ImageView
+                android:layout_width="@dimen/dp_22"
+                android:layout_height="@dimen/dp_22"
+                android:src="@mipmap/add_card_bai" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_16"
-                    android:text="添加员工"
-                    android:textColor="#ffff"
-                    android:textSize="@dimen/sp_17" />
-            </LinearLayout>
-        </RelativeLayout>
-    </com.xiaomai.ageny.utils.state_layout.OtherView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_16"
+                android:text="添加员工"
+                android:textColor="#ffff"
+                android:textSize="@dimen/sp_17" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
 </LinearLayout>

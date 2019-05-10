@@ -19,7 +19,7 @@ public class Adapter extends BaseQuickAdapter<NoAllotDeviceBean.DataBean, BaseVi
     protected void convert(BaseViewHolder helper, NoAllotDeviceBean.DataBean item) {
         //获取当前时间戳
         Long dd = DateUtils.getCurrentTime_Today();
-        Long tt = item.getCreateTime().getTime();
+        Long tt = item.getUpdateTime().getTime();
 
         int kou = Integer.valueOf(item.getDeviceType());
         int tai = kou - 1;

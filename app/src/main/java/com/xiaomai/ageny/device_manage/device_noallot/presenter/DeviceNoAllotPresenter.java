@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.device_manage.device_noallot.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.NoAllotDeviceBean;
 import com.xiaomai.ageny.device_manage.device_noallot.contract.DeviceNoAllotContract;
 import com.xiaomai.ageny.device_manage.device_noallot.model.DeviceNoAllotModel;
@@ -22,6 +23,7 @@ public class DeviceNoAllotPresenter extends BasePresenter<DeviceNoAllotContract.
         }
         mView.showLoading();
         model.getData(deviceid).compose(RxScheduler.<NoAllotDeviceBean>Flo_io_main())
+                .as(mView.<NoAllotDeviceBean>bindAutoDispose())
                 .subscribe(new Consumer<NoAllotDeviceBean>() {
                     @Override
                     public void accept(NoAllotDeviceBean bean) throws Exception {
@@ -44,6 +46,7 @@ public class DeviceNoAllotPresenter extends BasePresenter<DeviceNoAllotContract.
             return;
         }
         model.getData(deviceid).compose(RxScheduler.<NoAllotDeviceBean>Flo_io_main())
+                .as(mView.<NoAllotDeviceBean>bindAutoDispose())
                 .subscribe(new Consumer<NoAllotDeviceBean>() {
                     @Override
                     public void accept(NoAllotDeviceBean bean) throws Exception {
