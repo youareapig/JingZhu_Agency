@@ -20,7 +20,7 @@ public class Adapter extends BaseQuickAdapter<ContactDeviceListBean.DataBean.Lis
         helper.setText(R.id.money, item.getMoney())
                 .setText(R.id.deviceId, item.getId())
                 .setText(R.id.lat, "经纬度：" + item.getLatitude() + "," + item.getLongitude())
-                .setText(R.id.address, BaseUtils.replaceString(item.getBoxAddress(), ",", ""))
+                .setText(R.id.address, item.getBoxAddress())
                 .setText(R.id.cao_count,item.getStock()+"槽")
                 .setText(R.id.price, item.getDetails() + "元/小时");
 

@@ -27,14 +27,35 @@ public class ShangHuDeviceDetailsPresenter extends BasePresenter<ShangHuDeviceDe
                 .subscribe(new Consumer<ContactDeviceDetailsBean>() {
                     @Override
                     public void accept(ContactDeviceDetailsBean bean) throws Exception {
-                        mView.onSuccess(bean);
                         mView.hideLoading();
+                        mView.onSuccess(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         mView.onError(throwable);
-                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void updatePrice(String id, String price) {
+        if (!isViewAttached()) {
+            return;
+        }
+        mView.showProcess();
+        model.updatePrice(id,price).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
+                .subscribe(new Consumer<HintBean>() {
+                    @Override
+                    public void accept(HintBean bean) throws Exception {
+                        mView.hideProcess();
+                        mView.onSuccess(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onErrorProcess(throwable);
                     }
                 });
     }

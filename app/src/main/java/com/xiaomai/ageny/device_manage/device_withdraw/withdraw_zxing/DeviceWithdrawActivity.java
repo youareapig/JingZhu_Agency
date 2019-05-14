@@ -20,6 +20,7 @@ import com.xiaomai.ageny.device_manage.device_withdraw.DeviceWithDrawListActivit
 import com.xiaomai.ageny.device_manage.device_withdraw.withdraw_zxing.contract.DeviceWithDrawContract;
 import com.xiaomai.ageny.device_manage.device_withdraw.withdraw_zxing.presenter.DeviceWithDrawPresenter;
 import com.xiaomai.ageny.utils.BaseUtils;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -78,6 +79,8 @@ public class DeviceWithdrawActivity extends BaseMvpActivity<DeviceWithDrawPresen
             bundle.putString("name", bean.getData().getUserAgentName());
             toClass(this, DeviceWithDrawListActivity.class, bundle);
             finish();
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

@@ -75,8 +75,9 @@
 
                     <TextView
                         android:id="@+id/item_adress"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp_50"
                         android:layout_marginBottom="@dimen/dp_3"
                         android:text="设备地址：123456"
                         android:textColor="#464646"

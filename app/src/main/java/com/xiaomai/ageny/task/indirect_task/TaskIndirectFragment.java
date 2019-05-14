@@ -16,6 +16,7 @@ import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
 import com.xiaomai.ageny.task.indirect_task.contract.TaskIndirectContract;
 import com.xiaomai.ageny.task.indirect_task.presenter.TaskIndirectPresenter;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -112,7 +113,9 @@ public class TaskIndirectFragment extends BaseMvpFragment<TaskIndirectPresenter>
             adapter = new Adapter(R.layout.task_indirect_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

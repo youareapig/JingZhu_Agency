@@ -20,6 +20,7 @@ import com.xiaomai.ageny.details.shanghudevicedetails.ShanghuDeviceDetailsActivi
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.contract.OnDeviceContract;
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.presenter.OnDevicePresenter;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -55,6 +56,8 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
 
     @Override
     protected void initView(View view) {
+        //初始化自定义接口
+
         otherView.setHolder(mHolder);
         bundle = new Bundle();
         mPresenter = new OnDevicePresenter();
@@ -142,9 +145,12 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
                     toClass(view.getContext(), ShanghuDeviceDetailsActivity.class, bundle);
                 }
             });
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
+
 
 }

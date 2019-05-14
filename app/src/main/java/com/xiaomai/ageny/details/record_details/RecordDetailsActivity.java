@@ -9,6 +9,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.ShopBean;
 import com.xiaomai.ageny.details.record_details.contract.RecordDetailsContract;
 import com.xiaomai.ageny.details.record_details.presenter.RecordDetailsPresenter;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -92,6 +93,8 @@ public class RecordDetailsActivity extends BaseMvpActivity<RecordDetailsPresente
             remark.setText(data.getDetails());
             state.setText(data.getState().equals("1") ? "已通过" : (data.getState().equals("0") ? "审核中" : "未通过"));
             info.setText(data.getExamination());
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

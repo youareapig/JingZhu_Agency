@@ -20,6 +20,7 @@ import com.xiaomai.ageny.details.record_details.RecordDetailsActivity;
 import com.xiaomai.ageny.shop_manage.fragment.record.contract.RecordContract;
 import com.xiaomai.ageny.shop_manage.fragment.record.presenter.RecordPresenter;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -142,7 +143,9 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
                     toClass(view.getContext(), RecordDetailsActivity.class, bundle);
                 }
             });
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

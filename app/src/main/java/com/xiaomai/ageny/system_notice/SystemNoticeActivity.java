@@ -20,6 +20,7 @@ import com.xiaomai.ageny.details.devicedetails.directdetails.DirectDetailsActivi
 import com.xiaomai.ageny.details.devicedetails.indirectdetails.IndirectDetailsActivity;
 import com.xiaomai.ageny.system_notice.contract.SystemNoticeContract;
 import com.xiaomai.ageny.system_notice.presenter.SystemNoticePresenter;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -128,30 +129,23 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
             adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    //type 0遗失  1找回  2离线
+                    //type 0遗失  1找回  2离线  3下级代理遗失  4下级代理找回
                     int type = list.get(position).getType();
-                    switch (type) {
-                        case 0:
-                            Intent intent = new Intent(view.getContext(), IndirectDetailsActivity.class);
-                            intent.putExtra("id", list.get(position).getDeviceId());
-                            intent.putExtra("msgid", list.get(position).getId()+"");
-                            view.getContext().startActivity(intent);
-                            break;
-                        case 1:
-                            Intent intent1 = new Intent(view.getContext(), IndirectDetailsActivity.class);
-                            intent1.putExtra("id", list.get(position).getDeviceId());
-                            intent1.putExtra("msgid", list.get(position).getId()+"");
-                            view.getContext().startActivity(intent1);
-                            break;
-                        case 2:
-                            Intent intent2 = new Intent(view.getContext(), DirectDetailsActivity.class);
-                            intent2.putExtra("id", list.get(position).getDeviceId());
-                            intent2.putExtra("msgid", list.get(position).getId()+"");
-                            view.getContext().startActivity(intent2);
-                            break;
+                    Intent intent = new Intent();
+                    if (list.get(position).getMessage().indexOf("下级") > 0) {
+                        //标题包含下级  跳转非直属详情
+                        intent.setClass(view.getContext(), IndirectDetailsActivity.class);
+                    } else {
+                        //不包含下级   跳转直属详情
+                        intent.setClass(view.getContext(), DirectDetailsActivity.class);
                     }
+                    intent.putExtra("id", list.get(position).getDeviceId());
+                    intent.putExtra("msgid", list.get(position).getId() + "");
+                    view.getContext().startActivity(intent);
                 }
             });
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -167,6 +161,8 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
             } else {
                 ToastUtil.showShortToast(bean.getMessage());
             }
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         }
     }
 

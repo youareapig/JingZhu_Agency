@@ -72,6 +72,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
 
     @Override
     public void onError(Throwable throwable) {
+        ToastUtil.showShortToast("服务器故障");
         dialog.dismiss();
     }
 

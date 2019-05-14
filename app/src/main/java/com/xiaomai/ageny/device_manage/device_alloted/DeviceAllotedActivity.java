@@ -9,16 +9,19 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.AllotDeviceBean;
+import com.xiaomai.ageny.details.device_alloted_details.DeviceAllotedDetailsActivity;
 import com.xiaomai.ageny.device_manage.device_alloted.contract.DeviceAllotedContract;
 import com.xiaomai.ageny.device_manage.device_alloted.presenter.DeviceAllotedPresenter;
 import com.xiaomai.ageny.filter.device_alloted_filter.DeviceAllotedFilterActivity;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -68,7 +71,7 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
         mBundle = new Bundle();
         strAll = SharedPreferencesUtil.getInstance(this).getSP("all");
         strAllot = SharedPreferencesUtil.getInstance(this).getSP("fenpei");
-        strNoallot =SharedPreferencesUtil.getInstance(this).getSP("weifenpei");
+        strNoallot = SharedPreferencesUtil.getInstance(this).getSP("weifenpei");
         deviceAllNum.setText(strAll);
         deviceAllot.setText(strAllot);
         deviceNoallot.setText(strNoallot);
@@ -138,14 +141,27 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
     private void initData(AllotDeviceBean bean) {
         if (bean.getCode() == 1) {
             list = bean.getData();
+            Logger.d("listSize-----"+list.size());
             if (list.size() == 0) {
                 otherview1.showEmptyView();
+            }else {
+                otherview1.showContentView();
             }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.device_alloted_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    Intent intent = new Intent(view.getContext(), DeviceAllotedDetailsActivity.class);
+                    intent.putExtra("id", list.get(position).getDeviceId());
+                    view.getContext().startActivity(intent);
+                }
+            });
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -164,6 +180,7 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
                 break;
         }
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

@@ -16,6 +16,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.BillListBean;
 import com.xiaomai.ageny.mybill.contract.MyBillContract;
 import com.xiaomai.ageny.mybill.presenter.MyBillPresenter;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -121,6 +122,8 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
             adapter = new Adapter(R.layout.mybill_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

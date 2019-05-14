@@ -38,7 +38,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
 
         <service android:name="com.amap.api.location.APSService" />
         <!-- 极光推送 -->
@@ -142,7 +142,7 @@
         <activity
             android:name=".login.LoginActivity"
             android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".task.TaskActivity" />
         <activity android:name=".update_bank.UpdateBankActivity" />
         <activity android:name=".add_staff.AddStaffActivity" />
@@ -155,7 +155,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".system_notice.SystemNoticeActivity"></activity>
+        <activity android:name=".system_notice.SystemNoticeActivity" />
+        <activity android:name=".details.device_alloted_details.DeviceAllotedDetailsActivity"></activity>
     </application>
 
 </manifest>

@@ -5,6 +5,7 @@ import com.xiaomai.ageny.bean.AllotDeviceBean;
 import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.DepositListBean;
 import com.xiaomai.ageny.bean.DeviceAllotListBean;
+import com.xiaomai.ageny.bean.DeviceAllotedDetailsBean;
 import com.xiaomai.ageny.bean.DeviceManageBean;
 import com.xiaomai.ageny.bean.DeviceWithDrawListBean;
 import com.xiaomai.ageny.bean.FreezeDetailsBean;
@@ -63,7 +64,7 @@ import retrofit2.http.Query;
  * Description：
  */
 public interface APIService {
-        public String urlhead = "chargeAgent-0.0.1-SNAPSHOT/";
+    public String urlhead = "chargeAgent-0.0.1-SNAPSHOT/";
 //    public String urlhead = "";
 
     //获取验证码
@@ -354,6 +355,10 @@ public interface APIService {
     @GET(urlhead + "agentCenter/user/undis/device/allocated")
     Flowable<AllotDeviceBean> getAllotDeviceBean(@Query("deviceid") String deviceid, @Query("mobile") String mobile);
 
+    //已分配设备详情
+    @GET(urlhead + "agentCenter/user/allocated/devicedetails")
+    Flowable<DeviceAllotedDetailsBean> getAllotDeviceDetailsBean(@Query("deviceid") String deviceid);
+
     //显示充电宝孔数
     @GET(urlhead + "agentCenter/user/modal/Popup/details")
     Flowable<ShowHoleBean> showHole(@Query("deviceid") String deviceid);
@@ -389,5 +394,9 @@ public interface APIService {
     //系统消息列表
     @GET(urlhead + "agentCenter/user/systeminfo")
     Flowable<SystemNoticeBean> getSystemData(@Query("page") String page, @Query("page_size") String page_size);
+
+    //修改单价
+    @GET(urlhead + "agentCenter/device/updateDetails")
+    Flowable<HintBean> updatePrice(@Query("deviceid") String deviceid, @Query("details") String details);
 }
 

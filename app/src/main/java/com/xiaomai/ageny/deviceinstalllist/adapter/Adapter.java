@@ -23,7 +23,7 @@ public class Adapter extends BaseQuickAdapter<DeviceInstallListBean.DataBean.Lis
                 .setText(R.id.chiyouren_tel,"联系方式："+item.getSeller_mobile())
                 .setText(R.id.anzhuangren,"安装人："+item.getInstall_man())
                 .setText(R.id.anzhuangren_tel,"联系方式："+item.getInstall_mobile())
-                .setText(R.id.address,"详细地址："+BaseUtils.replaceString(item.getAddress(), ",", ""));
+                .setText(R.id.address,"详细地址："+item.getAddress());
 
     }
 }

@@ -4,7 +4,7 @@ public class ContactDeviceDetailsBean {
 
     /**
      * code : 1
-     * data : {"boxId":"JZCB061901000002","boxaddress":"金河路467号","boxdetails":"2.00","boxlatitude":"30.593151","boxlongitude":"103.909187","boxsellerreward":"0%","boxslot":"6","boxstate":"1","countMoney":"0.00","freeze_money":"0.00","installLinkTel":"13548008888","installTime":"2019-01-24 17:17:00","installname":"李杰平","linkTel":"13548008888","lixianTime":"","monthMoney":"0.00","monthlyMoney":"0.00","sellerLinkTel":"","sellerLinkman":"","sellerbindTime":"2019-01-24 17:17:00","sellername":"成都慈爱直属医院","sybox":"5","unfreeze_money":"0.00","updtime":""}
+     * data : {"boxId":"JZCB061903000372","boxaddress":"四川省成都市武侯区肖家河正街41号附1红蜻蜓(肖家河正街店)","boxdetails":"1.00","boxlatitude":"30.6309","boxlongitude":"104.04205","boxsellerreward":"40%","boxslot":"6","boxstate":"0","countMoney":"0.00","freeze_money":"0.00","installLinkTel":"17781690625","installTime":"2019-04-26 15:55:22","installname":"姚梦婷","linkTel":"17781690625","lixianTime":"310时50分","monthMoney":"0.00","monthlyMoney":"0.00","sellerLinkTel":"13981838057","sellerLinkman":"谢姐","sellerbindTime":"2019-04-26 15:55:22","sellername":"红蜻蜓连锁","sybox":"5","unfreeze_money":"0.00","updtime":""}
      * message : 获取商户设备详情成功
      */
 
@@ -38,27 +38,27 @@ public class ContactDeviceDetailsBean {
 
     public static class DataBean {
         /**
-         * boxId : JZCB061901000002
-         * boxaddress : 金河路467号
-         * boxdetails : 2.00
-         * boxlatitude : 30.593151
-         * boxlongitude : 103.909187
-         * boxsellerreward : 0%
+         * boxId : JZCB061903000372
+         * boxaddress : 四川省成都市武侯区肖家河正街41号附1红蜻蜓(肖家河正街店)
+         * boxdetails : 1.00
+         * boxlatitude : 30.6309
+         * boxlongitude : 104.04205
+         * boxsellerreward : 40%
          * boxslot : 6
-         * boxstate : 1
+         * boxstate : 0
          * countMoney : 0.00
          * freeze_money : 0.00
-         * installLinkTel : 13548008888
-         * installTime : 2019-01-24 17:17:00
-         * installname : 李杰平
-         * linkTel : 13548008888
-         * lixianTime :
+         * installLinkTel : 17781690625
+         * installTime : 2019-04-26 15:55:22
+         * installname : 姚梦婷
+         * linkTel : 17781690625
+         * lixianTime : 310时50分
          * monthMoney : 0.00
          * monthlyMoney : 0.00
-         * sellerLinkTel :
-         * sellerLinkman :
-         * sellerbindTime : 2019-01-24 17:17:00
-         * sellername : 成都慈爱直属医院
+         * sellerLinkTel : 13981838057
+         * sellerLinkman : 谢姐
+         * sellerbindTime : 2019-04-26 15:55:22
+         * sellername : 红蜻蜓连锁
          * sybox : 5
          * unfreeze_money : 0.00
          * updtime :

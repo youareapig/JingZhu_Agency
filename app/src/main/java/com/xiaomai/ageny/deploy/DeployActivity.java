@@ -152,8 +152,9 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     public void onSuccess(TelToNameBean bean) {
         if (bean.getCode() == 1) {
             personName.setText(bean.getData().getName());
-        }
-        if (bean.getCode() == -1) {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        } else {
             personName.setText(bean.getMessage());
         }
 
@@ -167,6 +168,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
         latandlng.setText(strlat + "," + strlng);
         cityName.setText(aMapLocation.getProvince() + aMapLocation.getCity() + aMapLocation.getDistrict());
         adress.setText(aMapLocation.getStreet() + aMapLocation.getStreetNum());
+        location.setText(aMapLocation.getStreet() + aMapLocation.getStreetNum());
     }
 
     //部署返回结果
@@ -180,6 +182,8 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
                     finish();
                 }
             }, 1000);
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -236,7 +240,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
                     keyList.add("is_freeze");
 
                     valueList.add(strId);
-                    valueList.add(strcity+","+stradress);
+                    valueList.add(strcity + stradress);
                     valueList.add(strprice);
                     valueList.add(strlng);
                     valueList.add(strlat);

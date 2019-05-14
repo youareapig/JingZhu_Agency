@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.device_popu;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.ShowHoleBean;
 import com.xiaomai.ageny.device_popu.contract.DevicePopuContract;
 import com.xiaomai.ageny.device_popu.presenter.DevicePopuPresenter;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
 import com.xiaomai.ageny.utils.SpacesItemDecoration_left;
 import com.xiaomai.ageny.utils.ToastUtil;
@@ -38,10 +40,12 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
     TextView btSurePop;
     @BindView(R.id.otherview)
     OtherView otherView;
+    @BindView(R.id.deviceId)
+    TextView deviceId;
     private List<String> list;
     private Adapter adapter;
     private String id;
-    private int slotId=1;
+    private int slotId = 1;
 
     @Override
     public int getLayoutId() {
@@ -51,6 +55,7 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
     @Override
     public void initView() {
         id = getIntent().getExtras().getString("id");
+        deviceId.setText("设备编号："+id);
         otherView.setHolder(mHolder);
         mPresenter = new DevicePopuPresenter();
         mPresenter.attachView(this);
@@ -76,9 +81,19 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
     @Override
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
-            finish();
+            ShowDialogUtils.showdialog(this, "弹出指令已发出，请稍等~");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }, 1000);
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
-        ToastUtil.showShortToast(bean.getMessage());
+
 
     }
 
@@ -90,22 +105,26 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
             for (int i = 1; i <= kongcount; i++) {
                 list.add(i + "孔");
             }
-
+            recycler.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
+            recycler.addItemDecoration(new SpacesItemDecoration_left(90));
+            recycler.setNestedScrollingEnabled(false);
+            adapter = new Adapter(R.layout.device_pop_item, list);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                    slotId = position + 1;
+                    adapter.setSelectItem(position);
+                    adapter.notifyDataSetChanged();
+                }
+            });
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
-        recycler.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
-        recycler.addItemDecoration(new SpacesItemDecoration_left(90));
-        recycler.setNestedScrollingEnabled(false);
-        adapter = new Adapter(R.layout.device_pop_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
-                slotId = position + 1;
-                adapter.setSelectItem(position);
-                adapter.notifyDataSetChanged();
-            }
-        });
+
     }
 
 

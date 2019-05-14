@@ -23,6 +23,7 @@ import com.xiaomai.ageny.bean.StaffBean;
 import com.xiaomai.ageny.staff_manage.contract.StaffManageContract;
 import com.xiaomai.ageny.staff_manage.presenter.StaffManagePresenter;
 import com.xiaomai.ageny.utils.MaptoJson;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.SwipeItemLayout;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -143,7 +144,9 @@ public class StaffManageActivity extends BaseMvpActivity<StaffManagePresenter> i
                     myDialog();
                 }
             });
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 
@@ -155,8 +158,10 @@ public class StaffManageActivity extends BaseMvpActivity<StaffManagePresenter> i
             list.remove(pos);
             adapter.notifyItemRemoved(pos);
             builder.dismiss();
-            ToastUtil.showShortToast("删除成功");
-        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
             builder.dismiss();
         }

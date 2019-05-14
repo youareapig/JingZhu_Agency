@@ -14,6 +14,7 @@ import com.xiaomai.ageny.add_staff.presenter.AddStaffPresenter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.utils.MaptoJson;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -71,6 +72,8 @@ public class AddStaffActivity extends BaseMvpActivity<AddStaffPresenter> impleme
         if (bean.getCode() == 1) {
             ToastUtil.showShortToast(bean.getMessage());
             finish();
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

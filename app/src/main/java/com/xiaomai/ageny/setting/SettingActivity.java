@@ -94,7 +94,7 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
         } else if (bean.getCode() == -10) {
             restLoginDialog();
         } else {
-            ToastUtil.showShortToast("注销失败");
+            ToastUtil.showShortToast(bean.getMessage());
         }
 
     }

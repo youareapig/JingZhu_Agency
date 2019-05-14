@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.AgencySellerListBean;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -93,7 +94,9 @@ public class XiaJiSH_ListActivity extends BaseMvpActivity<XiajiSHPresenter> impl
                     toClass(view.getContext(), XiajiSHDeviceListActivity.class, bundle);
                 }
             });
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 

@@ -99,7 +99,6 @@
                             android:id="@+id/id"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="DASD1231312"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -123,12 +122,12 @@
                             android:id="@+id/lat"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="363.2"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_25"
@@ -147,7 +146,6 @@
                             android:id="@+id/city"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="成都"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -171,7 +169,6 @@
                             android:id="@+id/address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="赵信国际"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -195,7 +192,6 @@
                             android:id="@+id/device_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1元/小时"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -219,7 +215,6 @@
                             android:id="@+id/devicetype"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="6槽"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -243,7 +238,6 @@
                             android:id="@+id/fenrun"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="10%"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -267,7 +261,6 @@
                             android:id="@+id/freeze_money"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="800元"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -292,7 +285,6 @@
                             android:id="@+id/nofreezemoney"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="20元"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -366,7 +358,6 @@
                             android:id="@+id/storename"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="兵哥豌豆面"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -390,7 +381,6 @@
                             android:id="@+id/linkname"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="张三"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -415,7 +405,6 @@
                             android:id="@+id/linktel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="13698536425"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -490,7 +479,6 @@
                             android:id="@+id/installman"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="周杰伦"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -514,7 +502,6 @@
                             android:id="@+id/install_tel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="156985398545"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -539,7 +526,6 @@
                             android:id="@+id/install_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2018-06-03"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -662,7 +648,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_44"
-                            android:text="离线时间：12h"
                             android:textColor="#E55C5C"
                             android:textSize="@dimen/sp_13" />
                     </LinearLayout>
@@ -686,7 +671,6 @@
                             android:id="@+id/remaincount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="1个"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -711,7 +695,6 @@
                             android:id="@+id/newtime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2019-06-25"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
                     </LinearLayout>
@@ -793,7 +776,6 @@
                             android:id="@+id/all_money"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="500"
                             android:textColor="#FF5603"
                             android:textSize="@dimen/sp_15" />
 
@@ -832,7 +814,6 @@
                             android:id="@+id/month_money"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="300"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
 
@@ -872,7 +853,6 @@
                             android:id="@+id/pingjunmoney"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="400"
                             android:textColor="#363636"
                             android:textSize="@dimen/sp_15" />
 

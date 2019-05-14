@@ -21,6 +21,7 @@ import com.xiaomai.ageny.shop_manage.fragment.shopnote.contract.ShopNoteContract
 import com.xiaomai.ageny.shop_manage.fragment.shopnote.presenter.ShopNotePresenter;
 import com.xiaomai.ageny.shop_manage.goshop.GoShopActivity;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -135,6 +136,8 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
                     toClass(view.getContext(), ShopNoteDetailsActivity.class, bundle);
                 }
             });
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

@@ -1,21 +1,18 @@
-package com.xiaomai.ageny.details.devicedetails.indirectdetails;
+package com.xiaomai.ageny.details.device_alloted_details;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bigman.wmzx.customcardview.library.CardView;
-import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
-import com.xiaomai.ageny.bean.OffIndirectDeivceDetailsBean;
-import com.xiaomai.ageny.details.devicedetails.indirectdetails.adapter.Adapter;
-import com.xiaomai.ageny.details.devicedetails.indirectdetails.contract.IndirectDetailsContract;
-import com.xiaomai.ageny.details.devicedetails.indirectdetails.presenter.IndirectDetailsPresenter;
+import com.xiaomai.ageny.bean.DeviceAllotedDetailsBean;
+import com.xiaomai.ageny.details.device_alloted_details.contract.DeviceAllotedDetailsContract;
+import com.xiaomai.ageny.details.device_alloted_details.presenter.DeviceAllotedDetailsPresenter;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -26,10 +23,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPresenter> implements IndirectDetailsContract.View {
+public class DeviceAllotedDetailsActivity extends BaseMvpActivity<DeviceAllotedDetailsPresenter> implements DeviceAllotedDetailsContract.View {
 
-    @BindView(R.id.recycler)
-    RecyclerView recycler;
+
+    @BindView(R.id.back)
+    RelativeLayout back;
     @BindView(R.id.deviceId)
     TextView deviceId;
     @BindView(R.id.getname)
@@ -38,55 +36,58 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
     TextView tel;
     @BindView(R.id.time)
     TextView time;
-    @BindView(R.id.otherview)
-    OtherView otherView;
+    @BindView(R.id.device_state)
+    TextView deviceState;
+    @BindView(R.id.stoptime)
+    TextView stoptime;
+    @BindView(R.id.recycler)
+    RecyclerView recycler;
     @BindView(R.id.liuzhuanView)
     CardView liuzhuanView;
-    @BindView(R.id.back)
-    RelativeLayout back;
+    @BindView(R.id.otherview)
+    OtherView otherview;
     private Adapter adapter;
-    private List<OffIndirectDeivceDetailsBean.DataBean.ListBean> list;
-    private String id, msgid;
+    private String id;
+    private List<DeviceAllotedDetailsBean.DataBean.ListBean> list;
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_indirect_details;
+        return R.layout.activity_device_alloted_details;
     }
 
     @Override
     public void initView() {
-        otherView.setHolder(mHolder);
+        otherview.setHolder(mHolder);
         id = getIntent().getStringExtra("id");
-        msgid = getIntent().getStringExtra("msgid");
-        mPresenter = new IndirectDetailsPresenter();
+        mPresenter = new DeviceAllotedDetailsPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(id, msgid);
-        Logger.d("id---" + id + " msgid---" + msgid);
-
+        mPresenter.getData(id);
     }
 
     @Override
     public void showLoading() {
-        otherView.showLoadingView();
+        otherview.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-        otherView.showContentView();
+        otherview.showContentView();
     }
 
     @Override
     public void onError(Throwable throwable) {
-        otherView.showRetryView();
+        otherview.showRetryView();
     }
 
     @Override
-    public void onSuccess(OffIndirectDeivceDetailsBean bean) {
-        if (bean.getCode() == 1) {
+    public void onSuccess(DeviceAllotedDetailsBean bean) {
+        if (bean.getCode()==1){
             deviceId.setText(id);
             getname.setText(bean.getData().getLingquren());
             tel.setText(bean.getData().getLingqurenmobile());
             time.setText(bean.getData().getFenpeitime());
+            deviceState.setText(bean.getData().getBushu());
+            stoptime.setText(bean.getData().getZhiliutime());
 
             list = bean.getData().getList();
             if (list.size() == 0) {
@@ -99,15 +100,13 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
                 recycler.setAdapter(adapter);
                 adapter.openLoadAnimation();
             }
-
-        } else if (bean.getCode() == -10) {
+        }else if (bean.getCode()==-10){
             ShowDialogUtils.restLoginDialog(this);
-        } else {
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 
-
-    }
+}
 
 
     @OnClick(R.id.back)

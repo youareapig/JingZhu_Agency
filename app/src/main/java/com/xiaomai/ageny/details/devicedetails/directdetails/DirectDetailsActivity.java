@@ -13,6 +13,8 @@ import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
 import com.xiaomai.ageny.details.devicedetails.directdetails.contract.DirectDetailsContract;
 import com.xiaomai.ageny.details.devicedetails.directdetails.presenter.DirectDetailsPresenter;
 import com.xiaomai.ageny.utils.BaseUtils;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
+import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import butterknife.BindView;
@@ -71,7 +73,7 @@ public class DirectDetailsActivity extends BaseMvpActivity<DirectDetailsPresente
     TextView city;
     @BindView(R.id.otherview)
     OtherView otherView;
-    private String deviceid,msgid;
+    private String deviceid, msgid;
 
     @Override
     public int getLayoutId() {
@@ -85,8 +87,8 @@ public class DirectDetailsActivity extends BaseMvpActivity<DirectDetailsPresente
         msgid = getIntent().getStringExtra("msgid");
         mPresenter = new DirectDetailsPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(deviceid,msgid);
-        Logger.d("id---" + id+ " msgid---"+msgid );
+        mPresenter.getData(deviceid, msgid);
+        Logger.d("id---" + id + " msgid---" + msgid);
     }
 
     @Override
@@ -111,14 +113,14 @@ public class DirectDetailsActivity extends BaseMvpActivity<DirectDetailsPresente
             id.setText(data.getBoxId());
             lat.setText(data.getBoxlatitude() + "," + data.getBoxlongitude());
             //分割地址
-            String[] arrAddress = BaseUtils.spliteUtils(data.getBoxaddress(), ",");
-            city.setText(arrAddress[0]);
-            address.setText(arrAddress[1]);
+//            String[] arrAddress = BaseUtils.spliteUtils(data.getBoxaddress(), ",");
+//            city.setText(arrAddress[0]);
+            address.setText(data.getBoxaddress());
             devicePrice.setText(data.getBoxdetails() + "/元小时");
             devicetype.setText(data.getBoxslot() + "槽");
             fenrun.setText(data.getBoxsellerreward());
-            freezeMoney.setText(data.getFreeze_money()+"元");
-            nofreezemoney.setText(data.getUnfreeze_money()+"元");
+            freezeMoney.setText(data.getFreeze_money() + "元");
+            nofreezemoney.setText(data.getUnfreeze_money() + "元");
             storename.setText(data.getSellername());
             linkname.setText(data.getSellerLinkman());
             linktel.setText(data.getSellerLinkTel());
@@ -143,6 +145,10 @@ public class DirectDetailsActivity extends BaseMvpActivity<DirectDetailsPresente
             monthMoney.setText(data.getMonthMoney());
             pingjunmoney.setText(data.getMonthlyMoney());
 
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 

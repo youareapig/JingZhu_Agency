@@ -12,6 +12,7 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.XiajiListBean;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -116,7 +117,9 @@ public class XiajiSHDeviceListOff_Fragment extends BaseMvpFragment<XIajiSHDevice
             recycler.setNestedScrollingEnabled(false);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

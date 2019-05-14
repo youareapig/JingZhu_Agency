@@ -156,6 +156,8 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
                     finish();
                 }
             }, 1000);
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

@@ -96,6 +96,8 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
         if (bean.getCode() == 1) {
             CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(btGetCode, 60000, 1000);
             mCountDownTimerUtils.start();
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -113,7 +115,9 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
                 }
             }, 1000);
 
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
@@ -129,7 +133,7 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
                 break;
             case R.id.bt_unbundle:
                 if (TextUtils.isEmpty(strvercode) || TextUtils.isEmpty(strReson)) {
-                    ToastUtil.showShortToast("请输入验证码和者解绑原因");
+                    ToastUtil.showShortToast("请输入验证码和解绑原因");
                 } else {
                     keyList.add("sellerId");
                     keyList.add("sellerName");

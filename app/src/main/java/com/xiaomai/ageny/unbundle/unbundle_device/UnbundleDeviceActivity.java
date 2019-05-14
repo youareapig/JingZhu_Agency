@@ -90,6 +90,8 @@ public class UnbundleDeviceActivity extends BaseMvpActivity<UnbundleDevicePresen
         if (bean.getCode() == 1) {
             CountDownTimerUtils mCountDownTimerUtils = new CountDownTimerUtils(btGetCode, 60000, 1000);
             mCountDownTimerUtils.start();
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -111,6 +113,8 @@ public class UnbundleDeviceActivity extends BaseMvpActivity<UnbundleDevicePresen
             }, 1000);
 
 
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

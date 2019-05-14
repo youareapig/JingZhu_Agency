@@ -19,6 +19,7 @@ import com.xiaomai.ageny.deposit_list.contract.DepositListContract;
 import com.xiaomai.ageny.deposit_list.presenter.DepositListPresenter;
 import com.xiaomai.ageny.filter.deposit_list_filter.DepositListFilterActivity;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -139,6 +140,8 @@ public class DepositListActivity extends BaseMvpActivity<DepositListPresenter> i
             adapter = new Adapter(R.layout.deposit_list_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -154,7 +157,9 @@ public class DepositListActivity extends BaseMvpActivity<DepositListPresenter> i
             if (bean.getData().getList().size() == 0) {
                 ToastUtil.showShortToast("没有更多数据");
             }
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

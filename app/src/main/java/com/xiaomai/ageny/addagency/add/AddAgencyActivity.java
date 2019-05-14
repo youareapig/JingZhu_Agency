@@ -101,7 +101,9 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
                     finish();
                 }
             }, 1000);
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 

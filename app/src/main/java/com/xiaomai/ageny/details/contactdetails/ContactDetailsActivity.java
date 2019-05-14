@@ -16,6 +16,7 @@ import com.xiaomai.ageny.details.contactdetails.contract.ContactDetailsContract;
 import com.xiaomai.ageny.details.contactdetails.presenter.ContactDetailsPresenter;
 import com.xiaomai.ageny.shanghudevice.ShanghuDeviceActivity;
 import com.xiaomai.ageny.unbundle.unbundle_shanghu.UnbundleShanghuActivity;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -126,6 +127,8 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
             indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
             deviceId.setText("编号：" + id);
 
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

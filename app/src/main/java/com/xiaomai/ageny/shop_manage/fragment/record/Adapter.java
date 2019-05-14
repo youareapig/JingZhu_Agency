@@ -22,10 +22,9 @@ public class Adapter extends BaseQuickAdapter<ShopApplyBean.DataBean, BaseViewHo
 
     @Override
     protected void convert(BaseViewHolder helper, ShopApplyBean.DataBean item) {
-//        setText(R.id.time, DateUtils.timeStamp2DateYMDHM(item.getApplyTime().getTime()))
         TextView state = helper.getView(R.id.state);
         LinearLayout failview = helper.getView(R.id.failview);
-        helper
+        helper.setText(R.id.time, DateUtils.timeStamp2DateYMDHM(item.getApplyTime().getTime() + ""))
                 .setText(R.id.times, "批次：" + item.getBatch())
                 .setText(R.id.receiver, "收件人：" + item.getReceiptName() + "  " + item.getReceiptMobile())
                 .setText(R.id.small, item.getDeviceSmall() + "数量：" + item.getDeviceSmallcount() + "台")

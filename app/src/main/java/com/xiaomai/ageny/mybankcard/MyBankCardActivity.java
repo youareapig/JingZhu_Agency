@@ -17,6 +17,7 @@ import com.xiaomai.ageny.mybankcard.contract.MyBankCardContract;
 import com.xiaomai.ageny.mybankcard.presenter.MyBankCardPresenter;
 import com.xiaomai.ageny.update_bank.UpdateBankActivity;
 import com.xiaomai.ageny.utils.HideUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -115,6 +116,8 @@ public class MyBankCardActivity extends BaseMvpActivity<MyBankCardPresenter> imp
                 name.setText(strName);
                 tel.setText(HideUtil.hideMobile(strTel));
             }
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

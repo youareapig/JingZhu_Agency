@@ -20,6 +20,7 @@ import com.xiaomai.ageny.device_manage.device_freeze.fragment.Adapter;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.nofreeze.contract.NoFreezeContract;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.nofreeze.presenter.NoFreezePresenter;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -48,6 +49,7 @@ public class NoFreeze_Fragment extends BaseMvpFragment<NoFreezePresenter> implem
     protected void initView(View view) {
         bundle = new Bundle();
         otherView.setHolder(mHolder);
+        //初始化接口
         callBackListener = (CallBackListener) getActivity();
         mPresenter = new NoFreezePresenter();
         mPresenter.attachView(this);
@@ -147,6 +149,8 @@ public class NoFreeze_Fragment extends BaseMvpFragment<NoFreezePresenter> implem
                     toClass(view.getContext(), DeviceFreezDetailsActivity.class, bundle);
                 }
             });
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

@@ -30,246 +30,250 @@
     <com.xiaomai.ageny.utils.state_layout.OtherView
         android:id="@+id/otherview"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_472"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_19"
-        android:layout_marginRight="@dimen/dp_10"
-        android:background="@drawable/frame_dp10"
-        android:elevation="@dimen/dp_2"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/dp_15"
-        android:paddingTop="@dimen/dp_20"
-        android:paddingRight="@dimen/dp_15"
-        android:paddingBottom="@dimen/dp_20">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="-收件人信息-"
-            android:textColor="#363636"
-            android:textSize="@dimen/sp_17" />
-
-        <RelativeLayout
+        <com.bigman.wmzx.customcardview.library.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20">
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_19"
+            android:layout_marginRight="@dimen/dp_10"
+            app:cardBackgroundColor="#fff"
+            app:cardCornerRadius="@dimen/dp_10"
+            app:cardElevation="@dimen/dp_2"
+            app:topDelta="0">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="收件人姓名："
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-
-            <TextView
-                android:id="@+id/name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="奎因"
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="联系方式："
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-
-            <TextView
-                android:id="@+id/tel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="184 8265 5502"
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="收件地址："
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-
-            <TextView
-                android:id="@+id/adress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="四川省成都市武侯区兆信国际2-201"
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_30"
-            android:text="-采购信息-"
-            android:textColor="#363636"
-            android:textSize="@dimen/sp_17" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="采购批次："
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-
-            <TextView
-                android:id="@+id/times"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="第一次采购"
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="6口5台数量："
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-
-            <TextView
-                android:id="@+id/small_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="108台"
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="12口11台数量："
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-
-            <TextView
-                android:id="@+id/big_num"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="115台"
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-        </RelativeLayout>
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingTop="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_15"
+                android:paddingBottom="@dimen/dp_20">
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="-收件人信息-"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_17" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="备注："
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20">
 
-            <TextView
-                android:id="@+id/remark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="无"
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
-        </RelativeLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="收件人姓名："
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="@dimen/dp_30"
-            android:text="-采购信息-"
-            android:textColor="#363636"
-            android:textSize="@dimen/sp_17" />
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="状态："
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联系方式："
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
 
-            <TextView
-                android:id="@+id/state"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="未通过"
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
+                    <TextView
+                        android:id="@+id/tel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="收件地址："
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/adress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:text="-采购信息-"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_17" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="采购批次："
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/times"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6口5台数量："
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/small_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12口11台数量："
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/big_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
 
 
-        </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="备注："
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="审批信息："
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
+                    <TextView
+                        android:id="@+id/remark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+                </RelativeLayout>
 
-            <TextView
-                android:id="@+id/info"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="支付方式错误"
-                android:textColor="#363636"
-                android:textSize="@dimen/sp_14" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/dp_30"
+                    android:text="-采购信息-"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_17" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_20">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="状态："
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
 
 
-        </RelativeLayout>
+                </RelativeLayout>
 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="审批信息："
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+
+                    <TextView
+                        android:id="@+id/info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_14" />
+
+
+                </RelativeLayout>
+            </LinearLayout>
+        </com.bigman.wmzx.customcardview.library.CardView>
     </com.xiaomai.ageny.utils.state_layout.OtherView>
 </LinearLayout>

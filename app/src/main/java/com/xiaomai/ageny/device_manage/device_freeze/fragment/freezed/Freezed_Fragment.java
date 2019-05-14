@@ -19,6 +19,7 @@ import com.xiaomai.ageny.device_manage.device_freeze.fragment.Adapter;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.freezed.contract.FreezedContract;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.freezed.presenter.FreezedPresenter;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -140,7 +141,9 @@ public class Freezed_Fragment extends BaseMvpFragment<FreezedPresenter> implemen
                     toClass(view.getContext(), DeviceFreezDetailsActivity.class, bundle);
                 }
             });
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

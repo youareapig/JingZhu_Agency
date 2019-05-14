@@ -16,11 +16,14 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.ContactDeviceDetailsBean;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.details.shanghudevicedetails.contract.ShangHuDeviceDetailsContract;
 import com.xiaomai.ageny.details.shanghudevicedetails.presenter.ShangHuDeviceDetailsPresenter;
 import com.xiaomai.ageny.unbundle.unbundle_device.UnbundleDeviceActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
+import com.xiaomai.ageny.utils.CustomDialog;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -96,6 +99,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
     private String deviceId;
     private Bundle bundle;
     public static ShanghuDeviceDetailsActivity instance;
+    private CustomDialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -105,7 +109,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
     @Override
     public void initView() {
         String jsonConfig = SharedPreferencesUtil.getInstance(this).getSP("config");
-        list = BaseUtils.getPriceList(jsonConfig);
+        list = BaseUtils.getPriceList1(jsonConfig);
         instance = this;
         bundle = new Bundle();
         otherView.setHolder(mHolder);
@@ -148,14 +152,14 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
             id.setText(data.getBoxId());
             lat.setText(data.getBoxlatitude() + "," + data.getBoxlongitude());
             //分割地址
-            String[] arrAddress = BaseUtils.spliteUtils(data.getBoxaddress(), ",");
-            city.setText(arrAddress[0]);
-            address.setText(arrAddress[1]);
-            devicePrice.setText(data.getBoxdetails() + "/元小时");
+//            String[] arrAddress = BaseUtils.spliteUtils(data.getBoxaddress(), ",");
+//            city.setText(arrAddress[0]);
+            address.setText(data.getBoxaddress());
+            devicePrice.setText(data.getBoxdetails() + "元/小时");
             devicetype.setText(data.getBoxslot() + "槽");
             fenrun.setText(data.getBoxsellerreward());
-            freezeMoney.setText(data.getFreeze_money());
-            nofreezemoney.setText(data.getUnfreeze_money());
+            freezeMoney.setText(data.getFreeze_money() + "元");
+            nofreezemoney.setText(data.getUnfreeze_money() + "元");
             storename.setText(data.getSellername());
             linkname.setText(data.getSellerLinkman());
             linktel.setText(strlinktel);
@@ -180,10 +184,40 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
             monthMoney.setText(data.getMonthMoney());
             pingjunmoney.setText(data.getMonthlyMoney());
 
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 
+    }
+
+    @Override
+    public void showProcess() {
+        dialog = new CustomDialog(this);
+        dialog.show();
+    }
+
+    @Override
+    public void hideProcess() {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onErrorProcess(Throwable throwable) {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onSuccess(HintBean bean) {
+        if (bean.getCode() == 1) {
+            ToastUtil.showShortToast(bean.getMessage());
+            devicePrice.setText(strPrice + "元/小时");
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
     }
 
 
@@ -211,7 +245,8 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 strPrice = list.get(options1);
-                devicePrice.setText(strPrice);
+                mPresenter.updatePrice(deviceId, strPrice);
+
             }
         }).setLayoutRes(R.layout.setting_price, new CustomListener() {
             @Override

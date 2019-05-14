@@ -83,7 +83,7 @@ public class DeviceWithDrawListActivity extends BaseMvpActivity<DeviceWithDrawLi
                 @Override
                 public void run() {
                     finish();
-                    DeviceManageActivity.instance.finish();
+//                    DeviceManageActivity.instance.finish();
                 }
             }, 1000);
 

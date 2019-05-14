@@ -95,7 +95,13 @@ public class DeviceAllotListActivity extends BaseMvpActivity<DeviceAllotListPres
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 pos = position;
-                myDialog1();
+                deviceDaoDao.delete(list.get(pos));
+
+                list.remove(pos);
+                adapter.notifyItemRemoved(pos);
+                if (list.size() == 0) {
+                    otherView.showEmptyView();
+                }
             }
         });
         recycler.setNestedScrollingEnabled(false);

@@ -23,6 +23,7 @@ public class IndirectPresenter extends BasePresenter<IndirectContract.View> impl
         }
         mView.showLoading();
         model.getData(agentname, agentmobile, deviceid, state).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
+                .as(mView.<OffIndirectDeivceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffIndirectDeivceBean>() {
                     @Override
                     public void accept(OffIndirectDeivceBean bean) throws Exception {

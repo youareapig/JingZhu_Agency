@@ -17,6 +17,7 @@ import com.xiaomai.ageny.bean.UnbindRecordBean;
 import com.xiaomai.ageny.filter.unbundle_record_filter.UnbundleRecordFilterActivity;
 import com.xiaomai.ageny.unbundle.unbundle_record.contract.UnbundleRecordContract;
 import com.xiaomai.ageny.unbundle.unbundle_record.presenter.UnbundleRecordPresenter;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -127,7 +128,9 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
             adapter = new Adapter(R.layout.unbundle_record_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

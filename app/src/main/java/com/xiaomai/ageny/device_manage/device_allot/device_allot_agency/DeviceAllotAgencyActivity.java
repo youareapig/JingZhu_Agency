@@ -95,6 +95,8 @@ public class DeviceAllotAgencyActivity extends BaseMvpActivity<DeviceAllotAgency
     public void onSuccess(TelBean bean) {
         if (bean.getCode() == 1) {
             name.setText(bean.getData());
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             name.setText(bean.getMessage());
         }
@@ -106,15 +108,17 @@ public class DeviceAllotAgencyActivity extends BaseMvpActivity<DeviceAllotAgency
         if (bean.getCode() == 1) {
 //            toClass1(this, DeviceAllotSuccessActivity.class);
             deviceDaoDao.deleteAll();
-            ShowDialogUtils.showdialog(this,"设备分配成功");
+            ShowDialogUtils.showdialog(this, "设备分配成功");
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     finish();
                     DeviceAllotListActivity.instance.finish();
-                    DeviceManageActivity.instance.finish();
+//                    DeviceManageActivity.instance.finish();
                 }
             }, 1000);
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

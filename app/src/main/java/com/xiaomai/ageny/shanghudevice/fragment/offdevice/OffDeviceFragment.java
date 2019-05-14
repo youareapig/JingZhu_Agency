@@ -19,6 +19,7 @@ import com.xiaomai.ageny.details.shanghudevicedetails.ShanghuDeviceDetailsActivi
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.contract.OffDeviceContract;
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.presenter.OffDevicePresenter;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.SpacesItemDecoration;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -44,13 +45,13 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
     private String id;
     private Bundle bundle;
     private String deviceId = "", slotNum = "";
-
     public OffDeviceFragment(String id) {
         this.id = id;
     }
 
     @Override
     protected void initView(View view) {
+        //初始化接口
         bundle = new Bundle();
         otherView.setHolder(mHolder);
         mPresenter = new OffDevicePresenter();
@@ -140,8 +141,11 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
                     toClass(view.getContext(), ShanghuDeviceDetailsActivity.class, bundle);
                 }
             });
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
+
 }

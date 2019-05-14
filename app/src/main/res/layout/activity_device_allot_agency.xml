@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_12"
             android:layout_marginTop="@dimen/dp_13"
-            android:text="下级代理直属的联系方式："
+            android:text="下级直属代理的联系方式："
             android:textColor="#666666"
             android:textSize="@dimen/sp_15" />
 
@@ -60,7 +60,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:hint="输入下级直属代理的联系方式"
+                android:hint="输入下级代理直属的联系方式"
                 android:inputType="phone"
                 android:paddingBottom="@dimen/dp_15"
                 android:singleLine="true"

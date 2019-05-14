@@ -124,7 +124,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         otherView.setHolder(mHolder);
         mPresenter = new IndexPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData();
         mPresenter.getUpdate();
         mPresenter.getAlias();
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
@@ -156,6 +155,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     public void onStart() {
         super.onStart();
         mPresenter.getConfigBean();
+        mPresenter.getData();
     }
 
     @Override
@@ -171,7 +171,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
     @Override
     public void hideLoading() {
-
         otherView.showContentView();
     }
 

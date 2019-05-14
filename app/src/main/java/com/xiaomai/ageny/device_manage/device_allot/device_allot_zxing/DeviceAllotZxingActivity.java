@@ -25,6 +25,7 @@ import com.xiaomai.ageny.greendao.gen.DaoSession;
 import com.xiaomai.ageny.greendao.gen.DeviceDaoDao;
 import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.DaoSessionManager;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -145,8 +146,8 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
             strStopTime = bean.getData().get(0).getStrandedTime();
             Logger.d("扫描结果" + strId + "  " + strType + "  " + strTime + "  " + strStopTime);
             List<DeviceDao> daoList = deviceDaoDao.loadAll();
-            Logger.d("设备数量"+daoList.size());
-            if (daoList.size()==0){
+            Logger.d("设备数量" + daoList.size());
+            if (daoList.size() == 0) {
                 DeviceDao secondBean = new DeviceDao();
                 secondBean.setDeviceId(strId);
                 secondBean.setType(strType);
@@ -155,7 +156,7 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
                 deviceDaoDao.insert(secondBean);
                 toClass(this, DeviceAllotListActivity.class);
                 finish();
-            }else {
+            } else {
                 for (int i = 0; i < daoList.size(); i++) {
                     if (strId.equals(daoList.get(i).getDeviceId())) {
                         ToastUtil.showShortToast("列表已存在该设备，不能重复添加");
@@ -173,10 +174,11 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
             }
 
 
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             Logger.d("扫描错误");
             ToastUtil.showShortToast(bean.getMessage());
         }
-        finish();
     }
 }

@@ -95,7 +95,9 @@ public class UpdateBankActivity extends BaseMvpActivity<UpdateBankPresenter> imp
                     finish();
                 }
             }, 1000);
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 

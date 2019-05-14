@@ -19,6 +19,7 @@ import com.xiaomai.ageny.device_manage.device_noallot.contract.DeviceNoAllotCont
 import com.xiaomai.ageny.device_manage.device_noallot.presenter.DeviceNoAllotPresenter;
 import com.xiaomai.ageny.filter.device_noallot_filter.DeviceNoAllotFilterActivity;
 import com.xiaomai.ageny.utils.DateUtils;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -140,13 +141,17 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
             list = bean.getData();
             if (list.size() == 0) {
                 otherview1.showEmptyView();
+            }else {
+                otherview1.showContentView();
             }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.device_no_allot_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 

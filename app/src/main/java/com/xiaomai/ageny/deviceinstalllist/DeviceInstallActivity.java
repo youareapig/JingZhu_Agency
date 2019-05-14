@@ -32,6 +32,7 @@ import com.xiaomai.ageny.filter.deviceinstall.DeviceInstallFilterActivity;
 import com.xiaomai.ageny.login.LoginActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -164,6 +165,8 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
             SharedPreferencesUtil.getInstance(this).putSP("token", "");
             toClass_Empty(this, LoginActivity.class);
             finish();
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast("注销失败");
         }
@@ -190,6 +193,8 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
             recycler.setNestedScrollingEnabled(false);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

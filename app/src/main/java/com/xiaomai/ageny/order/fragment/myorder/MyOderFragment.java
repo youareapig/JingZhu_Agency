@@ -22,6 +22,7 @@ import com.xiaomai.ageny.order.fragment.myorder.contract.MyOrderContract;
 import com.xiaomai.ageny.order.fragment.myorder.presenter.MyOrderPresenter;
 import com.xiaomai.ageny.utils.DateUtils;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -145,6 +146,8 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
                     toClass(view.getContext(), MyOrderDetailsActivity.class, bundle);
                 }
             });
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

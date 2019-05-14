@@ -13,6 +13,7 @@ import com.xiaomai.ageny.bean.AgencyUserInfoBean;
 import com.xiaomai.ageny.bean.HisSellerBean;
 import com.xiaomai.ageny.details.feidailidetails.contract.FeiDailiDetailsContract;
 import com.xiaomai.ageny.details.feidailidetails.presenter.FeiDailiDetailsPresenter;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -121,7 +122,9 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
             offLine.setText(data.getOffLineCount());
             onLine.setText(data.getOnLineCount());
             indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

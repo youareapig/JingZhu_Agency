@@ -17,6 +17,7 @@ import com.xiaomai.ageny.bean.AgencyUserInfoBean;
 import com.xiaomai.ageny.bean.HisSellerBean;
 import com.xiaomai.ageny.details.dailidetails.contract.DailiDetailsContract;
 import com.xiaomai.ageny.details.dailidetails.presenter.DailiDetailsPresenter;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -138,6 +139,8 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
             offLine.setText(data.getOffLineCount());
             onLine.setText(data.getOnLineCount());
             indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -217,10 +220,4 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

@@ -25,6 +25,7 @@ import com.xiaomai.ageny.greendao.gen.DaoSession;
 import com.xiaomai.ageny.greendao.gen.DeviceDaoDao;
 import com.xiaomai.ageny.utils.DaoSessionManager;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -70,12 +71,11 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
 
     @Override
     public void initView() {
-        instance=this;
+        instance = this;
         bundle = new Bundle();
         otherView.setHolder(mHolder);
         mPresenter = new DeviceManagePresenter();
         mPresenter.attachView(this);
-        mPresenter.getData();
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
@@ -102,7 +102,7 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
     @Override
     protected void onStart() {
         super.onStart();
-
+        mPresenter.getData();
         try {
             daoSession = DaoSessionManager.getInstace()
                     .getDaoSession(this);
@@ -126,6 +126,8 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
             deviceAllNum.setText(strAll);
             deviceNofreezeNum.setText(strNoallot);
             deviceFreezeNum.setText(strAllot);
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

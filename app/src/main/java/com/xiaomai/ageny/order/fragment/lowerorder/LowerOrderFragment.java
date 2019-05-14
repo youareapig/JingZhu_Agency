@@ -20,6 +20,7 @@ import com.xiaomai.ageny.details.orderdetails.lowerorderdetails.LowerOrderDetail
 import com.xiaomai.ageny.order.fragment.lowerorder.contract.LowerOrderContract;
 import com.xiaomai.ageny.order.fragment.lowerorder.presenter.LowerOrderPresenter;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -145,7 +146,9 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
                     toClass(view.getContext(), LowerOrderDetailsActivity.class, bundle);
                 }
             });
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 

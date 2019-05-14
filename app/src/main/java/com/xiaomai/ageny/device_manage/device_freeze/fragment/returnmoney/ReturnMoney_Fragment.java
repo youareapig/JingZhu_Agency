@@ -19,6 +19,7 @@ import com.xiaomai.ageny.device_manage.device_freeze.fragment.Adapter;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.returnmoney.contract.ReturnMoneyContract;
 import com.xiaomai.ageny.device_manage.device_freeze.fragment.returnmoney.presenter.ReturnMoneyPresenter;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -141,6 +142,8 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
                     toClass(view.getContext(), DeviceFreezDetailsActivity.class, bundle);
                 }
             });
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

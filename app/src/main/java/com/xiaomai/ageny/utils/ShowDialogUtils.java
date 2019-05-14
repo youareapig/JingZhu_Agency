@@ -46,15 +46,15 @@ public class ShowDialogUtils {
         builder.setView(view);
         builder.setCancelable(false);
         builder.show();
+        SharedPreferencesUtil.getInstance(activity).putSP("token", "");
+        JPushInterface.deleteAlias(activity, 1);
         view.findViewById(R.id.bt_sure).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SharedPreferencesUtil.getInstance(activity).putSP("token", "");
                 Intent intent = new Intent(activity, LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 activity.startActivity(intent);
                 activity.finish();
-                JPushInterface.deleteAlias(activity, 1);
                 builder.dismiss();
             }
         });

@@ -125,7 +125,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
             strtel = bean.getData().getMobile();
             strname = bean.getData().getRealName();
             tvTixianMoney.setText(bean.getData().getUnliquidated());
-            tvTixianDongjie.setText(bean.getData().getLiquidated());
+            tvTixianDongjie.setText(bean.getData().getFreeze_money());
 
             if (TextUtils.isEmpty(strbank)) {
                 viewAddbank.setVisibility(View.VISIBLE);
@@ -138,6 +138,8 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
                 name.setText(strname);
                 tel.setText(HideUtil.hideMobile(strtel));
             }
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -192,7 +194,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
                         keyList.add("mobile");
                         keyList.add("real_name");
 
-                        valueList.add(strprice);
+                        valueList.add((Integer.valueOf(strprice) * 100) + "");
                         valueList.add("2");
                         valueList.add(strcardid);
                         valueList.add(strbank);
