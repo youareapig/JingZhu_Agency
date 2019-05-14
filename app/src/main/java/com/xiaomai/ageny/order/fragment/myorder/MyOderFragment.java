@@ -66,27 +66,14 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        page = 1;
-                        mPresenter.getData(strId, strName, strStar, strEnd, "1", App.pageSize);
-                        refresh.finishRefresh();
-                    }
-                }, 1000);
+                page = 1;
+                mPresenter.getRefrshFresh(strId, strName, strStar, strEnd, "1", App.pageSize);
             }
 
             @Override
             public void loadMore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        page++;
-                        mPresenter.getRefrsh(strId, strName, strStar, strEnd, page + "", App.pageSize);
-                        refresh.finishLoadMore();
-                    }
-                }, 1000);
+                page++;
+                mPresenter.getLoadMore(strId, strName, strStar, strEnd, page + "", App.pageSize);
             }
         });
     }
@@ -119,11 +106,17 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
 
     @Override
     public void onError(Throwable throwable) {
+        refresh.finishRefresh();
+        refresh.finishLoadMore();
         otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(MyOrderBean bean) {
+        initData(bean);
+    }
+
+    private void initData(MyOrderBean bean) {
         list.clear();
         if (bean.getCode() == 1) {
             orderTotleMoney.setText(bean.getData().getCountRentPrice());
@@ -151,26 +144,32 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
     }
 
     @Override
-    public void onFreshSuccess(MyOrderBean bean) {
+    public void onSuccessLoadMore(MyOrderBean bean) {
+        refresh.finishLoadMore();
         if (bean.getCode() == 1) {
             list.addAll(bean.getData().getList());
-            adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+            //延迟更新数据，避免卡顿
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+                }
+            }, 500);
             if (bean.getData().getList().size() == 0) {
                 ToastUtil.showShortToast("没有更多数据");
             }
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
     }
 
     @Override
-    public void onFreshError(Throwable throwable) {
-
+    public void onSuccessFresh(MyOrderBean bean) {
+        refresh.finishRefresh();
+        initData(bean);
     }
 
 }

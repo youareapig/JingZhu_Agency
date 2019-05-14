@@ -60,13 +60,7 @@ public class Freezed_Fragment extends BaseMvpFragment<FreezedPresenter> implemen
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh("2", strId, strState);
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh("2", strId, strState);
             }
 
             @Override
@@ -108,6 +102,7 @@ public class Freezed_Fragment extends BaseMvpFragment<FreezedPresenter> implemen
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -119,6 +114,7 @@ public class Freezed_Fragment extends BaseMvpFragment<FreezedPresenter> implemen
 
     @Override
     public void onSuccessFresh(FreezeBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

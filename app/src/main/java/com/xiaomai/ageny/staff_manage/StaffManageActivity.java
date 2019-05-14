@@ -77,13 +77,7 @@ public class StaffManageActivity extends BaseMvpActivity<StaffManagePresenter> i
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getStaffListBeanFresh("", "");
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getStaffListBeanFresh("", "");
             }
 
             @Override
@@ -111,6 +105,7 @@ public class StaffManageActivity extends BaseMvpActivity<StaffManagePresenter> i
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -121,6 +116,7 @@ public class StaffManageActivity extends BaseMvpActivity<StaffManagePresenter> i
 
     @Override
     public void onSuccessFresh(StaffBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

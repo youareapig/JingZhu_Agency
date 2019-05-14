@@ -68,13 +68,7 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh();
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh();
             }
 
             @Override
@@ -95,6 +89,7 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherview.showRetryView();
     }
 
@@ -106,6 +101,7 @@ public class MyBillActivity extends BaseMvpActivity<MyBillPresenter> implements 
 
     @Override
     public void onSuccessFresh(BillListBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

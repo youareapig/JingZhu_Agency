@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.unbundle.unbundle_device;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -20,7 +21,7 @@ import com.xiaomai.ageny.unbundle.UnbundleSuccessActivity;
 import com.xiaomai.ageny.unbundle.unbundle_device.contract.UnbundleDeviceContract;
 import com.xiaomai.ageny.unbundle.unbundle_device.presenter.UnbundleDevicePresenter;
 import com.xiaomai.ageny.utils.CountDownTimerUtils;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.HideUtil;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
@@ -52,7 +53,7 @@ public class UnbundleDeviceActivity extends BaseMvpActivity<UnbundleDevicePresen
     private Bundle bundle;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
-    private CustomDialog dialog;
+    private Dialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -71,18 +72,18 @@ public class UnbundleDeviceActivity extends BaseMvpActivity<UnbundleDevicePresen
 
     @Override
     public void showLoading() {
-        dialog = new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
+
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override

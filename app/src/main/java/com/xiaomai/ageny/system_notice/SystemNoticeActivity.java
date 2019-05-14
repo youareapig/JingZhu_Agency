@@ -68,25 +68,13 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getData("1", App.pageSize);
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh("1", App.pageSize);
             }
 
             @Override
             public void loadMore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        page++;
-                        mPresenter.getDataFresh(page + "", App.pageSize);
-                        refreshLayout.finishLoadMore();
-                    }
-                }, 1000);
+                page++;
+                mPresenter.getDataLoadMore(page + "", App.pageSize);
             }
         });
     }
@@ -109,11 +97,12 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
+        refreshLayout.finishLoadMore();
         otherview.showRetryView();
     }
 
-    @Override
-    public void onSuccess(SystemNoticeBean bean) {
+    private void initData(SystemNoticeBean bean) {
         list.clear();
         if (bean.getCode() == 1) {
             list.addAll(bean.getData().getList());
@@ -152,17 +141,35 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
     }
 
     @Override
+    public void onSuccess(SystemNoticeBean bean) {
+        initData(bean);
+    }
+
+    @Override
     public void onSuccessFresh(SystemNoticeBean bean) {
+        refreshLayout.finishRefresh();
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessLoadMore(SystemNoticeBean bean) {
+        refreshLayout.finishLoadMore();
         if (bean.getCode() == 1) {
             list.addAll(bean.getData().getList());
-            adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+            //延迟更新数据，避免卡顿
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+                }
+            }, 500);
             if (bean.getData().getList().size() == 0) {
                 ToastUtil.showShortToast("没有更多数据");
-            } else {
-                ToastUtil.showShortToast(bean.getMessage());
             }
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
         }
     }
 

@@ -12,8 +12,4 @@ public class MyOrderModel implements MyOrderContract.Model {
         return RetrofitClient.getInstance().getApi().getMyOrderListBean(orderid,sellername,startTime,endTime,page,pagesize);
     }
 
-    @Override
-    public Flowable<MyOrderBean> getRefrsh(String orderid, String sellername, String startTime, String endTime, String page,String pagesize) {
-        return RetrofitClient.getInstance().getApi().getMyOrderListBean(orderid, sellername, startTime, endTime, page,pagesize);
-    }
 }

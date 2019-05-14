@@ -2,6 +2,7 @@ package com.xiaomai.ageny.deploy;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -37,7 +38,7 @@ import com.xiaomai.ageny.deploy.contract.DeployContract;
 import com.xiaomai.ageny.deploy.presenter.DeployPresenter;
 import com.xiaomai.ageny.fragment.index.Index_Fragment;
 import com.xiaomai.ageny.utils.BaseUtils;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.GetJsonDataUtil;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
@@ -106,7 +107,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
     public static DeployActivity instance;
-    private CustomDialog dialog;
+    private Dialog dialog;
 
 
     @Override
@@ -133,18 +134,17 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
 
     @Override
     public void showLoading() {
-        dialog = new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     //验证电话号码结果

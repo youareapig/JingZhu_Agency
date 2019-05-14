@@ -39,16 +39,16 @@ public class DepositListPresenter extends BasePresenter<DepositListContract.View
     }
 
     @Override
-    public void getData_Fresh(String page, String page_size, String state, String orderid, String price_start, String price_end) {
+    public void getDataFresh(String page, String page_size, String state, String orderid, String price_start, String price_end) {
         if (!isViewAttached()) {
             return;
         }
-        model.getData_Fresh(page, page_size, state, orderid, price_start, price_end).compose(RxScheduler.<DepositListBean>Flo_io_main())
+        model.getData(page, page_size, state, orderid, price_start, price_end).compose(RxScheduler.<DepositListBean>Flo_io_main())
                 .as(mView.<DepositListBean>bindAutoDispose())
                 .subscribe(new Consumer<DepositListBean>() {
                     @Override
                     public void accept(DepositListBean bean) throws Exception {
-                        mView.onSuccess_Fresh(bean);
+                        mView.onSuccessFresh(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -57,4 +57,25 @@ public class DepositListPresenter extends BasePresenter<DepositListContract.View
                     }
                 });
     }
+
+    @Override
+    public void getDataLoadMore(String page, String page_size, String state, String orderid, String price_start, String price_end) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(page, page_size, state, orderid, price_start, price_end).compose(RxScheduler.<DepositListBean>Flo_io_main())
+                .as(mView.<DepositListBean>bindAutoDispose())
+                .subscribe(new Consumer<DepositListBean>() {
+                    @Override
+                    public void accept(DepositListBean bean) throws Exception {
+                        mView.onSuccessLoadMore(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+    }
+
 }

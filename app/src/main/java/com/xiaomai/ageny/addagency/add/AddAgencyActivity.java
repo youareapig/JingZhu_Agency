@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.addagency.add;
 
+import android.app.Dialog;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,7 +15,7 @@ import com.xiaomai.ageny.addagency.add.contract.AddAgencyContract;
 import com.xiaomai.ageny.addagency.add.presenter.AddAgencyPresenter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
@@ -55,7 +56,7 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
     private boolean btfirmIsSelect = false;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
-    private CustomDialog dialog;
+    private Dialog dialog;
     private String reward;
 
     @Override
@@ -77,18 +78,17 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
 
     @Override
     public void showLoading() {
-        dialog = new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
@@ -146,11 +146,11 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
                 valueList.add(strFenrun);
 
                 if (btfirmIsSelect) {
-                    //选中企业
+                    //选中企业1
                     keyList.add("companyName");
                     keyList.add("type");
                     valueList.add(strFirmName);
-                    valueList.add("2");
+                    valueList.add("1");
                     Logger.d("strFirmName---" + strFirmName + "strLinkTel---" + strLinkTel + "strAddress---" + strAddress + "strFenrun---" + strFenrun + "strLinkName---" + strLinkName);
                     if (TextUtils.isEmpty(strLinkName) || TextUtils.isEmpty(strLinkTel) || TextUtils.isEmpty(strAddress) || TextUtils.isEmpty(strFenrun) || TextUtils.isEmpty(strFirmName)) {
                         ToastUtil.showShortToast("请完善资料");
@@ -158,7 +158,7 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
                         mPresenter.getData(MaptoJson.toJsonZero(keyList, valueList));
                     }
                 } else {
-                    //选中个人
+                    //选中个人0
                     if (TextUtils.isEmpty(strLinkName) || TextUtils.isEmpty(strLinkTel) || TextUtils.isEmpty(strAddress) || TextUtils.isEmpty(strFenrun)) {
                         ToastUtil.showShortToast("请完善资料");
                     } else {

@@ -88,17 +88,11 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        makeMoney.setSelected(true);
-                        makeMoneyIcon.setImageResource(R.mipmap.sort_hover);
-                        addTime.setSelected(false);
-                        addIcon.setImageResource(R.mipmap.sort_hover_hui);
-                        mPresenter.getData_Fresh(strFilter_Tel, strFilter_ID, "4");
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                makeMoney.setSelected(true);
+                makeMoneyIcon.setImageResource(R.mipmap.sort_hover);
+                addTime.setSelected(false);
+                addIcon.setImageResource(R.mipmap.sort_hover_hui);
+                mPresenter.getData_Fresh(strFilter_Tel, strFilter_ID, "4");
             }
 
             @Override
@@ -130,6 +124,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -140,6 +135,7 @@ public class Contact_Fragment extends BaseMvpFragment<ContactPresenter> implemen
 
     @Override
     public void onSuccess_Fresh(ContactListBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

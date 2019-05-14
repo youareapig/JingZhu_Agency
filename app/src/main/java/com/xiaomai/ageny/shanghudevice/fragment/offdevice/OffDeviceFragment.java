@@ -68,13 +68,7 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh(id, "0", deviceId, slotNum);
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh(id, "0", deviceId, slotNum);
             }
 
             @Override
@@ -108,17 +102,18 @@ public class OffDeviceFragment extends BaseMvpFragment<OffDevicePresenter> imple
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
     @Override
     public void onSuccess(ContactDeviceListBean bean) {
-
         initData(bean);
     }
 
     @Override
     public void onSuccessFresh(ContactDeviceListBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

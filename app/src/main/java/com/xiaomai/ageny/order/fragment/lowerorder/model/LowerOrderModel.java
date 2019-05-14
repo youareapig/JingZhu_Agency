@@ -13,8 +13,4 @@ public class LowerOrderModel implements LowerOrderContract.Model {
         return RetrofitClient.getInstance().getApi().getLowerOrderListBean(orderid, sellername, startTime, endTime,page,pagesize);
     }
 
-    @Override
-    public Flowable<LowerOrderBean> getRefrsh(String orderid, String sellername, String startTime, String endTime, String page, String pagesize) {
-        return RetrofitClient.getInstance().getApi().getLowerOrderListBean(orderid, sellername, startTime, endTime,page,pagesize);
-    }
 }

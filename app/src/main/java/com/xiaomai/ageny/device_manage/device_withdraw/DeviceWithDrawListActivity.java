@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.device_manage.device_withdraw;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,7 +13,7 @@ import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.device_manage.DeviceManageActivity;
 import com.xiaomai.ageny.device_manage.device_withdraw.contract.DeviceWithDrawListContract;
 import com.xiaomai.ageny.device_manage.device_withdraw.presenter.DeviceWithDrawListPresenter;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 
@@ -38,7 +39,7 @@ public class DeviceWithDrawListActivity extends BaseMvpActivity<DeviceWithDrawLi
     TextView tel;
 
     private String strid, strname, strtel, strtype;
-    private CustomDialog dialog;
+    private Dialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -61,18 +62,17 @@ public class DeviceWithDrawListActivity extends BaseMvpActivity<DeviceWithDrawLi
 
     @Override
     public void showLoading() {
-        dialog = new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override

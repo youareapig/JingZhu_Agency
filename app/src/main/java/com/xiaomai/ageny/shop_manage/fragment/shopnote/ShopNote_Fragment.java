@@ -65,13 +65,7 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh(strTimes, strTel, "", "");
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh(strTimes, strTel, "", "");
             }
 
             @Override
@@ -105,6 +99,7 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -115,6 +110,7 @@ public class ShopNote_Fragment extends BaseMvpFragment<ShopNotePresenter> implem
 
     @Override
     public void onSuccessFresh(ShopRecordBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

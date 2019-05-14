@@ -58,13 +58,7 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh(strTimes, strState, strTel, "", "");
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh(strTimes, strState, strTel, "", "");
             }
 
             @Override
@@ -111,6 +105,7 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -122,6 +117,7 @@ public class Record_Fragment extends BaseMvpFragment<RecordPresenter> implements
 
     @Override
     public void onSuccessFresh(ShopApplyBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

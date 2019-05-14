@@ -50,7 +50,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="持卡人"
+                android:text="账户名称"
                 android:textColor="#363636"
                 android:textSize="@dimen/sp_17" />
 
@@ -60,7 +60,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="@dimen/dp_16"
                 android:background="@null"
-                android:hint="输入持卡人姓名"
+                android:hint="输入个人/企业账户名称"
                 android:singleLine="true"
                 android:textColor="#363636"
                 android:textColorHint="#868686"
@@ -176,8 +176,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/dp_203"
         android:background="@drawable/save_button"
-        android:gravity="center"
         android:elevation="@dimen/dp_2"
+        android:gravity="center"
         android:text="保存"
         android:textColor="#fff"
         android:textSize="@dimen/sp_17" />

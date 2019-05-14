@@ -16,7 +16,7 @@
             android:layout_width="@dimen/dp_30"
             android:layout_height="@dimen/dp_35"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp_14">
+            android:layout_marginRight="@dimen/dp_3">
 
             <ImageView
                 android:layout_width="@dimen/dp_19"
@@ -33,7 +33,6 @@
                 android:layout_marginRight="@dimen/dp_3"
                 android:background="@mipmap/red_icon_1"
                 android:gravity="center"
-                android:text="1"
                 android:textColor="#fff"
                 android:textSize="@dimen/sp_6" />
         </RelativeLayout>
@@ -69,7 +68,6 @@
                         android:id="@+id/username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="张国荣"
                         android:textColor="#fff"
                         android:textSize="@dimen/sp_22" />
 
@@ -80,7 +78,6 @@
                         android:layout_marginLeft="@dimen/dp_13"
                         android:background="@drawable/jianbian_dp11"
                         android:gravity="center"
-                        android:text="一级代理"
                         android:textColor="#363636"
                         android:textSize="@dimen/sp_12" />
                 </LinearLayout>
@@ -102,7 +99,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_13"
-                        android:text="编号：JZCB0910913720"
                         android:textColor="#fff"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
@@ -124,7 +120,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/dp_13"
-                        android:text="绑定手机：184 **** 4867"
                         android:textColor="#fff"
                         android:textSize="@dimen/sp_13" />
                 </LinearLayout>
@@ -159,7 +154,6 @@
                         android:id="@+id/usertype"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="京猪直属"
                         android:textColor="@color/appbar"
                         android:textSize="@dimen/sp_17" />
 
@@ -195,7 +189,6 @@
                         android:id="@+id/userscale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="50%"
                         android:textColor="@color/appbar"
                         android:textSize="@dimen/sp_17" />
 

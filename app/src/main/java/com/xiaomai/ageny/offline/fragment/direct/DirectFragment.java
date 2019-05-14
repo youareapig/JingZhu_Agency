@@ -54,13 +54,7 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh(strName, strTel, strID, "");
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh(strName, strTel, strID, "");
             }
 
             @Override
@@ -97,6 +91,7 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -107,6 +102,7 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
 
     @Override
     public void onSuccessFresh(OffDirectDeviceBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

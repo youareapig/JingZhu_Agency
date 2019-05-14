@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.update_bank;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -13,7 +14,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.update_bank.contract.UpdateBankContract;
 import com.xiaomai.ageny.update_bank.presenter.UpdateBankPresenter;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
@@ -44,7 +45,7 @@ public class UpdateBankActivity extends BaseMvpActivity<UpdateBankPresenter> imp
     private String strBank, strBankId, strName, strTel;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
-    private CustomDialog dialog;
+    private Dialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -71,18 +72,17 @@ public class UpdateBankActivity extends BaseMvpActivity<UpdateBankPresenter> imp
 
     @Override
     public void showLoading() {
-        dialog = new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override

@@ -53,7 +53,7 @@
                     <ImageView
                         android:layout_width="@dimen/dp_104"
                         android:layout_height="@dimen/dp_104"
-                        android:src="@mipmap/logo_icon_img" />
+                        android:src="@mipmap/jingzhulogo" />
 
                     <TextView
                         android:id="@+id/versionName"

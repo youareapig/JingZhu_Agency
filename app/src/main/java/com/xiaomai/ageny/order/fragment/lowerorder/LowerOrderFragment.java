@@ -68,27 +68,14 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        page = 1;
-                        mPresenter.getData(strId, strTel, strStar, strEnd, "1", App.pageSize);
-                        refresh.finishRefresh();
-                    }
-                }, 1000);
+                page = 1;
+                mPresenter.getDataLoadFresh(strId, strTel, strStar, strEnd, "1", App.pageSize);
             }
 
             @Override
             public void loadMore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        page++;
-                        mPresenter.getRefrsh(strId, strTel, strStar, strEnd, page + "", App.pageSize);
-                        refresh.finishLoadMore();
-                    }
-                }, 1000);
+                page++;
+                mPresenter.getDataLoadMore(strId, strTel, strStar, strEnd, page + "", App.pageSize);
             }
         });
     }
@@ -120,11 +107,12 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
 
     @Override
     public void onError(Throwable throwable) {
+        refresh.finishRefresh();
+        refresh.finishLoadMore();
         otherview.showRetryView();
     }
 
-    @Override
-    public void onSuccess(LowerOrderBean bean) {
+    private void initData(LowerOrderBean bean) {
         list.clear();
         if (bean.getCode() == 1) {
             orderTotleMoney.setText(bean.getData().getCountRentPrice());
@@ -148,28 +136,39 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
             });
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(getActivity());
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
     }
 
     @Override
-    public void onFreshSuccess(LowerOrderBean bean) {
+    public void onSuccess(LowerOrderBean bean) {
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessFresh(LowerOrderBean bean) {
+        refresh.finishRefresh();
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessLoadMore(LowerOrderBean bean) {
+        refresh.finishLoadMore();
         if (bean.getCode() == 1) {
             list.addAll(bean.getData().getList());
-            adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+                }
+            }, 500);
             if (bean.getData().getList().size() == 0) {
                 ToastUtil.showShortToast("没有更多数据");
             } else {
                 ToastUtil.showShortToast(bean.getMessage());
             }
         }
-    }
-
-    @Override
-    public void onFreshError(Throwable throwable) {
-
     }
 
 

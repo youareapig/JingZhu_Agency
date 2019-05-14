@@ -4,7 +4,7 @@ public class AgencyUserInfoBean {
 
     /**
      * code : 1
-     * data : {"address":"","age":0,"area":"现代医院","createTime":{"date":24,"day":4,"hours":16,"minutes":6,"month":0,"seconds":48,"time":1548317208000,"timezoneOffset":-480,"year":119},"createTimeStr":"2019-01-24 16:06:48","details":"","headPic":"","id":61000016,"lastLoginip":"127.0.0.1","lastLogintime":{"date":2,"day":2,"hours":10,"minutes":21,"month":3,"seconds":37,"time":1554171697000,"timezoneOffset":-480,"year":119},"level":2,"maxReward":"100","mobile":"18782420845","num":0,"openid":"oTXdD1jjKWDWPqkhdwmY5xOIv8-s","parentid":1,"password":"","realname":"现代医院","reward":40,"sex":"","updateTime":{"date":2,"day":2,"hours":10,"minutes":21,"month":3,"seconds":37,"time":1554171697000,"timezoneOffset":-480,"year":119},"username":"","weixinNickname":"","weixinToken":"2a060f93-fbd2-4d02-9f90-6998c51386d9"}
+     * data : {"address":"","age":0,"area":"台湾","companyName":"","createTime":{"date":14,"day":2,"hours":16,"minutes":50,"month":4,"seconds":48,"time":1557823848000,"timezoneOffset":-480,"year":119},"createTimeStr":"2019-05-14 16:50:48","details":"","headPic":"","id":61001052,"lastLoginip":"","lastLogintime":{"date":14,"day":2,"hours":16,"minutes":50,"month":4,"seconds":48,"time":1557823848000,"timezoneOffset":-480,"year":119},"level":2,"maxReward":"100","mobile":"15888888887","num":0,"openid":"","parentid":435,"password":"","realname":"周杰伦","reward":99,"sex":"","state":1,"updateTime":{"date":14,"day":2,"hours":16,"minutes":50,"month":4,"seconds":48,"time":1557823848000,"timezoneOffset":-480,"year":119},"userType":0,"username":"","weixinNickname":"","weixinToken":""}
      * message : 获取直属代理商个人信息成功
      */
 
@@ -40,33 +40,37 @@ public class AgencyUserInfoBean {
         /**
          * address :
          * age : 0
-         * area : 现代医院
-         * createTime : {"date":24,"day":4,"hours":16,"minutes":6,"month":0,"seconds":48,"time":1548317208000,"timezoneOffset":-480,"year":119}
-         * createTimeStr : 2019-01-24 16:06:48
+         * area : 台湾
+         * companyName :
+         * createTime : {"date":14,"day":2,"hours":16,"minutes":50,"month":4,"seconds":48,"time":1557823848000,"timezoneOffset":-480,"year":119}
+         * createTimeStr : 2019-05-14 16:50:48
          * details :
          * headPic :
-         * id : 61000016
-         * lastLoginip : 127.0.0.1
-         * lastLogintime : {"date":2,"day":2,"hours":10,"minutes":21,"month":3,"seconds":37,"time":1554171697000,"timezoneOffset":-480,"year":119}
+         * id : 61001052
+         * lastLoginip :
+         * lastLogintime : {"date":14,"day":2,"hours":16,"minutes":50,"month":4,"seconds":48,"time":1557823848000,"timezoneOffset":-480,"year":119}
          * level : 2
          * maxReward : 100
-         * mobile : 18782420845
+         * mobile : 15888888887
          * num : 0
-         * openid : oTXdD1jjKWDWPqkhdwmY5xOIv8-s
-         * parentid : 1
+         * openid :
+         * parentid : 435
          * password :
-         * realname : 现代医院
-         * reward : 40
+         * realname : 周杰伦
+         * reward : 99
          * sex :
-         * updateTime : {"date":2,"day":2,"hours":10,"minutes":21,"month":3,"seconds":37,"time":1554171697000,"timezoneOffset":-480,"year":119}
+         * state : 1
+         * updateTime : {"date":14,"day":2,"hours":16,"minutes":50,"month":4,"seconds":48,"time":1557823848000,"timezoneOffset":-480,"year":119}
+         * userType : 0
          * username :
          * weixinNickname :
-         * weixinToken : 2a060f93-fbd2-4d02-9f90-6998c51386d9
+         * weixinToken :
          */
 
         private String address;
         private int age;
         private String area;
+        private String companyName;
         private CreateTimeBean createTime;
         private String createTimeStr;
         private String details;
@@ -84,7 +88,9 @@ public class AgencyUserInfoBean {
         private String realname;
         private int reward;
         private String sex;
+        private int state;
         private UpdateTimeBean updateTime;
+        private int userType;
         private String username;
         private String weixinNickname;
         private String weixinToken;
@@ -111,6 +117,14 @@ public class AgencyUserInfoBean {
 
         public void setArea(String area) {
             this.area = area;
+        }
+
+        public String getCompanyName() {
+            return companyName;
+        }
+
+        public void setCompanyName(String companyName) {
+            this.companyName = companyName;
         }
 
         public CreateTimeBean getCreateTime() {
@@ -249,12 +263,28 @@ public class AgencyUserInfoBean {
             this.sex = sex;
         }
 
+        public int getState() {
+            return state;
+        }
+
+        public void setState(int state) {
+            this.state = state;
+        }
+
         public UpdateTimeBean getUpdateTime() {
             return updateTime;
         }
 
         public void setUpdateTime(UpdateTimeBean updateTime) {
             this.updateTime = updateTime;
+        }
+
+        public int getUserType() {
+            return userType;
+        }
+
+        public void setUserType(int userType) {
+            this.userType = userType;
         }
 
         public String getUsername() {
@@ -283,13 +313,13 @@ public class AgencyUserInfoBean {
 
         public static class CreateTimeBean {
             /**
-             * date : 24
-             * day : 4
+             * date : 14
+             * day : 2
              * hours : 16
-             * minutes : 6
-             * month : 0
+             * minutes : 50
+             * month : 4
              * seconds : 48
-             * time : 1548317208000
+             * time : 1557823848000
              * timezoneOffset : -480
              * year : 119
              */
@@ -379,13 +409,13 @@ public class AgencyUserInfoBean {
 
         public static class LastLogintimeBean {
             /**
-             * date : 2
+             * date : 14
              * day : 2
-             * hours : 10
-             * minutes : 21
-             * month : 3
-             * seconds : 37
-             * time : 1554171697000
+             * hours : 16
+             * minutes : 50
+             * month : 4
+             * seconds : 48
+             * time : 1557823848000
              * timezoneOffset : -480
              * year : 119
              */
@@ -475,13 +505,13 @@ public class AgencyUserInfoBean {
 
         public static class UpdateTimeBean {
             /**
-             * date : 2
+             * date : 14
              * day : 2
-             * hours : 10
-             * minutes : 21
-             * month : 3
-             * seconds : 37
-             * time : 1554171697000
+             * hours : 16
+             * minutes : 50
+             * month : 4
+             * seconds : 48
+             * time : 1557823848000
              * timezoneOffset : -480
              * year : 119
              */

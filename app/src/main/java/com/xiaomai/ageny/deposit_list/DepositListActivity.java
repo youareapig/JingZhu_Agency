@@ -68,26 +68,14 @@ public class DepositListActivity extends BaseMvpActivity<DepositListPresenter> i
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        page = 1;
-                        mPresenter.getData("1", App.pageSize, strState, "", "", "");
-                        refresh.finishRefresh();
-                    }
-                }, 1000);
+                page = 1;
+                mPresenter.getDataFresh("1", App.pageSize, strState, "", "", "");
             }
 
             @Override
             public void loadMore() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        page++;
-                        mPresenter.getData_Fresh(page + "", App.pageSize, strState, "", "", "");
-                        refresh.finishLoadMore();
-                    }
-                }, 1000);
+                page++;
+                mPresenter.getDataLoadMore(page + "", App.pageSize, strState, "", "", "");
             }
         });
     }
@@ -123,11 +111,11 @@ public class DepositListActivity extends BaseMvpActivity<DepositListPresenter> i
 
     @Override
     public void onError(Throwable throwable) {
+        refresh.finishRefresh();
         otherview.showRetryView();
     }
 
-    @Override
-    public void onSuccess(DepositListBean bean) {
+    private void initData(DepositListBean bean) {
         list.clear();
         if (bean.getCode() == 1) {
             list.addAll(bean.getData().getList());
@@ -140,26 +128,41 @@ public class DepositListActivity extends BaseMvpActivity<DepositListPresenter> i
             adapter = new Adapter(R.layout.deposit_list_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
-        }else if (bean.getCode() == -10) {
+        } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
-
     }
 
     @Override
-    public void onSuccess_Fresh(DepositListBean bean) {
+    public void onSuccess(DepositListBean bean) {
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessFresh(DepositListBean bean) {
+        refresh.finishRefresh();
+        initData(bean);
+    }
+
+    @Override
+    public void onSuccessLoadMore(DepositListBean bean) {
+        refresh.finishLoadMore();
         if (bean.getCode() == 1) {
             list.addAll(bean.getData().getList());
-            adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+                }
+            }, 500);
             if (bean.getData().getList().size() == 0) {
                 ToastUtil.showShortToast("没有更多数据");
             }
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

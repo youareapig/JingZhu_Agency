@@ -59,13 +59,7 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh("3", strId, strState);
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh("3", strId, strState);
             }
 
             @Override
@@ -108,6 +102,7 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -119,6 +114,7 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
 
     @Override
     public void onSuccessFresh(FreezeBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
 
     }
@@ -142,7 +138,7 @@ public class ReturnMoney_Fragment extends BaseMvpFragment<ReturnMoneyPresenter> 
                     toClass(view.getContext(), DeviceFreezDetailsActivity.class, bundle);
                 }
             });
-        }else if (bean.getCode() == -10) {
+        } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(getActivity());
         } else {
             ToastUtil.showShortToast(bean.getMessage());

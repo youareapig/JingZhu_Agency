@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.details.orderdetails.lowerorderdetails.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.LowerOrderDetailsBean;
 import com.xiaomai.ageny.details.orderdetails.lowerorderdetails.contract.LowerOrderDetailsContract;
 import com.xiaomai.ageny.details.orderdetails.lowerorderdetails.model.LowerOrderDetailsModel;
@@ -21,6 +22,7 @@ public class LowerOrderDetailsPresenter  extends BasePresenter<LowerOrderDetails
         }
         mView.showLoading();
         model.getData(orderid).compose(RxScheduler.<LowerOrderDetailsBean>Flo_io_main())
+                .as(mView.<LowerOrderDetailsBean>bindAutoDispose())
                 .subscribe(new Consumer<LowerOrderDetailsBean>() {
                     @Override
                     public void accept(LowerOrderDetailsBean bean) throws Exception {

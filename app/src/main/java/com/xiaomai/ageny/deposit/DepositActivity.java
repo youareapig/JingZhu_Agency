@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.deposit;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -21,7 +22,7 @@ import com.xiaomai.ageny.deposit.contract.DepositContract;
 import com.xiaomai.ageny.deposit.presenter.DepositPresenter;
 import com.xiaomai.ageny.update_bank.UpdateBankActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.HideUtil;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
@@ -75,7 +76,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
     private Bundle bundle;
-    private CustomDialog customDialog;
+    private Dialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -103,17 +104,17 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
 
     @Override
     public void showLoading() {
-        customDialog = new CustomDialog(this);
-        customDialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        customDialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
+        DialogUtils.closeDialog(dialog);
         otherView.showRetryView();
     }
 
@@ -194,7 +195,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
                         keyList.add("mobile");
                         keyList.add("real_name");
 
-                        valueList.add((Integer.valueOf(strprice) * 100) + "");
+                        valueList.add(strprice);
                         valueList.add("2");
                         valueList.add(strcardid);
                         valueList.add(strbank);

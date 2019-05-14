@@ -139,7 +139,7 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
             offLine.setText(data.getOffLineCount());
             onLine.setText(data.getOnLineCount());
             indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
-        }else if (bean.getCode() == -10) {
+        } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
@@ -168,7 +168,7 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
             strLinkTel = data.getMobile();
             strAddress = data.getArea();
             strAddTime = data.getCreateTimeStr();
-            strFirmName = data.getUsername();
+            strFirmName = data.getCompanyName();
 
             agencyId.setText("编号：" + id);
             fenrun.setText("分润比例：" + strFenrun + "%");
@@ -177,7 +177,7 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
             address.setText("负责区域：" + strAddress);
             addTime.setText("添加时间：" + strAddTime);
 
-            if (TextUtils.isEmpty(strFirmName)) {
+            if (data.getUserType() == 0) {
                 //个人
                 firmView.setVisibility(View.GONE);
                 isperson = 1;

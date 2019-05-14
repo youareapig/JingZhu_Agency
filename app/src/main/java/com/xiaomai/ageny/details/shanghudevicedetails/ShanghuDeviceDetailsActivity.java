@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.details.shanghudevicedetails;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,7 +22,7 @@ import com.xiaomai.ageny.details.shanghudevicedetails.contract.ShangHuDeviceDeta
 import com.xiaomai.ageny.details.shanghudevicedetails.presenter.ShangHuDeviceDetailsPresenter;
 import com.xiaomai.ageny.unbundle.unbundle_device.UnbundleDeviceActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
@@ -99,7 +100,7 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
     private String deviceId;
     private Bundle bundle;
     public static ShanghuDeviceDetailsActivity instance;
-    private CustomDialog dialog;
+    private Dialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -194,18 +195,17 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
 
     @Override
     public void showProcess() {
-        dialog = new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideProcess() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onErrorProcess(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override

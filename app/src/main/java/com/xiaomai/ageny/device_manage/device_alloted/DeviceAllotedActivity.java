@@ -91,13 +91,7 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh(strId, strTel);
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh(strId, strTel);
             }
 
             @Override
@@ -135,6 +129,7 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
 
     @Override
     public void onSuccessFresh(AllotDeviceBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

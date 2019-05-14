@@ -9,7 +9,6 @@ public interface DepositListContract {
     interface Model {
         Flowable<DepositListBean> getData(String page, String page_size, String state, String orderid, String price_start, String price_end);
 
-        Flowable<DepositListBean> getData_Fresh(String page, String page_size, String state, String orderid, String price_start, String price_end);
     }
 
     interface View extends BaseView {
@@ -24,12 +23,16 @@ public interface DepositListContract {
 
         void onSuccess(DepositListBean bean);
 
-        void onSuccess_Fresh(DepositListBean bean);
+        void onSuccessFresh(DepositListBean bean);
+
+        void onSuccessLoadMore(DepositListBean bean);
     }
 
     interface Presenter {
         void getData(String page, String page_size, String state, String orderid, String price_start, String price_end);
 
-        void getData_Fresh(String page, String page_size, String state, String orderid, String price_start, String price_end);
+        void getDataFresh(String page, String page_size, String state, String orderid, String price_start, String price_end);
+
+        void getDataLoadMore(String page, String page_size, String state, String orderid, String price_start, String price_end);
     }
 }

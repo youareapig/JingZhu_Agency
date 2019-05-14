@@ -112,13 +112,7 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDeviceInstallListBean_Refresh(strChiyourenTel, strAnzhuangrenTel, strTime);
-                        refresh.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDeviceInstallListBean_Refresh(strChiyourenTel, strAnzhuangrenTel, strTime);
             }
 
             @Override
@@ -146,6 +140,7 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     @Override
     public void onError(Throwable throwable) {
+        refresh.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -156,6 +151,7 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
 
     @Override
     public void onSuccess_Refresh(DeviceInstallListBean bean) {
+        refresh.finishRefresh();
         initData(bean);
     }
 

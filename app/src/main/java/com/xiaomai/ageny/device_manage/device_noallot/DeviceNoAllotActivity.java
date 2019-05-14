@@ -90,13 +90,7 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh(strId);
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh(strId);
             }
 
             @Override
@@ -123,6 +117,7 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherview.showRetryView();
     }
 
@@ -133,6 +128,7 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
 
     @Override
     public void onSuccessFresh(NoAllotDeviceBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 
@@ -141,7 +137,7 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
             list = bean.getData();
             if (list.size() == 0) {
                 otherview1.showEmptyView();
-            }else {
+            } else {
                 otherview1.showContentView();
             }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
@@ -151,7 +147,7 @@ public class DeviceNoAllotActivity extends BaseMvpActivity<DeviceNoAllotPresente
             adapter.openLoadAnimation();
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 

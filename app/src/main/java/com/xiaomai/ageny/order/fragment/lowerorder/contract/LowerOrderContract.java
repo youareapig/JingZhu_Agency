@@ -8,9 +8,8 @@ import io.reactivex.Flowable;
 
 public interface LowerOrderContract {
     interface Model {
-        Flowable<LowerOrderBean> getData(String orderid, String sellername, String startTime, String endTime,String page,String pagesize);
+        Flowable<LowerOrderBean> getData(String orderid, String sellername, String startTime, String endTime, String page, String pagesize);
 
-        Flowable<LowerOrderBean> getRefrsh(String orderid, String sellername, String startTime, String endTime, String page,String pagesize);
     }
 
     interface View extends BaseView {
@@ -25,14 +24,18 @@ public interface LowerOrderContract {
 
         void onSuccess(LowerOrderBean bean);
 
-        void onFreshSuccess(LowerOrderBean bean);
+        void onSuccessFresh(LowerOrderBean bean);
 
-        void onFreshError(Throwable throwable);
+        void onSuccessLoadMore(LowerOrderBean bean);
+
+
     }
 
     interface Presenter {
-        void getData(String orderid, String sellername, String startTime, String endTime,String page,String pagesize);
+        void getData(String orderid, String sellername, String startTime, String endTime, String page, String pagesize);
 
-        void getRefrsh(String orderid, String sellername, String startTime, String endTime, String page,String pagesize);
+        void getDataLoadMore(String orderid, String sellername, String startTime, String endTime, String page, String pagesize);
+
+        void getDataLoadFresh(String orderid, String sellername, String startTime, String endTime, String page, String pagesize);
     }
 }

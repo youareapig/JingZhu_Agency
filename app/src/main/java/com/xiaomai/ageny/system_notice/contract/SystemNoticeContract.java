@@ -23,11 +23,15 @@ public interface SystemNoticeContract {
         void onSuccess(SystemNoticeBean bean);
 
         void onSuccessFresh(SystemNoticeBean bean);
+
+        void onSuccessLoadMore(SystemNoticeBean bean);
     }
 
     interface Presenter {
         void getData(String page, String pagesize);
 
         void getDataFresh(String page, String pagesize);
+
+        void getDataLoadMore(String page, String pagesize);
     }
 }

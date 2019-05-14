@@ -57,13 +57,7 @@ public class XiajiSHDeviceListOff_Fragment extends BaseMvpFragment<XIajiSHDevice
         finishRefresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh(id, deviceId, price, "0");
-                        finishRefresh.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh(id, deviceId, price, "0");
             }
 
             @Override
@@ -97,6 +91,7 @@ public class XiajiSHDeviceListOff_Fragment extends BaseMvpFragment<XIajiSHDevice
 
     @Override
     public void onError(Throwable throwable) {
+        finishRefresh.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -119,13 +114,14 @@ public class XiajiSHDeviceListOff_Fragment extends BaseMvpFragment<XIajiSHDevice
             adapter.openLoadAnimation();
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(getActivity());
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
 
     @Override
     public void onSuccessFresh(XiajiListBean bean) {
+        finishRefresh.finishRefresh();
         initData(bean);
     }
 

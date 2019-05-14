@@ -73,13 +73,7 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh(id, "1", deviceId, slotNum);
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh(id, "1", deviceId, slotNum);
             }
 
             @Override
@@ -113,6 +107,7 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -123,6 +118,7 @@ public class OnDeviecFragment extends BaseMvpFragment<OnDevicePresenter> impleme
 
     @Override
     public void onSuccessFresh(ContactDeviceListBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

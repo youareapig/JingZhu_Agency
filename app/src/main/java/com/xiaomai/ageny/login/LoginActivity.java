@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.login;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -17,7 +18,7 @@ import com.xiaomai.ageny.deviceinstalllist.DeviceInstallActivity;
 import com.xiaomai.ageny.login.contract.LoginContract;
 import com.xiaomai.ageny.login.presenter.LoginPresenter;
 import com.xiaomai.ageny.utils.CountDownTimerUtils;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
@@ -42,7 +43,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
     @BindView(R.id.bt_login)
     TextView btLogin;
 
-    private CustomDialog dialog;
+    private Dialog dialog;
     private String strTel, strCode;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
@@ -61,19 +62,18 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter> implements Lo
 
     @Override
     public void showLoading() {
-        dialog = new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
         ToastUtil.showShortToast("服务器故障");
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override

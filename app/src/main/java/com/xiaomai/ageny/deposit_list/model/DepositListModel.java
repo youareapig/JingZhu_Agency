@@ -12,8 +12,4 @@ public class DepositListModel implements DepositListContract.Model {
         return RetrofitClient.getInstance().getApi().getDepositListBean(page, page_size, state, orderid, price_start, price_end);
     }
 
-    @Override
-    public Flowable<DepositListBean> getData_Fresh(String page, String page_size, String state, String orderid, String price_start, String price_end) {
-        return RetrofitClient.getInstance().getApi().getDepositListBean(page, page_size, state, orderid, price_start, price_end);
-    }
 }

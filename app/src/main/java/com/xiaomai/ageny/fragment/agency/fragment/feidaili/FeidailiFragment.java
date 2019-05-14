@@ -64,13 +64,7 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getData_Fresh("", strID, strLev, "0", "");
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getData_Fresh("", strID, strLev, "0", "");
             }
 
             @Override
@@ -105,6 +99,7 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -115,6 +110,7 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
 
     @Override
     public void onSuccess_Fresh(DailiListBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

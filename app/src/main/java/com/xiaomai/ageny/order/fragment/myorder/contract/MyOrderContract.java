@@ -7,9 +7,8 @@ import io.reactivex.Flowable;
 
 public interface MyOrderContract {
     interface Model {
-        Flowable<MyOrderBean> getData(String orderid, String sellername, String startTime, String endTime,String page,String pagesize);
+        Flowable<MyOrderBean> getData(String orderid, String sellername, String startTime, String endTime, String page, String pagesize);
 
-        Flowable<MyOrderBean> getRefrsh(String orderid, String sellername, String startTime, String endTime, String page,String pagesize);
     }
 
     interface View extends BaseView {
@@ -24,15 +23,17 @@ public interface MyOrderContract {
 
         void onSuccess(MyOrderBean bean);
 
-        void onFreshSuccess(MyOrderBean bean);
+        void onSuccessLoadMore(MyOrderBean bean);
 
-        void onFreshError(Throwable throwable);
+        void onSuccessFresh(MyOrderBean bean);
 
     }
 
     interface Presenter {
-        void getData(String orderid, String sellername, String startTime, String endTime,String page,String pagesize);
+        void getData(String orderid, String sellername, String startTime, String endTime, String page, String pagesize);
 
-        void getRefrsh(String orderid, String sellername, String startTime, String endTime, String page,String pagesize);
+        void getLoadMore(String orderid, String sellername, String startTime, String endTime, String page, String pagesize);
+
+        void getRefrshFresh(String orderid, String sellername, String startTime, String endTime, String page, String pagesize);
     }
 }

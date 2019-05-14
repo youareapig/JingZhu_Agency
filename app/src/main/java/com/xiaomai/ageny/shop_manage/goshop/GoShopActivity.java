@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.shop_manage.goshop;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,7 +16,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.shop_manage.goshop.contract.GoShopContract;
 import com.xiaomai.ageny.shop_manage.goshop.presenter.GoShopPresenter;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ToastUtil;
 
@@ -58,7 +59,7 @@ public class GoShopActivity extends BaseMvpActivity<GoShopPresenter> implements 
     private int payment = 1;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
-    private CustomDialog dialog;
+    private Dialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -73,18 +74,17 @@ public class GoShopActivity extends BaseMvpActivity<GoShopPresenter> implements 
 
     @Override
     public void showLoading() {
-        dialog=new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override

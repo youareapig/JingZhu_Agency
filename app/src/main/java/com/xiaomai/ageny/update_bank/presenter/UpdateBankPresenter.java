@@ -23,6 +23,7 @@ public class UpdateBankPresenter extends BasePresenter<UpdateBankContract.View> 
         }
         mView.showLoading();
         model.updateBank(body).compose(RxScheduler.<HintBean>Flo_io_main())
+                .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean bean) throws Exception {

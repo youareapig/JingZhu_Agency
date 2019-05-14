@@ -58,13 +58,7 @@ public class TaskDirectFragment extends BaseMvpFragment<TaskDirectPresenter> imp
         finishRefresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh("", "", "", "1");
-                        finishRefresh.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh("", "", "", "1");
             }
 
             @Override
@@ -91,6 +85,7 @@ public class TaskDirectFragment extends BaseMvpFragment<TaskDirectPresenter> imp
 
     @Override
     public void onError(Throwable throwable) {
+        finishRefresh.finishRefresh();
         otherview.showRetryView();
     }
 
@@ -101,6 +96,7 @@ public class TaskDirectFragment extends BaseMvpFragment<TaskDirectPresenter> imp
 
     @Override
     public void onSuccessFresh(OffDirectDeviceBean bean) {
+        finishRefresh.finishRefresh();
         initData(bean);
     }
 

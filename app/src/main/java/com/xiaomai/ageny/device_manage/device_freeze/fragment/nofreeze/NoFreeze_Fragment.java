@@ -64,13 +64,7 @@ public class NoFreeze_Fragment extends BaseMvpFragment<NoFreezePresenter> implem
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh("1", strId, strState);
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh("1", strId, strState);
             }
 
             @Override
@@ -126,6 +120,7 @@ public class NoFreeze_Fragment extends BaseMvpFragment<NoFreezePresenter> implem
 
     @Override
     public void onSuccessFresh(FreezeBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

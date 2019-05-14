@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.setting;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +20,7 @@ import com.xiaomai.ageny.setting.presenter.SettingPresenter;
 import com.xiaomai.ageny.shop_manage.ShopManageActivity;
 import com.xiaomai.ageny.staff_manage.StaffManageActivity;
 import com.xiaomai.ageny.unbundle.unbundle_record.UnbundleRecordActivity;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 
@@ -46,7 +47,7 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
     @BindView(R.id.versionName)
     TextView versionName;
 
-    private CustomDialog dialog;
+    private Dialog dialog;
     private String strLev;
 
     @Override
@@ -70,18 +71,17 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
 
     @Override
     public void showLoading() {
-        dialog = new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override

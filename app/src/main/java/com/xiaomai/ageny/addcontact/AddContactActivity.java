@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.addcontact;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -22,8 +23,8 @@ import com.xiaomai.ageny.addcontact.presenter.AddContactPresenter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.utils.BaseUtils;
-import com.xiaomai.ageny.utils.CustomDialog;
 import com.xiaomai.ageny.utils.DateUtils;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
@@ -80,7 +81,7 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
     private TimePickerView pvCustomTime;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
-    private CustomDialog dialog;
+    private Dialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -132,18 +133,17 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
 
     @Override
     public void showLoading() {
-        dialog = new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override

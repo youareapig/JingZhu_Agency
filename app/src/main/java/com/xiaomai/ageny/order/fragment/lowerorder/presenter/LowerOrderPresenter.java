@@ -38,22 +38,45 @@ public class LowerOrderPresenter extends BasePresenter<LowerOrderContract.View> 
     }
 
     @Override
-    public void getRefrsh(String orderid, String sellername, String startTime, String endTime, String page, String pagesize) {
+    public void getDataLoadMore(String orderid, String sellername, String startTime, String endTime, String page, String pagesize) {
         if (!isViewAttached()) {
             return;
         }
-        model.getRefrsh(orderid, sellername, startTime, endTime,page,pagesize).compose(RxScheduler.<LowerOrderBean>Flo_io_main())
+        model.getData(orderid, sellername, startTime, endTime,page,pagesize).compose(RxScheduler.<LowerOrderBean>Flo_io_main())
                 .as(mView.<LowerOrderBean>bindAutoDispose())
                 .subscribe(new Consumer<LowerOrderBean>() {
                     @Override
                     public void accept(LowerOrderBean bean) throws Exception {
-                        mView.onFreshSuccess(bean);
+                        mView.onSuccessLoadMore(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        mView.onFreshError(throwable);
+                        mView.onError(throwable);
                     }
                 });
     }
+
+    @Override
+    public void getDataLoadFresh(String orderid, String sellername, String startTime, String endTime, String page, String pagesize) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(orderid, sellername, startTime, endTime,page,pagesize).compose(RxScheduler.<LowerOrderBean>Flo_io_main())
+                .as(mView.<LowerOrderBean>bindAutoDispose())
+                .subscribe(new Consumer<LowerOrderBean>() {
+                    @Override
+                    public void accept(LowerOrderBean bean) throws Exception {
+                        mView.onSuccessFresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+
+    }
+
+
 }

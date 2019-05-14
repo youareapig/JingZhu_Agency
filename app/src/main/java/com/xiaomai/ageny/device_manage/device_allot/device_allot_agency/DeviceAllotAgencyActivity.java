@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.device_manage.device_allot.device_allot_agency;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -22,8 +23,8 @@ import com.xiaomai.ageny.device_manage.device_allot.device_allot_agency.presente
 import com.xiaomai.ageny.device_manage.device_allot.device_allot_list.DeviceAllotListActivity;
 import com.xiaomai.ageny.greendao.gen.DaoSession;
 import com.xiaomai.ageny.greendao.gen.DeviceDaoDao;
-import com.xiaomai.ageny.utils.CustomDialog;
 import com.xiaomai.ageny.utils.DaoSessionManager;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
@@ -54,7 +55,7 @@ public class DeviceAllotAgencyActivity extends BaseMvpActivity<DeviceAllotAgency
     private DaoSession daoSession;
     private DeviceDaoDao deviceDaoDao;
     private List<DeviceDao> list;
-    private CustomDialog dialog;
+    private Dialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -77,18 +78,17 @@ public class DeviceAllotAgencyActivity extends BaseMvpActivity<DeviceAllotAgency
 
     @Override
     public void showLoading() {
-        dialog = new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override

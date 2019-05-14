@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.unbundle.unbundle_shanghu;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -13,12 +14,10 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.VerCodeBean;
 import com.xiaomai.ageny.details.contactdetails.ContactDetailsActivity;
-import com.xiaomai.ageny.unbundle.UnbundleFaileActivity;
-import com.xiaomai.ageny.unbundle.UnbundleSuccessActivity;
 import com.xiaomai.ageny.unbundle.unbundle_shanghu.contract.UnbundleShanghuContract;
 import com.xiaomai.ageny.unbundle.unbundle_shanghu.presenter.UnbundleShanghuPresenter;
 import com.xiaomai.ageny.utils.CountDownTimerUtils;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.HideUtil;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
@@ -52,7 +51,7 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
     private Bundle bundle;
-    private CustomDialog dialog;
+    private Dialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -77,18 +76,17 @@ public class UnbundleShanghuActivity extends BaseMvpActivity<UnbundleShanghuPres
 
     @Override
     public void showLoading() {
-        dialog = new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override

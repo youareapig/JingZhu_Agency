@@ -86,20 +86,13 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        moneyText.setSelected(true);
-                        moneyIcon.setImageResource(R.mipmap.sort_hover);
-                        addTimeIcon.setImageResource(R.mipmap.sort_hover_hui);
-                        addTimeText.setSelected(false);
-                        fenrunText.setSelected(false);
-                        fenrunIcon.setImageResource(R.mipmap.sort_hover_hui);
-
-                        mPresenter.getData_Fresh(strTel, strID, "", "1", "6");
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                moneyText.setSelected(true);
+                moneyIcon.setImageResource(R.mipmap.sort_hover);
+                addTimeIcon.setImageResource(R.mipmap.sort_hover_hui);
+                addTimeText.setSelected(false);
+                fenrunText.setSelected(false);
+                fenrunIcon.setImageResource(R.mipmap.sort_hover_hui);
+                mPresenter.getData_Fresh(strTel, strID, "", "1", "6");
             }
 
             @Override
@@ -137,6 +130,7 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -147,6 +141,7 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
 
     @Override
     public void onSuccess_Fresh(DailiListBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

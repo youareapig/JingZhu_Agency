@@ -44,6 +44,7 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
     private Adapter adapter;
     private List<OffIndirectDeivceBean.DataBean.ListBean> list;
     private String strTel = "", strID = "", strName = "";
+
     @Override
     protected void initView(View view) {
         otherView.setHolder(mHolder);
@@ -59,13 +60,7 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getData_Fresh(strName, strTel, strID, "");
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getData_Fresh(strName, strTel, strID, "");
             }
 
             @Override
@@ -100,6 +95,7 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -111,6 +107,7 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
 
     @Override
     public void onSuccess_Fresh(OffIndirectDeivceBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 
@@ -128,7 +125,7 @@ public class IndirectFragment extends BaseMvpFragment<IndirectPresenter> impleme
             adapter.openLoadAnimation();
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(getActivity());
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.addagency.update;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -15,7 +16,7 @@ import com.xiaomai.ageny.addagency.update.contract.UpdateAgencyContract;
 import com.xiaomai.ageny.addagency.update.presenter.UpdateAgencyPresenter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
-import com.xiaomai.ageny.utils.CustomDialog;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
@@ -58,7 +59,7 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
     private boolean btfirmIsSelect;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
-    private CustomDialog dialog;
+    private Dialog dialog;
     @Override
     public int getLayoutId() {
         return R.layout.activity_update_agency;
@@ -101,18 +102,17 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
 
     @Override
     public void showLoading() {
-        dialog=new CustomDialog(this);
-        dialog.show();
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
-        dialog.dismiss();
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override

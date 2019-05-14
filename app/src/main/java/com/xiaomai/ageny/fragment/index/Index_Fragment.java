@@ -136,13 +136,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getData_Fresh();
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getData_Fresh();
             }
 
             @Override
@@ -166,7 +160,6 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     @Override
     public void showLoading() {
         otherView.showLoadingView();
-
     }
 
     @Override
@@ -177,6 +170,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     @Override
     public void onError(Throwable throwable) {
         otherView.showRetryView();
+        refreshLayout.finishRefresh();
     }
 
 
@@ -202,6 +196,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
     @Override
     public void onSuccess_Fresh(IndexBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 
@@ -229,6 +224,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     }
 
     private void initData(IndexBean bean) {
+
         if (bean.getCode() == 1) {
             IndexBean.DataBean data = bean.getData();
             strTaskNum = data.getCountTask();

@@ -58,13 +58,7 @@ public class XiajiSHDeviceListOn_Fragment extends BaseMvpFragment<XiajiSHDeviceL
         finishRefresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh(id, deviceId, price, "1");
-                        finishRefresh.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh(id, deviceId, price, "1");
             }
 
             @Override
@@ -98,6 +92,7 @@ public class XiajiSHDeviceListOn_Fragment extends BaseMvpFragment<XiajiSHDeviceL
 
     @Override
     public void onError(Throwable throwable) {
+        finishRefresh.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -108,6 +103,7 @@ public class XiajiSHDeviceListOn_Fragment extends BaseMvpFragment<XiajiSHDeviceL
 
     @Override
     public void onSuccessFresh(XiajiListBean bean) {
+        finishRefresh.finishRefresh();
         initData(bean);
     }
 

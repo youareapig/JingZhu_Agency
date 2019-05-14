@@ -19,7 +19,6 @@ public class DeviceWithDrawListPresenter extends BasePresenter<DeviceWithDrawLis
 
     @Override
     public void getData(String deviceid) {
-
         if (!isViewAttached()) {
             return;
         }

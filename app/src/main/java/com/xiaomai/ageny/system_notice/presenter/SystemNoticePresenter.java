@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.system_notice.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.StaffBean;
 import com.xiaomai.ageny.bean.SystemNoticeBean;
 import com.xiaomai.ageny.net.RxScheduler;
 import com.xiaomai.ageny.system_notice.contract.SystemNoticeContract;
@@ -22,12 +23,12 @@ public class SystemNoticePresenter extends BasePresenter<SystemNoticeContract.Vi
         }
         mView.showLoading();
         model.getData(page, pagesize).compose(RxScheduler.<SystemNoticeBean>Flo_io_main())
+                .as(mView.<SystemNoticeBean>bindAutoDispose())
                 .subscribe(new Consumer<SystemNoticeBean>() {
                     @Override
                     public void accept(SystemNoticeBean bean) throws Exception {
                         mView.hideLoading();
                         mView.onSuccess(bean);
-
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -43,11 +44,31 @@ public class SystemNoticePresenter extends BasePresenter<SystemNoticeContract.Vi
             return;
         }
         model.getData(page, pagesize).compose(RxScheduler.<SystemNoticeBean>Flo_io_main())
+                .as(mView.<SystemNoticeBean>bindAutoDispose())
                 .subscribe(new Consumer<SystemNoticeBean>() {
                     @Override
                     public void accept(SystemNoticeBean bean) throws Exception {
                         mView.onSuccessFresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+    }
 
+    @Override
+    public void getDataLoadMore(String page, String pagesize) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(page, pagesize).compose(RxScheduler.<SystemNoticeBean>Flo_io_main())
+                .as(mView.<SystemNoticeBean>bindAutoDispose())
+                .subscribe(new Consumer<SystemNoticeBean>() {
+                    @Override
+                    public void accept(SystemNoticeBean bean) throws Exception {
+                        mView.onSuccessLoadMore(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

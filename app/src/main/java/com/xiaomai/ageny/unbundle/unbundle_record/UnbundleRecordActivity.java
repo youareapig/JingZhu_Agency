@@ -70,13 +70,7 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mPresenter.getDataFresh("", "", strName, strTel);
-                        refreshLayout.finishRefresh();
-                    }
-                }, 1000);
+                mPresenter.getDataFresh("", "", strName, strTel);
             }
 
             @Override
@@ -103,6 +97,7 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
 
     @Override
     public void onError(Throwable throwable) {
+        refreshLayout.finishRefresh();
         otherView.showRetryView();
     }
 
@@ -114,6 +109,7 @@ public class UnbundleRecordActivity extends BaseMvpActivity<UnbundleRecordPresen
 
     @Override
     public void onSuccessFresh(UnbindRecordBean bean) {
+        refreshLayout.finishRefresh();
         initData(bean);
     }
 

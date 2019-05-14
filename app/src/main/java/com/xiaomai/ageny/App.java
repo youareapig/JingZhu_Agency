@@ -40,7 +40,7 @@ public class App extends Application {
                 .debug(true, "okHttp")
                 .timeout(20 * 1000);
         //初始化点击间隔时间
-        SingleClickManager.setClickInterval(1000);
+        SingleClickManager.setClickInterval(500);
 
         //初始化极光推送
         JPushInterface.setDebugMode(true);
