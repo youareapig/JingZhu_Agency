@@ -35,6 +35,7 @@ import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 import com.xiaomai.ageny.bean.MyOrderBean;
 import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
 import com.xiaomai.ageny.bean.OffIndirectDeivceDetailsBean;
+import com.xiaomai.ageny.bean.PopDeviceBean;
 import com.xiaomai.ageny.bean.ShopApplyBean;
 import com.xiaomai.ageny.bean.ShopBean;
 import com.xiaomai.ageny.bean.ShopRecordBean;
@@ -52,6 +53,8 @@ import com.xiaomai.ageny.bean.XiajiListBean;
 import io.reactivex.Flowable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -364,8 +367,9 @@ public interface APIService {
     Flowable<ShowHoleBean> showHole(@Query("deviceid") String deviceid);
 
     //弹出充电宝
-    @GET(urlhead + "agentCenter/user/modal/Popup")
-    Flowable<HintBean> popDevice(@Query("deviceid") String deviceid, @Query("slot") String slot);
+    @FormUrlEncoded
+    @POST("charge/device/pop")
+    Flowable<PopDeviceBean> popDevice(@Field("deviceid") String deviceid, @Field("slot") String slot);
 
     //设备撤回列表
     @GET(urlhead + "agentCenter/user/devicerecall/info")

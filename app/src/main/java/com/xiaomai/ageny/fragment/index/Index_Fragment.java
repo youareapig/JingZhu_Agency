@@ -234,7 +234,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             allMoney.setText(data.getTotal_earn());
             monthMoney.setText(data.getMonth_earn());
             txIndexMoney.setText(data.getUnliquidated());
-            depositMoney.setText("已提现金额：" + data.getFreeze_money() + "元");
+            depositMoney.setText("已提现金额：" + data.getLiquidated() + "元");
             offLine.setText(data.getOffLineCount());
             onLine.setText(data.getOnLineCount());
             indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");

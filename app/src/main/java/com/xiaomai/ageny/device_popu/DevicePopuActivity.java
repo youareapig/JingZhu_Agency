@@ -1,7 +1,6 @@
 package com.xiaomai.ageny.device_popu;
 
-import android.os.Bundle;
-import android.os.Handler;
+import android.app.Dialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,12 +11,13 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
-import com.xiaomai.ageny.bean.HintBean;
+import com.xiaomai.ageny.bean.PopDeviceBean;
 import com.xiaomai.ageny.bean.ShowHoleBean;
 import com.xiaomai.ageny.device_popu.contract.DevicePopuContract;
 import com.xiaomai.ageny.device_popu.presenter.DevicePopuPresenter;
+import com.xiaomai.ageny.utils.CountDownTimerUtilsPop;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
-import com.xiaomai.ageny.utils.SpacesItemDecoration;
 import com.xiaomai.ageny.utils.SpacesItemDecoration_left;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> implements DevicePopuContract.View {
@@ -46,6 +45,7 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
     private Adapter adapter;
     private String id;
     private int slotId = 1;
+    private Dialog dialog;
 
     @Override
     public int getLayoutId() {
@@ -55,7 +55,7 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
     @Override
     public void initView() {
         id = getIntent().getExtras().getString("id");
-        deviceId.setText("设备编号："+id);
+        deviceId.setText("设备编号：" + id);
         otherView.setHolder(mHolder);
         mPresenter = new DevicePopuPresenter();
         mPresenter.attachView(this);
@@ -65,29 +65,27 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
 
     @Override
     public void showLoading() {
-
+        dialog = DialogUtils.showDialog_progressbar(this);
     }
 
     @Override
     public void hideLoading() {
-
+        DialogUtils.closeDialog(dialog);
     }
 
     @Override
     public void onError(Throwable throwable) {
+        DialogUtils.closeDialog(dialog);
         Logger.d("错误");
     }
 
     @Override
-    public void onSuccess(HintBean bean) {
+    public void onSuccess(PopDeviceBean bean) {
         if (bean.getCode() == 1) {
             ShowDialogUtils.showdialog(this, "弹出指令已发出，请稍等~");
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    finish();
-                }
-            }, 1000);
+            CountDownTimerUtilsPop mCountDownTimerUtils = new CountDownTimerUtilsPop(btSurePop, 10000, 1000);
+            mCountDownTimerUtils.start();
+
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
         } else {

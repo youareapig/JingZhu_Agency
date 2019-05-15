@@ -45,11 +45,13 @@ public class DepositPresenter extends BasePresenter<DepositContract.View> implem
         if (!isViewAttached()) {
             return;
         }
+        mView.showLoading();
         model.getDepositBean(requestBody).compose(RxScheduler.<HintBean>Flo_io_main())
                 .as(mView.<HintBean>bindAutoDispose())
                 .subscribe(new Consumer<HintBean>() {
                     @Override
                     public void accept(HintBean indexBean) throws Exception {
+                        mView.hideLoading();
                         mView.onSuccessDeposit(indexBean);
                     }
                 }, new Consumer<Throwable>() {

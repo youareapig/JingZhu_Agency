@@ -3,6 +3,7 @@ package com.xiaomai.ageny.device_popu.presenter;
 import com.xiaomai.ageny.base.BasePresenter;
 import com.xiaomai.ageny.bean.AllotDeviceBean;
 import com.xiaomai.ageny.bean.HintBean;
+import com.xiaomai.ageny.bean.PopDeviceBean;
 import com.xiaomai.ageny.bean.ShowHoleBean;
 import com.xiaomai.ageny.device_popu.contract.DevicePopuContract;
 import com.xiaomai.ageny.device_popu.model.DevicePopuModel;
@@ -23,11 +24,11 @@ public class DevicePopuPresenter extends BasePresenter<DevicePopuContract.View> 
             return;
         }
         mView.showLoading();
-        model.popu(deviceid, slot).compose(RxScheduler.<HintBean>Flo_io_main())
-                .as(mView.<HintBean>bindAutoDispose())
-                .subscribe(new Consumer<HintBean>() {
+        model.popu(deviceid, slot).compose(RxScheduler.<PopDeviceBean>Flo_io_main())
+                .as(mView.<PopDeviceBean>bindAutoDispose())
+                .subscribe(new Consumer<PopDeviceBean>() {
                     @Override
-                    public void accept(HintBean bean) throws Exception {
+                    public void accept(PopDeviceBean bean) throws Exception {
                         mView.hideLoading();
                         mView.onSuccess(bean);
 

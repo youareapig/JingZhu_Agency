@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35"
+        android:background="#fff">
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/titleback"
+                android:src="@mipmap/back_black" />
+        </RelativeLayout>
+
+
+        <TextView
+            style="@style/titletext"
+            android:text="代理资料修改"
+            android:textColor="#363636" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_8"
+        android:background="#F6F6F6" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_13"
+                android:layout_marginTop="@dimen/dp_23"
+                android:layout_marginRight="@dimen/dp_13"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="代理编号"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_17" />
+
+                    <TextView
+                        android:id="@+id/agencyId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_19"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_17" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_49"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="类型"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_17" />
+
+                    <TextView
+                        android:id="@+id/bt_person"
+                        android:layout_width="@dimen/dp_55"
+                        android:layout_height="@dimen/dp_25"
+                        android:layout_marginLeft="@dimen/dp_19"
+                        android:background="@drawable/agency_type_state"
+                        android:gravity="center"
+                        android:text="个人"
+                        android:textColor="@color/agency_type_color"
+
+                        android:textSize="@dimen/sp_13" />
+
+                    <TextView
+                        android:id="@+id/bt_firm"
+                        android:layout_width="@dimen/dp_55"
+                        android:layout_height="@dimen/dp_25"
+                        android:layout_marginLeft="@dimen/dp_19"
+                        android:background="@drawable/agency_type_state"
+                        android:gravity="center"
+                        android:text="企业"
+                        android:textColor="@color/agency_type_color"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="#D6D6D6" />
+
+                <RelativeLayout
+                    android:id="@+id/view_firm"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_50">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_49"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="企业名称"
+                            android:textColor="#363636"
+                            android:textSize="@dimen/sp_17" />
+
+                        <EditText
+                            android:id="@+id/firmName"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="@dimen/dp_16"
+                            android:background="@null"
+                            android:hint="输入企业名称"
+                            android:singleLine="true"
+                            android:textColor="#363636"
+                            android:textColorHint="#868686"
+                            android:textSize="@dimen/sp_15" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_alignParentBottom="true"
+                        android:background="#D6D6D6" />
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_49"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联系人"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_17" />
+
+                    <EditText
+                        android:id="@+id/linkname"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:background="@null"
+                        android:hint="请输入代理人人姓名"
+                        android:singleLine="true"
+                        android:textColor="#363636"
+                        android:textColorHint="#868686"
+                        android:textSize="@dimen/sp_15" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="#D6D6D6" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_49"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="联系方式"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_17" />
+
+                    <EditText
+                        android:id="@+id/linktel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:background="@null"
+                        android:hint="请输入代理人的联系方式"
+                        android:singleLine="true"
+                        android:textColor="#363636"
+                        android:textColorHint="#868686"
+                        android:textSize="@dimen/sp_15" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="#D6D6D6" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_49"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="负责区域"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_17" />
+
+                    <EditText
+                        android:id="@+id/adress"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:background="@null"
+                        android:hint="请输入代理人负责区域地质"
+                        android:singleLine="true"
+                        android:textColor="#363636"
+                        android:textColorHint="#868686"
+                        android:textSize="@dimen/sp_15" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:background="#D6D6D6" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_49"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="分润比例"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_17" />
+
+                    <EditText
+                        android:id="@+id/fenrun"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/dp_16"
+                        android:background="@null"
+                        android:gravity="center"
+                        android:hint="输入分润比例"
+                        android:singleLine="true"
+                        android:textColor="#363636"
+                        android:textColorHint="#868686"
+                        android:textSize="@dimen/sp_17" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_8"
+                        android:text="%"
+                        android:textColor="#363636"
+                        android:textSize="@dimen/sp_17" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_8"
+                        android:text="ps:最大分润比例"
+                        android:textColor="#707070"
+                        android:textSize="@dimen/sp_13" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="50%"
+                        android:textColor="#E55C5C"
+                        android:textSize="@dimen/sp_13" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_8"
+                android:background="#F6F6F6" />
+
+
+            <TextView
+                android:id="@+id/bt_save"
+                android:layout_width="@dimen/dp_260"
+                android:layout_height="@dimen/dp_44"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_160"
+                android:layout_marginBottom="@dimen/dp_44"
+                android:background="@drawable/save_button"
+                android:gravity="center"
+                android:elevation="@dimen/dp_2"
+                android:text="确认修改"
+                android:textColor="#fff"
+                android:textSize="@dimen/sp_17" />
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>
