@@ -90,6 +90,7 @@
                         android:layout_marginBottom="@dimen/dp_3"
                         android:text="预警时间：123456"
                         android:textColor="#464646"
+                        android:visibility="gone"
                         android:textSize="@dimen/sp_12" />
 
                     <TextView

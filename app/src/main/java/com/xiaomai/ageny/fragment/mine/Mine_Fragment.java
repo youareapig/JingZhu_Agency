@@ -1,14 +1,10 @@
 package com.xiaomai.ageny.fragment.mine;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,10 +17,9 @@ import com.xiaomai.ageny.bean.UserInfoBean;
 import com.xiaomai.ageny.deposit_list.DepositListActivity;
 import com.xiaomai.ageny.device_manage.DeviceManageActivity;
 import com.xiaomai.ageny.device_popu.DevicePopuActivity;
-import com.xiaomai.ageny.device_popu.DevicePopuZxingActivity;
+import com.xiaomai.ageny.device_popu.popu_zxing.DevicePopuZxingActivity;
 import com.xiaomai.ageny.fragment.mine.contract.MineContract;
 import com.xiaomai.ageny.fragment.mine.presenter.MinePresenter;
-import com.xiaomai.ageny.login.LoginActivity;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.setting.SettingActivity;
 import com.xiaomai.ageny.system_notice.SystemNoticeActivity;
@@ -38,10 +33,7 @@ import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
-import cn.jpush.android.api.JPushInterface;
 
 public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements MineContract.View {
     @BindView(R.id.bt_device_manage)
@@ -173,43 +165,42 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
 
     @PermissionGrant(4)
     public void requestCameraSuccess_4() {
-        Intent intent = new Intent(getActivity(), DevicePopuZxingActivity.class);
-        startActivityForResult(intent, 4);
+        toClass(getActivity(),DevicePopuZxingActivity.class);
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 4) {
-            if (null != data) {
-                Bundle bundle = data.getExtras();
-                if (bundle == null) {
-                    return;
-                }
-                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-                    String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    try {
-
-                        Logger.d("解析成功结果:" + result);
-                        String headurl = BaseUtils.subFrontString(result, "=");
-                        String shadurl = BaseUtils.subBehindString(result, "=");
-                        if (headurl.equals(App.ZxingBaseUrl)) {
-                            Bundle mBundle = new Bundle();
-                            mBundle.putString("id", shadurl);
-                            toClass(getActivity(), DevicePopuActivity.class, mBundle);
-                        } else {
-                            ToastUtil.showShortToast("请扫描正确二维码");
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        ToastUtil.showShortToast("请扫描正确二维码");
-                    }
-
-                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    Logger.d("解析失败");
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == 4) {
+//            if (null != data) {
+//                Bundle bundle = data.getExtras();
+//                if (bundle == null) {
+//                    return;
+//                }
+//                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
+//                    String result = bundle.getString(CodeUtils.RESULT_STRING);
+//                    try {
+//
+//                        Logger.d("解析成功结果:" + result);
+//                        String headurl = BaseUtils.subFrontString(result, "=");
+//                        String shadurl = BaseUtils.subBehindString(result, "=");
+//                        if (headurl.equals(App.ZxingBaseUrl)) {
+//                            Bundle mBundle = new Bundle();
+//                            mBundle.putString("id", shadurl);
+//                            toClass(getActivity(), DevicePopuActivity.class, mBundle);
+//                        } else {
+//                            ToastUtil.showShortToast("请扫描正确二维码");
+//                        }
+//                    } catch (Exception e) {
+//                        e.printStackTrace();
+//                        ToastUtil.showShortToast("请扫描正确二维码");
+//                    }
+//
+//                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
+//                    Logger.d("解析失败");
+//                }
+//            }
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 
 }

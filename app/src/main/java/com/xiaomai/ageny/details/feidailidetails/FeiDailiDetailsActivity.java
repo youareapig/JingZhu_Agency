@@ -62,6 +62,8 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
     OtherView otherView;
     @BindView(R.id.index_device_allcount)
     TextView indexDeviceAllcount;
+    @BindView(R.id.bt_lookorder)
+    TextView btLookOrder;
     private String id;
     private Bundle bundle;
 
@@ -124,7 +126,7 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
             indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }
@@ -151,7 +153,7 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
         }
     }
 
-    @OnClick({R.id.back, R.id.device_more, R.id.shanghu_more, R.id.updateuserinfo})
+    @OnClick({R.id.back, R.id.device_more, R.id.shanghu_more, R.id.updateuserinfo, R.id.bt_lookorder})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -166,6 +168,8 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
                 toClass(this, XiaJiSH_ListActivity.class, bundle);
                 break;
             case R.id.updateuserinfo:
+                break;
+            case R.id.bt_lookorder:
                 break;
         }
     }

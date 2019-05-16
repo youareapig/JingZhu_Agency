@@ -11,9 +11,6 @@ public interface DevicePopuContract {
     interface Model {
         Flowable<PopDeviceBean> popu(String deviceid, String slot);
 
-        Flowable<ShowHoleBean> getData(String deviceid);
-
-
     }
 
     interface View extends BaseView {
@@ -28,13 +25,11 @@ public interface DevicePopuContract {
 
         void onSuccess(PopDeviceBean bean);
 
-        void onSuccess(ShowHoleBean bean);
 
     }
 
     interface Presenter {
         void popu(String deviceid, String slot);
 
-        void getData(String deviceid);
     }
 }

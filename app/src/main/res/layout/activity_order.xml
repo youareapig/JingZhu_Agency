@@ -50,13 +50,14 @@
         android:layout_height="@dimen/dp_46"
         android:layout_gravity="center_horizontal"
         android:background="#fff"
-        app:xTabDisplayNum="2"
+        app:xTabDisplayNum="1"
         app:xTabDividerWidthWidthText="true"
         app:xTabIndicatorColor="@color/appbar"
         app:xTabIndicatorHeight="@dimen/dp_2"
         app:xTabMode="scrollable"
         app:xTabSelectedTextColor="@color/appbar"
         app:xTabTextColor="#363636"
+        android:visibility="gone"
         app:xTabTextSize="@dimen/sp_14" />
 
 

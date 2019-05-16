@@ -513,6 +513,22 @@
                                 android:layout_marginLeft="@dimen/dp_11"
                                 android:textColor="#363636"
                                 android:textSize="@dimen/sp_15" />
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="gone">
+
+                                <TextView
+                                    android:id="@+id/bt_lookorder"
+                                    android:layout_width="@dimen/dp_65"
+                                    android:layout_height="@dimen/dp_21"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@drawable/blue_frame11"
+                                    android:gravity="center"
+                                    android:text="查看订单"
+                                    android:textColor="#ffffff" />
+                            </RelativeLayout>
                         </LinearLayout>
 
                         <LinearLayout

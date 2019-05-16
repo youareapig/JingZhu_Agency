@@ -3,7 +3,9 @@ package com.xiaomai.ageny.details.device_alloted_details;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -46,6 +48,8 @@ public class DeviceAllotedDetailsActivity extends BaseMvpActivity<DeviceAllotedD
     CardView liuzhuanView;
     @BindView(R.id.otherview)
     OtherView otherview;
+    @BindView(R.id.stoptimeview)
+    LinearLayout stopTimeView;
     private Adapter adapter;
     private String id;
     private List<DeviceAllotedDetailsBean.DataBean.ListBean> list;
@@ -81,14 +85,17 @@ public class DeviceAllotedDetailsActivity extends BaseMvpActivity<DeviceAllotedD
 
     @Override
     public void onSuccess(DeviceAllotedDetailsBean bean) {
-        if (bean.getCode()==1){
+        if (bean.getCode() == 1) {
             deviceId.setText(id);
             getname.setText(bean.getData().getLingquren());
             tel.setText(bean.getData().getLingqurenmobile());
             time.setText(bean.getData().getFenpeitime());
             deviceState.setText(bean.getData().getBushu());
-            stoptime.setText(bean.getData().getZhiliutime());
-
+            if (TextUtils.isEmpty(bean.getData().getZhiliutime())) {
+                stoptime.setText("无");
+            } else {
+                stoptime.setText(bean.getData().getZhiliutime());
+            }
             list = bean.getData().getList();
             if (list.size() == 0) {
                 liuzhuanView.setVisibility(View.GONE);
@@ -100,13 +107,13 @@ public class DeviceAllotedDetailsActivity extends BaseMvpActivity<DeviceAllotedD
                 recycler.setAdapter(adapter);
                 adapter.openLoadAnimation();
             }
-        }else if (bean.getCode()==-10){
+        } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
 
-}
+    }
 
 
     @OnClick(R.id.back)

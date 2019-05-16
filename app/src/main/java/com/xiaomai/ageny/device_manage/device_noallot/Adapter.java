@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.bean.NoAllotDeviceBean;
 import com.xiaomai.ageny.utils.DateUtils;
@@ -20,7 +21,6 @@ public class Adapter extends BaseQuickAdapter<NoAllotDeviceBean.DataBean, BaseVi
         //获取当前时间戳
         Long dd = DateUtils.getCurrentTime_Today();
         Long tt = item.getUpdateTime().getTime();
-
         int kou = Integer.valueOf(item.getDeviceType());
         int tai = kou - 1;
         helper.setText(R.id.deviceId, item.getDeviceId())

@@ -122,7 +122,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/dp_5"
-                    android:text="已滞留12时8分"
                     android:textColor="#E55C5C"
                     android:textSize="@dimen/sp_14" />
             </LinearLayout>

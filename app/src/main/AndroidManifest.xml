@@ -127,7 +127,7 @@
         <activity android:name=".device_manage.device_allot.device_allot_list.DeviceAllotListActivity" />
         <activity android:name=".device_manage.device_allot.device_allot_agency.DeviceAllotAgencyActivity" />
         <activity android:name=".device_manage.device_allot.DeviceAllotSuccessActivity" />
-        <activity android:name=".device_popu.DevicePopuZxingActivity" />
+        <activity android:name=".device_popu.popu_zxing.DevicePopuZxingActivity" />
         <activity android:name=".device_popu.DevicePopuActivity" />
         <activity android:name=".unbundle.unbundle_record.UnbundleRecordActivity" />
         <activity android:name=".filter.unbundle_record_filter.UnbundleRecordFilterActivity" />

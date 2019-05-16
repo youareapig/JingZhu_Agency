@@ -19,7 +19,7 @@
             android:gravity="center"
             android:paddingLeft="@dimen/dp_10"
             android:paddingRight="@dimen/dp_10"
-            android:text="你的账号在另一台设备登录，请重新登录!"
+            android:text="登录失效，请重新登录"
             android:textColor="#363636"
             android:textSize="@dimen/sp_14" />
 
@@ -27,7 +27,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
-            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_25"
             android:background="#E6E6E6" />
 
         <TextView

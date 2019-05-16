@@ -16,6 +16,8 @@ import com.xiaomai.ageny.utils.DateUtils;
 import java.util.List;
 
 public class Adapter extends BaseQuickAdapter<SystemNoticeBean.DataBean.ListBean, BaseViewHolder> {
+    private String strhead;
+
     public Adapter(int layoutResId, @Nullable List<SystemNoticeBean.DataBean.ListBean> data) {
         super(layoutResId, data);
     }
@@ -31,6 +33,19 @@ public class Adapter extends BaseQuickAdapter<SystemNoticeBean.DataBean.ListBean
         tv_ystime = helper.getView(R.id.item_ystime);
         tv_yjtime = helper.getView(R.id.item_yjtime);
         item_icon = helper.getView(R.id.item_icon);
+        //0 遗失  1找回  2离线
+        switch (item.getType()) {
+            case 0:
+                strhead = "遗失时间：";
+                break;
+            case 1:
+                strhead = "找回时间：";
+                break;
+            case 2:
+                strhead = "离线时间：";
+                break;
+        }
+
         if (TextUtils.isEmpty(item.getMessage())) {
             tv_title.setVisibility(View.GONE);
         } else {
@@ -59,14 +74,9 @@ public class Adapter extends BaseQuickAdapter<SystemNoticeBean.DataBean.ListBean
             tv_ystime.setVisibility(View.GONE);
         } else {
             tv_ystime.setVisibility(View.VISIBLE);
-            tv_ystime.setText("遗失时间：" + DateUtils.timeStamp2DateYMDHM(item.getCreateTime().getTime() + ""));
+            tv_ystime.setText(strhead + DateUtils.timeStamp2DateYMDHM(item.getCreateTime().getTime() + ""));
         }
-        if (TextUtils.isEmpty(item.getUpdTime())) {
-            tv_yjtime.setVisibility(View.GONE);
-        } else {
-            tv_yjtime.setVisibility(View.VISIBLE);
-            tv_yjtime.setText("预警时间：" + item.getUpdTime());
-        }
+
         //0 未读  1 已读
         item_icon.setImageResource(item.getState() == 0 ? R.mipmap.news_icon : R.mipmap.news_icon1);
     }

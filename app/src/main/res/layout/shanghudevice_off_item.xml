@@ -162,7 +162,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_2"
-            android:text="累计收益(元)"
+            android:text="订单总额(元)"
             android:textColor="#666666"
             android:textSize="@dimen/sp_11" />
     </LinearLayout>

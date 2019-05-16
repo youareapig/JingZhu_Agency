@@ -104,7 +104,7 @@ public interface APIService {
             @Query("deviceid") String deviceid,
             @Query("state") String state);
 
-    //离线设备列表（非直属设备）
+    //离线设备列表（直属设备）
     @GET(urlhead + "agentCenter/nodirecte/quipment")
     Flowable<OffIndirectDeivceBean> getInDirectListBean(
             @Query("agentname") String agentname,
@@ -272,7 +272,7 @@ public interface APIService {
     Flowable<HintBean> deployDevice(@Body RequestBody requestBody);
 
     //申请提现
-    @POST(urlhead + "admin/withdrow")
+    @POST(urlhead + "agentCenter/homepage/withdraw/apply")
     Flowable<HintBean> dePosit(@Body RequestBody requestBody);
 
     //解绑商户

@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.device_popu;
 
 import android.app.Dialog;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.PopDeviceBean;
 import com.xiaomai.ageny.bean.ShowHoleBean;
+import com.xiaomai.ageny.device_manage.device_withdraw.DeviceWithDrawListActivity;
 import com.xiaomai.ageny.device_popu.contract.DevicePopuContract;
 import com.xiaomai.ageny.device_popu.presenter.DevicePopuPresenter;
 import com.xiaomai.ageny.utils.CountDownTimerUtilsPop;
@@ -55,12 +57,30 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
     @Override
     public void initView() {
         id = getIntent().getExtras().getString("id");
+        list = (List<String>) getIntent().getExtras().getSerializable("mlist");
+        Logger.d("孔数集合" + list.size());
         deviceId.setText("设备编号：" + id);
         otherView.setHolder(mHolder);
         mPresenter = new DevicePopuPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(id);
+        initData();
+    }
 
+    private void initData() {
+        recycler.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
+        recycler.addItemDecoration(new SpacesItemDecoration_left(90));
+        recycler.setNestedScrollingEnabled(false);
+        adapter = new Adapter(R.layout.device_pop_item, list);
+        recycler.setAdapter(adapter);
+        adapter.openLoadAnimation();
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
+                slotId = position + 1;
+                adapter.setSelectItem(position);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -86,37 +106,6 @@ public class DevicePopuActivity extends BaseMvpActivity<DevicePopuPresenter> imp
             CountDownTimerUtilsPop mCountDownTimerUtils = new CountDownTimerUtilsPop(btSurePop, 10000, 1000);
             mCountDownTimerUtils.start();
 
-        } else if (bean.getCode() == -10) {
-            ShowDialogUtils.restLoginDialog(this);
-        } else {
-            ToastUtil.showShortToast(bean.getMessage());
-        }
-
-
-    }
-
-    @Override
-    public void onSuccess(final ShowHoleBean bean) {
-        if (bean.getCode() == 1) {
-            list = new ArrayList<>();
-            int kongcount = bean.getData();
-            for (int i = 1; i <= kongcount; i++) {
-                list.add(i + "孔");
-            }
-            recycler.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
-            recycler.addItemDecoration(new SpacesItemDecoration_left(90));
-            recycler.setNestedScrollingEnabled(false);
-            adapter = new Adapter(R.layout.device_pop_item, list);
-            recycler.setAdapter(adapter);
-            adapter.openLoadAnimation();
-            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
-                    slotId = position + 1;
-                    adapter.setSelectItem(position);
-                    adapter.notifyDataSetChanged();
-                }
-            });
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
         } else {

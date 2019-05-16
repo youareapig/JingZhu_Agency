@@ -54,34 +54,34 @@ public class OrderActivity extends BaseMvpActivity<OrderPresenter> implements Or
     public void initView() {
         titleList = new ArrayList<>();
         titleList.add("我的订单");
-        titleList.add("下级订单");
+//        titleList.add("下级订单");
         fragmentList = new ArrayList<>();
         fragmentList.add(new MyOderFragment());
-        fragmentList.add(new LowerOrderFragment());
+//        fragmentList.add(new LowerOrderFragment());
 
         viewpage.setAdapter(new TabAdapter(getSupportFragmentManager(), titleList, fragmentList));
         viewpage.setOffscreenPageLimit(0);
         xtab.setupWithViewPager(viewpage);
         xtab.getTabAt(0).select();
-        xtab.getTabAt(1).select();
+//        xtab.getTabAt(1).select();
         viewpage.setCurrentItem(0);
-        xtab.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(XTabLayout.Tab tab) {
-                tabPosition = tab.getPosition();
-                viewpage.setCurrentItem(tabPosition);
-            }
-
-            @Override
-            public void onTabUnselected(XTabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(XTabLayout.Tab tab) {
-
-            }
-        });
+//        xtab.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+//            @Override
+//            public void onTabSelected(XTabLayout.Tab tab) {
+//                tabPosition = tab.getPosition();
+//                viewpage.setCurrentItem(tabPosition);
+//            }
+//
+//            @Override
+//            public void onTabUnselected(XTabLayout.Tab tab) {
+//
+//            }
+//
+//            @Override
+//            public void onTabReselected(XTabLayout.Tab tab) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -107,12 +107,13 @@ public class OrderActivity extends BaseMvpActivity<OrderPresenter> implements Or
                 finish();
                 break;
             case R.id.bt_filter:
-                if (tabPosition == 0) {
-                    toClass(this, MyOrderFilterActivity.class);
-                }
-                if (tabPosition == 1) {
-                    toClass(this, LowerOrderFilterActivity.class);
-                }
+//                if (tabPosition == 0) {
+//                    toClass(this, MyOrderFilterActivity.class);
+//                }
+//                if (tabPosition == 1) {
+//                    toClass(this, LowerOrderFilterActivity.class);
+//                }
+                toClass(this, MyOrderFilterActivity.class);
                 break;
         }
     }

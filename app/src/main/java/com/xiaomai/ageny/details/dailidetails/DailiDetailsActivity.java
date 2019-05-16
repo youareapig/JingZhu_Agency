@@ -78,6 +78,8 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
     OtherView otherView;
     @BindView(R.id.index_device_allcount)
     TextView indexDeviceAllcount;
+    @BindView(R.id.bt_lookorder)
+    TextView btLookOrder;
     private String id, strFenrun, strLinkName, strLinkTel, strAddress, strAddTime, strFirmName;
     private int isperson;
     private Bundle bundle;
@@ -193,7 +195,7 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
     }
 
 
-    @OnClick({R.id.back, R.id.device_more, R.id.shanghu_more, R.id.updateuserinfo})
+    @OnClick({R.id.back, R.id.device_more, R.id.shanghu_more, R.id.updateuserinfo,R.id.bt_lookorder})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -216,6 +218,8 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
                 bundle.putString("firmname", strFirmName);
                 bundle.putInt("isperson", isperson);
                 toClass(this, UpdateAgencyActivity.class, bundle);
+                break;
+            case R.id.bt_lookorder:
                 break;
         }
     }

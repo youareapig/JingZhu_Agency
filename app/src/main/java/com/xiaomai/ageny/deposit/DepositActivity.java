@@ -150,6 +150,8 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
     public void onSuccessDeposit(HintBean bean) {
         if (bean.getCode() == 1) {
             ShowDialogUtils.showdialog(this, "提现成功~");
+            //提现成功后刷新当前界面
+            mPresenter.getData();
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -188,7 +190,7 @@ public class DepositActivity extends BaseMvpActivity<DepositPresenter> implement
                     if (TextUtils.isEmpty(strprice)) {
                         ToastUtil.showShortToast("请输入提现金额");
                     } else {
-                        keyList.add("price");
+                        keyList.add("money");
                         keyList.add("type");
                         keyList.add("credit_card");
                         keyList.add("bank");

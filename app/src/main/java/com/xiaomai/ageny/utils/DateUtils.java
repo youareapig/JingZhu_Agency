@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class DateUtils {
 
@@ -53,7 +54,15 @@ public class DateUtils {
      * @return
      */
     public static long getCurrentTime_Today() {
-        return new Date().getTime();
+        return new Date().getTime()-8 * 60 * 60 * 1000;
+    }
+
+    public static String test(){
+        SimpleDateFormat hms = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
+        hms.setTimeZone(TimeZone.getTimeZone("GMT+8"));
+        Date tTime = new Date();//跑步用时
+        String totalTime = hms.format(tTime);
+        return totalTime;
     }
 
     /**

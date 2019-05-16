@@ -14,8 +14,4 @@ public class DevicePopuModel implements DevicePopuContract.Model {
         return RetrofitClient.getInstance().getApi().popDevice(deviceid, slot);
     }
 
-    @Override
-    public Flowable<ShowHoleBean> getData(String deviceid) {
-        return RetrofitClient.getInstance().getApi().showHole(deviceid);
-    }
 }

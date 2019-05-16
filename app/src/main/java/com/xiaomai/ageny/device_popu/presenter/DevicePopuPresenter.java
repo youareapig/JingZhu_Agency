@@ -42,24 +42,5 @@ public class DevicePopuPresenter extends BasePresenter<DevicePopuContract.View> 
                 });
     }
 
-    @Override
-    public void getData(String deviceid) {
-        if (!isViewAttached()) {
-            return;
-        }
-        model.getData(deviceid).compose(RxScheduler.<ShowHoleBean>Flo_io_main())
-                .as(mView.<ShowHoleBean>bindAutoDispose())
-                .subscribe(new Consumer<ShowHoleBean>() {
-                    @Override
-                    public void accept(ShowHoleBean bean) throws Exception {
-                        mView.onSuccess(bean);
 
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        mView.onError(throwable);
-                    }
-                });
-    }
 }
