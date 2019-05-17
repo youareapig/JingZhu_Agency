@@ -104,7 +104,7 @@ public interface APIService {
             @Query("deviceid") String deviceid,
             @Query("state") String state);
 
-    //离线设备列表（直属设备）
+    //离线设备列表（非直属设备）
     @GET(urlhead + "agentCenter/nodirecte/quipment")
     Flowable<OffIndirectDeivceBean> getInDirectListBean(
             @Query("agentname") String agentname,

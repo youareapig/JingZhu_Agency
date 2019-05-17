@@ -261,7 +261,6 @@ public class ShanghuDeviceDetailsActivity extends BaseMvpActivity<ShangHuDeviceD
                 v.findViewById(R.id.exit).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        devicePrice.setText(strPrice);
                         pvCustomOptions.dismiss();
                     }
                 });

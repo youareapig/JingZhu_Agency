@@ -19,15 +19,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Adapter extends BaseQuickAdapter<OffIndirectDeivceDetailsBean.DataBean.ListBean, BaseViewHolder> {
+    private String strLevel;
+
     public Adapter(int layoutResId, @Nullable List<OffIndirectDeivceDetailsBean.DataBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, OffIndirectDeivceDetailsBean.DataBean.ListBean item) {
-        helper.setText(R.id.name, item.getAgentName())
-                .setText(R.id.agency, item.getAgentLevel() + "级代理")
-                .setText(R.id.time, DateUtils.timeStamp2Date(item.getDistTime().getTime()+""));
+        switch (item.getLevel()) {
+            case "1":
+                strLevel = "总代理";
+                break;
+            case "2":
+                strLevel = "一级代理";
+                break;
+            case "3":
+                strLevel = "二级代理";
+                break;
+            case "4":
+                strLevel = "三级代理";
+                break;
+            case "9":
+                strLevel = "商户";
+                break;
+        }
+        helper.setText(R.id.name, item.getName())
+                .setText(R.id.agency, strLevel);
+//                .setText(R.id.time, DateUtils.timeStamp2Date(item.getDistTime().getTime()+""));
 
     }
 }

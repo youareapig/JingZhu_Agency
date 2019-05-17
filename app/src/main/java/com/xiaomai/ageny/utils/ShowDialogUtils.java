@@ -60,7 +60,7 @@ public class ShowDialogUtils {
         });
     }
 
-    //单点登录提示框
+    //提示打开系统通知
     public static void openNotice(Activity activity) {
         final AlertDialog builder = new AlertDialog.Builder(activity).create();
         LayoutInflater layoutInflater = activity.getLayoutInflater();

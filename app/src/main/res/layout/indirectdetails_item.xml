@@ -32,6 +32,7 @@
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:text="2018-12-21"
+        android:visibility="gone"
         android:textColor="#888888"
         android:textSize="@dimen/sp_12" />
 </LinearLayout>

@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_12"
         android:layout_marginTop="@dimen/dp_22"
-        android:text="订单编号:"
+        android:text="设备编号:"
         android:textColor="#707070"
         android:textSize="@dimen/sp_14" />
 
@@ -41,8 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_21"
         android:gravity="center_vertical"
-        android:hint="输入订单编号"
-        android:inputType="number"
+        android:hint="输入设备编号"
         android:singleLine="true"
         android:textColor="#363636"
         android:textColorHint="#B6B6B6"

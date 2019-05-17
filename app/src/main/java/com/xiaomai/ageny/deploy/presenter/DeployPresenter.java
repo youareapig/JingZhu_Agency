@@ -85,7 +85,10 @@ public class DeployPresenter extends BasePresenter<DeployContract.View> implemen
 
     @Override
     public void stopLocation() {
-        mLocationClient.stopLocation();
+        if (mLocationClient!=null){
+            mLocationClient.stopLocation();
+        }
+
     }
 
     // 高德定位

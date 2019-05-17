@@ -149,7 +149,11 @@ public class DeviceAllotListActivity extends BaseMvpActivity<DeviceAllotListPres
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             //点击完返回键，执行的动作
-            myDialog();
+            if (list.size() != 0) {
+                myDialog();
+            } else {
+                finish();
+            }
         }
         return true;
     }

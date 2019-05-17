@@ -4,9 +4,10 @@ import java.util.List;
 
 public class AllotDeviceBean {
 
+
     /**
      * code : 1
-     * data : [{"agentId":1,"agentLevel":"1","agentMobile":"","agentName":"吴凯","details":"","deviceId":"JZCB061901000044","deviceType":"","distTime":{"date":19,"day":5,"hours":11,"minutes":44,"month":3,"seconds":19,"time":1555645459000,"timezoneOffset":-480,"year":119},"id":1,"state":"1","strandedTime":null},{"agentId":1,"agentLevel":"2","agentMobile":"","agentName":"张兴凯","details":"","deviceId":"JZCB061901000044","deviceType":"","distTime":{"date":19,"day":5,"hours":11,"minutes":44,"month":3,"seconds":49,"time":1555645489000,"timezoneOffset":-480,"year":119},"id":2,"state":"1","strandedTime":null},{"agentId":1,"agentLevel":"1","agentMobile":"","agentName":"周琪帆","details":"","deviceId":"JZCB061901000044","deviceType":"","distTime":{"date":19,"day":5,"hours":11,"minutes":45,"month":3,"seconds":12,"time":1555645512000,"timezoneOffset":-480,"year":119},"id":3,"state":"1","strandedTime":null}]
+     * data : [{"agentId":1064,"agentLevel":"2","agentMobile":"","agentName":"一代个人1","details":"","deviceId":"JZCB061901000359","deviceType":"6口5槽","distTime":{"date":17,"day":5,"hours":11,"minutes":54,"month":4,"seconds":29,"time":1558065269000,"timezoneOffset":-480,"year":119},"fenpeiagentId":1032,"id":291,"lingquren":"二代个人1","lingqurenmobile":"13880898866","state":"1","strandedTime":null},{"agentId":1064,"agentLevel":"1","agentMobile":"","agentName":"徐碧","details":"","deviceId":"JZCB061901000690","deviceType":"6口5槽","distTime":{"date":17,"day":5,"hours":15,"minutes":24,"month":4,"seconds":29,"time":1558077869000,"timezoneOffset":-480,"year":119},"fenpeiagentId":1032,"id":297,"lingquren":"一代直商1","lingqurenmobile":"17032224444","state":"1","strandedTime":null}]
      * message : 2.28已分配设备列表接口访问成功
      */
 
@@ -40,15 +41,18 @@ public class AllotDeviceBean {
 
     public static class DataBean {
         /**
-         * agentId : 1
-         * agentLevel : 1
+         * agentId : 1064
+         * agentLevel : 2
          * agentMobile :
-         * agentName : 吴凯
+         * agentName : 一代个人1
          * details :
-         * deviceId : JZCB061901000044
-         * deviceType :
-         * distTime : {"date":19,"day":5,"hours":11,"minutes":44,"month":3,"seconds":19,"time":1555645459000,"timezoneOffset":-480,"year":119}
-         * id : 1
+         * deviceId : JZCB061901000359
+         * deviceType : 6口5槽
+         * distTime : {"date":17,"day":5,"hours":11,"minutes":54,"month":4,"seconds":29,"time":1558065269000,"timezoneOffset":-480,"year":119}
+         * fenpeiagentId : 1032
+         * id : 291
+         * lingquren : 二代个人1
+         * lingqurenmobile : 13880898866
          * state : 1
          * strandedTime : null
          */
@@ -61,7 +65,10 @@ public class AllotDeviceBean {
         private String deviceId;
         private String deviceType;
         private DistTimeBean distTime;
+        private int fenpeiagentId;
         private int id;
+        private String lingquren;
+        private String lingqurenmobile;
         private String state;
         private Object strandedTime;
 
@@ -129,12 +136,36 @@ public class AllotDeviceBean {
             this.distTime = distTime;
         }
 
+        public int getFenpeiagentId() {
+            return fenpeiagentId;
+        }
+
+        public void setFenpeiagentId(int fenpeiagentId) {
+            this.fenpeiagentId = fenpeiagentId;
+        }
+
         public int getId() {
             return id;
         }
 
         public void setId(int id) {
             this.id = id;
+        }
+
+        public String getLingquren() {
+            return lingquren;
+        }
+
+        public void setLingquren(String lingquren) {
+            this.lingquren = lingquren;
+        }
+
+        public String getLingqurenmobile() {
+            return lingqurenmobile;
+        }
+
+        public void setLingqurenmobile(String lingqurenmobile) {
+            this.lingqurenmobile = lingqurenmobile;
         }
 
         public String getState() {
@@ -155,13 +186,13 @@ public class AllotDeviceBean {
 
         public static class DistTimeBean {
             /**
-             * date : 19
+             * date : 17
              * day : 5
              * hours : 11
-             * minutes : 44
-             * month : 3
-             * seconds : 19
-             * time : 1555645459000
+             * minutes : 54
+             * month : 4
+             * seconds : 29
+             * time : 1558065269000
              * timezoneOffset : -480
              * year : 119
              */

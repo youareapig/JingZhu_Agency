@@ -150,6 +150,7 @@ public class DevicePopuZxingActivity extends BaseMvpActivity<PopuDevicePresenter
             toClass(this, DevicePopuActivity.class, bundle);
             finish();
         } else if (bean.getCode() == -10) {
+            finish();
             ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());

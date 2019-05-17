@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="服务器故障或暂无网络~"
+        android:text="暂无网络或请求超时~"
         android:textColor="#363636"
         android:layout_marginTop="@dimen/dp_60"
         android:textSize="@dimen/sp_17" />

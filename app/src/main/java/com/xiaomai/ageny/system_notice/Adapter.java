@@ -42,7 +42,7 @@ public class Adapter extends BaseQuickAdapter<SystemNoticeBean.DataBean.ListBean
                 strhead = "找回时间：";
                 break;
             case 2:
-                strhead = "离线时间：";
+                strhead = "预警时间：";
                 break;
         }
 

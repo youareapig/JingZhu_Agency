@@ -20,7 +20,7 @@ public class Adapter extends BaseQuickAdapter<DeviceAllotedDetailsBean.DataBean.
 
     @Override
     protected void convert(BaseViewHolder helper, DeviceAllotedDetailsBean.DataBean.ListBean item) {
-        switch (item.getAgentLevel()) {
+        switch (item.getLevel()) {
             case "1":
                 strLevel = "总代理";
                 break;
@@ -33,10 +33,13 @@ public class Adapter extends BaseQuickAdapter<DeviceAllotedDetailsBean.DataBean.
             case "4":
                 strLevel = "三级代理";
                 break;
+            case "9":
+                strLevel = "商户";
+                break;
         }
-        helper.setText(R.id.name, item.getAgentName())
-                .setText(R.id.agency, strLevel)
-                .setText(R.id.time, DateUtils.timeStamp2Date(item.getDistTime().getTime() + ""));
+        helper.setText(R.id.name, item.getName())
+                .setText(R.id.agency, strLevel);
+//                .setText(R.id.time, DateUtils.timeStamp2Date(item.getDistTime().getTime() + ""));
 
     }
 }

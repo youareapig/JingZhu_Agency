@@ -18,7 +18,7 @@ public class Adapter extends BaseQuickAdapter<AllotDeviceBean.DataBean, BaseView
     @Override
     protected void convert(BaseViewHolder helper, AllotDeviceBean.DataBean item) {
         helper.setText(R.id.deviceId, item.getDeviceId())
-                .setText(R.id.name, "领取人：" + item.getAgentName() + "  " + item.getAgentMobile())
+                .setText(R.id.name, "领取人：" + item.getLingquren() + "  " + item.getLingqurenmobile())
                 .setText(R.id.time, "分配时间：" + DateUtils.timeStamp2Date(item.getDistTime().getTime() + ""));
     }
 }

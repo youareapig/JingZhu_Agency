@@ -122,9 +122,28 @@ public class SettingActivity extends BaseMvpActivity<SettingPresenter> implement
                 //采购管理
                 toClass1(this, ShopManageActivity.class);
                 break;
-            case R.id.bt_loginout:
+            case R.id.bt_loginout:   
                 //退出登录
-                mPresenter.loginOut();
+                final AlertDialog builder = new AlertDialog.Builder(this).create();
+                LayoutInflater layoutInflater = this.getLayoutInflater();
+                View v = layoutInflater.inflate(R.layout.sure_logout, null);
+                builder.setView(v);
+                builder.setCanceledOnTouchOutside(false);
+                builder.show();
+                v.findViewById(R.id.bt_yes).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mPresenter.loginOut();
+                        builder.dismiss();
+                    }
+                });
+                v.findViewById(R.id.bt_no).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        builder.dismiss();
+                    }
+                });
+
                 break;
         }
     }

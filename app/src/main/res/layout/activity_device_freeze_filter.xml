@@ -41,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_21"
         android:singleLine="true"
-        android:inputType="number"
         android:gravity="center_vertical"
         android:hint="输入设备编号"
         android:textColor="#363636"

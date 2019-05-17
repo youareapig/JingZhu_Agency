@@ -78,7 +78,6 @@ public class DeviceWithdrawActivity extends BaseMvpActivity<DeviceWithDrawPresen
             bundle.putString("tel", bean.getData().getMobile());
             bundle.putString("name", bean.getData().getUserAgentName());
             toClass(this, DeviceWithDrawListActivity.class, bundle);
-            finish();
         }else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
         } else {

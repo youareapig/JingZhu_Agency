@@ -88,7 +88,6 @@
         android:id="@+id/id"
         android:hint="输入完整设备编号"
         android:singleLine="true"
-        android:inputType="number"
         android:textColor="#363636"
         android:textSize="@dimen/sp_17"
         android:theme="@style/MyEditText" />

@@ -155,7 +155,6 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
                 secondBean.setStopTime(strStopTime);
                 deviceDaoDao.insert(secondBean);
                 toClass(this, DeviceAllotListActivity.class);
-                finish();
             } else {
                 for (int i = 0; i < daoList.size(); i++) {
                     if (strId.equals(daoList.get(i).getDeviceId())) {
@@ -168,7 +167,6 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
                         secondBean.setStopTime(strStopTime);
                         deviceDaoDao.insert(secondBean);
                         toClass(this, DeviceAllotListActivity.class);
-                        finish();
                     }
                 }
             }
@@ -180,5 +178,6 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
             Logger.d("扫描错误");
             ToastUtil.showShortToast(bean.getMessage());
         }
+        finish();
     }
 }

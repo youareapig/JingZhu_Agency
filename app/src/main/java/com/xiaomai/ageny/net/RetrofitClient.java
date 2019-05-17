@@ -9,6 +9,7 @@ import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ToastUtil;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
@@ -30,7 +31,7 @@ public class RetrofitClient {
 
     private static volatile RetrofitClient instance;
     private APIService apiService;
-//    private String baseUrl = "http://192.168.0.81:8080/";
+    //    private String baseUrl = "http://192.168.0.81:8080/";
     private String baseUrl = "https://www.jzcdsc.com/";
 
 
@@ -102,6 +103,8 @@ public class RetrofitClient {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 //设置Header
                 .addInterceptor(getHeaderInterceptor())
+                //超时时间
+                .connectTimeout(20, TimeUnit.SECONDS)
                 //设置拦截器
                 .addInterceptor(getInterceptor())
                 .build();

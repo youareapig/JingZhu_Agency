@@ -404,6 +404,6 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        mPresenter.stopLocation();
+        mPresenter.stopLocation();
     }
 }
