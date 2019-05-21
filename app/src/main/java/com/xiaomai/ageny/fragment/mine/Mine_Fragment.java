@@ -21,6 +21,7 @@ import com.xiaomai.ageny.device_popu.popu_zxing.DevicePopuZxingActivity;
 import com.xiaomai.ageny.fragment.mine.contract.MineContract;
 import com.xiaomai.ageny.fragment.mine.presenter.MinePresenter;
 import com.xiaomai.ageny.mybill.MyBillActivity;
+import com.xiaomai.ageny.power_manager.power_index.PowerIndexActivity;
 import com.xiaomai.ageny.setting.SettingActivity;
 import com.xiaomai.ageny.system_notice.SystemNoticeActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
@@ -64,6 +65,8 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
     TextView weiDu;
     @BindView(R.id.bt_notice)
     RelativeLayout btNotice;
+    @BindView(R.id.bt_power_manager)
+    RelativeLayout btPowerManager;
     private String countunread, strLevel;
     private Bundle bundle = new Bundle();
 
@@ -132,7 +135,7 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
     }
 
 
-    @OnClick({R.id.bt_device_manage, R.id.bt_deposit_list, R.id.bt_myorder, R.id.bt_popup, R.id.bt_setting,R.id.bt_notice})
+    @OnClick({R.id.bt_device_manage, R.id.bt_deposit_list, R.id.bt_myorder, R.id.bt_popup, R.id.bt_setting, R.id.bt_notice, R.id.bt_power_manager})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_device_manage:
@@ -154,6 +157,10 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
             case R.id.bt_notice:
                 toClass(getActivity(), SystemNoticeActivity.class);
                 break;
+            case R.id.bt_power_manager:
+                //充电宝管理
+                toClass(getActivity(), PowerIndexActivity.class);
+                break;
         }
     }
 
@@ -165,7 +172,7 @@ public class Mine_Fragment extends BaseMvpFragment<MinePresenter> implements Min
 
     @PermissionGrant(4)
     public void requestCameraSuccess_4() {
-        toClass(getActivity(),DevicePopuZxingActivity.class);
+        toClass(getActivity(), DevicePopuZxingActivity.class);
     }
 
 //    @Override

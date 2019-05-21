@@ -9,7 +9,9 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.LowerOrderDetailsBean;
 import com.xiaomai.ageny.details.orderdetails.lowerorderdetails.contract.LowerOrderDetailsContract;
 import com.xiaomai.ageny.details.orderdetails.lowerorderdetails.presenter.LowerOrderDetailsPresenter;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,7 +64,9 @@ public class LowerOrderDetailsActivity extends BaseMvpActivity<LowerOrderDetails
     TextView creattime;
     @BindView(R.id.paytime)
     TextView paytime;
-    private String id;
+    @BindView(R.id.otherview)
+    OtherView otherView;
+    private String id, agenid;
 
     @Override
     public int getLayoutId() {
@@ -71,25 +75,27 @@ public class LowerOrderDetailsActivity extends BaseMvpActivity<LowerOrderDetails
 
     @Override
     public void initView() {
+        otherView.setHolder(mHolder);
         id = getIntent().getExtras().getString("id");
+        agenid = getIntent().getExtras().getString("agenid");
         mPresenter = new LowerOrderDetailsPresenter();
         mPresenter.attachView(this);
-        mPresenter.getData(id);
+        mPresenter.getData(id, agenid);
     }
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
@@ -115,17 +121,19 @@ public class LowerOrderDetailsActivity extends BaseMvpActivity<LowerOrderDetails
             rentadress.setText(data.getRentaddress());
             returnadress.setText(data.getReturnaddress());
             rentdeviceId.setText(data.getDeviceid());
-            returndeviceId.setText(data.getReturnboxid());
+            returndeviceId.setText(data.getReturnbox());
             rentduration.setText(data.getLeasetime());
-            rentmoney.setText(data.getRentprice()+"元");
-            discounts.setText(data.getDiscountprice()+"元");
-            pay.setText(data.getRealpayment()+"元");
+            rentmoney.setText(data.getRentprice() + "元");
+            discounts.setText(data.getDiscountprice() + "元");
+            pay.setText(data.getRealpayment() + "元");
             creattime.setText(data.getRenttime());
             paytime.setText(data.getUpdTime());
-            zhishuname.setText(data.getRealname());
+            zhishuname.setText(data.getParentName());
             zhishutel.setText(data.getAgentmobile());
-            suoshuname.setText(data.getAgentname());
-            suoshulevel.setText(data.getLevel());
+            suoshuname.setText(data.getAgentRealName());
+            suoshulevel.setText(data.getAgentlevel());
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

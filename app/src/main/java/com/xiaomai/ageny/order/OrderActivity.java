@@ -125,11 +125,11 @@ public class OrderActivity extends BaseMvpActivity<OrderPresenter> implements Or
         SharedPreferencesUtil.getInstance(this).putSP("myorder_name", "");
         SharedPreferencesUtil.getInstance(this).putSP("myorder_star", "");
         SharedPreferencesUtil.getInstance(this).putSP("myorder_end", "");
-        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_days", "");
-        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_id", "");
-        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_tel", "");
-        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_star", "");
-        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_end", "");
+//        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_days", "");
+//        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_id", "");
+//        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_tel", "");
+//        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_star", "");
+//        SharedPreferencesUtil.getInstance(this).putSP("lowerorder_end", "");
         SharedPreferencesUtil.getInstance(this).putSP("myorder_days", "");
     }
 }

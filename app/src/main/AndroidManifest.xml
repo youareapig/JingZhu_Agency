@@ -156,7 +156,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".system_notice.SystemNoticeActivity" />
-        <activity android:name=".details.device_alloted_details.DeviceAllotedDetailsActivity"></activity>
+        <activity android:name=".details.device_alloted_details.DeviceAllotedDetailsActivity" />
+        <activity android:name=".order.order_list.OrderListActivity" />
+        <activity android:name=".power_manager.power_index.PowerIndexActivity" />
+        <activity android:name=".power_manager.power_withdraw.PowerWithdrawActivity" />
+        <activity android:name=".power_manager.power_zxing.power_withdraw_zxing.PowerWithdrawZxingActivity" />
+        <activity android:name=".power_manager.power_zxing.power_allote_zxing.PowerAlloteZxingActivity" />
+        <activity android:name=".power_manager.power_allot.PowerAllotActivity" />
+        <activity android:name=".power_manager.power_allot_next.PowerAllotNextActivity" />
+        <activity android:name=".power_manager.power_mine.MyPowerActivity" />
+        <activity android:name=".filter.mypower_filter.MyPowerFilterActivity" />
+        <activity android:name=".power_manager.power_alloted.PowerAllotedActivity" />
+        <activity android:name=".filter.power_alloted_filter.PowerAllotedFilterActivity" />
+        <activity android:name=".details.power_alloted_details.PowerAllotedDetailsActivity"></activity>
     </application>
 
 </manifest>

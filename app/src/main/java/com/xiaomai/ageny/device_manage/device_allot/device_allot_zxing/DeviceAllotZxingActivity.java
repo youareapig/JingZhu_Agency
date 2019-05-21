@@ -133,7 +133,6 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
 
     @Override
     public void onError(Throwable throwable) {
-        ToastUtil.showShortToast("该设备已经分配");
         finish();
     }
 

@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public class LowerOrderDetailsModel implements LowerOrderDetailsContract.Model {
     @Override
-    public Flowable<LowerOrderDetailsBean> getData(String orderid) {
-        return RetrofitClient.getInstance().getApi().getLowerOrderDetailsBean(orderid);
+    public Flowable<LowerOrderDetailsBean> getData(String orderid,String agentId) {
+        return RetrofitClient.getInstance().getApi().getLowerOrderDetailsBean(orderid,agentId);
     }
 }

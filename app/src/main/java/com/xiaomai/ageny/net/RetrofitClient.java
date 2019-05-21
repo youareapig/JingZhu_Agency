@@ -31,8 +31,8 @@ public class RetrofitClient {
 
     private static volatile RetrofitClient instance;
     private APIService apiService;
-    //    private String baseUrl = "http://192.168.0.81:8080/";
-    private String baseUrl = "https://www.jzcdsc.com/";
+        private String baseUrl = "http://192.168.0.81:8080/";
+//    private String baseUrl = "https://www.jzcdsc.com/";
 
 
     private RetrofitClient() {

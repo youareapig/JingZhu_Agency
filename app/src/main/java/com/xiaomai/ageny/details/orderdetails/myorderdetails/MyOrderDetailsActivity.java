@@ -9,7 +9,9 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.MyOrderDetailsBean;
 import com.xiaomai.ageny.details.orderdetails.myorderdetails.contract.MyOrderDetailsContract;
 import com.xiaomai.ageny.details.orderdetails.myorderdetails.presenter.MyOrderDetailsPresenter;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
+import com.xiaomai.ageny.utils.state_layout.OtherView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +55,8 @@ public class MyOrderDetailsActivity extends BaseMvpActivity<MyOrderDetailsPresen
     TextView creattime;
     @BindView(R.id.paytime)
     TextView paytime;
+    @BindView(R.id.otherview)
+    OtherView otherView;
     private String id;
 
     @Override
@@ -62,6 +66,7 @@ public class MyOrderDetailsActivity extends BaseMvpActivity<MyOrderDetailsPresen
 
     @Override
     public void initView() {
+        otherView.setHolder(mHolder);
         id = getIntent().getExtras().getString("id");
         mPresenter = new MyOrderDetailsPresenter();
         mPresenter.attachView(this);
@@ -70,17 +75,17 @@ public class MyOrderDetailsActivity extends BaseMvpActivity<MyOrderDetailsPresen
 
     @Override
     public void showLoading() {
-
+        otherView.showLoadingView();
     }
 
     @Override
     public void hideLoading() {
-
+        otherView.showContentView();
     }
 
     @Override
     public void onError(Throwable throwable) {
-
+        otherView.showRetryView();
     }
 
     @Override
@@ -108,12 +113,13 @@ public class MyOrderDetailsActivity extends BaseMvpActivity<MyOrderDetailsPresen
             rentdeviceId.setText(data.getDeviceid());
             returndeviceId.setText(data.getReturnbox());
             rentduration.setText(data.getLeasetime());
-            rentmoney.setText(data.getRentprice()+"元");
-            discounts.setText(data.getDiscountprice()+"元");
-            pay.setText(data.getRealpayment()+"元");
+            rentmoney.setText(data.getRentprice() + "元");
+            discounts.setText(data.getDiscountprice() + "元");
+            pay.setText(data.getRealpayment() + "元");
             creattime.setText(data.getRenttime());
             paytime.setText(data.getUpdTime());
-
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

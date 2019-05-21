@@ -2,11 +2,10 @@ package com.xiaomai.ageny.bean;
 
 public class LowerOrderDetailsBean {
 
-
     /**
      * code : 1
-     * data : {"agentmobile":"","agentname":"成华区税务局","deviceid":"","discountprice":"0.00","earn":"4.00","leasetime":"01时53分16秒","level":"一级代理","orderid":"201904121201410773","realname":"","realpayment":"4.00","rentaddress":"四川省成都市成华区双林路55号","rentprice":"4.00","renttime":"2019-04-12 12:01:42","returnaddress":"四川省成都市成华区双林路55号","returnboxid":"JZCB061901000681","returnsellername":"成华区税务局大厅","returntime":"2019-04-12 13:54:58","sellername":"国家税务总局成都市成华区税务局猛追湾税务所","state":"0","updTime":"2019-04-12 13:54:58"}
-     * message : 5.13获取下级订单--订单详情成功
+     * data : {"agentRealName":"张兴凯","agentid":"7","agentlevel":"2","agentmobile":"18981906214","deviceid":"JZCB061901000288","discountprice":"0.00","earn":"0.30","leasetime":"00时00分15秒","orderid":"201904151145201612","parentMobile":"15202856321","parentName":"吴凯","parentid":"5","realpayment":"3.00","rentaddress":"兆信国际1号楼(武侯区武兴路86号)兆信国际1号楼(武侯区武兴路86号)","rentprice":"3.00","renttime":"2019-04-15 11:45:20","returnaddress":"兆信国际1号楼(武侯区武兴路86号)兆信国际1号楼(武侯区武兴路86号)","returnbox":"JZCB061901000288","returnsellername":"测试商户","returntime":"2019-04-15 11:45:36","sellername":"京猪","state":"0","updTime":"2019-04-15 11:45:36"}
+     * message : 5.15获取我的订单--订单详情成功
      */
 
     private int code;
@@ -39,48 +38,78 @@ public class LowerOrderDetailsBean {
 
     public static class DataBean {
         /**
-         * agentmobile :
-         * agentname : 成华区税务局
-         * deviceid :
+         * agentRealName : 张兴凯
+         * agentid : 7
+         * agentlevel : 2
+         * agentmobile : 18981906214
+         * deviceid : JZCB061901000288
          * discountprice : 0.00
-         * earn : 4.00
-         * leasetime : 01时53分16秒
-         * level : 一级代理
-         * orderid : 201904121201410773
-         * realname :
-         * realpayment : 4.00
-         * rentaddress : 四川省成都市成华区双林路55号
-         * rentprice : 4.00
-         * renttime : 2019-04-12 12:01:42
-         * returnaddress : 四川省成都市成华区双林路55号
-         * returnboxid : JZCB061901000681
-         * returnsellername : 成华区税务局大厅
-         * returntime : 2019-04-12 13:54:58
-         * sellername : 国家税务总局成都市成华区税务局猛追湾税务所
+         * earn : 0.30
+         * leasetime : 00时00分15秒
+         * orderid : 201904151145201612
+         * parentMobile : 15202856321
+         * parentName : 吴凯
+         * parentid : 5
+         * realpayment : 3.00
+         * rentaddress : 兆信国际1号楼(武侯区武兴路86号)兆信国际1号楼(武侯区武兴路86号)
+         * rentprice : 3.00
+         * renttime : 2019-04-15 11:45:20
+         * returnaddress : 兆信国际1号楼(武侯区武兴路86号)兆信国际1号楼(武侯区武兴路86号)
+         * returnbox : JZCB061901000288
+         * returnsellername : 测试商户
+         * returntime : 2019-04-15 11:45:36
+         * sellername : 京猪
          * state : 0
-         * updTime : 2019-04-12 13:54:58
+         * updTime : 2019-04-15 11:45:36
          */
 
+        private String agentRealName;
+        private String agentid;
+        private String agentlevel;
         private String agentmobile;
-        private String agentname;
         private String deviceid;
         private String discountprice;
         private String earn;
         private String leasetime;
-        private String level;
         private String orderid;
-        private String realname;
+        private String parentMobile;
+        private String parentName;
+        private String parentid;
         private String realpayment;
         private String rentaddress;
         private String rentprice;
         private String renttime;
         private String returnaddress;
-        private String returnboxid;
+        private String returnbox;
         private String returnsellername;
         private String returntime;
         private String sellername;
         private String state;
         private String updTime;
+
+        public String getAgentRealName() {
+            return agentRealName;
+        }
+
+        public void setAgentRealName(String agentRealName) {
+            this.agentRealName = agentRealName;
+        }
+
+        public String getAgentid() {
+            return agentid;
+        }
+
+        public void setAgentid(String agentid) {
+            this.agentid = agentid;
+        }
+
+        public String getAgentlevel() {
+            return agentlevel;
+        }
+
+        public void setAgentlevel(String agentlevel) {
+            this.agentlevel = agentlevel;
+        }
 
         public String getAgentmobile() {
             return agentmobile;
@@ -88,14 +117,6 @@ public class LowerOrderDetailsBean {
 
         public void setAgentmobile(String agentmobile) {
             this.agentmobile = agentmobile;
-        }
-
-        public String getAgentname() {
-            return agentname;
-        }
-
-        public void setAgentname(String agentname) {
-            this.agentname = agentname;
         }
 
         public String getDeviceid() {
@@ -130,14 +151,6 @@ public class LowerOrderDetailsBean {
             this.leasetime = leasetime;
         }
 
-        public String getLevel() {
-            return level;
-        }
-
-        public void setLevel(String level) {
-            this.level = level;
-        }
-
         public String getOrderid() {
             return orderid;
         }
@@ -146,12 +159,28 @@ public class LowerOrderDetailsBean {
             this.orderid = orderid;
         }
 
-        public String getRealname() {
-            return realname;
+        public String getParentMobile() {
+            return parentMobile;
         }
 
-        public void setRealname(String realname) {
-            this.realname = realname;
+        public void setParentMobile(String parentMobile) {
+            this.parentMobile = parentMobile;
+        }
+
+        public String getParentName() {
+            return parentName;
+        }
+
+        public void setParentName(String parentName) {
+            this.parentName = parentName;
+        }
+
+        public String getParentid() {
+            return parentid;
+        }
+
+        public void setParentid(String parentid) {
+            this.parentid = parentid;
         }
 
         public String getRealpayment() {
@@ -194,12 +223,12 @@ public class LowerOrderDetailsBean {
             this.returnaddress = returnaddress;
         }
 
-        public String getReturnboxid() {
-            return returnboxid;
+        public String getReturnbox() {
+            return returnbox;
         }
 
-        public void setReturnboxid(String returnboxid) {
-            this.returnboxid = returnboxid;
+        public void setReturnbox(String returnbox) {
+            this.returnbox = returnbox;
         }
 
         public String getReturnsellername() {

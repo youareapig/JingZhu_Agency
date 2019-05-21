@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_12"
         android:layout_marginTop="@dimen/dp_17"
-        android:text="直属代理联系方式："
+        android:text="代理联系人："
         android:textColor="#707070"
         android:textSize="@dimen/sp_14" />
 
@@ -63,8 +63,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_21"
         android:gravity="center_vertical"
-        android:hint="输入直属代理联系方式"
-        android:inputType="number"
+        android:hint="输入代理联系人"
         android:singleLine="true"
         android:textColor="#363636"
         android:textColorHint="#B6B6B6"

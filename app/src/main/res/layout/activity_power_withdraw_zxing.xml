@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/fl_my_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_36"
+        android:layout_marginTop="@dimen/dp_20">
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/titleback"
+                android:src="@mipmap/back_write" />
+
+        </RelativeLayout>
+
+
+        <TextView
+            style="@style/titletext"
+            android:text="充电宝撤回" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_85"
+            android:text="须知：\n1.请扫描充电宝的条形码\n2.只能撤回直属下级代理的充电宝"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_14" />
+    </LinearLayout>
+
+</RelativeLayout>

@@ -7,7 +7,7 @@ import io.reactivex.Flowable;
 
 public interface LowerOrderDetailsContract {
     interface Model {
-        Flowable<LowerOrderDetailsBean> getData(String orderid);
+        Flowable<LowerOrderDetailsBean> getData(String orderid,String agentId);
     }
 
     interface View extends BaseView {
@@ -24,6 +24,6 @@ public interface LowerOrderDetailsContract {
     }
 
     interface Presenter {
-        void getData(String orderid);
+        void getData(String orderid,String agentId);
     }
 }

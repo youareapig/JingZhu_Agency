@@ -13,6 +13,7 @@ import com.xiaomai.ageny.bean.AgencyUserInfoBean;
 import com.xiaomai.ageny.bean.HisSellerBean;
 import com.xiaomai.ageny.details.feidailidetails.contract.FeiDailiDetailsContract;
 import com.xiaomai.ageny.details.feidailidetails.presenter.FeiDailiDetailsPresenter;
+import com.xiaomai.ageny.order.order_list.OrderListActivity;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -170,6 +171,8 @@ public class FeiDailiDetailsActivity extends BaseMvpActivity<FeiDailiDetailsPres
             case R.id.updateuserinfo:
                 break;
             case R.id.bt_lookorder:
+                bundle.putString("id", id);
+                toClass(this, OrderListActivity.class, bundle);
                 break;
         }
     }

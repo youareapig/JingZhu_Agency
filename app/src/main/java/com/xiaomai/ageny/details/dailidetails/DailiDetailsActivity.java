@@ -17,6 +17,7 @@ import com.xiaomai.ageny.bean.AgencyUserInfoBean;
 import com.xiaomai.ageny.bean.HisSellerBean;
 import com.xiaomai.ageny.details.dailidetails.contract.DailiDetailsContract;
 import com.xiaomai.ageny.details.dailidetails.presenter.DailiDetailsPresenter;
+import com.xiaomai.ageny.order.order_list.OrderListActivity;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -195,7 +196,7 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
     }
 
 
-    @OnClick({R.id.back, R.id.device_more, R.id.shanghu_more, R.id.updateuserinfo,R.id.bt_lookorder})
+    @OnClick({R.id.back, R.id.device_more, R.id.shanghu_more, R.id.updateuserinfo, R.id.bt_lookorder})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -220,6 +221,8 @@ public class DailiDetailsActivity extends BaseMvpActivity<DailiDetailsPresenter>
                 toClass(this, UpdateAgencyActivity.class, bundle);
                 break;
             case R.id.bt_lookorder:
+                bundle.putString("id", id);
+                toClass(this, OrderListActivity.class, bundle);
                 break;
         }
     }

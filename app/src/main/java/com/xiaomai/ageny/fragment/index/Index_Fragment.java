@@ -147,7 +147,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
     @Override
     public void onStart() {
-        super.onStart();  
+        super.onStart();
         mPresenter.getConfigBean();
         mPresenter.getData();
     }

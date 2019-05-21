@@ -16,12 +16,12 @@ public class LowerOrderDetailsPresenter  extends BasePresenter<LowerOrderDetails
     }
 
     @Override
-    public void getData(String orderid) {
+    public void getData(String orderid,String agentId) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(orderid).compose(RxScheduler.<LowerOrderDetailsBean>Flo_io_main())
+        model.getData(orderid,agentId).compose(RxScheduler.<LowerOrderDetailsBean>Flo_io_main())
                 .as(mView.<LowerOrderDetailsBean>bindAutoDispose())
                 .subscribe(new Consumer<LowerOrderDetailsBean>() {
                     @Override

@@ -53,7 +53,7 @@ public class LowerOrderFilterActivity extends BaseMvpActivity<LowerOrderFilterPr
     @Override
     public void initView() {
         strId = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_id");
-        strTel = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_tel");
+        strTel = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_name");
         id.setText(strId);
         tel.setText(strTel);
 
@@ -110,7 +110,7 @@ public class LowerOrderFilterActivity extends BaseMvpActivity<LowerOrderFilterPr
                 strId = id.getText().toString().trim();
                 strTel = tel.getText().toString().trim();
                 SharedPreferencesUtil.getInstance(this).putSP("lowerorder_id", strId);
-                SharedPreferencesUtil.getInstance(this).putSP("lowerorder_tel", strTel);
+                SharedPreferencesUtil.getInstance(this).putSP("lowerorder_name", strTel);
                 switch (state) {
                     case 0:
                         //全部

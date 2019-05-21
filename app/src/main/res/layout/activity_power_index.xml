@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".device_manage.DeviceManageActivity">
+
+    <RelativeLayout style="@style/titlesytle">
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="match_parent">
+
+            <ImageView
+                style="@style/titleback"
+                android:src="@mipmap/back_write" />
+        </RelativeLayout>
+
+
+        <TextView
+            style="@style/titletext"
+            android:text="充电宝管理" />
+    </RelativeLayout>
+
+    <com.xiaomai.ageny.utils.state_layout.OtherView
+        android:id="@+id/otherview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_74"
+            android:background="@color/appbar"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/power_totle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/sp_18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="领取数量(台)"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/power_fenpei"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/sp_18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="分配数量(台)"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/power_chiyou"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/sp_18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="持有数量(台)"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/sp_13" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/bt_power_withdraw"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_54">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:text="充电宝撤回"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_16" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_6"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_18"
+                    android:src="@mipmap/sign_icon" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dp_13"
+                    android:layout_marginRight="@dimen/dp_13"
+                    android:background="#E6E6E6" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/bt_power_allot"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_54">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:text="充电宝分配"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_16" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_6"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_18"
+                    android:src="@mipmap/sign_icon" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dp_13"
+                    android:layout_marginRight="@dimen/dp_13"
+                    android:background="#E6E6E6" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/bt_mypower"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_54">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:text="我的充电宝"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_16" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_6"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_18"
+                    android:src="@mipmap/sign_icon" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dp_13"
+                    android:layout_marginRight="@dimen/dp_13"
+                    android:background="#E6E6E6" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/bt_power_alloted"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_54">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/dp_18"
+                    android:text="已分配充电宝"
+                    android:textColor="#363636"
+                    android:textSize="@dimen/sp_16" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_6"
+                    android:layout_height="@dimen/dp_10"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/dp_18"
+                    android:src="@mipmap/sign_icon" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_1"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="@dimen/dp_13"
+                    android:layout_marginRight="@dimen/dp_13"
+                    android:background="#E6E6E6" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </com.xiaomai.ageny.utils.state_layout.OtherView>
+
+</LinearLayout>

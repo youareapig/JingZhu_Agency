@@ -30,12 +30,19 @@ import com.xiaomai.ageny.bean.LowerOrderBean;
 import com.xiaomai.ageny.bean.LowerOrderDetailsBean;
 import com.xiaomai.ageny.bean.MyBankBean;
 import com.xiaomai.ageny.bean.MyOrderDetailsBean;
+import com.xiaomai.ageny.bean.MyPowerListBean;
 import com.xiaomai.ageny.bean.NoAllotDeviceBean;
 import com.xiaomai.ageny.bean.OffDirectDeviceBean;
 import com.xiaomai.ageny.bean.MyOrderBean;
 import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
 import com.xiaomai.ageny.bean.OffIndirectDeivceDetailsBean;
+import com.xiaomai.ageny.bean.OrderListBean;
 import com.xiaomai.ageny.bean.PopDeviceBean;
+import com.xiaomai.ageny.bean.PowerAllotedBean;
+import com.xiaomai.ageny.bean.PowerDetailsBean;
+import com.xiaomai.ageny.bean.PowerInfoBean;
+import com.xiaomai.ageny.bean.PowerManagerBean;
+import com.xiaomai.ageny.bean.PowerWithDrawInfoBean;
 import com.xiaomai.ageny.bean.ShopApplyBean;
 import com.xiaomai.ageny.bean.ShopBean;
 import com.xiaomai.ageny.bean.ShopRecordBean;
@@ -67,8 +74,8 @@ import retrofit2.http.Query;
  * Description：
  */
 public interface APIService {
-    public String urlhead = "chargeAgent-0.0.1-SNAPSHOT/";
-//    public String urlhead = "";
+    //    public String urlhead = "chargeAgent-0.0.1-SNAPSHOT/";
+    public String urlhead = "";
 
     //获取验证码
     @GET(urlhead + "agentCenter/account/captcha")
@@ -260,8 +267,8 @@ public interface APIService {
     Flowable<MyOrderDetailsBean> getMyOrderDetailsBean(@Query("orderid") String orderid);
 
     //下级订单详情
-    @GET(urlhead + "agentCenter/agent/lowerordersDetails")
-    Flowable<LowerOrderDetailsBean> getLowerOrderDetailsBean(@Query("orderid") String orderid);
+    @GET(urlhead + "agentCenter/agent/lower/ordersDetails")
+    Flowable<LowerOrderDetailsBean> getLowerOrderDetailsBean(@Query("orderid") String orderid, @Query("agentid") String agentid);
 
     //手机号显示姓名
     @GET(urlhead + "agentCenter/seller/info")
@@ -402,5 +409,40 @@ public interface APIService {
     //修改单价
     @GET(urlhead + "agentCenter/device/updateDetails")
     Flowable<HintBean> updatePrice(@Query("deviceid") String deviceid, @Query("details") String details);
+
+    //查看订单列表
+    @GET(urlhead + "agentCenter/agent/lower/orders")
+    Flowable<OrderListBean> orderList(@Query("agentid") String agentid, @Query("page") String page,
+                                      @Query("page_size") String pagesize,
+                                      @Query("orderid") String orderid,
+                                      @Query("sellername") String sellername,
+                                      @Query("startTime") String startTime,
+                                      @Query("endTime") String endTime);
+
+    //充电宝管理首页
+    @GET(urlhead + "small/charge/device/management")
+    Flowable<PowerManagerBean> PowerManagerData();
+
+    //充电宝分配列表
+    @GET(urlhead + "small/charge/deviced/bution/getsao")
+    Flowable<PowerInfoBean> PowerInfo(@Query("deviceid") String deviceid);
+
+    //我的充电宝列表
+    @GET(urlhead + "small/charge/Mydevice")
+    Flowable<MyPowerListBean> MyPowerListData(@Query("deviceid") String deviceid);
+
+    //已分配充电宝列表
+    @GET(urlhead + "small/charge/undis/device/allocated")
+    Flowable<PowerAllotedBean> PowerAllotedData(@Query("deviceid") String deviceid,
+                                                @Query("startTime") String startTime,
+                                                @Query("endTime") String endTime);
+
+    //已分配充电宝详情
+    @GET(urlhead + "small/charge/allocated/device/details")
+    Flowable<PowerDetailsBean> PowerDetailsData(@Query("deviceid") String deviceid);
+
+    //充电宝撤回列表
+    @GET(urlhead + "small/charge/devicerecall/info")
+    Flowable<PowerWithDrawInfoBean> PowerWithDrawInfo(@Query("deviceid") String deviceid);
 }
 

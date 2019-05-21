@@ -302,6 +302,7 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
 
     private void initCustomTimePickerEnd() {
         //时间选择器 ，自定义布局
+        BaseUtils.hideInput(this);
         pvCustomTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
