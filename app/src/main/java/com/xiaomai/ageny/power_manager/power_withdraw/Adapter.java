@@ -9,14 +9,16 @@ import com.xiaomai.ageny.bean.daobean.DeviceDao;
 
 import java.util.List;
 
-public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
-    public Adapter(int layoutResId, @Nullable List<String> data) {
+public class Adapter extends BaseQuickAdapter<DeviceDao, BaseViewHolder> {
+    public Adapter(int layoutResId, @Nullable List<DeviceDao> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.name, item);
+    protected void convert(BaseViewHolder helper, DeviceDao item) {
+        helper.setText(R.id.name, item.getStopTime())
+                .setText(R.id.powerid, item.getDeviceId())
+                .setText(R.id.tel, item.getTime());
         helper.addOnClickListener(R.id.delete);
     }
 }

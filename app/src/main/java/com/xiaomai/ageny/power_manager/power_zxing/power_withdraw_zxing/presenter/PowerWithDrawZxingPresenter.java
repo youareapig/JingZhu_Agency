@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.power_manager.power_zxing.power_withdraw_zxing.presenter;
 
 import com.xiaomai.ageny.base.BasePresenter;
+import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.bean.PowerInfoBean;
 import com.xiaomai.ageny.bean.PowerWithDrawInfoBean;
 import com.xiaomai.ageny.net.RxScheduler;
@@ -8,6 +9,7 @@ import com.xiaomai.ageny.power_manager.power_zxing.power_withdraw_zxing.contract
 import com.xiaomai.ageny.power_manager.power_zxing.power_withdraw_zxing.model.PowerWithDrawZxingModel;
 
 import io.reactivex.functions.Consumer;
+import okhttp3.RequestBody;
 
 public class PowerWithDrawZxingPresenter extends BasePresenter<PowerWithDrawZxingContract.View> implements PowerWithDrawZxingContract.Presenter {
     private PowerWithDrawZxingContract.Model model;
@@ -35,4 +37,6 @@ public class PowerWithDrawZxingPresenter extends BasePresenter<PowerWithDrawZxin
                     }
                 });
     }
+
+
 }

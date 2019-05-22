@@ -41,6 +41,7 @@ public class Adapter extends BaseQuickAdapter<OffIndirectDeivceBean.DataBean.Lis
 
                 Intent intent = new Intent(view.getContext(), IndirectDetailsActivity.class);
                 intent.putExtra("id", list.get(position).getBoxid());
+                intent.putExtra("fromact", 2);
                 view.getContext().startActivity(intent);
             }
         });

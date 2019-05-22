@@ -2,8 +2,11 @@ package com.xiaomai.ageny.power_manager.power_allot;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -12,11 +15,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.daobean.DeviceDao;
 import com.xiaomai.ageny.device_manage.device_allot.device_allot_agency.DeviceAllotAgencyActivity;
 import com.xiaomai.ageny.device_manage.device_allot.device_allot_list.DeviceAllotListActivity;
+import com.xiaomai.ageny.device_manage.device_allot.device_allot_zxing.DeviceAllotZxingActivity;
 import com.xiaomai.ageny.greendao.gen.DaoSession;
 import com.xiaomai.ageny.greendao.gen.DeviceDaoDao;
 import com.xiaomai.ageny.power_manager.power_allot.contract.PowerAllotContract;
@@ -74,22 +79,26 @@ public class PowerAllotActivity extends BaseMvpActivity<PowerAllotPresenter> imp
         if (list.size() == 0) {
             otherview.showEmptyView();
         }
-        deviceNum.setText(list.size()+"");
+
+        deviceNum.setText(list.size() + "");
+        recycler.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
         adapter = new Adapter(R.layout.power_allot_item, list);
+        recycler.setNestedScrollingEnabled(false);
+        recycler.setAdapter(adapter);
+        adapter.openLoadAnimation();
         adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 deviceDaoDao.delete(list.get(position));
                 list.remove(position);
                 adapter.notifyItemRemoved(position);
+                deviceNum.setText(list.size() + "");
                 if (list.size() == 0) {
                     otherview.showEmptyView();
                 }
             }
         });
-        recycler.setNestedScrollingEnabled(false);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
+
     }
 
     @Override
@@ -115,14 +124,21 @@ public class PowerAllotActivity extends BaseMvpActivity<PowerAllotPresenter> imp
 
     @PermissionGrant(93)
     public void openSuccess93() {
-        toClass(this, PowerAlloteZxingActivity.class);
+        Bundle mBundle = new Bundle();
+        mBundle.putString("fromact", "2");
+        toClass(this, PowerAlloteZxingActivity.class, mBundle);
+        finish();
     }
 
     @OnClick({R.id.back, R.id.bt_next, R.id.bt_saoyisao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
-                myDialog();
+                if (list.size() != 0) {
+                    myDialog();
+                } else {
+                    finish();
+                }
                 break;
             case R.id.bt_next:
                 if (list.size() == 0) {

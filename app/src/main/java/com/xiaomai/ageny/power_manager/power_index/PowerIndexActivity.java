@@ -12,6 +12,7 @@ import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.PowerManagerBean;
+import com.xiaomai.ageny.device_manage.device_allot.device_allot_zxing.DeviceAllotZxingActivity;
 import com.xiaomai.ageny.device_manage.device_withdraw.withdraw_zxing.DeviceWithdrawActivity;
 import com.xiaomai.ageny.greendao.gen.DaoSession;
 import com.xiaomai.ageny.greendao.gen.DeviceDaoDao;
@@ -56,6 +57,7 @@ public class PowerIndexActivity extends BaseMvpActivity<PowerIndexPresenter> imp
     OtherView otherview;
     private DaoSession daoSession;
     private DeviceDaoDao deviceDaoDao;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_power_index;
@@ -129,14 +131,17 @@ public class PowerIndexActivity extends BaseMvpActivity<PowerIndexPresenter> imp
 
     @PermissionGrant(90)
     public void openCameraSuccess90() {
-        toClass(this, PowerWithdrawZxingActivity.class);
+        Bundle mBundle = new Bundle();
+        mBundle.putString("fromact", "1");
+        toClass(this, PowerWithdrawZxingActivity.class,mBundle);
 
     }
 
     @PermissionGrant(92)
     public void openCameraSuccess92() {
-        toClass(this, PowerAlloteZxingActivity.class);
-
+        Bundle mBundle = new Bundle();
+        mBundle.putString("fromact", "1");
+        toClass(this, PowerAlloteZxingActivity.class, mBundle);
     }
 
     @OnClick({R.id.back, R.id.bt_power_withdraw, R.id.bt_power_allot, R.id.bt_mypower, R.id.bt_power_alloted})

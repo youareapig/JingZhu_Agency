@@ -17,12 +17,12 @@ public class OrderListPresenter extends BasePresenter<OrderListContract.View> im
     }
 
     @Override
-    public void getData(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime) {
+    public void getData(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime,String state) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(agentid, page, pagesize, orderid, sellername, startTime, endTime).compose(RxScheduler.<OrderListBean>Flo_io_main())
+        model.getData(agentid, page, pagesize, orderid, sellername, startTime, endTime,state).compose(RxScheduler.<OrderListBean>Flo_io_main())
                 .as(mView.<OrderListBean>bindAutoDispose())
                 .subscribe(new Consumer<OrderListBean>() {
                     @Override
@@ -39,11 +39,11 @@ public class OrderListPresenter extends BasePresenter<OrderListContract.View> im
     }
 
     @Override
-    public void getLoadMore(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime) {
+    public void getLoadMore(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime,String state) {
         if (!isViewAttached()) {
             return;
         }
-        model.getData(agentid, page, pagesize, orderid, sellername, startTime, endTime).compose(RxScheduler.<OrderListBean>Flo_io_main())
+        model.getData(agentid, page, pagesize, orderid, sellername, startTime, endTime,state).compose(RxScheduler.<OrderListBean>Flo_io_main())
                 .as(mView.<OrderListBean>bindAutoDispose())
                 .subscribe(new Consumer<OrderListBean>() {
                     @Override
@@ -59,11 +59,11 @@ public class OrderListPresenter extends BasePresenter<OrderListContract.View> im
     }
 
     @Override
-    public void getRefrshFresh(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime) {
+    public void getRefrshFresh(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime,String state) {
         if (!isViewAttached()) {
             return;
         }
-        model.getData(agentid, page, pagesize, orderid, sellername, startTime, endTime).compose(RxScheduler.<OrderListBean>Flo_io_main())
+        model.getData(agentid, page, pagesize, orderid, sellername, startTime, endTime,state).compose(RxScheduler.<OrderListBean>Flo_io_main())
                 .as(mView.<OrderListBean>bindAutoDispose())
                 .subscribe(new Consumer<OrderListBean>() {
                     @Override

@@ -74,7 +74,6 @@ public class DirectDetailsActivity extends BaseMvpActivity<DirectDetailsPresente
     @BindView(R.id.otherview)
     OtherView otherView;
     private String deviceid, msgid;
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_direct_details;

@@ -3,6 +3,7 @@ package com.xiaomai.ageny.power_manager.power_zxing.power_allote_zxing;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -44,6 +45,7 @@ public class PowerAlloteZxingActivity extends BaseMvpActivity<PowerAlloteZxingPr
     private String strId, strType, strTime, strStopTime;
     private DaoSession daoSession;
     private DeviceDaoDao deviceDaoDao;
+    private String fromact;
 
     @Override
     public int getLayoutId() {
@@ -52,6 +54,8 @@ public class PowerAlloteZxingActivity extends BaseMvpActivity<PowerAlloteZxingPr
 
     @Override
     public void initView() {
+        //fromact 1、从设备管理界面跳转过来的，2、从已扫描设备列表跳转过来的
+        fromact = getIntent().getExtras().getString("fromact");
         ImmersionBar.with(this).transparentBar().fitsSystemWindows(false).statusBarDarkFont(false).init();
         mPresenter = new PowerAlloteZxingPresenter();
         mPresenter.attachView(this);
@@ -79,13 +83,23 @@ public class PowerAlloteZxingActivity extends BaseMvpActivity<PowerAlloteZxingPr
                     mPresenter.getData(result);
                     Logger.d("扫码成功");
                 } else {
-                    finish();
                     ToastUtil.showShortToast("请扫描正确二维码");
+                    if (fromact.equals("1")) {
+                        finish();
+                    } else {
+                        toClass(PowerAlloteZxingActivity.this, PowerAllotActivity.class);
+                        finish();
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                finish();
                 ToastUtil.showShortToast("请扫描正确二维码");
+                if (fromact.equals("1")) {
+                    finish();
+                } else {
+                    toClass(PowerAlloteZxingActivity.this, PowerAllotActivity.class);
+                    finish();
+                }
             }
         }
 
@@ -114,7 +128,12 @@ public class PowerAlloteZxingActivity extends BaseMvpActivity<PowerAlloteZxingPr
 
     @Override
     public void onError(Throwable throwable) {
-        finish();
+        if (fromact.equals("1")) {
+            finish();
+        } else {
+            toClass(this, PowerAllotActivity.class);
+            finish();
+        }
     }
 
     @Override
@@ -133,10 +152,13 @@ public class PowerAlloteZxingActivity extends BaseMvpActivity<PowerAlloteZxingPr
                 secondBean.setStopTime(strStopTime);
                 deviceDaoDao.insert(secondBean);
                 toClass(this, PowerAllotActivity.class);
+                finish();
             } else {
                 for (int i = 0; i < daoList.size(); i++) {
                     if (strId.equals(daoList.get(i).getDeviceId())) {
                         ToastUtil.showShortToast("列表已存在该设备，不能重复添加");
+                        toClass(this, PowerAllotActivity.class);
+                        finish();
                     } else {
                         DeviceDao secondBean = new DeviceDao();
                         secondBean.setDeviceId(strId);
@@ -145,16 +167,24 @@ public class PowerAlloteZxingActivity extends BaseMvpActivity<PowerAlloteZxingPr
                         secondBean.setStopTime(strStopTime);
                         deviceDaoDao.insert(secondBean);
                         toClass(this, PowerAllotActivity.class);
+                        finish();
                     }
                 }
             }
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
+            finish();
         } else {
             Logger.d("扫描错误");
             ToastUtil.showShortToast(bean.getMessage());
+            if (fromact.equals("1")) {
+                finish();
+            } else {
+                toClass(this, PowerAllotActivity.class);
+                finish();
+            }
         }
-        finish();
+
     }
 
 
@@ -171,8 +201,28 @@ public class PowerAlloteZxingActivity extends BaseMvpActivity<PowerAlloteZxingPr
                 }
                 break;
             case R.id.back:
-                finish();
+                if (fromact.equals("1")) {
+                    finish();
+                } else {
+                    toClass(this, PowerAllotActivity.class);
+                    finish();
+                }
                 break;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //点击完返回键，执行的动作
+            //1,从设备管理界面跳转过来的，2分配列表过来的
+            if (fromact.equals("1")) {
+                finish();
+            } else {
+                toClass(this, PowerAllotActivity.class);
+                finish();
+            }
+        }
+        return true;
     }
 }

@@ -71,20 +71,20 @@ public class OrderListActivity extends BaseMvpActivity<OrderListPresenter> imple
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(agentId, "1", App.pageSize, strId, strName, strStar, strEnd);
+                mPresenter.getData(agentId, "1", App.pageSize, strId, strName, strStar, strEnd,"0");
             }
         });
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
                 page = 1;
-                mPresenter.getRefrshFresh(agentId, "1", App.pageSize, strId, strName, strStar, strEnd);
+                mPresenter.getRefrshFresh(agentId, "1", App.pageSize, strId, strName, strStar, strEnd,"0");
             }
 
             @Override
             public void loadMore() {
                 page++;
-                mPresenter.getLoadMore(agentId, page + "", App.pageSize, strId, strName, strStar, strEnd);
+                mPresenter.getLoadMore(agentId, page + "", App.pageSize, strId, strName, strStar, strEnd,"0");
             }
         });
     }
@@ -96,7 +96,7 @@ public class OrderListActivity extends BaseMvpActivity<OrderListPresenter> imple
         strName = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_name");
         strStar = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_star");
         strEnd = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_end");
-        mPresenter.getData(agentId, "1", App.pageSize, strId, strName, strStar, strEnd);
+        mPresenter.getData(agentId, "1", App.pageSize, strId, strName, strStar, strEnd,"0");
     }
 
     @Override

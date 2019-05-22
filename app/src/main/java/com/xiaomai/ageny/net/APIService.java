@@ -417,7 +417,8 @@ public interface APIService {
                                       @Query("orderid") String orderid,
                                       @Query("sellername") String sellername,
                                       @Query("startTime") String startTime,
-                                      @Query("endTime") String endTime);
+                                      @Query("endTime") String endTime,
+                                      @Query("state")String state);
 
     //充电宝管理首页
     @GET(urlhead + "small/charge/device/management")
@@ -444,5 +445,13 @@ public interface APIService {
     //充电宝撤回列表
     @GET(urlhead + "small/charge/devicerecall/info")
     Flowable<PowerWithDrawInfoBean> PowerWithDrawInfo(@Query("deviceid") String deviceid);
+
+    //充电宝分配提交
+    @POST(urlhead + "small/charge/deviced/bution")
+    Flowable<HintBean> PowerSubmitData(@Body RequestBody requestBody);
+
+    //充电宝撤回提交
+    @POST(urlhead + "small/charge/recall")
+    Flowable<HintBean> PowerWithDrawSubmitData(@Body RequestBody requestBody);
 }
 

@@ -186,30 +186,10 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
 
     @PermissionGrant(3)
     public void requestCameraSuccess_1() {
-        Intent intent = new Intent(this, DeviceAllotZxingActivity.class);
-        startActivityForResult(intent, 2);
+        Bundle mBundle = new Bundle();
+        mBundle.putString("fromact", "1");
+        toClass(this, DeviceAllotZxingActivity.class,mBundle);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if (requestCode == 2) {
-            if (null != data) {
-                Bundle bundle = data.getExtras();
-                if (bundle == null) {
-                    return;
-                }
-                //分配设备
-                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-                    String result = bundle.getString(CodeUtils.RESULT_STRING);
-                    toClass(this, DeviceAllotListActivity.class);
-                    Logger.d("解析成功结果:" + result);
-                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    Logger.d("解析失败");
-                }
-            }
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
 }

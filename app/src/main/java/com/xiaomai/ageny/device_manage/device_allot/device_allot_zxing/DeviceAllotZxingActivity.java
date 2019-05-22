@@ -3,6 +3,7 @@ package com.xiaomai.ageny.device_manage.device_allot.device_allot_zxing;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -46,6 +47,7 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
     private String strId, strType, strTime, strStopTime;
     private DaoSession daoSession;
     private DeviceDaoDao deviceDaoDao;
+    private String fromact;
 
     @Override
     public int getLayoutId() {
@@ -54,6 +56,8 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
 
     @Override
     public void initView() {
+        fromact = getIntent().getExtras().getString("fromact");
+
         mPresenter = new DeviceAllotZxingPresenter();
         mPresenter.attachView(this);
         ImmersionBar.with(this).transparentBar().fitsSystemWindows(false).statusBarDarkFont(false).init();
@@ -116,7 +120,12 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
                 }
                 break;
             case R.id.back:
-                finish();
+                if (fromact.equals("1")) {
+                    finish();
+                } else {
+                    toClass(this, DeviceAllotListActivity.class);
+                    finish();
+                }
                 break;
         }
     }
@@ -133,7 +142,12 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
 
     @Override
     public void onError(Throwable throwable) {
-        finish();
+        if (fromact.equals("1")) {
+            finish();
+        } else {
+            toClass(this, DeviceAllotListActivity.class);
+            finish();
+        }
     }
 
     @Override
@@ -154,10 +168,13 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
                 secondBean.setStopTime(strStopTime);
                 deviceDaoDao.insert(secondBean);
                 toClass(this, DeviceAllotListActivity.class);
+                finish();
             } else {
                 for (int i = 0; i < daoList.size(); i++) {
                     if (strId.equals(daoList.get(i).getDeviceId())) {
                         ToastUtil.showShortToast("列表已存在该设备，不能重复添加");
+                        toClass(this, DeviceAllotListActivity.class);
+                        finish();
                     } else {
                         DeviceDao secondBean = new DeviceDao();
                         secondBean.setDeviceId(strId);
@@ -166,6 +183,7 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
                         secondBean.setStopTime(strStopTime);
                         deviceDaoDao.insert(secondBean);
                         toClass(this, DeviceAllotListActivity.class);
+                        finish();
                     }
                 }
             }
@@ -173,10 +191,32 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
 
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
+            finish();
         } else {
             Logger.d("扫描错误");
             ToastUtil.showShortToast(bean.getMessage());
+            if (fromact.equals("1")) {
+                finish();
+            } else {
+                toClass(this, DeviceAllotListActivity.class);
+                finish();
+            }
         }
-        finish();
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //点击完返回键，执行的动作
+            //1,从设备管理界面跳转过来的，2分配列表过来的
+            if (fromact.equals("1")) {
+                finish();
+            } else {
+                toClass(this, DeviceAllotListActivity.class);
+                finish();
+            }
+        }
+        return true;
     }
 }

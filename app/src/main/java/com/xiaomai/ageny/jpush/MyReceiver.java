@@ -51,6 +51,7 @@ public class MyReceiver extends BroadcastReceiver {
                             intent0.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent0.putExtra("id", deviceId);
                             intent0.putExtra("msgid", msgId);
+                            intent0.putExtra("fromact", 1);
                             context.startActivity(intent0);
                             break;
                         case "1":
@@ -58,6 +59,7 @@ public class MyReceiver extends BroadcastReceiver {
                             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent1.putExtra("id", deviceId);
                             intent1.putExtra("msgid", msgId);
+                            intent1.putExtra("fromact", 1);
                             context.startActivity(intent1);
                             break;
                         case "2":

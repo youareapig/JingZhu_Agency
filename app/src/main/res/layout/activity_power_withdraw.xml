@@ -41,7 +41,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_76"
         android:background="#fff"
-        android:src="@mipmap/img_01" />
+        android:src="@mipmap/img_007" />
 
     <RelativeLayout
         android:layout_width="match_parent"

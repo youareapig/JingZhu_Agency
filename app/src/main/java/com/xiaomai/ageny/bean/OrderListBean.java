@@ -6,7 +6,7 @@ public class OrderListBean {
 
     /**
      * code : 1
-     * data : {"countEarn":"268.36","countRentPrice":"310.00","list":[{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"3.00","leasetime":"00时00分07秒","level":"","mobile":"","orderid":"201901251137257832","realname":"","rentprice":"0.00","sellername":"兆信国际2号楼","updTime":"2019-01-25 11:37:33"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"260.00","leasetime":"00时06分09秒","level":"","mobile":"","orderid":"201903271524121206","realname":"","rentprice":"300.00","sellername":"兆信国际2号楼","updTime":"2019-03-27 15:26:22"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"2.00","leasetime":"03时51分15秒","level":"","mobile":"","orderid":"201903291336450959","realname":"","rentprice":"4.00","sellername":"兆信国际2号楼","updTime":"2019-03-29 17:28:01"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"0.50","leasetime":"00时09分20秒","level":"","mobile":"","orderid":"201903291618538299","realname":"","rentprice":"1.00","sellername":"兆信国际2号楼","updTime":"2019-03-29 16:28:14"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"0.00","leasetime":"00时02分51秒","level":"","mobile":"","orderid":"201904020915118931","realname":"","rentprice":"0.00","sellername":"兆信国际2号楼","updTime":"2019-04-02 09:18:04"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"1.30","leasetime":"01时02分47秒","level":"","mobile":"","orderid":"201904131525432802","realname":"","rentprice":"2.00","sellername":"京猪","updTime":"2019-04-13 16:28:30"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"0.30","leasetime":"00时00分15秒","level":"","mobile":"","orderid":"201904151145201612","realname":"","rentprice":"3.00","sellername":"京猪","updTime":"2019-04-15 11:45:36"}],"page":"1","pageSize":"20","total":"7"}
+     * data : {"countEarn":"1.68","countRentPrice":"2.00","list":[{"agentname":"李四","countPrice":"","countearn":"1.68","earn":"1.68","leasetime":"01时02分47秒","level":"","mobile":"","orderid":"201904131525432802","parentname":"张兴凯","realname":"","rentprice":"2.00","sellername":"京猪","updTime":"2019-04-13 16:28:30"}],"page":"1","pageSize":"20","total":"1"}
      * message : 5.14他的代理的订单列表
      */
 
@@ -40,12 +40,12 @@ public class OrderListBean {
 
     public static class DataBean {
         /**
-         * countEarn : 268.36
-         * countRentPrice : 310.00
-         * list : [{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"3.00","leasetime":"00时00分07秒","level":"","mobile":"","orderid":"201901251137257832","realname":"","rentprice":"0.00","sellername":"兆信国际2号楼","updTime":"2019-01-25 11:37:33"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"260.00","leasetime":"00时06分09秒","level":"","mobile":"","orderid":"201903271524121206","realname":"","rentprice":"300.00","sellername":"兆信国际2号楼","updTime":"2019-03-27 15:26:22"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"2.00","leasetime":"03时51分15秒","level":"","mobile":"","orderid":"201903291336450959","realname":"","rentprice":"4.00","sellername":"兆信国际2号楼","updTime":"2019-03-29 17:28:01"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"0.50","leasetime":"00时09分20秒","level":"","mobile":"","orderid":"201903291618538299","realname":"","rentprice":"1.00","sellername":"兆信国际2号楼","updTime":"2019-03-29 16:28:14"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"0.00","leasetime":"00时02分51秒","level":"","mobile":"","orderid":"201904020915118931","realname":"","rentprice":"0.00","sellername":"兆信国际2号楼","updTime":"2019-04-02 09:18:04"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"1.30","leasetime":"01时02分47秒","level":"","mobile":"","orderid":"201904131525432802","realname":"","rentprice":"2.00","sellername":"京猪","updTime":"2019-04-13 16:28:30"},{"agentname":"张兴凯","countPrice":"","countearn":"268.36","earn":"0.30","leasetime":"00时00分15秒","level":"","mobile":"","orderid":"201904151145201612","realname":"","rentprice":"3.00","sellername":"京猪","updTime":"2019-04-15 11:45:36"}]
+         * countEarn : 1.68
+         * countRentPrice : 2.00
+         * list : [{"agentname":"李四","countPrice":"","countearn":"1.68","earn":"1.68","leasetime":"01时02分47秒","level":"","mobile":"","orderid":"201904131525432802","parentname":"张兴凯","realname":"","rentprice":"2.00","sellername":"京猪","updTime":"2019-04-13 16:28:30"}]
          * page : 1
          * pageSize : 20
-         * total : 7
+         * total : 1
          */
 
         private String countEarn;
@@ -105,18 +105,19 @@ public class OrderListBean {
 
         public static class ListBean {
             /**
-             * agentname : 张兴凯
+             * agentname : 李四
              * countPrice :
-             * countearn : 268.36
-             * earn : 3.00
-             * leasetime : 00时00分07秒
+             * countearn : 1.68
+             * earn : 1.68
+             * leasetime : 01时02分47秒
              * level :
              * mobile :
-             * orderid : 201901251137257832
+             * orderid : 201904131525432802
+             * parentname : 张兴凯
              * realname :
-             * rentprice : 0.00
-             * sellername : 兆信国际2号楼
-             * updTime : 2019-01-25 11:37:33
+             * rentprice : 2.00
+             * sellername : 京猪
+             * updTime : 2019-04-13 16:28:30
              */
 
             private String agentname;
@@ -127,6 +128,7 @@ public class OrderListBean {
             private String level;
             private String mobile;
             private String orderid;
+            private String parentname;
             private String realname;
             private String rentprice;
             private String sellername;
@@ -194,6 +196,14 @@ public class OrderListBean {
 
             public void setOrderid(String orderid) {
                 this.orderid = orderid;
+            }
+
+            public String getParentname() {
+                return parentname;
+            }
+
+            public void setParentname(String parentname) {
+                this.parentname = parentname;
             }
 
             public String getRealname() {

@@ -30,6 +30,7 @@ import com.xiaomai.ageny.device_manage.device_allot.device_allot_list.contract.D
 import com.xiaomai.ageny.device_manage.device_allot.device_allot_list.presenter.DeviceAllotListPresenter;
 import com.xiaomai.ageny.greendao.gen.DaoSession;
 import com.xiaomai.ageny.greendao.gen.DeviceDaoDao;
+import com.xiaomai.ageny.power_manager.power_zxing.power_allote_zxing.PowerAlloteZxingActivity;
 import com.xiaomai.ageny.utils.DaoSessionManager;
 import com.xiaomai.ageny.utils.MaptoJson;
 import com.xiaomai.ageny.utils.SwipeItemLayout;
@@ -128,7 +129,11 @@ public class DeviceAllotListActivity extends BaseMvpActivity<DeviceAllotListPres
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
-                myDialog();
+                if (list.size() != 0) {
+                    myDialog();
+                } else {
+                    finish();
+                }
                 break;
             case R.id.bt_next:
                 if (list.size() == 0) {
@@ -192,29 +197,12 @@ public class DeviceAllotListActivity extends BaseMvpActivity<DeviceAllotListPres
 
     @PermissionGrant(4)
     public void requestCameraSuccess_2() {
-        Intent intent = new Intent(this, DeviceAllotZxingActivity.class);
-        startActivityForResult(intent, 3);
+        Bundle mBundle = new Bundle();
+        mBundle.putString("fromact", "2");
+        toClass(this, DeviceAllotZxingActivity.class, mBundle);
+        finish();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //继续扫描
-//        if (requestCode == 3) {
-//            if (null != data) {
-//                Bundle bundle = data.getExtras();
-//                if (bundle == null) {
-//                    return;
-//                }
-//                if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_SUCCESS) {
-//                    String result = bundle.getString(CodeUtils.RESULT_STRING);
-//                    Logger.d("解析成功结果:" + result);
-//                } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-//                    Logger.d("解析失败");
-//                }
-//            }
-//        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
     private void myDialog1() {
         builder = new AlertDialog.Builder(this).create();

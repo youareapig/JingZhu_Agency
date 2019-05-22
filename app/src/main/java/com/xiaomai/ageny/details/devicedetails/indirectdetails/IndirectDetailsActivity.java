@@ -47,6 +47,7 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
     private Adapter adapter;
     private List<OffIndirectDeivceDetailsBean.DataBean.ListBean> list;
     private String id, msgid;
+    private int fromact;
 
     @Override
     public int getLayoutId() {
@@ -58,6 +59,7 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
         otherView.setHolder(mHolder);
         id = getIntent().getStringExtra("id");
         msgid = getIntent().getStringExtra("msgid");
+        fromact = getIntent().getExtras().getInt("fromact");
         mPresenter = new IndirectDetailsPresenter();
         mPresenter.attachView(this);
         mPresenter.getData(id, msgid);
@@ -89,7 +91,7 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
             time.setText(bean.getData().getFenpeitime());
 
             list = bean.getData().getList();
-            if (list.size() == 0) {
+            if (list.size() == 0 || fromact == 1) {
                 liuzhuanView.setVisibility(View.GONE);
             } else {
                 liuzhuanView.setVisibility(View.VISIBLE);
@@ -105,7 +107,6 @@ public class IndirectDetailsActivity extends BaseMvpActivity<IndirectDetailsPres
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
-
 
     }
 

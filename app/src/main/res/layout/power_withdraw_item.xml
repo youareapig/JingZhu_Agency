@@ -63,7 +63,7 @@
                 android:id="@+id/tel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_21"
+                android:layout_marginLeft="@dimen/dp_11"
                 android:text="sdfsd"
                 android:textColor="#363636"
                 android:textSize="@dimen/sp_14" />

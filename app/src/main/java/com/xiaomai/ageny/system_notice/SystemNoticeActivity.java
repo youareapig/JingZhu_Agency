@@ -124,6 +124,7 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
                     if (list.get(position).getMessage().indexOf("下级") > 0) {
                         //标题包含下级  跳转非直属详情
                         intent.setClass(view.getContext(), IndirectDetailsActivity.class);
+                        intent.putExtra("fromact",1);
                     } else {
                         //不包含下级   跳转直属详情
                         intent.setClass(view.getContext(), DirectDetailsActivity.class);

@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public interface OrderListContract {
     interface Model {
-        Flowable<OrderListBean> getData(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime);
+        Flowable<OrderListBean> getData(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime,String state);
     }
 
     interface View extends BaseView {
@@ -29,10 +29,10 @@ public interface OrderListContract {
     }
 
     interface Presenter {
-        void getData(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime);
+        void getData(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime,String state);
 
-        void getLoadMore(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime);
+        void getLoadMore(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime,String state);
 
-        void getRefrshFresh(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime);
+        void getRefrshFresh(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime,String state);
     }
 }

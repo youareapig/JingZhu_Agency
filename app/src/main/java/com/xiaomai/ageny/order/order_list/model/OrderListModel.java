@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public class OrderListModel implements OrderListContract.Model {
     @Override
-    public Flowable<OrderListBean> getData(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime) {
-        return RetrofitClient.getInstance().getApi().orderList(agentid, page, pagesize, orderid, sellername, startTime, endTime);
+    public Flowable<OrderListBean> getData(String agentid, String page, String pagesize,String orderid,String sellername,String startTime,String endTime,String state) {
+        return RetrofitClient.getInstance().getApi().orderList(agentid, page, pagesize, orderid, sellername, startTime, endTime,state);
     }
 }

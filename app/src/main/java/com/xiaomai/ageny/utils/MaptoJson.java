@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.utils;
 
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.bean.daobean.DeviceDao;
 
 import java.util.ArrayList;
@@ -43,17 +44,19 @@ public class MaptoJson {
 
     public static RequestBody toJson(List<DeviceDao> list, String strtel) {
         List<Map<String, String>> mlist = new ArrayList<>();
-        Map<String, String> map = new HashMap<>();
         for (int i = 0; i < list.size(); i++) {
+            Map<String, String> map = new HashMap<>();
             map.put("deviceid", list.get(i).getDeviceId());
             map.put("strandedTime", list.get(i).getStopTime());
             map.put("deviceType", list.get(i).getType());
             map.put("time", list.get(i).getTime());
+
             mlist.add(map);
         }
         Map<String, Object> map1 = new HashMap<>();
         map1.put("mobile", strtel);
         map1.put("boxlist", mlist);
+
 
         Gson gson = new Gson();
         String jsonStr = gson.toJson(map1);
