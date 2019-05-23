@@ -17,12 +17,12 @@ public class MyPowerPresenter extends BasePresenter<MyPowerContract.View> implem
     }
 
     @Override
-    public void getData(String id) {
+    public void getData(String id, String page, String pagesize) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(id).compose(RxScheduler.<MyPowerListBean>Flo_io_main())
+        model.getData(id,page,pagesize).compose(RxScheduler.<MyPowerListBean>Flo_io_main())
                 .as(mView.<MyPowerListBean>bindAutoDispose())
                 .subscribe(new Consumer<MyPowerListBean>() {
                     @Override
@@ -40,16 +40,37 @@ public class MyPowerPresenter extends BasePresenter<MyPowerContract.View> implem
     }
 
     @Override
-    public void getDataFresh(String id) {
+    public void getDataFresh(String id, String page, String pagesize) {
         if (!isViewAttached()) {
             return;
         }
-        model.getData(id).compose(RxScheduler.<MyPowerListBean>Flo_io_main())
+        model.getData(id,page,pagesize).compose(RxScheduler.<MyPowerListBean>Flo_io_main())
                 .as(mView.<MyPowerListBean>bindAutoDispose())
                 .subscribe(new Consumer<MyPowerListBean>() {
                     @Override
                     public void accept(MyPowerListBean bean) throws Exception {
                         mView.onSuccessFresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+
+                    }
+                });
+    }
+
+    @Override
+    public void getDataLoadMore(String id, String page, String pagesize) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(id,page,pagesize).compose(RxScheduler.<MyPowerListBean>Flo_io_main())
+                .as(mView.<MyPowerListBean>bindAutoDispose())
+                .subscribe(new Consumer<MyPowerListBean>() {
+                    @Override
+                    public void accept(MyPowerListBean bean) throws Exception {
+                        mView.onSuccessLoadMore(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

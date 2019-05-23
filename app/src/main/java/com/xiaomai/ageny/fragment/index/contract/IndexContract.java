@@ -17,7 +17,7 @@ public interface IndexContract {
 
         Flowable<ConfigBean> getConfigBean();
 
-        Flowable<UpdateBean> getUpdate();
+        Flowable<UpdateBean> getUpdate(String type);
 
         Flowable<UserInfoBean> getAlias();
 
@@ -52,7 +52,7 @@ public interface IndexContract {
 
         void getConfigBean();
 
-        void getUpdate();
+        void getUpdate(String type);
 
         void updateMethod(Activity activity);
 

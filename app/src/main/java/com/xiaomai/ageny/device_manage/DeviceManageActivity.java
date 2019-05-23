@@ -161,12 +161,7 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
                 break;
             case R.id.bt_device_alloted:
                 //已分配
-                bundle.putString("all", strAll);
-                bundle.putString("allot", strAllot);
-                bundle.putString("noallot", strNoallot);
-                SharedPreferencesUtil.getInstance(this).putSP("all", strAll);
-                SharedPreferencesUtil.getInstance(this).putSP("fenpei", strAllot);
-                SharedPreferencesUtil.getInstance(this).putSP("weifenpei", strNoallot);
+
                 toClass(this, DeviceAllotedActivity.class);
                 break;
         }

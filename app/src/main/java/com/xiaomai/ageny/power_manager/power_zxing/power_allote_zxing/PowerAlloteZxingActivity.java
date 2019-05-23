@@ -28,6 +28,7 @@ import com.xiaomai.ageny.utils.DaoSessionManager;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -46,6 +47,7 @@ public class PowerAlloteZxingActivity extends BaseMvpActivity<PowerAlloteZxingPr
     private DaoSession daoSession;
     private DeviceDaoDao deviceDaoDao;
     private String fromact;
+    private List<String> idList = new ArrayList<>();
 
     @Override
     public int getLayoutId() {
@@ -155,20 +157,21 @@ public class PowerAlloteZxingActivity extends BaseMvpActivity<PowerAlloteZxingPr
                 finish();
             } else {
                 for (int i = 0; i < daoList.size(); i++) {
-                    if (strId.equals(daoList.get(i).getDeviceId())) {
-                        ToastUtil.showShortToast("列表已存在该设备，不能重复添加");
-                        toClass(this, PowerAllotActivity.class);
-                        finish();
-                    } else {
-                        DeviceDao secondBean = new DeviceDao();
-                        secondBean.setDeviceId(strId);
-                        secondBean.setType(strType);
-                        secondBean.setTime(strTime);
-                        secondBean.setStopTime(strStopTime);
-                        deviceDaoDao.insert(secondBean);
-                        toClass(this, PowerAllotActivity.class);
-                        finish();
-                    }
+                    idList.add(daoList.get(i).getDeviceId());
+                }
+                if (idList.contains(strId)) {
+                    ToastUtil.showShortToast("列表已存在该充电宝，不能重复添加");
+                    toClass(this, PowerAllotActivity.class);
+                    finish();
+                } else {
+                    DeviceDao secondBean = new DeviceDao();
+                    secondBean.setDeviceId(strId);
+                    secondBean.setType(strType);
+                    secondBean.setTime(strTime);
+                    secondBean.setStopTime(strStopTime);
+                    deviceDaoDao.insert(secondBean);
+                    toClass(this, PowerAllotActivity.class);
+                    finish();
                 }
             }
         } else if (bean.getCode() == -10) {

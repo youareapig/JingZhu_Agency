@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.details.devicedetails.directdetails;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -74,6 +75,7 @@ public class DirectDetailsActivity extends BaseMvpActivity<DirectDetailsPresente
     @BindView(R.id.otherview)
     OtherView otherView;
     private String deviceid, msgid;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_direct_details;

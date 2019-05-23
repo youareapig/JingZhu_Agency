@@ -17,12 +17,12 @@ public class PowerAllotedPresenter extends BasePresenter<PowerAllotedContract.Vi
     }
 
     @Override
-    public void getData(String id, String startTime, String endTime) {
+    public void getData(String id, String startTime, String endTime, String page, String pagesize) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(id, startTime, endTime).compose(RxScheduler.<PowerAllotedBean>Flo_io_main())
+        model.getData(id, startTime, endTime, page, pagesize).compose(RxScheduler.<PowerAllotedBean>Flo_io_main())
                 .as(mView.<PowerAllotedBean>bindAutoDispose())
                 .subscribe(new Consumer<PowerAllotedBean>() {
                     @Override
@@ -40,16 +40,37 @@ public class PowerAllotedPresenter extends BasePresenter<PowerAllotedContract.Vi
     }
 
     @Override
-    public void getDataFresh(String id, String startTime, String endTime) {
+    public void getDataFresh(String id, String startTime, String endTime, String page, String pagesize) {
         if (!isViewAttached()) {
             return;
         }
-        model.getData(id, startTime, endTime).compose(RxScheduler.<PowerAllotedBean>Flo_io_main())
+        model.getData(id, startTime, endTime, page, pagesize).compose(RxScheduler.<PowerAllotedBean>Flo_io_main())
                 .as(mView.<PowerAllotedBean>bindAutoDispose())
                 .subscribe(new Consumer<PowerAllotedBean>() {
                     @Override
                     public void accept(PowerAllotedBean bean) throws Exception {
                         mView.onSuccessFresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+
+                    }
+                });
+    }
+
+    @Override
+    public void getDataLoadMore(String id, String startTime, String endTime, String page, String pagesize) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(id, startTime, endTime, page, pagesize).compose(RxScheduler.<PowerAllotedBean>Flo_io_main())
+                .as(mView.<PowerAllotedBean>bindAutoDispose())
+                .subscribe(new Consumer<PowerAllotedBean>() {
+                    @Override
+                    public void accept(PowerAllotedBean bean) throws Exception {
+                        mView.onSuccessLoadMore(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

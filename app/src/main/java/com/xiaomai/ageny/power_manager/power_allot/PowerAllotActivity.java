@@ -173,6 +173,8 @@ public class PowerAllotActivity extends BaseMvpActivity<PowerAllotPresenter> imp
         builder.setView(view);
         builder.setCanceledOnTouchOutside(false);
         builder.show();
+        TextView content=view.findViewById(R.id.content);
+        content.setText("返回后已录入充电宝将清空"+"\n"+"是否确认返回？");
         view.findViewById(R.id.bt_sure).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

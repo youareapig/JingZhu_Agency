@@ -13,9 +13,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
+import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.AllotDeviceBean;
+import com.xiaomai.ageny.bean.DeviceManageBean;
 import com.xiaomai.ageny.details.device_alloted_details.DeviceAllotedDetailsActivity;
 import com.xiaomai.ageny.device_manage.device_alloted.contract.DeviceAllotedContract;
 import com.xiaomai.ageny.device_manage.device_alloted.presenter.DeviceAllotedPresenter;
@@ -55,11 +57,12 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
     @BindView(R.id.refresh)
     PullToRefreshLayout refreshLayout;
 
-    private List<AllotDeviceBean.DataBean> list;
+    private List<AllotDeviceBean.DataBean.ListBean> list = new ArrayList<>();
     private Adapter adapter;
     private String strAll, strAllot, strNoallot;
-    private String strTel, strId;
-    private Bundle mBundle;
+    private String strTel, strId, msgId;
+    private Bundle mBundle = new Bundle();
+    private int page = 1;
 
     @Override
     public int getLayoutId() {
@@ -68,34 +71,34 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
 
     @Override
     public void initView() {
-        mBundle = new Bundle();
-        strAll = SharedPreferencesUtil.getInstance(this).getSP("all");
-        strAllot = SharedPreferencesUtil.getInstance(this).getSP("fenpei");
-        strNoallot = SharedPreferencesUtil.getInstance(this).getSP("weifenpei");
-        deviceAllNum.setText(strAll);
-        deviceAllot.setText(strAllot);
-        deviceNoallot.setText(strNoallot);
-
+        Intent intent = getIntent();
+        if (intent != null) {
+            msgId = intent.getStringExtra("msgId");
+        }
+        Logger.d("msgId-------" + msgId);
         OtherViewHolder holder = new OtherViewHolder(this);
         otherview.setHolder(mHolder);
         otherview1.setHolder(holder);
         mPresenter = new DeviceAllotedPresenter();
         mPresenter.attachView(this);
+        mPresenter.getCount();
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(strId, strTel);
+                mPresenter.getData(strId, strTel, "1", App.pageSize,msgId);
             }
         });
-        refreshLayout.setCanLoadMore(false);
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                mPresenter.getDataFresh(strId, strTel);
+                page = 1;
+                mPresenter.getDataFresh(strId, strTel, "1", App.pageSize,msgId);
             }
 
             @Override
             public void loadMore() {
+                page++;
+                mPresenter.getDataLoadMore(strId, strTel, page + "", App.pageSize,msgId);
             }
         });
     }
@@ -103,7 +106,7 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
     @Override
     protected void onStart() {
         super.onStart();
-        mPresenter.getData(strId, strTel);
+        mPresenter.getData(strId, strTel, "1", App.pageSize,msgId);
     }
 
     @Override
@@ -119,12 +122,29 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
     @Override
     public void onError(Throwable throwable) {
         otherview.showRetryView();
+        refreshLayout.finishLoadMore();
+        refreshLayout.finishRefresh();
     }
 
     @Override
     public void onSuccess(AllotDeviceBean bean) {
         initData(bean);
+    }
 
+    @Override
+    public void onSuccess(DeviceManageBean bean) {
+        if (bean.getCode() == 1) {
+            strAll = bean.getData().getCountBox();
+            strAllot = bean.getData().getFenpeiBox();
+            strNoallot = bean.getData().getWeifenpeiBox();
+            deviceAllNum.setText(strAll);
+            deviceAllot.setText(strAllot);
+            deviceNoallot.setText(strNoallot);
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
     }
 
     @Override
@@ -133,14 +153,37 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
         initData(bean);
     }
 
-    private void initData(AllotDeviceBean bean) {
+    @Override
+    public void onSuccessLoadMore(AllotDeviceBean bean) {
+        refreshLayout.finishLoadMore();
         if (bean.getCode() == 1) {
-            list = bean.getData();
-            Logger.d("listSize-----"+list.size());
+            list.addAll(bean.getData().getList());
+            //延迟更新数据，避免卡顿
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+                }
+            }, 500);
+            if (bean.getData().getList().size() == 0) {
+                ToastUtil.showShortToast("没有更多数据");
+            }
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
+    }
+
+    private void initData(AllotDeviceBean bean) {
+        list.clear();
+        if (bean.getCode() == 1) {
+            list.addAll(bean.getData().getList());
+            Logger.d("listSize-----" + list.size());
             if (list.size() == 0) {
                 otherview1.showEmptyView();
-            }else {
+                refreshLayout.setCanLoadMore(false);
+            } else {
                 otherview1.showContentView();
+                refreshLayout.setCanLoadMore(true);
             }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);

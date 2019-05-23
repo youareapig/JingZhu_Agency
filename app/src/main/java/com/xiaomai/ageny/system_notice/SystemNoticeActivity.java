@@ -18,8 +18,11 @@ import com.xiaomai.ageny.bean.BillListBean;
 import com.xiaomai.ageny.bean.SystemNoticeBean;
 import com.xiaomai.ageny.details.devicedetails.directdetails.DirectDetailsActivity;
 import com.xiaomai.ageny.details.devicedetails.indirectdetails.IndirectDetailsActivity;
+import com.xiaomai.ageny.device_manage.device_alloted.DeviceAllotedActivity;
+import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.system_notice.contract.SystemNoticeContract;
 import com.xiaomai.ageny.system_notice.presenter.SystemNoticePresenter;
+import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -115,20 +118,39 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
             adapter = new Adapter(R.layout.system_notice_item, list);
             recycler.setAdapter(adapter);
             adapter.openLoadAnimation();
+            adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                @Override
+                public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                    BaseUtils.copyMothod(view.getContext(), list.get(position).getDeviceId());
+                    ToastUtil.showShortToast("设备编号复制成功");
+                }
+            });
             adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     //type 0遗失  1找回  2离线  3下级代理遗失  4下级代理找回
+                    //找回和遗失跳转到已分配设备列表,离线跳转到首页离线设备列表
                     int type = list.get(position).getType();
                     Intent intent = new Intent();
-                    if (list.get(position).getMessage().indexOf("下级") > 0) {
-                        //标题包含下级  跳转非直属详情
-                        intent.setClass(view.getContext(), IndirectDetailsActivity.class);
-                        intent.putExtra("fromact",1);
-                    } else {
-                        //不包含下级   跳转直属详情
-                        intent.setClass(view.getContext(), DirectDetailsActivity.class);
+                    switch (type) {
+                        case 0:
+                            intent.setClass(view.getContext(), DeviceAllotedActivity.class);
+                            break;
+                        case 1:
+                            intent.setClass(view.getContext(), DeviceAllotedActivity.class);
+                            break;
+                        case 2:
+                            intent.setClass(view.getContext(), OfflineActivity.class);
+                            break;
                     }
+//                    if (list.get(position).getMessage().indexOf("下级") > 0) {
+//                        //标题包含下级  跳转非直属详情
+//                        intent.setClass(view.getContext(), IndirectDetailsActivity.class);
+//                        intent.putExtra("fromact", 1);
+//                    } else {
+//                        //不包含下级   跳转直属详情
+//                        intent.setClass(view.getContext(), DirectDetailsActivity.class);
+//                    }
                     intent.putExtra("id", list.get(position).getDeviceId());
                     intent.putExtra("msgid", list.get(position).getId() + "");
                     view.getContext().startActivity(intent);

@@ -2,6 +2,7 @@ package com.xiaomai.ageny.power_manager.power_mine;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
+import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.MyPowerListBean;
@@ -44,10 +46,11 @@ public class MyPowerActivity extends BaseMvpActivity<MyPowerPresenter> implement
     OtherView otherview;
     @BindView(R.id.refresh)
     PullToRefreshLayout refresh;
-    private List<MyPowerListBean.DataBean> list;
+    private List<MyPowerListBean.DataBean.ListBean> list=new ArrayList<>();
     private Adapter adapter;
     private String powerId;
     private Bundle bundle=new Bundle();
+    private int page=1;
     @Override
     public int getLayoutId() {
         return R.layout.activity_my_power;
@@ -61,19 +64,20 @@ public class MyPowerActivity extends BaseMvpActivity<MyPowerPresenter> implement
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(powerId);
+                mPresenter.getData(powerId,"1",App.pageSize);
             }
         });
-        refresh.setCanLoadMore(false);
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                mPresenter.getDataFresh(powerId);
+                page=1;
+                mPresenter.getDataFresh(powerId,"1",App.pageSize);
             }
 
             @Override
             public void loadMore() {
-
+                page++;
+                mPresenter.getDataLoadMore(powerId,page+"",App.pageSize);
             }
         });
     }
@@ -81,7 +85,7 @@ public class MyPowerActivity extends BaseMvpActivity<MyPowerPresenter> implement
     @Override
     protected void onStart() {
         super.onStart();
-        mPresenter.getData(powerId);
+        mPresenter.getData(powerId,"1",App.pageSize);
     }
 
     @Override
@@ -96,7 +100,9 @@ public class MyPowerActivity extends BaseMvpActivity<MyPowerPresenter> implement
 
     @Override
     public void onError(Throwable throwable) {
+        Logger.d("throwable---"+throwable.getMessage());
         refresh.finishRefresh();
+        refresh.finishLoadMore();
         otherview.showRetryView();
     }
 
@@ -106,15 +112,35 @@ public class MyPowerActivity extends BaseMvpActivity<MyPowerPresenter> implement
     }
 
     @Override
+    public void onSuccessLoadMore(MyPowerListBean bean) {
+        refresh.finishLoadMore();
+        if (bean.getCode() == 1) {
+            list.addAll(bean.getData().getList());
+            //延迟更新数据，避免卡顿
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+                }
+            }, 500);
+            if (bean.getData().getList().size() == 0) {
+                ToastUtil.showShortToast("没有更多数据");
+            }
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
+    }
+
+    @Override
     public void onSuccessFresh(MyPowerListBean bean) {
         refresh.finishRefresh();
         initData(bean);
     }
 
     private void initData(MyPowerListBean bean) {
+        list.clear();
         if (bean.getCode() == 1) {
-            list = new ArrayList<>();
-            list = bean.getData();
+            list.addAll(bean.getData().getList());
             if (list.size() == 0) {
                 otherview.showEmptyView();
             }

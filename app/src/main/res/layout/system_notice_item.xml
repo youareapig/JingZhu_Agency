@@ -55,14 +55,33 @@
                     android:layout_marginBottom="@dimen/dp_8"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/item_deviceid"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/dp_3"
-                        android:text="设备编号：123456"
-                        android:textColor="#464646"
-                        android:textSize="@dimen/sp_12" />
+                        android:layout_marginBottom="@dimen/dp_3">
+
+                        <TextView
+                            android:id="@+id/item_deviceid"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="设备编号：123456"
+                            android:textColor="#464646"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:id="@+id/bt_copy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="@dimen/dp_50"
+                            android:background="@drawable/blue_frame11"
+                            android:paddingLeft="@dimen/dp_15"
+                            android:paddingRight="@dimen/dp_15"
+                            android:text="复制"
+                            android:textColor="#fff"
+                            android:textSize="@dimen/sp_12" />
+                    </RelativeLayout>
+
 
                     <TextView
                         android:id="@+id/item_name"
@@ -90,8 +109,8 @@
                         android:layout_marginBottom="@dimen/dp_3"
                         android:text="预警时间：123456"
                         android:textColor="#464646"
-                        android:visibility="gone"
-                        android:textSize="@dimen/sp_12" />
+                        android:textSize="@dimen/sp_12"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/item_ystime"

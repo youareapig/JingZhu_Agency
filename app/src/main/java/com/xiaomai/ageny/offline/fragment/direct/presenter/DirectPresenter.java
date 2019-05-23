@@ -16,12 +16,12 @@ public class DirectPresenter extends BasePresenter<DirectContract.View> implemen
     }
 
     @Override
-    public void getData(String sellername, String linkmobile, String deviceid,String state) {
+    public void getData(String sellername, String linkmobile, String deviceid,String state,String msgid) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(sellername, linkmobile, deviceid,state).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
+        model.getData(sellername, linkmobile, deviceid,state,msgid).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
                 .as(mView.<OffDirectDeviceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffDirectDeviceBean>() {
                     @Override
@@ -38,11 +38,11 @@ public class DirectPresenter extends BasePresenter<DirectContract.View> implemen
     }
 
     @Override
-    public void getDataFresh(String sellername, String linkmobile, String deviceid, String state) {
+    public void getDataFresh(String sellername, String linkmobile, String deviceid, String state,String msgid) {
         if (!isViewAttached()) {
             return;
         }
-        model.getData(sellername, linkmobile, deviceid,state).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
+        model.getData(sellername, linkmobile, deviceid,state,msgid).compose(RxScheduler.<OffDirectDeviceBean>Flo_io_main())
                 .as(mView.<OffDirectDeviceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffDirectDeviceBean>() {
                     @Override

@@ -24,6 +24,7 @@ import com.xiaomai.ageny.device_manage.device_allot.device_allot_zxing.contract.
 import com.xiaomai.ageny.device_manage.device_allot.device_allot_zxing.presenter.DeviceAllotZxingPresenter;
 import com.xiaomai.ageny.greendao.gen.DaoSession;
 import com.xiaomai.ageny.greendao.gen.DeviceDaoDao;
+import com.xiaomai.ageny.power_manager.power_allot.PowerAllotActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.DaoSessionManager;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
@@ -48,7 +49,7 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
     private DaoSession daoSession;
     private DeviceDaoDao deviceDaoDao;
     private String fromact;
-
+    private List<String> idList = new ArrayList<>();
     @Override
     public int getLayoutId() {
         return R.layout.activity_device_allot_zxing;
@@ -170,21 +171,38 @@ public class DeviceAllotZxingActivity extends BaseMvpActivity<DeviceAllotZxingPr
                 toClass(this, DeviceAllotListActivity.class);
                 finish();
             } else {
+//                for (int i = 0; i < daoList.size(); i++) {
+//                    if (strId.equals(daoList.get(i).getDeviceId())) {
+//                        ToastUtil.showShortToast("列表已存在该设备，不能重复添加");
+//                        toClass(this, DeviceAllotListActivity.class);
+//                        finish();
+//                    } else {
+//                        DeviceDao secondBean = new DeviceDao();
+//                        secondBean.setDeviceId(strId);
+//                        secondBean.setType(strType);
+//                        secondBean.setTime(strTime);
+//                        secondBean.setStopTime(strStopTime);
+//                        deviceDaoDao.insert(secondBean);
+//                        toClass(this, DeviceAllotListActivity.class);
+//                        finish();
+//                    }
+//                }
                 for (int i = 0; i < daoList.size(); i++) {
-                    if (strId.equals(daoList.get(i).getDeviceId())) {
-                        ToastUtil.showShortToast("列表已存在该设备，不能重复添加");
-                        toClass(this, DeviceAllotListActivity.class);
-                        finish();
-                    } else {
-                        DeviceDao secondBean = new DeviceDao();
-                        secondBean.setDeviceId(strId);
-                        secondBean.setType(strType);
-                        secondBean.setTime(strTime);
-                        secondBean.setStopTime(strStopTime);
-                        deviceDaoDao.insert(secondBean);
-                        toClass(this, DeviceAllotListActivity.class);
-                        finish();
-                    }
+                    idList.add(daoList.get(i).getDeviceId());
+                }
+                if (idList.contains(strId)) {
+                    ToastUtil.showShortToast("列表已存在该设备，不能重复添加");
+                    toClass(this, DeviceAllotListActivity.class);
+                    finish();
+                } else {
+                    DeviceDao secondBean = new DeviceDao();
+                    secondBean.setDeviceId(strId);
+                    secondBean.setType(strType);
+                    secondBean.setTime(strTime);
+                    secondBean.setStopTime(strStopTime);
+                    deviceDaoDao.insert(secondBean);
+                    toClass(this, DeviceAllotListActivity.class);
+                    finish();
                 }
             }
 

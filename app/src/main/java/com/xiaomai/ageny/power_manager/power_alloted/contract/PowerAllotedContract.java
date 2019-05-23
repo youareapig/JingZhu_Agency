@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public interface PowerAllotedContract {
     interface Model {
-        Flowable<PowerAllotedBean> getData(String id, String startTime, String endTime);
+        Flowable<PowerAllotedBean> getData(String id, String startTime, String endTime, String page, String pagesize);
     }
 
     interface View extends BaseView {
@@ -24,11 +24,15 @@ public interface PowerAllotedContract {
         void onSuccess(PowerAllotedBean bean);
 
         void onSuccessFresh(PowerAllotedBean bean);
+
+        void onSuccessLoadMore(PowerAllotedBean bean);
     }
 
     interface Presenter {
-        void getData(String id, String startTime, String endTime);
+        void getData(String id, String startTime, String endTime, String page, String pagesize);
 
-        void getDataFresh(String id, String startTime, String endTime);
+        void getDataFresh(String id, String startTime, String endTime, String page, String pagesize);
+
+        void getDataLoadMore(String id, String startTime, String endTime, String page, String pagesize);
     }
 }

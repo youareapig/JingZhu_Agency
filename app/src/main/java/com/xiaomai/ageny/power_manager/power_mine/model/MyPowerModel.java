@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public class MyPowerModel implements MyPowerContract.Model {
     @Override
-    public Flowable<MyPowerListBean> getData(String id) {
-        return RetrofitClient.getInstance().getApi().MyPowerListData(id);
+    public Flowable<MyPowerListBean> getData(String id, String page, String pagesize) {
+        return RetrofitClient.getInstance().getApi().MyPowerListData(id,page,pagesize);
     }
 }

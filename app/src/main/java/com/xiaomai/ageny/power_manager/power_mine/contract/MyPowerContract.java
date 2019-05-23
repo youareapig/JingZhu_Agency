@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public interface MyPowerContract {
     interface Model {
-        Flowable<MyPowerListBean> getData(String id);
+        Flowable<MyPowerListBean> getData(String id, String page, String pagesize);
     }
 
     interface View extends BaseView {
@@ -23,12 +23,16 @@ public interface MyPowerContract {
 
         void onSuccess(MyPowerListBean bean);
 
+        void onSuccessLoadMore(MyPowerListBean bean);
+
         void onSuccessFresh(MyPowerListBean bean);
     }
 
     interface Presenter {
-        void getData(String id);
+        void getData(String id, String page, String pagesize);
 
-        void getDataFresh(String id);
+        void getDataFresh(String id, String page, String pagesize);
+
+        void getDataLoadMore(String id, String page, String pagesize);
     }
 }

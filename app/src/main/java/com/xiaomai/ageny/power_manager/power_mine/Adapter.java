@@ -11,14 +11,14 @@ import com.xiaomai.ageny.utils.DateUtils;
 
 import java.util.List;
 
-public class Adapter extends BaseQuickAdapter<MyPowerListBean.DataBean, BaseViewHolder> {
-    public Adapter(int layoutResId, @Nullable List<MyPowerListBean.DataBean> data) {
+public class Adapter extends BaseQuickAdapter<MyPowerListBean.DataBean.ListBean, BaseViewHolder> {
+    public Adapter(int layoutResId, @Nullable List<MyPowerListBean.DataBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, MyPowerListBean.DataBean item) {
+    protected void convert(BaseViewHolder helper, MyPowerListBean.DataBean.ListBean item) {
         helper.setText(R.id.powerid, item.getTerminalId())
-                .setText(R.id.time, "时间：" + DateUtils.timeStamp2DateYMDHM(item.getAssginTime().getTime() + ""));
+                .setText(R.id.time, "时间：" + DateUtils.timeStamp2Date(item.getAssginTime().getTime() + ""));
     }
 }

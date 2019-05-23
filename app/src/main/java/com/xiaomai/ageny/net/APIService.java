@@ -109,7 +109,8 @@ public interface APIService {
             @Query("sellername") String sellername,
             @Query("linkmobile") String linkmobile,
             @Query("deviceid") String deviceid,
-            @Query("state") String state);
+            @Query("state") String state,
+            @Query("msgId")String magid);
 
     //离线设备列表（非直属设备）
     @GET(urlhead + "agentCenter/nodirecte/quipment")
@@ -363,7 +364,11 @@ public interface APIService {
 
     //已分配设备
     @GET(urlhead + "agentCenter/user/undis/device/allocated")
-    Flowable<AllotDeviceBean> getAllotDeviceBean(@Query("deviceid") String deviceid, @Query("mobile") String mobile);
+    Flowable<AllotDeviceBean> getAllotDeviceBean(@Query("deviceid") String deviceid,
+                                                 @Query("mobile") String mobile,
+                                                 @Query("page") String page,
+                                                 @Query("page_size") String pagesize,
+                                                 @Query("msgId")String msgid);
 
     //已分配设备详情
     @GET(urlhead + "agentCenter/user/allocated/devicedetails")
@@ -400,7 +405,7 @@ public interface APIService {
 
     //app版本更新
     @GET(urlhead + "agentCenter/account/version/update")
-    Flowable<UpdateBean> getUpdate();
+    Flowable<UpdateBean> getUpdate(@Query("type")String type);
 
     //系统消息列表
     @GET(urlhead + "agentCenter/user/systeminfo")
@@ -418,7 +423,7 @@ public interface APIService {
                                       @Query("sellername") String sellername,
                                       @Query("startTime") String startTime,
                                       @Query("endTime") String endTime,
-                                      @Query("state")String state);
+                                      @Query("state") String state);
 
     //充电宝管理首页
     @GET(urlhead + "small/charge/device/management")
@@ -430,13 +435,17 @@ public interface APIService {
 
     //我的充电宝列表
     @GET(urlhead + "small/charge/Mydevice")
-    Flowable<MyPowerListBean> MyPowerListData(@Query("deviceid") String deviceid);
+    Flowable<MyPowerListBean> MyPowerListData(@Query("deviceid") String deviceid,
+                                              @Query("page")String page,
+                                              @Query("page_size")String pagesize);
 
     //已分配充电宝列表
     @GET(urlhead + "small/charge/undis/device/allocated")
     Flowable<PowerAllotedBean> PowerAllotedData(@Query("deviceid") String deviceid,
                                                 @Query("startTime") String startTime,
-                                                @Query("endTime") String endTime);
+                                                @Query("endTime") String endTime,
+                                                @Query("page")String page,
+                                                @Query("page_size")String pagesize);
 
     //已分配充电宝详情
     @GET(urlhead + "small/charge/allocated/device/details")

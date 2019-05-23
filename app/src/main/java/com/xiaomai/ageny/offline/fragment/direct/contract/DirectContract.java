@@ -7,7 +7,7 @@ import io.reactivex.Flowable;
 
 public interface DirectContract {
     interface Model {
-        Flowable<OffDirectDeviceBean> getData(String sellername, String linkmobile, String deviceid, String state);
+        Flowable<OffDirectDeviceBean> getData(String sellername, String linkmobile, String deviceid, String state,String magid);
     }
 
     interface View extends BaseView {
@@ -26,8 +26,8 @@ public interface DirectContract {
     }
 
     interface Presenter {
-        void getData(String sellername, String linkmobile, String deviceid, String state);
+        void getData(String sellername, String linkmobile, String deviceid, String state,String magid);
 
-        void getDataFresh(String sellername, String linkmobile, String deviceid, String state);
+        void getDataFresh(String sellername, String linkmobile, String deviceid, String state,String magid);
     }
 }

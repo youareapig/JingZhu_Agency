@@ -10,13 +10,13 @@ import com.xiaomai.ageny.utils.DateUtils;
 
 import java.util.List;
 
-public class Adapter extends BaseQuickAdapter<AllotDeviceBean.DataBean, BaseViewHolder> {
-    public Adapter(int layoutResId, @Nullable List<AllotDeviceBean.DataBean> data) {
+public class Adapter extends BaseQuickAdapter<AllotDeviceBean.DataBean.ListBean, BaseViewHolder> {
+    public Adapter(int layoutResId, @Nullable List<AllotDeviceBean.DataBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, AllotDeviceBean.DataBean item) {
+    protected void convert(BaseViewHolder helper, AllotDeviceBean.DataBean.ListBean item) {
         helper.setText(R.id.deviceId, item.getDeviceId())
                 .setText(R.id.name, "领取人：" + item.getLingquren() + "  " + item.getLingqurenmobile())
                 .setText(R.id.time, "分配时间：" + DateUtils.timeStamp2Date(item.getDistTime().getTime() + ""));

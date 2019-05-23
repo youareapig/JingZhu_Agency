@@ -4,16 +4,15 @@ import java.util.List;
 
 public class AllotDeviceBean {
 
-
     /**
      * code : 1
-     * data : [{"agentId":1064,"agentLevel":"2","agentMobile":"","agentName":"一代个人1","details":"","deviceId":"JZCB061901000359","deviceType":"6口5槽","distTime":{"date":17,"day":5,"hours":11,"minutes":54,"month":4,"seconds":29,"time":1558065269000,"timezoneOffset":-480,"year":119},"fenpeiagentId":1032,"id":291,"lingquren":"二代个人1","lingqurenmobile":"13880898866","state":"1","strandedTime":null},{"agentId":1064,"agentLevel":"1","agentMobile":"","agentName":"徐碧","details":"","deviceId":"JZCB061901000690","deviceType":"6口5槽","distTime":{"date":17,"day":5,"hours":15,"minutes":24,"month":4,"seconds":29,"time":1558077869000,"timezoneOffset":-480,"year":119},"fenpeiagentId":1032,"id":297,"lingquren":"一代直商1","lingqurenmobile":"17032224444","state":"1","strandedTime":null}]
+     * data : {"list":[{"deviceId":"JZCB061901000044","distTime":{"date":18,"day":4,"hours":14,"minutes":9,"month":3,"seconds":10,"time":1555567750000,"timezoneOffset":-480,"year":119},"lingquren":"李四","lingqurenmobile":"110","total":""},{"deviceId":"JZCB061901000002","distTime":{"date":10,"day":3,"hours":14,"minutes":9,"month":3,"seconds":10,"time":1554876550000,"timezoneOffset":-480,"year":119},"lingquren":"张三","lingqurenmobile":"120","total":""}],"page":1,"pageSize":20,"total":"2"}
      * message : 2.28已分配设备列表接口访问成功
      */
 
     private int code;
+    private DataBean data;
     private String message;
-    private List<DataBean> data;
 
     public int getCode() {
         return code;
@@ -21,6 +20,14 @@ public class AllotDeviceBean {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
     public String getMessage() {
@@ -31,252 +38,200 @@ public class AllotDeviceBean {
         this.message = message;
     }
 
-    public List<DataBean> getData() {
-        return data;
-    }
-
-    public void setData(List<DataBean> data) {
-        this.data = data;
-    }
-
     public static class DataBean {
         /**
-         * agentId : 1064
-         * agentLevel : 2
-         * agentMobile :
-         * agentName : 一代个人1
-         * details :
-         * deviceId : JZCB061901000359
-         * deviceType : 6口5槽
-         * distTime : {"date":17,"day":5,"hours":11,"minutes":54,"month":4,"seconds":29,"time":1558065269000,"timezoneOffset":-480,"year":119}
-         * fenpeiagentId : 1032
-         * id : 291
-         * lingquren : 二代个人1
-         * lingqurenmobile : 13880898866
-         * state : 1
-         * strandedTime : null
+         * list : [{"deviceId":"JZCB061901000044","distTime":{"date":18,"day":4,"hours":14,"minutes":9,"month":3,"seconds":10,"time":1555567750000,"timezoneOffset":-480,"year":119},"lingquren":"李四","lingqurenmobile":"110","total":""},{"deviceId":"JZCB061901000002","distTime":{"date":10,"day":3,"hours":14,"minutes":9,"month":3,"seconds":10,"time":1554876550000,"timezoneOffset":-480,"year":119},"lingquren":"张三","lingqurenmobile":"120","total":""}]
+         * page : 1
+         * pageSize : 20
+         * total : 2
          */
 
-        private int agentId;
-        private String agentLevel;
-        private String agentMobile;
-        private String agentName;
-        private String details;
-        private String deviceId;
-        private String deviceType;
-        private DistTimeBean distTime;
-        private int fenpeiagentId;
-        private int id;
-        private String lingquren;
-        private String lingqurenmobile;
-        private String state;
-        private Object strandedTime;
+        private int page;
+        private int pageSize;
+        private String total;
+        private List<ListBean> list;
 
-        public int getAgentId() {
-            return agentId;
+        public int getPage() {
+            return page;
         }
 
-        public void setAgentId(int agentId) {
-            this.agentId = agentId;
+        public void setPage(int page) {
+            this.page = page;
         }
 
-        public String getAgentLevel() {
-            return agentLevel;
+        public int getPageSize() {
+            return pageSize;
         }
 
-        public void setAgentLevel(String agentLevel) {
-            this.agentLevel = agentLevel;
+        public void setPageSize(int pageSize) {
+            this.pageSize = pageSize;
         }
 
-        public String getAgentMobile() {
-            return agentMobile;
+        public String getTotal() {
+            return total;
         }
 
-        public void setAgentMobile(String agentMobile) {
-            this.agentMobile = agentMobile;
+        public void setTotal(String total) {
+            this.total = total;
         }
 
-        public String getAgentName() {
-            return agentName;
+        public List<ListBean> getList() {
+            return list;
         }
 
-        public void setAgentName(String agentName) {
-            this.agentName = agentName;
+        public void setList(List<ListBean> list) {
+            this.list = list;
         }
 
-        public String getDetails() {
-            return details;
-        }
-
-        public void setDetails(String details) {
-            this.details = details;
-        }
-
-        public String getDeviceId() {
-            return deviceId;
-        }
-
-        public void setDeviceId(String deviceId) {
-            this.deviceId = deviceId;
-        }
-
-        public String getDeviceType() {
-            return deviceType;
-        }
-
-        public void setDeviceType(String deviceType) {
-            this.deviceType = deviceType;
-        }
-
-        public DistTimeBean getDistTime() {
-            return distTime;
-        }
-
-        public void setDistTime(DistTimeBean distTime) {
-            this.distTime = distTime;
-        }
-
-        public int getFenpeiagentId() {
-            return fenpeiagentId;
-        }
-
-        public void setFenpeiagentId(int fenpeiagentId) {
-            this.fenpeiagentId = fenpeiagentId;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setId(int id) {
-            this.id = id;
-        }
-
-        public String getLingquren() {
-            return lingquren;
-        }
-
-        public void setLingquren(String lingquren) {
-            this.lingquren = lingquren;
-        }
-
-        public String getLingqurenmobile() {
-            return lingqurenmobile;
-        }
-
-        public void setLingqurenmobile(String lingqurenmobile) {
-            this.lingqurenmobile = lingqurenmobile;
-        }
-
-        public String getState() {
-            return state;
-        }
-
-        public void setState(String state) {
-            this.state = state;
-        }
-
-        public Object getStrandedTime() {
-            return strandedTime;
-        }
-
-        public void setStrandedTime(Object strandedTime) {
-            this.strandedTime = strandedTime;
-        }
-
-        public static class DistTimeBean {
+        public static class ListBean {
             /**
-             * date : 17
-             * day : 5
-             * hours : 11
-             * minutes : 54
-             * month : 4
-             * seconds : 29
-             * time : 1558065269000
-             * timezoneOffset : -480
-             * year : 119
+             * deviceId : JZCB061901000044
+             * distTime : {"date":18,"day":4,"hours":14,"minutes":9,"month":3,"seconds":10,"time":1555567750000,"timezoneOffset":-480,"year":119}
+             * lingquren : 李四
+             * lingqurenmobile : 110
+             * total :
              */
 
-            private int date;
-            private int day;
-            private int hours;
-            private int minutes;
-            private int month;
-            private int seconds;
-            private long time;
-            private int timezoneOffset;
-            private int year;
+            private String deviceId;
+            private DistTimeBean distTime;
+            private String lingquren;
+            private String lingqurenmobile;
+            private String total;
 
-            public int getDate() {
-                return date;
+            public String getDeviceId() {
+                return deviceId;
             }
 
-            public void setDate(int date) {
-                this.date = date;
+            public void setDeviceId(String deviceId) {
+                this.deviceId = deviceId;
             }
 
-            public int getDay() {
-                return day;
+            public DistTimeBean getDistTime() {
+                return distTime;
             }
 
-            public void setDay(int day) {
-                this.day = day;
+            public void setDistTime(DistTimeBean distTime) {
+                this.distTime = distTime;
             }
 
-            public int getHours() {
-                return hours;
+            public String getLingquren() {
+                return lingquren;
             }
 
-            public void setHours(int hours) {
-                this.hours = hours;
+            public void setLingquren(String lingquren) {
+                this.lingquren = lingquren;
             }
 
-            public int getMinutes() {
-                return minutes;
+            public String getLingqurenmobile() {
+                return lingqurenmobile;
             }
 
-            public void setMinutes(int minutes) {
-                this.minutes = minutes;
+            public void setLingqurenmobile(String lingqurenmobile) {
+                this.lingqurenmobile = lingqurenmobile;
             }
 
-            public int getMonth() {
-                return month;
+            public String getTotal() {
+                return total;
             }
 
-            public void setMonth(int month) {
-                this.month = month;
+            public void setTotal(String total) {
+                this.total = total;
             }
 
-            public int getSeconds() {
-                return seconds;
-            }
+            public static class DistTimeBean {
+                /**
+                 * date : 18
+                 * day : 4
+                 * hours : 14
+                 * minutes : 9
+                 * month : 3
+                 * seconds : 10
+                 * time : 1555567750000
+                 * timezoneOffset : -480
+                 * year : 119
+                 */
 
-            public void setSeconds(int seconds) {
-                this.seconds = seconds;
-            }
+                private int date;
+                private int day;
+                private int hours;
+                private int minutes;
+                private int month;
+                private int seconds;
+                private long time;
+                private int timezoneOffset;
+                private int year;
 
-            public long getTime() {
-                return time;
-            }
+                public int getDate() {
+                    return date;
+                }
 
-            public void setTime(long time) {
-                this.time = time;
-            }
+                public void setDate(int date) {
+                    this.date = date;
+                }
 
-            public int getTimezoneOffset() {
-                return timezoneOffset;
-            }
+                public int getDay() {
+                    return day;
+                }
 
-            public void setTimezoneOffset(int timezoneOffset) {
-                this.timezoneOffset = timezoneOffset;
-            }
+                public void setDay(int day) {
+                    this.day = day;
+                }
 
-            public int getYear() {
-                return year;
-            }
+                public int getHours() {
+                    return hours;
+                }
 
-            public void setYear(int year) {
-                this.year = year;
+                public void setHours(int hours) {
+                    this.hours = hours;
+                }
+
+                public int getMinutes() {
+                    return minutes;
+                }
+
+                public void setMinutes(int minutes) {
+                    this.minutes = minutes;
+                }
+
+                public int getMonth() {
+                    return month;
+                }
+
+                public void setMonth(int month) {
+                    this.month = month;
+                }
+
+                public int getSeconds() {
+                    return seconds;
+                }
+
+                public void setSeconds(int seconds) {
+                    this.seconds = seconds;
+                }
+
+                public long getTime() {
+                    return time;
+                }
+
+                public void setTime(long time) {
+                    this.time = time;
+                }
+
+                public int getTimezoneOffset() {
+                    return timezoneOffset;
+                }
+
+                public void setTimezoneOffset(int timezoneOffset) {
+                    this.timezoneOffset = timezoneOffset;
+                }
+
+                public int getYear() {
+                    return year;
+                }
+
+                public void setYear(int year) {
+                    this.year = year;
+                }
             }
         }
     }

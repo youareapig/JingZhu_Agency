@@ -33,6 +33,7 @@ public class Adapter extends BaseQuickAdapter<SystemNoticeBean.DataBean.ListBean
         tv_ystime = helper.getView(R.id.item_ystime);
         tv_yjtime = helper.getView(R.id.item_yjtime);
         item_icon = helper.getView(R.id.item_icon);
+        helper.addOnClickListener(R.id.bt_copy);
         //0 遗失  1找回  2离线
         switch (item.getType()) {
             case 0:

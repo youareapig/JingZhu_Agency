@@ -29,6 +29,7 @@
     </RelativeLayout>
 
     <TextView
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_12"
@@ -38,6 +39,7 @@
         android:textSize="@dimen/sp_15" />
 
     <EditText
+        android:visibility="gone"
         android:id="@+id/tel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

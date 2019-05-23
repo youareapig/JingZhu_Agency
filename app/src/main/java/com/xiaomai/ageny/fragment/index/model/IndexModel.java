@@ -21,8 +21,8 @@ public class IndexModel implements IndexContract.Model {
     }
 
     @Override
-    public Flowable<UpdateBean> getUpdate() {
-        return RetrofitClient.getInstance().getApi().getUpdate();
+    public Flowable<UpdateBean> getUpdate(String type) {
+        return RetrofitClient.getInstance().getApi().getUpdate(type);
     }
 
     @Override

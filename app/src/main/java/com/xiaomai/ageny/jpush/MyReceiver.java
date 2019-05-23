@@ -16,6 +16,8 @@ import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.details.devicedetails.directdetails.DirectDetailsActivity;
 import com.xiaomai.ageny.details.devicedetails.indirectdetails.IndirectDetailsActivity;
+import com.xiaomai.ageny.device_manage.device_alloted.DeviceAllotedActivity;
+import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.system_notice.SystemNoticeActivity;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 
@@ -45,8 +47,12 @@ public class MyReceiver extends BroadcastReceiver {
                     deviceId = object.getString("deviceId");
                     msgType = object.getString("msgType");
                     msgId = object.getString("msgId");
+//                    Intent mIntent = new Intent();
+//                    mIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                    mIntent.putExtra("msgid", msgId);
                     switch (msgType) {
                         case "0":
+//                            mIntent.setClass(context, DeviceAllotedActivity.class);
                             Intent intent0 = new Intent(context, IndirectDetailsActivity.class);
                             intent0.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent0.putExtra("id", deviceId);
@@ -55,6 +61,7 @@ public class MyReceiver extends BroadcastReceiver {
                             context.startActivity(intent0);
                             break;
                         case "1":
+//                            mIntent.setClass(context, DeviceAllotedActivity.class);
                             Intent intent1 = new Intent(context, IndirectDetailsActivity.class);
                             intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent1.putExtra("id", deviceId);
@@ -63,6 +70,7 @@ public class MyReceiver extends BroadcastReceiver {
                             context.startActivity(intent1);
                             break;
                         case "2":
+//                            mIntent.setClass(context, OfflineActivity.class);
                             Intent intent2 = new Intent(context, DirectDetailsActivity.class);
                             intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                             intent2.putExtra("id", deviceId);
@@ -70,6 +78,7 @@ public class MyReceiver extends BroadcastReceiver {
                             context.startActivity(intent2);
                             break;
                     }
+//                    context.startActivity(mIntent);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

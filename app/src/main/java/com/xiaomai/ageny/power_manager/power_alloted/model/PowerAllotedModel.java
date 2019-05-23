@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public class PowerAllotedModel implements PowerAllotedContract.Model {
     @Override
-    public Flowable<PowerAllotedBean> getData(String id, String startTime, String endTime) {
-        return RetrofitClient.getInstance().getApi().PowerAllotedData(id, startTime, endTime);
+    public Flowable<PowerAllotedBean> getData(String id, String startTime, String endTime,String page,String pagesize) {
+        return RetrofitClient.getInstance().getApi().PowerAllotedData(id, startTime, endTime,page,pagesize);
     }
 }

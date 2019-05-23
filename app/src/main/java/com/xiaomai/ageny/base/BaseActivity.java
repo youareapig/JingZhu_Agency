@@ -32,7 +32,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(getLayoutId());
         this.savedInstanceState = savedInstanceState;
         unbinder = ButterKnife.bind(this);
-        ImmersionBar.with(this).statusBarColor(R.color.appbar).fitsSystemWindows(true).statusBarDarkFont(true).init();
+        ImmersionBar.with(this).statusBarColor(R.color.appbar).fitsSystemWindows(true).statusBarDarkFont(false).init();
         //是否有网络
         isNetWork = NetWorkUtils.isNetworkConnected(this);
         //空白页初始化

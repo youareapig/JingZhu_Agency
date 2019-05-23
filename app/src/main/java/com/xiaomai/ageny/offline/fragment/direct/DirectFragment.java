@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.offline.fragment.direct;
 
+import android.annotation.SuppressLint;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,6 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.Unbinder;
 
+@SuppressLint("ValidFragment")
 public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements DirectContract.View {
     @BindView(R.id.offline_num)
     TextView offlineNum;
@@ -38,6 +40,11 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
     private String strTel = "", strID = "", strName = "";
     private Adapter adapter;
     private List<OffDirectDeviceBean.DataBean.ListBean> list;
+    private String msgId;
+
+    public DirectFragment(String msgId) {
+        this.msgId = msgId;
+    }
 
     @Override
     protected void initView(View view) {
@@ -47,14 +54,14 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(strName, strTel, strID, "");
+                mPresenter.getData(strName, strTel, strID, "",msgId);
             }
         });
         refreshLayout.setCanLoadMore(false);
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                mPresenter.getDataFresh(strName, strTel, strID, "");
+                mPresenter.getDataFresh(strName, strTel, strID, "",msgId);
             }
 
             @Override
@@ -71,7 +78,7 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
         strName = SharedPreferencesUtil.getInstance(getActivity()).getSP("offzhishuName");
 
 
-        mPresenter.getData(strName, strTel, strID, "");
+        mPresenter.getData(strName, strTel, strID, "",msgId);
     }
 
     @Override
@@ -120,7 +127,7 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
             adapter.openLoadAnimation();
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(getActivity());
-        }else {
+        } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

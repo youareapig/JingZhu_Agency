@@ -2,6 +2,8 @@ package com.xiaomai.ageny.utils;
 
 import android.app.Activity;
 import android.app.AppOpsManager;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static android.content.Context.APP_OPS_SERVICE;
+import static android.content.Context.CLIPBOARD_SERVICE;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class BaseUtils {
@@ -128,5 +131,11 @@ public class BaseUtils {
         return s.replace(bef, aft);
     }
 
+    //复制文字
+    public static void copyMothod(Context context, String content) {
+        ClipboardManager myClipboard = (ClipboardManager) context.getSystemService(CLIPBOARD_SERVICE);
+        ClipData clipData = ClipData.newPlainText("deviceId", content);
+        myClipboard.setPrimaryClip(clipData);
+    }
 
 }

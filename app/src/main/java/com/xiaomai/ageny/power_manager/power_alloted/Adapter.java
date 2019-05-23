@@ -11,13 +11,13 @@ import com.xiaomai.ageny.utils.DateUtils;
 
 import java.util.List;
 
-public class Adapter extends BaseQuickAdapter<PowerAllotedBean.DataBean, BaseViewHolder> {
-    public Adapter(int layoutResId, @Nullable List<PowerAllotedBean.DataBean> data) {
+public class Adapter extends BaseQuickAdapter<PowerAllotedBean.DataBean.ListBean, BaseViewHolder> {
+    public Adapter(int layoutResId, @Nullable List<PowerAllotedBean.DataBean.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, PowerAllotedBean.DataBean item) {
+    protected void convert(BaseViewHolder helper, PowerAllotedBean.DataBean.ListBean item) {
         helper.setText(R.id.deviceId, item.getDeviceId())
                 .setText(R.id.name, "领取人：" + item.getLingquren() + "  " + item.getLingqurenMobile())
                 .setText(R.id.time, "分配时间：" + item.getAssaginTime());

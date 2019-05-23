@@ -9,6 +9,6 @@ import io.reactivex.Flowable;
 public class TaskDirectModel implements TaskDirectContract.Model {
     @Override
     public Flowable<OffDirectDeviceBean> getData(String sellername, String linkmobile, String deviceid, String state) {
-        return RetrofitClient.getInstance().getApi().getDirectListBean(sellername,linkmobile,deviceid,state);
+        return RetrofitClient.getInstance().getApi().getDirectListBean(sellername,linkmobile,deviceid,state,"");
     }
 }

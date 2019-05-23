@@ -6,13 +6,13 @@ public class PowerAllotedBean {
 
     /**
      * code : 1
-     * data : [{"assaginTime":"195-21 13:58:25","belongid":"831","deviceId":"JZCB91000575","lingquren":"郑磊","lingqurenMobile":"15983302246"}]
+     * data : {"list":[{"assaginTime":"2019-05-23 15:08:14","belongid":"834","deviceId":"JZCB91000327","lingquren":"二代个1","lingqurenMobile":"13908081053"}],"page":1,"page_size":25,"total":"1"}
      * message : 7.5已分配设备列表接口访问成功
      */
 
     private int code;
+    private DataBean data;
     private String message;
-    private List<DataBean> data;
 
     public int getCode() {
         return code;
@@ -20,6 +20,14 @@ public class PowerAllotedBean {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
     public String getMessage() {
@@ -30,67 +38,105 @@ public class PowerAllotedBean {
         this.message = message;
     }
 
-    public List<DataBean> getData() {
-        return data;
-    }
-
-    public void setData(List<DataBean> data) {
-        this.data = data;
-    }
-
     public static class DataBean {
         /**
-         * assaginTime : 195-21 13:58:25
-         * belongid : 831
-         * deviceId : JZCB91000575
-         * lingquren : 郑磊
-         * lingqurenMobile : 15983302246
+         * list : [{"assaginTime":"2019-05-23 15:08:14","belongid":"834","deviceId":"JZCB91000327","lingquren":"二代个1","lingqurenMobile":"13908081053"}]
+         * page : 1
+         * page_size : 25
+         * total : 1
          */
 
-        private String assaginTime;
-        private String belongid;
-        private String deviceId;
-        private String lingquren;
-        private String lingqurenMobile;
+        private int page;
+        private int page_size;
+        private String total;
+        private List<ListBean> list;
 
-        public String getAssaginTime() {
-            return assaginTime;
+        public int getPage() {
+            return page;
         }
 
-        public void setAssaginTime(String assaginTime) {
-            this.assaginTime = assaginTime;
+        public void setPage(int page) {
+            this.page = page;
         }
 
-        public String getBelongid() {
-            return belongid;
+        public int getPage_size() {
+            return page_size;
         }
 
-        public void setBelongid(String belongid) {
-            this.belongid = belongid;
+        public void setPage_size(int page_size) {
+            this.page_size = page_size;
         }
 
-        public String getDeviceId() {
-            return deviceId;
+        public String getTotal() {
+            return total;
         }
 
-        public void setDeviceId(String deviceId) {
-            this.deviceId = deviceId;
+        public void setTotal(String total) {
+            this.total = total;
         }
 
-        public String getLingquren() {
-            return lingquren;
+        public List<ListBean> getList() {
+            return list;
         }
 
-        public void setLingquren(String lingquren) {
-            this.lingquren = lingquren;
+        public void setList(List<ListBean> list) {
+            this.list = list;
         }
 
-        public String getLingqurenMobile() {
-            return lingqurenMobile;
-        }
+        public static class ListBean {
+            /**
+             * assaginTime : 2019-05-23 15:08:14
+             * belongid : 834
+             * deviceId : JZCB91000327
+             * lingquren : 二代个1
+             * lingqurenMobile : 13908081053
+             */
 
-        public void setLingqurenMobile(String lingqurenMobile) {
-            this.lingqurenMobile = lingqurenMobile;
+            private String assaginTime;
+            private String belongid;
+            private String deviceId;
+            private String lingquren;
+            private String lingqurenMobile;
+
+            public String getAssaginTime() {
+                return assaginTime;
+            }
+
+            public void setAssaginTime(String assaginTime) {
+                this.assaginTime = assaginTime;
+            }
+
+            public String getBelongid() {
+                return belongid;
+            }
+
+            public void setBelongid(String belongid) {
+                this.belongid = belongid;
+            }
+
+            public String getDeviceId() {
+                return deviceId;
+            }
+
+            public void setDeviceId(String deviceId) {
+                this.deviceId = deviceId;
+            }
+
+            public String getLingquren() {
+                return lingquren;
+            }
+
+            public void setLingquren(String lingquren) {
+                this.lingquren = lingquren;
+            }
+
+            public String getLingqurenMobile() {
+                return lingqurenMobile;
+            }
+
+            public void setLingqurenMobile(String lingqurenMobile) {
+                this.lingqurenMobile = lingqurenMobile;
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.deviceinstalllist.DeviceInstallActivity;
 import com.xiaomai.ageny.filter.deviceinstall.contract.DeviceInstallFilterContract;
 import com.xiaomai.ageny.filter.deviceinstall.presenter.DeviceInstallFilterPresenter;
+import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.DateUtils;
 
 import java.util.Date;
@@ -80,6 +81,7 @@ public class DeviceInstallFilterActivity extends BaseMvpActivity<DeviceInstallFi
                 finish();
                 break;
             case R.id.filter_time:
+                BaseUtils.hideInput(this);
                 TimePickerView pvTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
                     @Override
                     public void onTimeSelect(Date date, View v) {

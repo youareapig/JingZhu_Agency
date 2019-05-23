@@ -124,7 +124,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         otherView.setHolder(mHolder);
         mPresenter = new IndexPresenter();
         mPresenter.attachView(this);
-        mPresenter.getUpdate();
+        mPresenter.getUpdate("1");
         mPresenter.getAlias();
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override

@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.offline;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -42,7 +43,7 @@ public class OfflineActivity extends BaseMvpActivity<OfflinePresenter> implement
     private List<String> titleList;
     private List<Fragment> fragmentList;
     private int tabPosition = 0;
-
+    private String msgId;
     @Override
     public int getLayoutId() {
         return R.layout.activity_offline;
@@ -50,11 +51,15 @@ public class OfflineActivity extends BaseMvpActivity<OfflinePresenter> implement
 
     @Override
     public void initView() {
+        Intent intent = getIntent();
+        if (intent != null) {
+            msgId = intent.getStringExtra("msgId");
+        }
         titleList = new ArrayList<>();
         titleList.add("直属设备");
         titleList.add("非直属设备");
         fragmentList = new ArrayList<>();
-        fragmentList.add(new DirectFragment());
+        fragmentList.add(new DirectFragment(msgId));
         fragmentList.add(new IndirectFragment());
 
         viewpage.setAdapter(new TabAdapter(getSupportFragmentManager(), titleList, fragmentList));

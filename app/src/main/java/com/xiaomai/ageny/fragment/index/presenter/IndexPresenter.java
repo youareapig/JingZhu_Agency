@@ -92,11 +92,11 @@ public class IndexPresenter extends BasePresenter<IndexContract.View> implements
     }
 
     @Override
-    public void getUpdate() {
+    public void getUpdate(String type) {
         if (!isViewAttached()) {
             return;
         }
-        model.getUpdate().compose(RxScheduler.<UpdateBean>Flo_io_main())
+        model.getUpdate(type).compose(RxScheduler.<UpdateBean>Flo_io_main())
                 .as(mView.<UpdateBean>bindAutoDispose())
                 .subscribe(new Consumer<UpdateBean>() {
                     @Override
@@ -114,7 +114,7 @@ public class IndexPresenter extends BasePresenter<IndexContract.View> implements
     public void updateMethod(Activity activity) {
         new UpdateAppManager.Builder()
                 .setActivity(activity)
-                .setUpdateUrl("http://192.168.0.81:8080/agentCenter/account/version/update")
+                .setUpdateUrl("https://www.jzcdsc.com/chargeAgent-0.0.1-SNAPSHOT/agentCenter/account/version/update?type=1")
                 .setHttpManager(new UpdateAppHttpUtil())
                 .setTopPic(R.mipmap.top_8)
                 .build()
@@ -135,7 +135,7 @@ public class IndexPresenter extends BasePresenter<IndexContract.View> implements
                                     .setUpdateLog(jsonObject.optString("updateLog"))
                                     //大小，不设置不显示大小，可以不设置
                                     .setTargetSize(jsonObject.optString("targetSize"))
-                                    //是否强制更新，可以不设置constraint
+                                    //是否强制更新，可以不设置constraint  true是强制  false是非强制
                                     .setConstraint(jsonObject.optBoolean("cons"))
                                     //设置md5，可以不设置
                                     .setNewMd5(jsonObject.optString("newMd5"));

@@ -31,6 +31,7 @@ import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,7 +50,7 @@ public class PowerWithdrawZxingActivity extends BaseMvpActivity<PowerWithDrawZxi
     private DeviceDaoDao deviceDaoDao;
     private String fromact;
     private String strId, strType, strName, strTel;
-
+    private List<String> idList = new ArrayList<>();
     @Override
     public int getLayoutId() {
         return R.layout.activity_power_withdraw_zxing;
@@ -156,21 +157,38 @@ public class PowerWithdrawZxingActivity extends BaseMvpActivity<PowerWithDrawZxi
                 toClass(this, PowerWithdrawActivity.class);
                 finish();
             } else {
+//                for (int i = 0; i < daoList.size(); i++) {
+//                    if (strId.equals(daoList.get(i).getDeviceId())) {
+//                        ToastUtil.showShortToast("列表已存在该设备，不能重复添加");
+//                        toClass(this, PowerWithdrawActivity.class);
+//                        finish();
+//                    } else {
+//                        DeviceDao secondBean = new DeviceDao();
+//                        secondBean.setDeviceId(strId);
+//                        secondBean.setType(strType);
+//                        secondBean.setTime(strTel);
+//                        secondBean.setStopTime(strName);
+//                        deviceDaoDao.insert(secondBean);
+//                        toClass(this, PowerWithdrawActivity.class);
+//                        finish();
+//                    }
+//                }
                 for (int i = 0; i < daoList.size(); i++) {
-                    if (strId.equals(daoList.get(i).getDeviceId())) {
-                        ToastUtil.showShortToast("列表已存在该设备，不能重复添加");
-                        toClass(this, PowerWithdrawActivity.class);
-                        finish();
-                    } else {
-                        DeviceDao secondBean = new DeviceDao();
-                        secondBean.setDeviceId(strId);
-                        secondBean.setType(strType);
-                        secondBean.setTime(strTel);
-                        secondBean.setStopTime(strName);
-                        deviceDaoDao.insert(secondBean);
-                        toClass(this, PowerWithdrawActivity.class);
-                        finish();
-                    }
+                    idList.add(daoList.get(i).getDeviceId());
+                }
+                if (idList.contains(strId)) {
+                    ToastUtil.showShortToast("列表已存在该充电宝，不能重复添加");
+                    toClass(this, PowerWithdrawActivity.class);
+                    finish();
+                } else {
+                    DeviceDao secondBean = new DeviceDao();
+                    secondBean.setDeviceId(strId);
+                    secondBean.setType(strType);
+                    secondBean.setTime(strTel);
+                    secondBean.setStopTime(strName);
+                    deviceDaoDao.insert(secondBean);
+                    toClass(this, PowerWithdrawActivity.class);
+                    finish();
                 }
             }
         } else if (bean.getCode() == -10) {
