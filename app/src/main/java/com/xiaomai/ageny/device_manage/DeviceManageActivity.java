@@ -30,6 +30,7 @@ import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
 import com.zhy.m.permission.MPermissions;
+import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
 
 import butterknife.BindView;
@@ -183,8 +184,13 @@ public class DeviceManageActivity extends BaseMvpActivity<DeviceManagePresenter>
     public void requestCameraSuccess_1() {
         Bundle mBundle = new Bundle();
         mBundle.putString("fromact", "1");
-        toClass(this, DeviceAllotZxingActivity.class,mBundle);
+        toClass(this, DeviceAllotZxingActivity.class, mBundle);
     }
+//TODO 拒绝打开权限后的提示
+//    @PermissionDenied(2)
+//    public void requestCameraF() {
+//        ToastUtil.showShortToast("请打开权限");
+//    }
 
 
 }

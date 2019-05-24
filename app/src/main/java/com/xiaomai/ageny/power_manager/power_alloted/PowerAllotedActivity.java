@@ -61,6 +61,7 @@ public class PowerAllotedActivity extends BaseMvpActivity<PowerAllotedPresenter>
         otherview.setHolder(mHolder);
         mPresenter = new PowerAllotedPresenter();
         mPresenter.attachView(this);
+        mPresenter.getData(strId, strStartTime, strEndTime,"1",App.pageSize);
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
@@ -89,6 +90,9 @@ public class PowerAllotedActivity extends BaseMvpActivity<PowerAllotedPresenter>
             list.addAll(bean.getData().getList());
             if (list.size() == 0) {
                 otherview.showEmptyView();
+                refresh.setCanLoadMore(false);
+            }else {
+                refresh.setCanLoadMore(true);
             }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
@@ -106,11 +110,6 @@ public class PowerAllotedActivity extends BaseMvpActivity<PowerAllotedPresenter>
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mPresenter.getData(strId, strStartTime, strEndTime,"1",App.pageSize);
-    }
 
     @Override
     public void showLoading() {
@@ -180,9 +179,11 @@ public class PowerAllotedActivity extends BaseMvpActivity<PowerAllotedPresenter>
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == 2) {
+            page=1;
             strId = data.getStringExtra("id");
             strStartTime = data.getStringExtra("start");
             strEndTime = data.getStringExtra("end");
+            mPresenter.getData(strId, strStartTime, strEndTime,"1",App.pageSize);
         }
     }
 }

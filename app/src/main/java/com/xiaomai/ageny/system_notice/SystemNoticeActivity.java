@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.system_notice;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -23,6 +24,7 @@ import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.system_notice.contract.SystemNoticeContract;
 import com.xiaomai.ageny.system_notice.presenter.SystemNoticePresenter;
 import com.xiaomai.ageny.utils.BaseUtils;
+import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -48,7 +50,7 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
     private List<SystemNoticeBean.DataBean.ListBean> list = new ArrayList<>();
     private Adapter adapter;
     private int page = 1;
-    private Bundle bundle = new Bundle();
+
 
     @Override
     public int getLayoutId() {
@@ -61,7 +63,6 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
         mPresenter = new SystemNoticePresenter();
         mPresenter.attachView(this);
         mPresenter.getData("1", App.pageSize);
-
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
@@ -71,6 +72,7 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
+                page = 1;
                 mPresenter.getDataFresh("1", App.pageSize);
             }
 
@@ -80,12 +82,6 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
                 mPresenter.getDataLoadMore(page + "", App.pageSize);
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mPresenter.getData("1", App.pageSize);
     }
 
     @Override
@@ -112,6 +108,8 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
             if (list.size() == 0) {
                 otherview.showEmptyView();
                 refreshLayout.setCanLoadMore(false);
+            }else {
+                refreshLayout.setCanLoadMore(true);
             }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
@@ -127,7 +125,7 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
             });
             adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
                     //type 0遗失  1找回  2离线  3下级代理遗失  4下级代理找回
                     //找回和遗失跳转到已分配设备列表,离线跳转到首页离线设备列表
                     int type = list.get(position).getType();
@@ -154,6 +152,8 @@ public class SystemNoticeActivity extends BaseMvpActivity<SystemNoticePresenter>
                     intent.putExtra("id", list.get(position).getDeviceId());
                     intent.putExtra("msgid", list.get(position).getId() + "");
                     view.getContext().startActivity(intent);
+                    adapter.setSelectItem(position);
+                    adapter.notifyDataSetChanged();
                 }
             });
         } else if (bean.getCode() == -10) {

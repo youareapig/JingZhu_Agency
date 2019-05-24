@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Adapter extends BaseQuickAdapter<SystemNoticeBean.DataBean.ListBean, BaseViewHolder> {
     private String strhead;
-
+    private int selectItem = -1;
     public Adapter(int layoutResId, @Nullable List<SystemNoticeBean.DataBean.ListBean> data) {
         super(layoutResId, data);
     }
@@ -80,5 +80,11 @@ public class Adapter extends BaseQuickAdapter<SystemNoticeBean.DataBean.ListBean
 
         //0 未读  1 已读
         item_icon.setImageResource(item.getState() == 0 ? R.mipmap.news_icon : R.mipmap.news_icon1);
+        if (helper.getAdapterPosition() == selectItem){
+            item_icon.setImageResource(R.mipmap.news_icon1);
+        }
+    }
+    public void setSelectItem(int selectItem) {
+        this.selectItem = selectItem;
     }
 }

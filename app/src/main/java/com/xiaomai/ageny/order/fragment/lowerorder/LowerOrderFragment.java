@@ -83,6 +83,7 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
     @Override
     public void onStart() {
         super.onStart();
+        page=1;
         strId = SharedPreferencesUtil.getInstance(getActivity()).getSP("lowerorder_id");
         strTel = SharedPreferencesUtil.getInstance(getActivity()).getSP("lowerorder_tel");
         strStar = SharedPreferencesUtil.getInstance(getActivity()).getSP("lowerorder_star");
@@ -121,6 +122,8 @@ public class LowerOrderFragment extends BaseMvpFragment<LowerOrderPresenter> imp
             if (list.size() == 0) {
                 otherview.showEmptyView();
                 refresh.setCanLoadMore(false);
+            }else {
+                refresh.setCanLoadMore(true);
             }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);

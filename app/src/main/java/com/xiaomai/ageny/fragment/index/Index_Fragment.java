@@ -41,7 +41,7 @@ import com.xiaomai.ageny.fragment.index.presenter.IndexPresenter;
 import com.xiaomai.ageny.login.LoginActivity;
 import com.xiaomai.ageny.mybill.MyBillActivity;
 import com.xiaomai.ageny.offline.OfflineActivity;
-import com.xiaomai.ageny.order.OrderActivity;
+import com.xiaomai.ageny.order.fragment.myorder.MyOderActivity;
 import com.xiaomai.ageny.system_notice.SystemNoticeActivity;
 import com.xiaomai.ageny.task.TaskActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
@@ -270,7 +270,7 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 toClass(getActivity(), DeviceInstallActivity.class);
                 break;
             case R.id.bt_index_order:
-                toClass(getActivity(), OrderActivity.class);
+                toClass(getActivity(), MyOderActivity.class);
                 break;
             case R.id.bt_off_line:
                 toClass(getActivity(), OfflineActivity.class);

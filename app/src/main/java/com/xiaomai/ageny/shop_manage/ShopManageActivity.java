@@ -1,6 +1,5 @@
 package com.xiaomai.ageny.shop_manage;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -13,8 +12,6 @@ import com.xiaomai.ageny.TabAdapter;
 import com.xiaomai.ageny.base.BaseActivity;
 import com.xiaomai.ageny.filter.record_filter.RecordFilterActivity;
 import com.xiaomai.ageny.filter.shop_filter.ShopFilterActivity;
-import com.xiaomai.ageny.order.fragment.lowerorder.LowerOrderFragment;
-import com.xiaomai.ageny.order.fragment.myorder.MyOderFragment;
 import com.xiaomai.ageny.shop_manage.fragment.record.Record_Fragment;
 import com.xiaomai.ageny.shop_manage.fragment.shopnote.ShopNote_Fragment;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
@@ -23,7 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ShopManageActivity extends BaseActivity {

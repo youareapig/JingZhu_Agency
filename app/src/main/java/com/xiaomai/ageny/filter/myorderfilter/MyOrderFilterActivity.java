@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.filter.myorderfilter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -144,6 +145,8 @@ public class MyOrderFilterActivity extends BaseMvpActivity<MyOrderFilterPresente
                         SharedPreferencesUtil.getInstance(this).putSP("myorder_days", "30");
                         break;
                 }
+                Intent intent = new Intent();
+                setResult(2, intent);
                 finish();
 
                 break;

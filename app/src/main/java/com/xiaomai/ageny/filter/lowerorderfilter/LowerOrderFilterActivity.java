@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.filter.lowerorderfilter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -144,6 +145,8 @@ public class LowerOrderFilterActivity extends BaseMvpActivity<LowerOrderFilterPr
                         SharedPreferencesUtil.getInstance(this).putSP("lowerorder_days", "30");
                         break;
                 }
+                Intent intent = new Intent();
+                setResult(2, intent);
                 finish();
 
                 break;

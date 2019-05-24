@@ -526,7 +526,8 @@
                                     android:background="@drawable/blue_frame11"
                                     android:gravity="center"
                                     android:text="查看订单"
-                                    android:textColor="#ffffff" />
+                                    android:textColor="#ffffff"
+                                    android:visibility="gone" />
                             </RelativeLayout>
                         </LinearLayout>
 

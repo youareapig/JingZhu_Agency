@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.filter.deposit_list_filter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -95,6 +96,8 @@ public class DepositListFilterActivity extends BaseMvpActivity<DepositListFilter
             case R.id.filter_bt_submit:
                 Logger.d("选择" + list.get(state));
                 SharedPreferencesUtil.getInstance(this).putSP("deposit_state", state == 0 ? "" : list.get(state));
+                Intent intent = new Intent();
+                setResult(2, intent);
                 finish();
                 break;
         }

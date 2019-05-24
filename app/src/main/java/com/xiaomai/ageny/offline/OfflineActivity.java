@@ -44,6 +44,7 @@ public class OfflineActivity extends BaseMvpActivity<OfflinePresenter> implement
     private List<Fragment> fragmentList;
     private int tabPosition = 0;
     private String msgId;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_offline;
@@ -53,7 +54,7 @@ public class OfflineActivity extends BaseMvpActivity<OfflinePresenter> implement
     public void initView() {
         Intent intent = getIntent();
         if (intent != null) {
-            msgId = intent.getStringExtra("msgId");
+            msgId = intent.getStringExtra("msgid");
         }
         titleList = new ArrayList<>();
         titleList.add("直属设备");

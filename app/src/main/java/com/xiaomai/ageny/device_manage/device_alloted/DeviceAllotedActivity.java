@@ -72,15 +72,14 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
     @Override
     public void initView() {
         Intent intent = getIntent();
-        if (intent != null) {
-            msgId = intent.getStringExtra("msgId");
-        }
+        msgId = intent.getStringExtra("msgid");
         Logger.d("msgId-------" + msgId);
         OtherViewHolder holder = new OtherViewHolder(this);
         otherview.setHolder(mHolder);
         otherview1.setHolder(holder);
         mPresenter = new DeviceAllotedPresenter();
         mPresenter.attachView(this);
+        mPresenter.getData(strId, strTel, "1", App.pageSize,msgId);
         mPresenter.getCount();
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
@@ -103,11 +102,6 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mPresenter.getData(strId, strTel, "1", App.pageSize,msgId);
-    }
 
     @Override
     public void showLoading() {
@@ -223,8 +217,10 @@ public class DeviceAllotedActivity extends BaseMvpActivity<DeviceAllotedPresente
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == 2) {
+            page=1;
             strId = data.getStringExtra("id");
             strTel = data.getStringExtra("tel");
+            mPresenter.getData(strId, strTel, "1", App.pageSize,msgId);
         }
     }
 }

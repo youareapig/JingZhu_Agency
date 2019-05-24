@@ -18,6 +18,7 @@ import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.HintBean;
 import com.xiaomai.ageny.utils.DialogUtils;
 import com.xiaomai.ageny.utils.MaptoJson;
+import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
@@ -52,14 +53,16 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
     EditText fenrun;
     @BindView(R.id.bt_save)
     TextView btSave;
+    @BindView(R.id.maxfenrun)
+    TextView maxFenrun;
 
-
-    private String id, strFenrun, strLinkName, strLinkTel, strAddress, strFirmName;
+    private String id, strFenrun, strLinkName, strLinkTel, strAddress, strFirmName, reward;
     private int isperson;
     private boolean btfirmIsSelect;
     private List<String> keyList = new ArrayList<>();
     private List<String> valueList = new ArrayList<>();
     private Dialog dialog;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_update_agency;
@@ -81,6 +84,8 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
         linktel.setText(strLinkTel);
         adress.setText(strAddress);
         fenrun.setText(strFenrun);
+        reward = SharedPreferencesUtil.getInstance(this).getSP("reward");
+        maxFenrun.setText(reward);
         Logger.d("isperson----" + isperson);
         if (isperson == 1) {
             //个人
@@ -118,14 +123,14 @@ public class UpdateAgencyActivity extends BaseMvpActivity<UpdateAgencyPresenter>
     @Override
     public void onSuccess(HintBean bean) {
         if (bean.getCode() == 1) {
-            ShowDialogUtils.showdialog(this,"更新资料成功");
+            ShowDialogUtils.showdialog(this, "更新资料成功");
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     finish();
                 }
             }, 1000);
-        }else if (bean.getCode() == -10) {
+        } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());

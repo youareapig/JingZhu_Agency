@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.deposit_list;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -59,6 +60,7 @@ public class DepositListActivity extends BaseMvpActivity<DepositListPresenter> i
         otherview.setHolder(mHolder);
         mPresenter = new DepositListPresenter();
         mPresenter.attachView(this);
+        mPresenter.getData("1", App.pageSize, strState, "", "", "");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
@@ -80,24 +82,6 @@ public class DepositListActivity extends BaseMvpActivity<DepositListPresenter> i
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        strState = SharedPreferencesUtil.getInstance(this).getSP("deposit_state");
-        Logger.d("strate---" + strState);
-        switch (strState) {
-            case "申请中":
-                strState = "0";
-                break;
-            case "已通过":
-                strState = "1";
-                break;
-            case "未通过":
-                strState = "-1";
-                break;
-        }
-        mPresenter.getData("1", App.pageSize, strState, "", "", "");
-    }
 
     @Override
     public void showLoading() {
@@ -122,6 +106,8 @@ public class DepositListActivity extends BaseMvpActivity<DepositListPresenter> i
             if (list.size() == 0) {
                 otherview.showEmptyView();
                 refresh.setCanLoadMore(false);
+            }else {
+                refresh.setCanLoadMore(true);
             }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
@@ -175,11 +161,32 @@ public class DepositListActivity extends BaseMvpActivity<DepositListPresenter> i
                 finish();
                 break;
             case R.id.bt_filter:
-                toClass(this, DepositListFilterActivity.class);
+                toClass(this, DepositListFilterActivity.class,1);
                 break;
         }
     }
-
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 2) {
+            page=1;
+            strState = SharedPreferencesUtil.getInstance(this).getSP("deposit_state");
+            Logger.d("strate---" + strState);
+            switch (strState) {
+                case "申请中":
+                    strState = "0";
+                    break;
+                case "已通过":
+                    strState = "1";
+                    break;
+                case "未通过":
+                    strState = "-1";
+                    break;
+            }
+            Logger.d("筛选了--");
+            mPresenter.getData("1", App.pageSize, strState, "", "", "");
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

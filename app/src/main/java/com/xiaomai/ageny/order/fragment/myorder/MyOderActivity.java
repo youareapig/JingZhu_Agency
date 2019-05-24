@@ -1,26 +1,25 @@
 package com.xiaomai.ageny.order.fragment.myorder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
-import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
-import com.xiaomai.ageny.base.BaseMvpFragment;
+import com.xiaomai.ageny.base.BaseMvpActivity;
 import com.xiaomai.ageny.bean.MyOrderBean;
 import com.xiaomai.ageny.details.orderdetails.myorderdetails.MyOrderDetailsActivity;
+import com.xiaomai.ageny.filter.myorderfilter.MyOrderFilterActivity;
 import com.xiaomai.ageny.order.fragment.myorder.contract.MyOrderContract;
 import com.xiaomai.ageny.order.fragment.myorder.presenter.MyOrderPresenter;
-import com.xiaomai.ageny.utils.DateUtils;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
@@ -32,19 +31,24 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
+import butterknife.OnClick;
 
-public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements MyOrderContract.View {
-    @BindView(R.id.recycler)
-    RecyclerView recycler;
+public class MyOderActivity extends BaseMvpActivity<MyOrderPresenter> implements MyOrderContract.View {
+
+    @BindView(R.id.back)
+    RelativeLayout back;
+    @BindView(R.id.bt_filter)
+    TextView btFilter;
     @BindView(R.id.orderTotleMoney)
     TextView orderTotleMoney;
     @BindView(R.id.earn)
     TextView earn;
-    @BindView(R.id.otherview)
-    OtherView otherView;
+    @BindView(R.id.recycler)
+    RecyclerView recycler;
     @BindView(R.id.refresh)
     PullToRefreshLayout refresh;
+    @BindView(R.id.otherview)
+    OtherView otherView;
     private List<MyOrderBean.DataBean.ListBean> list = new ArrayList<>();
     private Adapter adapter;
     private Bundle bundle;
@@ -52,11 +56,12 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
     private String strId, strName, strStar, strEnd;
 
     @Override
-    protected void initView(View view) {
+    public void initView() {
         otherView.setHolder(mHolder);
         bundle = new Bundle();
         mPresenter = new MyOrderPresenter();
         mPresenter.attachView(this);
+        mPresenter.getData(strId, strName, strStar, strEnd, "1", App.pageSize);
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
@@ -78,19 +83,9 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        strId = SharedPreferencesUtil.getInstance(getActivity()).getSP("myorder_id");
-        strName = SharedPreferencesUtil.getInstance(getActivity()).getSP("myorder_name");
-        strStar = SharedPreferencesUtil.getInstance(getActivity()).getSP("myorder_star");
-        strEnd = SharedPreferencesUtil.getInstance(getActivity()).getSP("myorder_end");
-
-        mPresenter.getData(strId, strName, strStar, strEnd, "1", App.pageSize);
-    }
 
     @Override
-    protected int getLayoutId() {
+    public int getLayoutId() {
         return R.layout.myorder_fragment;
     }
 
@@ -125,8 +120,10 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
             if (list.size() == 0) {
                 otherView.showEmptyView();
                 refresh.setCanLoadMore(false);
+            } else {
+                refresh.setCanLoadMore(true);
             }
-            recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+            recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
             adapter = new Adapter(R.layout.order_item, list);
             recycler.setAdapter(adapter);
@@ -140,7 +137,7 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
                 }
             });
         } else if (bean.getCode() == -10) {
-            ShowDialogUtils.restLoginDialog(getActivity());
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }
@@ -172,4 +169,39 @@ public class MyOderFragment extends BaseMvpFragment<MyOrderPresenter> implements
         initData(bean);
     }
 
+
+    @OnClick({R.id.back, R.id.bt_filter})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.back:
+                finish();
+                break;
+            case R.id.bt_filter:
+                toClass(this, MyOrderFilterActivity.class, 1);
+                break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 2) {
+            page = 1;
+            strId = SharedPreferencesUtil.getInstance(this).getSP("myorder_id");
+            strName = SharedPreferencesUtil.getInstance(this).getSP("myorder_name");
+            strStar = SharedPreferencesUtil.getInstance(this).getSP("myorder_star");
+            strEnd = SharedPreferencesUtil.getInstance(this).getSP("myorder_end");
+            mPresenter.getData(strId, strName, strStar, strEnd, "1", App.pageSize);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        SharedPreferencesUtil.getInstance(this).putSP("myorder_id", "");
+        SharedPreferencesUtil.getInstance(this).putSP("myorder_name", "");
+        SharedPreferencesUtil.getInstance(this).putSP("myorder_star", "");
+        SharedPreferencesUtil.getInstance(this).putSP("myorder_end", "");
+        SharedPreferencesUtil.getInstance(this).putSP("myorder_days", "");
+    }
 }

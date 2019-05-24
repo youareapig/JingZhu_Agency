@@ -1,6 +1,5 @@
 package com.xiaomai.ageny.order;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -11,15 +10,8 @@ import com.androidkun.xtablayout.XTabLayout;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.TabAdapter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
-import com.xiaomai.ageny.filter.directfilter.DirectFilterActivity;
-import com.xiaomai.ageny.filter.indirectfilter.IndirectFilterActivity;
-import com.xiaomai.ageny.filter.lowerorderfilter.LowerOrderFilterActivity;
 import com.xiaomai.ageny.filter.myorderfilter.MyOrderFilterActivity;
-import com.xiaomai.ageny.offline.fragment.direct.DirectFragment;
-import com.xiaomai.ageny.offline.fragment.indirect.IndirectFragment;
 import com.xiaomai.ageny.order.contract.OrderContract;
-import com.xiaomai.ageny.order.fragment.lowerorder.LowerOrderFragment;
-import com.xiaomai.ageny.order.fragment.myorder.MyOderFragment;
 import com.xiaomai.ageny.order.presenter.OrderPresenter;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 
@@ -27,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class OrderActivity extends BaseMvpActivity<OrderPresenter> implements OrderContract.View {
@@ -56,7 +47,7 @@ public class OrderActivity extends BaseMvpActivity<OrderPresenter> implements Or
         titleList.add("我的订单");
 //        titleList.add("下级订单");
         fragmentList = new ArrayList<>();
-        fragmentList.add(new MyOderFragment());
+//        fragmentList.add(new MyOderActivity());
 //        fragmentList.add(new LowerOrderFragment());
 
         viewpage.setAdapter(new TabAdapter(getSupportFragmentManager(), titleList, fragmentList));

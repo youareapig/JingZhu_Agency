@@ -1,22 +1,16 @@
 package com.xiaomai.ageny.fragment.agency;
 
-import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
-import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.TabAdapter;
 import com.xiaomai.ageny.addagency.add.AddAgencyActivity;
-import com.xiaomai.ageny.addcontact.AddContactActivity;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.filter.dailifilter.DailiFilterActivity;
 import com.xiaomai.ageny.filter.feidailifilter.FeiDailiFilterActivity;
@@ -24,19 +18,13 @@ import com.xiaomai.ageny.fragment.agency.contract.AgencyContract;
 import com.xiaomai.ageny.fragment.agency.fragment.daili.DailiFragment;
 import com.xiaomai.ageny.fragment.agency.fragment.feidaili.FeidailiFragment;
 import com.xiaomai.ageny.fragment.agency.presenter.AgencyPresenter;
-import com.xiaomai.ageny.login.LoginActivity;
-import com.xiaomai.ageny.order.fragment.lowerorder.LowerOrderFragment;
-import com.xiaomai.ageny.order.fragment.myorder.MyOderFragment;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
-import cn.jpush.android.api.JPushInterface;
 
 public class Agency_Fragment extends BaseMvpFragment<AgencyPresenter> implements AgencyContract.View {
     @BindView(R.id.bt_filter)

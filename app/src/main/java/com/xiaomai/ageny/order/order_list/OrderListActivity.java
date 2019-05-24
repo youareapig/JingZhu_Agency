@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.order.order_list;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -55,7 +56,7 @@ public class OrderListActivity extends BaseMvpActivity<OrderListPresenter> imple
     private Adapter adapter;
     private int page = 1;
     private String strId, strName, strStar, strEnd;
-    private Bundle bundle=new Bundle();
+    private Bundle bundle = new Bundle();
 
     @Override
     public int getLayoutId() {
@@ -68,36 +69,28 @@ public class OrderListActivity extends BaseMvpActivity<OrderListPresenter> imple
         agentId = getIntent().getExtras().getString("id");
         mPresenter = new OrderListPresenter();
         mPresenter.attachView(this);
+        mPresenter.getData(agentId, "1", App.pageSize, strId, strName, strStar, strEnd, "0");
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(agentId, "1", App.pageSize, strId, strName, strStar, strEnd,"0");
+                mPresenter.getData(agentId, "1", App.pageSize, strId, strName, strStar, strEnd, "0");
             }
         });
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
                 page = 1;
-                mPresenter.getRefrshFresh(agentId, "1", App.pageSize, strId, strName, strStar, strEnd,"0");
+                mPresenter.getRefrshFresh(agentId, "1", App.pageSize, strId, strName, strStar, strEnd, "0");
             }
 
             @Override
             public void loadMore() {
                 page++;
-                mPresenter.getLoadMore(agentId, page + "", App.pageSize, strId, strName, strStar, strEnd,"0");
+                mPresenter.getLoadMore(agentId, page + "", App.pageSize, strId, strName, strStar, strEnd, "0");
             }
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        strId = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_id");
-        strName = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_name");
-        strStar = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_star");
-        strEnd = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_end");
-        mPresenter.getData(agentId, "1", App.pageSize, strId, strName, strStar, strEnd,"0");
-    }
 
     @Override
     public void showLoading() {
@@ -156,6 +149,8 @@ public class OrderListActivity extends BaseMvpActivity<OrderListPresenter> imple
             if (list.size() == 0) {
                 otherview.showEmptyView();
                 refresh.setCanLoadMore(false);
+            }else {
+                refresh.setCanLoadMore(true);
             }
             recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
@@ -183,8 +178,21 @@ public class OrderListActivity extends BaseMvpActivity<OrderListPresenter> imple
                 finish();
                 break;
             case R.id.bt_filter:
-                toClass(this, LowerOrderFilterActivity.class);
+                toClass(this, LowerOrderFilterActivity.class, 1);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 2) {
+            page = 1;
+            strId = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_id");
+            strName = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_name");
+            strStar = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_star");
+            strEnd = SharedPreferencesUtil.getInstance(this).getSP("lowerorder_end");
+            mPresenter.getData(agentId, "1", App.pageSize, strId, strName, strStar, strEnd, "0");
         }
     }
 

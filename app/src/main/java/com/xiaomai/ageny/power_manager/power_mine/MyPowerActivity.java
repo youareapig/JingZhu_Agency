@@ -61,6 +61,7 @@ public class MyPowerActivity extends BaseMvpActivity<MyPowerPresenter> implement
         otherview.setHolder(mHolder);
         mPresenter = new MyPowerPresenter();
         mPresenter.attachView(this);
+        mPresenter.getData(powerId,"1",App.pageSize);
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
@@ -82,11 +83,6 @@ public class MyPowerActivity extends BaseMvpActivity<MyPowerPresenter> implement
         });
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mPresenter.getData(powerId,"1",App.pageSize);
-    }
 
     @Override
     public void showLoading() {
@@ -143,6 +139,9 @@ public class MyPowerActivity extends BaseMvpActivity<MyPowerPresenter> implement
             list.addAll(bean.getData().getList());
             if (list.size() == 0) {
                 otherview.showEmptyView();
+                refresh.setCanLoadMore(false);
+            }else {
+                refresh.setCanLoadMore(true);
             }
             recycler.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
             adapter = new Adapter(R.layout.mypower_item, list);
@@ -171,7 +170,9 @@ public class MyPowerActivity extends BaseMvpActivity<MyPowerPresenter> implement
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1 && resultCode == 2) {
+            page=1;
             powerId = data.getStringExtra("powerid");
+            mPresenter.getData(powerId,"1",App.pageSize);
         }
     }
 }

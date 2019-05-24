@@ -100,4 +100,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivityForResult(intent, reuqestCode);
     }
+
+    protected void toClass(Context context, Class<? extends BaseMvpActivity> clazz, int reuqestCode) {
+        Intent intent = new Intent(context, clazz);
+        startActivityForResult(intent, reuqestCode);
+    }
+
+    protected void toClass1(Context context, Class<? extends BaseActivity> clazz, int reuqestCode) {
+        Intent intent = new Intent(context, clazz);
+        startActivityForResult(intent, reuqestCode);
+    }
 }

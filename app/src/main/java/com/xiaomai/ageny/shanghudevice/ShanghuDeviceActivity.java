@@ -1,6 +1,5 @@
 package com.xiaomai.ageny.shanghudevice;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -8,31 +7,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.androidkun.xtablayout.XTabLayout;
-import com.orhanobut.logger.Logger;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.TabAdapter;
 import com.xiaomai.ageny.base.BaseMvpActivity;
-import com.xiaomai.ageny.filter.lowerorderfilter.LowerOrderFilterActivity;
-import com.xiaomai.ageny.filter.myorderfilter.MyOrderFilterActivity;
 import com.xiaomai.ageny.filter.shanghudevicefilter.ShangHuDeviceFilterActivity;
-import com.xiaomai.ageny.order.fragment.lowerorder.LowerOrderFragment;
-import com.xiaomai.ageny.order.fragment.myorder.MyOderFragment;
 import com.xiaomai.ageny.shanghudevice.contract.ShangHuDeviceContract;
 import com.xiaomai.ageny.shanghudevice.fragment.offdevice.OffDeviceFragment;
 import com.xiaomai.ageny.shanghudevice.fragment.ondevice.OnDeviecFragment;
 import com.xiaomai.ageny.shanghudevice.presenter.ShangHuDevicePresenter;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
-import com.xiaomai.ageny.utils.ToastUtil;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ShanghuDeviceActivity extends BaseMvpActivity<ShangHuDevicePresenter> implements ShangHuDeviceContract.View {
