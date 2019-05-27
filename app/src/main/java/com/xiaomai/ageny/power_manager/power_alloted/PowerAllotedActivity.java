@@ -21,6 +21,7 @@ import com.xiaomai.ageny.details.power_alloted_details.PowerAllotedDetailsActivi
 import com.xiaomai.ageny.filter.power_alloted_filter.PowerAllotedFilterActivity;
 import com.xiaomai.ageny.power_manager.power_alloted.contract.PowerAllotedContract;
 import com.xiaomai.ageny.power_manager.power_alloted.presenter.PowerAllotedPresenter;
+import com.xiaomai.ageny.utils.ShowDialogUtils;
 import com.xiaomai.ageny.utils.ToastUtil;
 import com.xiaomai.ageny.utils.state_layout.OtherView;
 import com.xiaomai.ageny.utils.state_layout.OtherViewHolder;
@@ -154,7 +155,9 @@ public class PowerAllotedActivity extends BaseMvpActivity<PowerAllotedPresenter>
             if (bean.getData().getList().size() == 0) {
                 ToastUtil.showShortToast("没有更多数据");
             }
-        } else {
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

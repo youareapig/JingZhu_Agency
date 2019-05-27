@@ -122,6 +122,8 @@ public class MyPowerActivity extends BaseMvpActivity<MyPowerPresenter> implement
             if (bean.getData().getList().size() == 0) {
                 ToastUtil.showShortToast("没有更多数据");
             }
+        }else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
         } else {
             ToastUtil.showShortToast(bean.getMessage());
         }

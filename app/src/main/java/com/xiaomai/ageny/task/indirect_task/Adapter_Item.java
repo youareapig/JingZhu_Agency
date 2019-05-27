@@ -13,13 +13,13 @@ import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
 
 import java.util.List;
 
-public class Adapter_Item extends BaseQuickAdapter<OffIndirectDeivceBean.DataBean.ListBean.BoxBean, BaseViewHolder> {
-    public Adapter_Item(int layoutResId, @Nullable List<OffIndirectDeivceBean.DataBean.ListBean.BoxBean> data) {
+public class Adapter_Item extends BaseQuickAdapter<OffIndirectDeivceBean.DataBean.ListBeanX.ListBean.BoxBean, BaseViewHolder> {
+    public Adapter_Item(int layoutResId, @Nullable List<OffIndirectDeivceBean.DataBean.ListBeanX.ListBean.BoxBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, OffIndirectDeivceBean.DataBean.ListBean.BoxBean item) {
+    protected void convert(BaseViewHolder helper, OffIndirectDeivceBean.DataBean.ListBeanX.ListBean.BoxBean item) {
         helper.setText(R.id.deviceId, item.getBoxid())
                 .setText(R.id.off_line_time, "离线" + item.getLixiantime() + "h");
     }

@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.filter.directfilter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -83,6 +84,8 @@ public class DirectFilterActivity extends BaseMvpActivity<DirectFilterPresenter>
                 SharedPreferencesUtil.getInstance(this).putSP("offzhishuTel", strTel);
                 SharedPreferencesUtil.getInstance(this).putSP("offzhishuId", strID);
                 SharedPreferencesUtil.getInstance(this).putSP("offzhishuName", strName);
+                Intent intent=new Intent();
+                setResult(2, intent);
                 finish();
                 break;
         }

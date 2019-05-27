@@ -158,7 +158,9 @@ public class MyOderActivity extends BaseMvpActivity<MyOrderPresenter> implements
             if (bean.getData().getList().size() == 0) {
                 ToastUtil.showShortToast("没有更多数据");
             }
-        } else {
+        }  else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(this);
+        }else {
             ToastUtil.showShortToast(bean.getMessage());
         }
     }

@@ -16,17 +16,17 @@ import com.xiaomai.ageny.details.devicedetails.directdetails.DirectDetailsActivi
 import java.util.ArrayList;
 import java.util.List;
 
-public class Adapter extends BaseQuickAdapter<OffDirectDeviceBean.DataBean.ListBean, BaseViewHolder> {
-    public Adapter(int layoutResId, @Nullable List<OffDirectDeviceBean.DataBean.ListBean> data) {
+public class Adapter extends BaseQuickAdapter<OffDirectDeviceBean.DataBean.ListBeanX.ListBean, BaseViewHolder> {
+    public Adapter(int layoutResId, @Nullable List<OffDirectDeviceBean.DataBean.ListBeanX.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, OffDirectDeviceBean.DataBean.ListBean item) {
+    protected void convert(BaseViewHolder helper, OffDirectDeviceBean.DataBean.ListBeanX.ListBean item) {
         helper.setText(R.id.item_storename, item.getSellername())
                 .setText(R.id.tel, item.getLinktel());
         RecyclerView recyclerView = helper.getView(R.id.item_recycler);
-        final List<OffDirectDeviceBean.DataBean.ListBean.BoxBean> list = item.getBox();
+        final List<OffDirectDeviceBean.DataBean.ListBeanX.ListBean.BoxBean> list = item.getBox();
 
         Adapter_Item adapter_item = new Adapter_Item(R.layout.direct_item_item, list);
         recyclerView.setLayoutManager(new LinearLayoutManager(App.context, LinearLayoutManager.VERTICAL, false));

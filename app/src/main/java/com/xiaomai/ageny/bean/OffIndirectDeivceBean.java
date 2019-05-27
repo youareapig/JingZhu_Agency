@@ -6,13 +6,13 @@ public class OffIndirectDeivceBean {
 
     /**
      * code : 1
-     * data : [{"agentid":"","agentmobile":"","agentname":"","countlinxianbox":"13","list":[{"box":[{"boxaddress":"四川省成都市双流区西航港长江路一段8号1栋底楼","boxid":"JZCB061901000014","details":"1.50","lixiantime":"84","stock":"6"}],"mobile":"13882086933","realname":"虞丹"},{"box":[{"boxaddress":"锦江区百合花园(滨湖东路东)","boxid":"JZCB061901000042","details":"1.00","lixiantime":"121","stock":"6"},{"boxaddress":"锦江区百合花园(滨湖东路东)","boxid":"JZCB061901000054","details":"1.00","lixiantime":"216","stock":"6"},{"boxaddress":"锦江区百合花园(滨湖东路东)","boxid":"JZCB061901000058","details":"1.00","lixiantime":"241","stock":"6"}],"mobile":"13032866466","realname":"张哥"},{"box":[{"boxaddress":"四川省成都市锦江区幸福梅林滨湖路幸福联合一组301号","boxid":"JZCB061901000044","details":"1.00","lixiantime":"86","stock":"6"},{"boxaddress":"锦江区水香雅舍(三圣乡店)","boxid":"JZCB061901000053","details":"1.00","lixiantime":"86","stock":"6"},{"boxaddress":"锦江区水香雅舍(三圣乡店)","boxid":"JZCB061901000068","details":"1.00","lixiantime":"87","stock":"6"}],"mobile":"15828576954","realname":"王琴"},{"box":[{"boxaddress":"四川省成都市新都区物流大道华都九龙广场独一栋六楼","boxid":"JZCB061901000100","details":"1.00","lixiantime":"1068","stock":"6"},{"boxaddress":"青羊区东坡TT·尚品(瑞联路南)","boxid":"JZCB061901000131","details":"1.00","lixiantime":"1338","stock":"6"},{"boxaddress":"四川省成都市新都区物流大道华都九龙广场独一栋六楼","boxid":"JZCB061901000383","details":"1.00","lixiantime":"570","stock":"6"},{"boxaddress":"四川省成都市成华区万科路19号1幢3层附91号(凯德广场1号门对面)","boxid":"JZCB061901000647","details":"1.00","lixiantime":"236","stock":"6"},{"boxaddress":"四川省成都市郫都区合信路92号龙湖时代天街29栋4楼","boxid":"JZCB061901000653","details":"1.00","lixiantime":"1358","stock":"6"},{"boxaddress":"四川省成都市新都区物流大道华都九龙广场独一栋六楼","boxid":"JZCB061901000948","details":"1.00","lixiantime":"1067","stock":"6"}],"mobile":"18780276288","realname":"袁先生"}]}]
+     * data : {"list":[{"agentid":"","agentmobile":"","agentname":"","countlinxianbox":"1","list":[{"box":[{"boxaddress":"117.132.194.123","boxid":"1210410000000519","details":"1.00","lixiantime":"665","stock":"6","updtime":"2019-04-29 18:01:50.0"}],"level":"2","mobile":"18981906214","realname":"张兴凯"}]}],"page":1,"page_size":25,"total":"1"}
      * message : 4.7离线的非直属直属设备成功
      */
 
     private int code;
+    private DataBean data;
     private String message;
-    private List<DataBean> data;
 
     public int getCode() {
         return code;
@@ -20,6 +20,14 @@ public class OffIndirectDeivceBean {
 
     public void setCode(int code) {
         this.code = code;
+    }
+
+    public DataBean getData() {
+        return data;
+    }
+
+    public void setData(DataBean data) {
+        this.data = data;
     }
 
     public String getMessage() {
@@ -30,157 +38,215 @@ public class OffIndirectDeivceBean {
         this.message = message;
     }
 
-    public List<DataBean> getData() {
-        return data;
-    }
-
-    public void setData(List<DataBean> data) {
-        this.data = data;
-    }
-
     public static class DataBean {
         /**
-         * agentid :
-         * agentmobile :
-         * agentname :
-         * countlinxianbox : 13
-         * list : [{"box":[{"boxaddress":"四川省成都市双流区西航港长江路一段8号1栋底楼","boxid":"JZCB061901000014","details":"1.50","lixiantime":"84","stock":"6"}],"mobile":"13882086933","realname":"虞丹"},{"box":[{"boxaddress":"锦江区百合花园(滨湖东路东)","boxid":"JZCB061901000042","details":"1.00","lixiantime":"121","stock":"6"},{"boxaddress":"锦江区百合花园(滨湖东路东)","boxid":"JZCB061901000054","details":"1.00","lixiantime":"216","stock":"6"},{"boxaddress":"锦江区百合花园(滨湖东路东)","boxid":"JZCB061901000058","details":"1.00","lixiantime":"241","stock":"6"}],"mobile":"13032866466","realname":"张哥"},{"box":[{"boxaddress":"四川省成都市锦江区幸福梅林滨湖路幸福联合一组301号","boxid":"JZCB061901000044","details":"1.00","lixiantime":"86","stock":"6"},{"boxaddress":"锦江区水香雅舍(三圣乡店)","boxid":"JZCB061901000053","details":"1.00","lixiantime":"86","stock":"6"},{"boxaddress":"锦江区水香雅舍(三圣乡店)","boxid":"JZCB061901000068","details":"1.00","lixiantime":"87","stock":"6"}],"mobile":"15828576954","realname":"王琴"},{"box":[{"boxaddress":"四川省成都市新都区物流大道华都九龙广场独一栋六楼","boxid":"JZCB061901000100","details":"1.00","lixiantime":"1068","stock":"6"},{"boxaddress":"青羊区东坡TT·尚品(瑞联路南)","boxid":"JZCB061901000131","details":"1.00","lixiantime":"1338","stock":"6"},{"boxaddress":"四川省成都市新都区物流大道华都九龙广场独一栋六楼","boxid":"JZCB061901000383","details":"1.00","lixiantime":"570","stock":"6"},{"boxaddress":"四川省成都市成华区万科路19号1幢3层附91号(凯德广场1号门对面)","boxid":"JZCB061901000647","details":"1.00","lixiantime":"236","stock":"6"},{"boxaddress":"四川省成都市郫都区合信路92号龙湖时代天街29栋4楼","boxid":"JZCB061901000653","details":"1.00","lixiantime":"1358","stock":"6"},{"boxaddress":"四川省成都市新都区物流大道华都九龙广场独一栋六楼","boxid":"JZCB061901000948","details":"1.00","lixiantime":"1067","stock":"6"}],"mobile":"18780276288","realname":"袁先生"}]
+         * list : [{"agentid":"","agentmobile":"","agentname":"","countlinxianbox":"1","list":[{"box":[{"boxaddress":"117.132.194.123","boxid":"1210410000000519","details":"1.00","lixiantime":"665","stock":"6","updtime":"2019-04-29 18:01:50.0"}],"level":"2","mobile":"18981906214","realname":"张兴凯"}]}]
+         * page : 1
+         * page_size : 25
+         * total : 1
          */
 
-        private String agentid;
-        private String agentmobile;
-        private String agentname;
-        private String countlinxianbox;
-        private List<ListBean> list;
+        private int page;
+        private int page_size;
+        private String total;
+        private List<ListBeanX> list;
 
-        public String getAgentid() {
-            return agentid;
+        public int getPage() {
+            return page;
         }
 
-        public void setAgentid(String agentid) {
-            this.agentid = agentid;
+        public void setPage(int page) {
+            this.page = page;
         }
 
-        public String getAgentmobile() {
-            return agentmobile;
+        public int getPage_size() {
+            return page_size;
         }
 
-        public void setAgentmobile(String agentmobile) {
-            this.agentmobile = agentmobile;
+        public void setPage_size(int page_size) {
+            this.page_size = page_size;
         }
 
-        public String getAgentname() {
-            return agentname;
+        public String getTotal() {
+            return total;
         }
 
-        public void setAgentname(String agentname) {
-            this.agentname = agentname;
+        public void setTotal(String total) {
+            this.total = total;
         }
 
-        public String getCountlinxianbox() {
-            return countlinxianbox;
-        }
-
-        public void setCountlinxianbox(String countlinxianbox) {
-            this.countlinxianbox = countlinxianbox;
-        }
-
-        public List<ListBean> getList() {
+        public List<ListBeanX> getList() {
             return list;
         }
 
-        public void setList(List<ListBean> list) {
+        public void setList(List<ListBeanX> list) {
             this.list = list;
         }
 
-        public static class ListBean {
+        public static class ListBeanX {
             /**
-             * box : [{"boxaddress":"四川省成都市双流区西航港长江路一段8号1栋底楼","boxid":"JZCB061901000014","details":"1.50","lixiantime":"84","stock":"6"}]
-             * mobile : 13882086933
-             * realname : 虞丹
+             * agentid :
+             * agentmobile :
+             * agentname :
+             * countlinxianbox : 1
+             * list : [{"box":[{"boxaddress":"117.132.194.123","boxid":"1210410000000519","details":"1.00","lixiantime":"665","stock":"6","updtime":"2019-04-29 18:01:50.0"}],"level":"2","mobile":"18981906214","realname":"张兴凯"}]
              */
 
-            private String mobile;
-            private String realname;
-            private List<BoxBean> box;
+            private String agentid;
+            private String agentmobile;
+            private String agentname;
+            private String countlinxianbox;
+            private List<ListBean> list;
 
-            public String getMobile() {
-                return mobile;
+            public String getAgentid() {
+                return agentid;
             }
 
-            public void setMobile(String mobile) {
-                this.mobile = mobile;
+            public void setAgentid(String agentid) {
+                this.agentid = agentid;
             }
 
-            public String getRealname() {
-                return realname;
+            public String getAgentmobile() {
+                return agentmobile;
             }
 
-            public void setRealname(String realname) {
-                this.realname = realname;
+            public void setAgentmobile(String agentmobile) {
+                this.agentmobile = agentmobile;
             }
 
-            public List<BoxBean> getBox() {
-                return box;
+            public String getAgentname() {
+                return agentname;
             }
 
-            public void setBox(List<BoxBean> box) {
-                this.box = box;
+            public void setAgentname(String agentname) {
+                this.agentname = agentname;
             }
 
-            public static class BoxBean {
+            public String getCountlinxianbox() {
+                return countlinxianbox;
+            }
+
+            public void setCountlinxianbox(String countlinxianbox) {
+                this.countlinxianbox = countlinxianbox;
+            }
+
+            public List<ListBean> getList() {
+                return list;
+            }
+
+            public void setList(List<ListBean> list) {
+                this.list = list;
+            }
+
+            public static class ListBean {
                 /**
-                 * boxaddress : 四川省成都市双流区西航港长江路一段8号1栋底楼
-                 * boxid : JZCB061901000014
-                 * details : 1.50
-                 * lixiantime : 84
-                 * stock : 6
+                 * box : [{"boxaddress":"117.132.194.123","boxid":"1210410000000519","details":"1.00","lixiantime":"665","stock":"6","updtime":"2019-04-29 18:01:50.0"}]
+                 * level : 2
+                 * mobile : 18981906214
+                 * realname : 张兴凯
                  */
 
-                private String boxaddress;
-                private String boxid;
-                private String details;
-                private String lixiantime;
-                private String stock;
+                private String level;
+                private String mobile;
+                private String realname;
+                private List<BoxBean> box;
 
-                public String getBoxaddress() {
-                    return boxaddress;
+                public String getLevel() {
+                    return level;
                 }
 
-                public void setBoxaddress(String boxaddress) {
-                    this.boxaddress = boxaddress;
+                public void setLevel(String level) {
+                    this.level = level;
                 }
 
-                public String getBoxid() {
-                    return boxid;
+                public String getMobile() {
+                    return mobile;
                 }
 
-                public void setBoxid(String boxid) {
-                    this.boxid = boxid;
+                public void setMobile(String mobile) {
+                    this.mobile = mobile;
                 }
 
-                public String getDetails() {
-                    return details;
+                public String getRealname() {
+                    return realname;
                 }
 
-                public void setDetails(String details) {
-                    this.details = details;
+                public void setRealname(String realname) {
+                    this.realname = realname;
                 }
 
-                public String getLixiantime() {
-                    return lixiantime;
+                public List<BoxBean> getBox() {
+                    return box;
                 }
 
-                public void setLixiantime(String lixiantime) {
-                    this.lixiantime = lixiantime;
+                public void setBox(List<BoxBean> box) {
+                    this.box = box;
                 }
 
-                public String getStock() {
-                    return stock;
-                }
+                public static class BoxBean {
+                    /**
+                     * boxaddress : 117.132.194.123
+                     * boxid : 1210410000000519
+                     * details : 1.00
+                     * lixiantime : 665
+                     * stock : 6
+                     * updtime : 2019-04-29 18:01:50.0
+                     */
 
-                public void setStock(String stock) {
-                    this.stock = stock;
+                    private String boxaddress;
+                    private String boxid;
+                    private String details;
+                    private String lixiantime;
+                    private String stock;
+                    private String updtime;
+
+                    public String getBoxaddress() {
+                        return boxaddress;
+                    }
+
+                    public void setBoxaddress(String boxaddress) {
+                        this.boxaddress = boxaddress;
+                    }
+
+                    public String getBoxid() {
+                        return boxid;
+                    }
+
+                    public void setBoxid(String boxid) {
+                        this.boxid = boxid;
+                    }
+
+                    public String getDetails() {
+                        return details;
+                    }
+
+                    public void setDetails(String details) {
+                        this.details = details;
+                    }
+
+                    public String getLixiantime() {
+                        return lixiantime;
+                    }
+
+                    public void setLixiantime(String lixiantime) {
+                        this.lixiantime = lixiantime;
+                    }
+
+                    public String getStock() {
+                        return stock;
+                    }
+
+                    public void setStock(String stock) {
+                        this.stock = stock;
+                    }
+
+                    public String getUpdtime() {
+                        return updtime;
+                    }
+
+                    public void setUpdtime(String updtime) {
+                        this.updtime = updtime;
+                    }
                 }
             }
         }

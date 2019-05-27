@@ -124,13 +124,19 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
         instance = this;
         mPresenter = new DeployPresenter();
         mPresenter.attachView(this);
+        MPermissions.requestPermissions(this, 21, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
         String configJson = SharedPreferencesUtil.getInstance(this).getSP("config");
         priceList = BaseUtils.getPriceList1(configJson);
         //TODO 城市选择三级联动
         mHandler.sendEmptyMessage(MSG_LOAD_DATA);
-        MPermissions.requestPermissions(this, 21, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //解决允许定位权限后无法立即定位
+        mPresenter.getLocation();
+    }
 
     @Override
     public void showLoading() {
@@ -275,6 +281,7 @@ public class DeployActivity extends BaseMvpActivity<DeployPresenter> implements 
     @PermissionGrant(21)
     public void getLocation21() {
         //获取当前定位
+        Logger.d("获取定位权限");
         mPresenter.getLocation();
     }
 

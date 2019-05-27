@@ -7,7 +7,7 @@ import io.reactivex.Flowable;
 
 public interface TaskIndirectContract {
     interface Model {
-        Flowable<OffIndirectDeivceBean> getData(String agentname, String agentmobile, String deviceid, String state);
+        Flowable<OffIndirectDeivceBean> getData(String agentname, String agentmobile, String deviceid, String state,String page,String pagesize);
     }
 
     interface View extends BaseView {
@@ -23,11 +23,15 @@ public interface TaskIndirectContract {
         void onSuccess(OffIndirectDeivceBean bean);
 
         void onSuccessFresh(OffIndirectDeivceBean bean);
+
+        void onSuccessLoadMore(OffIndirectDeivceBean bean);
     }
 
     interface Presenter {
-        void getData(String agentname, String agentmobile, String deviceid, String state);
+        void getData(String agentname, String agentmobile, String deviceid, String state,String page,String pagesize);
 
-        void getDataFresh(String agentname, String agentmobile, String deviceid, String state);
+        void getDataFresh(String agentname, String agentmobile, String deviceid, String state,String page,String pagesize);
+
+        void getDataLoadMore(String agentname, String agentmobile, String deviceid, String state,String page,String pagesize);
     }
 }

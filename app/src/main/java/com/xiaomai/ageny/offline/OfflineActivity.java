@@ -56,37 +56,8 @@ public class OfflineActivity extends BaseMvpActivity<OfflinePresenter> implement
         if (intent != null) {
             msgId = intent.getStringExtra("msgid");
         }
-        titleList = new ArrayList<>();
-        titleList.add("直属设备");
-        titleList.add("非直属设备");
-        fragmentList = new ArrayList<>();
-        fragmentList.add(new DirectFragment(msgId));
-        fragmentList.add(new IndirectFragment());
+        sView(0);
 
-        viewpage.setAdapter(new TabAdapter(getSupportFragmentManager(), titleList, fragmentList));
-        viewpage.setOffscreenPageLimit(0);
-        xtab.setupWithViewPager(viewpage);
-        xtab.getTabAt(0).select();
-        xtab.getTabAt(1).select();
-        viewpage.setCurrentItem(0);
-        xtab.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(XTabLayout.Tab tab) {
-                tabPosition = tab.getPosition();
-                //不加这句点击不能切换，但能滑动
-                viewpage.setCurrentItem(tabPosition);
-            }
-
-            @Override
-            public void onTabUnselected(XTabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(XTabLayout.Tab tab) {
-
-            }
-        });
     }
 
     @Override
@@ -113,13 +84,64 @@ public class OfflineActivity extends BaseMvpActivity<OfflinePresenter> implement
                 break;
             case R.id.bt_filter:
                 if (tabPosition == 0) {
-                    toClass(this, DirectFilterActivity.class);
+                    toClass(this, DirectFilterActivity.class, 1);
                 }
                 if (tabPosition == 1) {
-                    toClass(this, IndirectFilterActivity.class);
+                    toClass(this, IndirectFilterActivity.class, 2);
                 }
                 break;
         }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 2) {
+            Logger.d("------直属设备返回-----");
+            titleList.clear();
+            fragmentList.clear();
+
+            sView(0);
+        } else if (requestCode == 2 && resultCode == 2) {
+            Logger.d("------非直属设备返回-----");
+            titleList.clear();
+            fragmentList.clear();
+
+            sView(1);
+        }
+    }
+
+    private void sView(int posin) {
+        titleList = new ArrayList<>();
+        titleList.add("直属设备");
+        titleList.add("非直属设备");
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new DirectFragment(msgId));
+        fragmentList.add(new IndirectFragment());
+
+        viewpage.setAdapter(new TabAdapter(getSupportFragmentManager(), titleList, fragmentList));
+        viewpage.setOffscreenPageLimit(2);
+        xtab.setupWithViewPager(viewpage);
+        xtab.getTabAt(posin).select();
+        viewpage.setCurrentItem(posin);
+        xtab.setOnTabSelectedListener(new XTabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(XTabLayout.Tab tab) {
+                tabPosition = tab.getPosition();
+                //不加这句点击不能切换，但能滑动
+                viewpage.setCurrentItem(tabPosition);
+            }
+
+            @Override
+            public void onTabUnselected(XTabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(XTabLayout.Tab tab) {
+
+            }
+        });
     }
 
     @Override

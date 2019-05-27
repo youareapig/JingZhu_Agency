@@ -16,12 +16,12 @@ public class TaskIndirectPresenter extends BasePresenter<TaskIndirectContract.Vi
     }
 
     @Override
-    public void getData(String agentname, String agentmobile, String deviceid, String state) {
+    public void getData(String agentname, String agentmobile, String deviceid, String state,String page,String pagesize) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(agentname, agentmobile, deviceid,state).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
+        model.getData(agentname, agentmobile, deviceid,state,page,pagesize).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
                 .as(mView.<OffIndirectDeivceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffIndirectDeivceBean>() {
                     @Override
@@ -38,16 +38,36 @@ public class TaskIndirectPresenter extends BasePresenter<TaskIndirectContract.Vi
     }
 
     @Override
-    public void getDataFresh(String agentname, String agentmobile, String deviceid, String state) {
+    public void getDataFresh(String agentname, String agentmobile, String deviceid, String state,String page,String pagesize) {
         if (!isViewAttached()) {
             return;
         }
-        model.getData(agentname, agentmobile, deviceid,state).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
+        model.getData(agentname, agentmobile, deviceid,state,page,pagesize).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
                 .as(mView.<OffIndirectDeivceBean>bindAutoDispose())
                 .subscribe(new Consumer<OffIndirectDeivceBean>() {
                     @Override
                     public void accept(OffIndirectDeivceBean bean) throws Exception {
                         mView.onSuccessFresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void getDataLoadMore(String agentname, String agentmobile, String deviceid, String state,String page,String pagesize) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(agentname, agentmobile, deviceid,state,page,pagesize).compose(RxScheduler.<OffIndirectDeivceBean>Flo_io_main())
+                .as(mView.<OffIndirectDeivceBean>bindAutoDispose())
+                .subscribe(new Consumer<OffIndirectDeivceBean>() {
+                    @Override
+                    public void accept(OffIndirectDeivceBean bean) throws Exception {
+                        mView.onSuccessLoadMore(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

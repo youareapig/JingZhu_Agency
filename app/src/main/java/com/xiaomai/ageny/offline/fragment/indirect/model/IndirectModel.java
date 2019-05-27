@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public class IndirectModel implements IndirectContract.Model {
     @Override
-    public Flowable<OffIndirectDeivceBean> getData(String agentname, String agentmobile, String deviceid,String state) {
-        return RetrofitClient.getInstance().getApi().getInDirectListBean(agentname, agentmobile, deviceid,state);
+    public Flowable<OffIndirectDeivceBean> getData(String agentname, String agentmobile, String deviceid,String state,String page,String pagesize) {
+        return RetrofitClient.getInstance().getApi().getInDirectListBean(agentname, agentmobile, deviceid,state,page,pagesize);
     }
 }

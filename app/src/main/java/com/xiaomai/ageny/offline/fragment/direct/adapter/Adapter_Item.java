@@ -11,13 +11,13 @@ import com.xiaomai.ageny.utils.BaseUtils;
 
 import java.util.List;
 
-public class Adapter_Item extends BaseQuickAdapter<OffDirectDeviceBean.DataBean.ListBean.BoxBean,BaseViewHolder> {
-    public Adapter_Item(int layoutResId, @Nullable List<OffDirectDeviceBean.DataBean.ListBean.BoxBean> data) {
+public class Adapter_Item extends BaseQuickAdapter<OffDirectDeviceBean.DataBean.ListBeanX.ListBean.BoxBean,BaseViewHolder> {
+    public Adapter_Item(int layoutResId, @Nullable List<OffDirectDeviceBean.DataBean.ListBeanX.ListBean.BoxBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, OffDirectDeviceBean.DataBean.ListBean.BoxBean item) {
+    protected void convert(BaseViewHolder helper, OffDirectDeviceBean.DataBean.ListBeanX.ListBean.BoxBean item) {
         int kou = Integer.parseInt(item.getStock());
         int tai = kou - 1;
         helper.setText(R.id.price, item.getDetails())

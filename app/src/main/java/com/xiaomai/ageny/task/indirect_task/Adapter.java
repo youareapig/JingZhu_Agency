@@ -13,18 +13,18 @@ import com.xiaomai.ageny.bean.OffIndirectDeivceBean;
 
 import java.util.List;
 
-public class Adapter extends BaseQuickAdapter<OffIndirectDeivceBean.DataBean.ListBean, BaseViewHolder> {
-    public Adapter(int layoutResId, @Nullable List<OffIndirectDeivceBean.DataBean.ListBean> data) {
+public class Adapter extends BaseQuickAdapter<OffIndirectDeivceBean.DataBean.ListBeanX.ListBean, BaseViewHolder> {
+    public Adapter(int layoutResId, @Nullable List<OffIndirectDeivceBean.DataBean.ListBeanX.ListBean> data) {
         super(layoutResId, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, OffIndirectDeivceBean.DataBean.ListBean item) {
+    protected void convert(BaseViewHolder helper, OffIndirectDeivceBean.DataBean.ListBeanX.ListBean item) {
         helper.setText(R.id.item_storename, item.getRealname())
                 .setText(R.id.tel,item.getMobile());
         RecyclerView recyclerView = helper.getView(R.id.item_recycler);
 
-        final List<OffIndirectDeivceBean.DataBean.ListBean.BoxBean> list = item.getBox();
+        final List<OffIndirectDeivceBean.DataBean.ListBeanX.ListBean.BoxBean> list = item.getBox();
 
         Adapter_Item adapter_item = new Adapter_Item(R.layout.task_indirect_item_item, list);
         recyclerView.setLayoutManager(new LinearLayoutManager(App.context, LinearLayoutManager.VERTICAL, false));

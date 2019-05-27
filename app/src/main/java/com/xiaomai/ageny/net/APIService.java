@@ -74,8 +74,8 @@ import retrofit2.http.Query;
  * Description：
  */
 public interface APIService {
-        public String urlhead = "chargeAgent-0.0.1-SNAPSHOT/";
-//    public String urlhead = "";
+//        public String urlhead = "chargeAgent-0.0.1-SNAPSHOT/";
+    public String urlhead = "";
 
     //获取验证码
     @GET(urlhead + "agentCenter/account/captcha")
@@ -110,7 +110,9 @@ public interface APIService {
             @Query("linkmobile") String linkmobile,
             @Query("deviceid") String deviceid,
             @Query("state") String state,
-            @Query("msgId")String magid);
+            @Query("msgId")String magid,
+            @Query("page")String page,
+            @Query("page_size")String pagesize);
 
     //离线设备列表（非直属设备）
     @GET(urlhead + "agentCenter/nodirecte/quipment")
@@ -118,7 +120,9 @@ public interface APIService {
             @Query("agentname") String agentname,
             @Query("agentmobile") String agentmobile,
             @Query("deviceid") String deviceid,
-            @Query("state") String state);
+            @Query("state") String state,
+            @Query("page")String page,
+            @Query("page_size")String pagesize);
 
     //离线设备详情（非直属设备）
     @GET(urlhead + "agentCenter/nodirecte/quipment/details ")
