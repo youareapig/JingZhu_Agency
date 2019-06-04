@@ -4,7 +4,7 @@ public class IndexBean {
 
     /**
      * code : 1
-     * data : {"bank":"icbc","countTask":"19","creditCard":"1547895465125478","day_earn":"0.00","freeze_money":"140.00","is_havecard":"1","liquidated":"5000.00","mobile":"12547896541","month_earn":"2925.55","noRentCount":"39","offLineCount":"7","onLineCount":"1","realName":"华总gg","rentCount":"1","subBank":"","total_earn":"14839.80","unliquidated":"9699.80","yestoday_earn":"0.00"}
+     * data : {"bank":"我家银行","countTask":"0","creditCard":"6498546321846975","day_earn":"0.00","freeze_money":"0.00","is_havecard":"1","liquidated":"20.00","mobile":"15983302246","month_earn":"0.00","noRentCount":"0","offLineCount":"0","onLineCount":"0","orderCount":"5","orderRentPrice":"44.00","realName":"郑磊","rentCount":"0","sellerNotproducing":"183","subBank":"","total_earn":"22.00","unliquidated":"2.00","yestoday_earn":"0.00"}
      * message :
      */
 
@@ -38,23 +38,26 @@ public class IndexBean {
 
     public static class DataBean {
         /**
-         * bank : icbc
-         * countTask : 19
-         * creditCard : 1547895465125478
+         * bank : 我家银行
+         * countTask : 0
+         * creditCard : 6498546321846975
          * day_earn : 0.00
-         * freeze_money : 140.00
+         * freeze_money : 0.00
          * is_havecard : 1
-         * liquidated : 5000.00
-         * mobile : 12547896541
-         * month_earn : 2925.55
-         * noRentCount : 39
-         * offLineCount : 7
-         * onLineCount : 1
-         * realName : 华总gg
-         * rentCount : 1
+         * liquidated : 20.00
+         * mobile : 15983302246
+         * month_earn : 0.00
+         * noRentCount : 0
+         * offLineCount : 0
+         * onLineCount : 0
+         * orderCount : 5
+         * orderRentPrice : 44.00
+         * realName : 郑磊
+         * rentCount : 0
+         * sellerNotproducing : 183
          * subBank :
-         * total_earn : 14839.80
-         * unliquidated : 9699.80
+         * total_earn : 22.00
+         * unliquidated : 2.00
          * yestoday_earn : 0.00
          */
 
@@ -70,8 +73,11 @@ public class IndexBean {
         private String noRentCount;
         private String offLineCount;
         private String onLineCount;
+        private String orderCount;
+        private String orderRentPrice;
         private String realName;
         private String rentCount;
+        private String sellerNotproducing;
         private String subBank;
         private String total_earn;
         private String unliquidated;
@@ -173,6 +179,22 @@ public class IndexBean {
             this.onLineCount = onLineCount;
         }
 
+        public String getOrderCount() {
+            return orderCount;
+        }
+
+        public void setOrderCount(String orderCount) {
+            this.orderCount = orderCount;
+        }
+
+        public String getOrderRentPrice() {
+            return orderRentPrice;
+        }
+
+        public void setOrderRentPrice(String orderRentPrice) {
+            this.orderRentPrice = orderRentPrice;
+        }
+
         public String getRealName() {
             return realName;
         }
@@ -187,6 +209,14 @@ public class IndexBean {
 
         public void setRentCount(String rentCount) {
             this.rentCount = rentCount;
+        }
+
+        public String getSellerNotproducing() {
+            return sellerNotproducing;
+        }
+
+        public void setSellerNotproducing(String sellerNotproducing) {
+            this.sellerNotproducing = sellerNotproducing;
         }
 
         public String getSubBank() {

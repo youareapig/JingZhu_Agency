@@ -42,6 +42,9 @@ public class DateUtils {
         return times;
     }
 
+    /**
+     * 获取当前几月几日
+     */
     public static String getTodayDateTimes() {
         SimpleDateFormat format = new SimpleDateFormat("MM月dd日",
                 Locale.getDefault());
@@ -54,16 +57,9 @@ public class DateUtils {
      * @return
      */
     public static long getCurrentTime_Today() {
-        return new Date().getTime()-8 * 60 * 60 * 1000;
+        return new Date().getTime() - 8 * 60 * 60 * 1000;
     }
 
-    public static String test(){
-        SimpleDateFormat hms = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-        hms.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-        Date tTime = new Date();//跑步用时
-        String totalTime = hms.format(tTime);
-        return totalTime;
-    }
 
     /**
      * 调此方法输入所要转换的时间输入例如（"2014-06-14-16-09-00"）返回时间戳
@@ -87,20 +83,6 @@ public class DateUtils {
         return times;
     }
 
-    public static String getTimestamp(String time, String type) {
-        SimpleDateFormat sdr = new SimpleDateFormat(type, Locale.CHINA);
-        Date date;
-        String times = null;
-        try {
-            date = sdr.parse(time);
-            long l = date.getTime();
-            String stf = String.valueOf(l);
-            times = stf.substring(0, 10);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return times;
-    }
 
     /**
      * 调用此方法输入所要转换的时间戳输入例如（1402733340）输出（"2014年06月14日16时09分00秒"）

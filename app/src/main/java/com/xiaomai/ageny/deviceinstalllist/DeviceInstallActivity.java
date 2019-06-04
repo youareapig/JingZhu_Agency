@@ -1,13 +1,14 @@
 package com.xiaomai.ageny.deviceinstalllist;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,8 +43,8 @@ import com.zhy.m.permission.PermissionGrant;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 
 public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresenter> implements DeviceInstallContract.View {
 
@@ -158,13 +159,14 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
     @Override
     public void onSuccess(LoginOutBean bean) {
         if (bean.getCode() == 1) {
+            JPushInterface.deleteAlias(this, 1);
             SharedPreferencesUtil.getInstance(this).putSP("token", "");
             toClass_Empty(this, LoginActivity.class);
             finish();
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(this);
         } else {
-            ToastUtil.showShortToast("注销失败");
+            ToastUtil.showShortToast(bean.getMessage());
         }
 
     }
@@ -216,7 +218,25 @@ public class DeviceInstallActivity extends BaseMvpActivity<DeviceInstallPresente
                 break;
             case R.id.bt_loginout:
                 //退出登录
-                mPresenter.loginOut();
+                final AlertDialog builder = new AlertDialog.Builder(this).create();
+                LayoutInflater layoutInflater = this.getLayoutInflater();
+                View v = layoutInflater.inflate(R.layout.sure_logout, null);
+                builder.setView(v);
+                builder.setCanceledOnTouchOutside(false);
+                builder.show();
+                v.findViewById(R.id.bt_yes).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mPresenter.loginOut();
+                        builder.dismiss();
+                    }
+                });
+                v.findViewById(R.id.bt_no).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        builder.dismiss();
+                    }
+                });
                 break;
         }
     }

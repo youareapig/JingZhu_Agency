@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.shanghudevice.fragment.offdevice;
 
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

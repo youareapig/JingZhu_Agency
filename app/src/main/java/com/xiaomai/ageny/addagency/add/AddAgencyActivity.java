@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.addagency.add;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.view.View;
@@ -98,6 +99,8 @@ public class AddAgencyActivity extends BaseMvpActivity<AddAgencyPresenter> imple
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    Intent intent=new Intent();
+                    setResult(3,intent);
                     finish();
                 }
             }, 1000);

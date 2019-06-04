@@ -16,12 +16,12 @@ public class FeidailiPresenter extends BasePresenter<FeidailiContract.View> impl
     }
 
     @Override
-    public void getData(String mobile, String deviceid, String grade, String directly, String isbytime) {
+    public void getData(String mobile, String deviceid, String grade, String directly, String isbytime,String page,String pagesize) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(mobile, deviceid, grade, directly, isbytime).compose(RxScheduler.<DailiListBean>Flo_io_main())
+        model.getData(mobile, deviceid, grade, directly, isbytime,page,pagesize).compose(RxScheduler.<DailiListBean>Flo_io_main())
                 .as(mView.<DailiListBean>bindAutoDispose())
                 .subscribe(new Consumer<DailiListBean>() {
                     @Override
@@ -39,16 +39,36 @@ public class FeidailiPresenter extends BasePresenter<FeidailiContract.View> impl
     }
 
     @Override
-    public void getData_Fresh(String mobile, String deviceid, String grade, String directly, String isbytime) {
+    public void getData_Fresh(String mobile, String deviceid, String grade, String directly, String isbytime,String page,String pagesize) {
         if (!isViewAttached()) {
             return;
         }
-        model.getData(mobile, deviceid, grade, directly, isbytime).compose(RxScheduler.<DailiListBean>Flo_io_main())
+        model.getData(mobile, deviceid, grade, directly, isbytime,page,pagesize).compose(RxScheduler.<DailiListBean>Flo_io_main())
                 .as(mView.<DailiListBean>bindAutoDispose())
                 .subscribe(new Consumer<DailiListBean>() {
                     @Override
                     public void accept(DailiListBean bean) throws Exception {
                         mView.onSuccess_Fresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void getData_LoadMore(String mobile, String deviceid, String grade, String directly, String isbytime, String page, String pagesize) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(mobile, deviceid, grade, directly, isbytime,page,pagesize).compose(RxScheduler.<DailiListBean>Flo_io_main())
+                .as(mView.<DailiListBean>bindAutoDispose())
+                .subscribe(new Consumer<DailiListBean>() {
+                    @Override
+                    public void accept(DailiListBean bean) throws Exception {
+                        mView.onSuccess_LoadMore(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

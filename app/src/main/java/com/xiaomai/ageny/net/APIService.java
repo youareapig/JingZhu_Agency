@@ -6,6 +6,7 @@ import com.xiaomai.ageny.bean.ConfigBean;
 import com.xiaomai.ageny.bean.DepositListBean;
 import com.xiaomai.ageny.bean.DeviceAllotListBean;
 import com.xiaomai.ageny.bean.DeviceAllotedDetailsBean;
+import com.xiaomai.ageny.bean.DeviceEarnListBean;
 import com.xiaomai.ageny.bean.DeviceManageBean;
 import com.xiaomai.ageny.bean.DeviceWithDrawListBean;
 import com.xiaomai.ageny.bean.FreezeDetailsBean;
@@ -74,8 +75,10 @@ import retrofit2.http.Query;
  * Description：
  */
 public interface APIService {
-//        public String urlhead = "chargeAgent-0.0.1-SNAPSHOT/";
-    public String urlhead = "";
+        public String urlhead = "";
+//    public String urlhead = "chargeAgent/";
+//            public String urlhead = "chargeAgent-0.0.1-SNAPSHOT/";
+
 
     //获取验证码
     @GET(urlhead + "agentCenter/account/captcha")
@@ -110,9 +113,9 @@ public interface APIService {
             @Query("linkmobile") String linkmobile,
             @Query("deviceid") String deviceid,
             @Query("state") String state,
-            @Query("msgId")String magid,
-            @Query("page")String page,
-            @Query("page_size")String pagesize);
+            @Query("msgId") String magid,
+            @Query("page") String page,
+            @Query("page_size") String pagesize);
 
     //离线设备列表（非直属设备）
     @GET(urlhead + "agentCenter/nodirecte/quipment")
@@ -121,8 +124,8 @@ public interface APIService {
             @Query("agentmobile") String agentmobile,
             @Query("deviceid") String deviceid,
             @Query("state") String state,
-            @Query("page")String page,
-            @Query("page_size")String pagesize);
+            @Query("page") String page,
+            @Query("page_size") String pagesize);
 
     //离线设备详情（非直属设备）
     @GET(urlhead + "agentCenter/nodirecte/quipment/details ")
@@ -134,7 +137,9 @@ public interface APIService {
     Flowable<ContactListBean> getContactList(
             @Query("mobile") String mobile,
             @Query("sellerId") String linkmobile,
-            @Query("isbyearn") String isbyearn);
+            @Query("isbyearn") String isbyearn,
+            @Query("page") String page,
+            @Query("page_size") String pagesize);
 
     //商户详情
     @GET(urlhead + "agentCenter/seller/details")
@@ -175,7 +180,9 @@ public interface APIService {
             @Query("deviceid") String deviceid,
             @Query("grade") String grade,
             @Query("directly") String directly,
-            @Query("isbytime") String isbytime);
+            @Query("isbytime") String isbytime,
+            @Query("page") String page,
+            @Query("page_size") String pagesize);
 
     //代理详情
     @GET(urlhead + "agentCenter/agent/details")
@@ -372,7 +379,7 @@ public interface APIService {
                                                  @Query("mobile") String mobile,
                                                  @Query("page") String page,
                                                  @Query("page_size") String pagesize,
-                                                 @Query("msgId")String msgid);
+                                                 @Query("msgId") String msgid);
 
     //已分配设备详情
     @GET(urlhead + "agentCenter/user/allocated/devicedetails")
@@ -409,7 +416,7 @@ public interface APIService {
 
     //app版本更新
     @GET(urlhead + "agentCenter/account/version/update")
-    Flowable<UpdateBean> getUpdate(@Query("type")String type);
+    Flowable<UpdateBean> getUpdate(@Query("type") String type);
 
     //系统消息列表
     @GET(urlhead + "agentCenter/user/systeminfo")
@@ -440,16 +447,16 @@ public interface APIService {
     //我的充电宝列表
     @GET(urlhead + "small/charge/Mydevice")
     Flowable<MyPowerListBean> MyPowerListData(@Query("deviceid") String deviceid,
-                                              @Query("page")String page,
-                                              @Query("page_size")String pagesize);
+                                              @Query("page") String page,
+                                              @Query("page_size") String pagesize);
 
     //已分配充电宝列表
     @GET(urlhead + "small/charge/undis/device/allocated")
     Flowable<PowerAllotedBean> PowerAllotedData(@Query("deviceid") String deviceid,
                                                 @Query("startTime") String startTime,
                                                 @Query("endTime") String endTime,
-                                                @Query("page")String page,
-                                                @Query("page_size")String pagesize);
+                                                @Query("page") String page,
+                                                @Query("page_size") String pagesize);
 
     //已分配充电宝详情
     @GET(urlhead + "small/charge/allocated/device/details")
@@ -466,5 +473,10 @@ public interface APIService {
     //充电宝撤回提交
     @POST(urlhead + "small/charge/recall")
     Flowable<HintBean> PowerWithDrawSubmitData(@Body RequestBody requestBody);
+
+    //设备收益任务列表
+    @GET(urlhead + "agentCenter/seller/notproducing")
+    Flowable<DeviceEarnListBean> DeviceEarnBean(@Query("page") String page,
+                                                @Query("page_size") String pagesize);
 }
 

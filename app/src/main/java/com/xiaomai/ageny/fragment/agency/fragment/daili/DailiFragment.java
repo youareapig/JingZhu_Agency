@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
+import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.DailiListBean;
@@ -62,12 +63,13 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
     PullToRefreshLayout refreshLayout;
 
     private Adapter adapter;
-    private List<DailiListBean.DataBean.ListBean> list;
+    private List<DailiListBean.DataBean.ListBean> list = new ArrayList<>();
     private boolean rank_makeMoney = true;
     private boolean rank_addTime = true;
     private boolean rank_fenrun = true;
     private Bundle bundle;
     private String strTel = "", strID = "";
+    private int page = 1;
 
     @Override
     protected void initView(View view) {
@@ -76,42 +78,36 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
         moneyText.setSelected(true);
         mPresenter = new DailiPresenter();
         mPresenter.attachView(this);
+        strTel = SharedPreferencesUtil.getInstance(getActivity()).getSP("feizhishuTel");
+        strID = SharedPreferencesUtil.getInstance(getActivity()).getSP("feizhishuId");
+        mPresenter.getData(strTel, strID, "", "1", "6", "1", App.pageSize);
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData(strTel, strID, "", "1", "6");
+                mPresenter.getData(strTel, strID, "", "1", "6", "1", App.pageSize);
             }
         });
-        refreshLayout.setCanLoadMore(false);
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
+                page = 1;
                 moneyText.setSelected(true);
                 moneyIcon.setImageResource(R.mipmap.sort_hover);
                 addTimeIcon.setImageResource(R.mipmap.sort_hover_hui);
                 addTimeText.setSelected(false);
                 fenrunText.setSelected(false);
                 fenrunIcon.setImageResource(R.mipmap.sort_hover_hui);
-                mPresenter.getData_Fresh(strTel, strID, "", "1", "6");
+                mPresenter.getData_Fresh(strTel, strID, "", "1", "6", "1", App.pageSize);
             }
 
             @Override
             public void loadMore() {
+                page++;
+                mPresenter.getData_LoadMore(strTel, strID, "", "1", "6", page + "", App.pageSize);
             }
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        strTel = SharedPreferencesUtil.getInstance(getActivity()).getSP("feizhishuTel");
-        strID = SharedPreferencesUtil.getInstance(getActivity()).getSP("feizhishuId");
-        Logger.d("取出：" + strTel + "   " + strID);
-
-
-        mPresenter.getData(strTel, strID, "", "1", "6");
-    }
 
     @Override
     protected int getLayoutId() {
@@ -131,6 +127,7 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
     @Override
     public void onError(Throwable throwable) {
         refreshLayout.finishRefresh();
+        refreshLayout.finishLoadMore();
         otherView.showRetryView();
     }
 
@@ -145,13 +142,39 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
         initData(bean);
     }
 
+    @Override
+    public void onSuccess_LoadMore(DailiListBean bean) {
+        refreshLayout.finishLoadMore();
+        if (bean.getCode() == 1) {
+            list.addAll(bean.getData().getList());
+            //延迟更新数据，避免卡顿
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+                }
+            }, 500);
+            if (bean.getData().getList().size() == 0) {
+                ToastUtil.showShortToast("没有更多数据");
+            }
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
+    }
+
 
     private void initData(DailiListBean bean) {
+        list.clear();
         if (bean.getCode() == 1) {
             totleCount.setText("共" + bean.getData().getTotal() + "家");
-            list = bean.getData().getList();
+            list.addAll(bean.getData().getList());
             if (list.size() == 0) {
                 otherView.showEmptyView();
+                refreshLayout.setCanLoadMore(false);
+            } else {
+                refreshLayout.setCanLoadMore(true);
             }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);
@@ -184,11 +207,11 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
                 if (rank_addTime) {
                     addTimeIcon.setImageResource(R.mipmap.sort_hove);
                     rank_addTime = false;
-                    mPresenter.getData_Fresh(strTel, strID, "", "1", "1");
+                    mPresenter.getData_Fresh(strTel, strID, "", "1", "1", "1", App.pageSize);
                 } else {
                     addTimeIcon.setImageResource(R.mipmap.sort_hover);
                     rank_addTime = true;
-                    mPresenter.getData_Fresh(strTel, strID, "", "1", "2");
+                    mPresenter.getData_Fresh(strTel, strID, "", "1", "2", "1", App.pageSize);
                 }
                 break;
             case R.id.moneyText:
@@ -200,11 +223,11 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
                 if (rank_makeMoney) {
                     moneyIcon.setImageResource(R.mipmap.sort_hove);
                     rank_makeMoney = false;
-                    mPresenter.getData_Fresh(strTel, strID, "", "1", "5");
+                    mPresenter.getData_Fresh(strTel, strID, "", "1", "5", "1", App.pageSize);
                 } else {
                     moneyIcon.setImageResource(R.mipmap.sort_hover);
                     rank_makeMoney = true;
-                    mPresenter.getData_Fresh(strTel, strID, "", "1", "6");
+                    mPresenter.getData_Fresh(strTel, strID, "", "1", "6", "1", App.pageSize);
                 }
                 break;
             case R.id.fenrunText:
@@ -216,11 +239,11 @@ public class DailiFragment extends BaseMvpFragment<DailiPresenter> implements Da
                 if (rank_fenrun) {
                     fenrunIcon.setImageResource(R.mipmap.sort_hove);
                     rank_fenrun = false;
-                    mPresenter.getData_Fresh(strTel, strID, "", "1", "3");
+                    mPresenter.getData_Fresh(strTel, strID, "", "1", "3", "1", App.pageSize);
                 } else {
                     fenrunIcon.setImageResource(R.mipmap.sort_hover);
                     rank_fenrun = true;
-                    mPresenter.getData_Fresh(strTel, strID, "", "1", "4");
+                    mPresenter.getData_Fresh(strTel, strID, "", "1", "4", "1", App.pageSize);
                 }
                 break;
         }

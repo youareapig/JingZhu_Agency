@@ -1,5 +1,6 @@
 package com.xiaomai.ageny.filter.feidailifilter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -104,6 +105,8 @@ public class FeiDailiFilterActivity extends BaseMvpActivity<FeidailiFilterPresen
                 Logger.d("选中等级" + lev);
                 SharedPreferencesUtil.getInstance(this).putSP("zhishuId", strId);
                 SharedPreferencesUtil.getInstance(this).putSP("zhishuLev", lev == 0 ? "" : lev + 1 + "");
+                Intent intent=new Intent();
+                setResult(2,intent);
                 finish();
                 break;
         }

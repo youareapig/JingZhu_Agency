@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 
 public class ContactModel implements ContactContract.Model {
     @Override
-    public Flowable<ContactListBean> getData(String mobile, String sellerId, String isbyearn) {
-        return RetrofitClient.getInstance().getApi().getContactList(mobile, sellerId, isbyearn);
+    public Flowable<ContactListBean> getData(String mobile, String sellerId, String isbyearn,String page,String pagesize) {
+        return RetrofitClient.getInstance().getApi().getContactList(mobile, sellerId, isbyearn,page,pagesize);
     }
 }

@@ -124,7 +124,7 @@ public class DirectFragment extends BaseMvpFragment<DirectPresenter> implements 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+                    adapter.notifyItemRangeChanged(0, bean.getData().getList().get(0).getList().size());
                 }
             }, 500);
             if (bean.getData().getList().get(0).getList().size() == 0) {

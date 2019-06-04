@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/dp_13"
+    android:layout_marginRight="@dimen/dp_12"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_35">
+
+        <TextView
+            android:id="@+id/deviceId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="JZCB0191018059"
+            android:textColor="#363636"
+            android:textSize="@dimen/sp_14" />
+
+        <TextView
+            android:id="@+id/off_line_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="72h未产单"
+            android:textColor="#E55C5C"
+            android:textSize="@dimen/sp_13" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="#F2F2F2" />
+    </RelativeLayout>
+
+
+</LinearLayout>

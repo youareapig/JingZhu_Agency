@@ -17,7 +17,7 @@ import cn.leo.click.SingleClickManager;
 
 public class App extends Application {
     public static Context context;
-    public static String pageSize = "20";
+    public static String pageSize = "10";
     public static String ZxingBaseUrl = "https://www.jzcdsc.com/rent?id";
     public static String ZxingBaseBar = "JZCB";
 

@@ -118,7 +118,7 @@ public class ContactDetailsActivity extends BaseMvpActivity<ContactDetailsPresen
     public void onSuccess(ContactDetailsBean bean) {
         if (bean.getCode() == 1) {
             ContactDetailsBean.DataBean data = bean.getData();
-            allMoney.setText(data.getTotal_earn());
+            allMoney.setText(data.getOrderRentPrice());
             yesterdayMoney.setText(data.getYestoday_earn());
             todayMoney.setText(data.getDay_earn());
             monthMoney.setText(data.getMonth_earn());

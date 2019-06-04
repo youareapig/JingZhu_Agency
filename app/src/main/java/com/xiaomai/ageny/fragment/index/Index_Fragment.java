@@ -44,6 +44,7 @@ import com.xiaomai.ageny.offline.OfflineActivity;
 import com.xiaomai.ageny.order.fragment.myorder.MyOderActivity;
 import com.xiaomai.ageny.system_notice.SystemNoticeActivity;
 import com.xiaomai.ageny.task.TaskActivity;
+import com.xiaomai.ageny.task_center.TaskCenterActivity;
 import com.xiaomai.ageny.utils.BaseUtils;
 import com.xiaomai.ageny.utils.SharedPreferencesUtil;
 import com.xiaomai.ageny.utils.ShowDialogUtils;
@@ -108,9 +109,10 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
 
     @BindView(R.id.index_device_allcount)
     TextView indexDeviceAllcount;
-    private String strTaskNum;
+    private String strTaskNum, strEarnNum;
     private boolean ISSHOW = true;
-    private int locatinVercode;
+    private int locatinVercode, totleNum;
+    private Bundle bundle = new Bundle();
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -224,10 +226,10 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
     }
 
     private void initData(IndexBean bean) {
-
         if (bean.getCode() == 1) {
             IndexBean.DataBean data = bean.getData();
             strTaskNum = data.getCountTask();
+            strEarnNum = data.getSellerNotproducing();
 
             yesterdayMoney.setText(data.getYestoday_earn());
             todayMoney.setText(data.getDay_earn());
@@ -238,14 +240,14 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
             offLine.setText(data.getOffLineCount());
             onLine.setText(data.getOnLineCount());
             indexDeviceAllcount.setText((Integer.valueOf(data.getOnLineCount()) + Integer.valueOf(data.getOffLineCount())) + "");
-            if (TextUtils.isEmpty(strTaskNum) || strTaskNum.equals("0")) {
-                tastCenter.setVisibility(View.GONE);
+            totleNum = Integer.parseInt(strTaskNum) + Integer.parseInt(strEarnNum);
+            if (totleNum == 0) {
+                Num.setText("0");
             } else {
                 if (ISSHOW) {
                     showDialog();
                 }
-                tastCenter.setVisibility(View.VISIBLE);
-                Num.setText(strTaskNum);
+                Num.setText(totleNum + "");
             }
         } else if (bean.getCode() == -10) {
             ShowDialogUtils.restLoginDialog(getActivity());
@@ -276,7 +278,9 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
                 toClass(getActivity(), OfflineActivity.class);
                 break;
             case R.id.taskCenter:
-                toClass1(getActivity(), TaskActivity.class);
+                bundle.putString("tasknum", strTaskNum);
+                bundle.putString("earnnum", strEarnNum);
+                toClass(getActivity(), TaskCenterActivity.class, bundle);
                 break;
             case R.id.bt_notice:
                 toClass(getActivity(), SystemNoticeActivity.class);
@@ -290,7 +294,11 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View v = inflater.inflate(R.layout.offline_dialog, null);
         TextView taskNum = v.findViewById(R.id.task_num);
+        TextView earnNum = v.findViewById(R.id.earn_num);
+
         taskNum.setText(strTaskNum);
+        earnNum.setText(strEarnNum);
+
         dialog.setCancelable(false);
         v.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -301,7 +309,9 @@ public class Index_Fragment extends BaseMvpFragment<IndexPresenter> implements I
         v.findViewById(R.id.deal).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                toClass1(view.getContext(), TaskActivity.class);
+                bundle.putString("tasknum", strTaskNum);
+                bundle.putString("earnnum", strEarnNum);
+                toClass(view.getContext(), TaskCenterActivity.class, bundle);
                 dialog.cancel();
             }
         });

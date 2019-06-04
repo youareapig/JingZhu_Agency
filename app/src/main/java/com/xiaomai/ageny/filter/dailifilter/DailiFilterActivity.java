@@ -79,6 +79,8 @@ public class DailiFilterActivity extends BaseMvpActivity<DailiFilterPresenter> i
                 strId = id.getText().toString().trim();
                 SharedPreferencesUtil.getInstance(this).putSP("feizhishuTel", strTel);
                 SharedPreferencesUtil.getInstance(this).putSP("feizhishuId", strId);
+                Intent intent=new Intent();
+                setResult(1,intent);
                 finish();
                 break;
         }

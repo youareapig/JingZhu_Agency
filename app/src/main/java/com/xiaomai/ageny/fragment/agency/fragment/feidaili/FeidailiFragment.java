@@ -13,6 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.orhanobut.logger.Logger;
+import com.xiaomai.ageny.App;
 import com.xiaomai.ageny.R;
 import com.xiaomai.ageny.base.BaseMvpFragment;
 import com.xiaomai.ageny.bean.DailiListBean;
@@ -43,9 +44,10 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
     PullToRefreshLayout refreshLayout;
 
     private Adapter adapter;
-    private List<DailiListBean.DataBean.ListBean> list;
+    private List<DailiListBean.DataBean.ListBean> list = new ArrayList<>();
     private Bundle bundle;
     private String strLev = "", strID = "";
+    private int page = 1;
 
     @Override
     protected void initView(View view) {
@@ -53,34 +55,31 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
         bundle = new Bundle();
         mPresenter = new FeidailiPresenter();
         mPresenter.attachView(this);
+        strLev = SharedPreferencesUtil.getInstance(getActivity()).getSP("zhishuLev");
+        strID = SharedPreferencesUtil.getInstance(getActivity()).getSP("zhishuId");
+        mPresenter.getData("", strID, strLev, "0", "", "1", App.pageSize);
         mHolder.setOnListener(new OtherViewHolder.RetryBtnListener() {
             @Override
             public void onListener() {
-                mPresenter.getData("", strID, strLev, "0", "");
+                mPresenter.getData("", strID, strLev, "0", "", "1", App.pageSize);
             }
         });
 
-        refreshLayout.setCanLoadMore(false);
         refreshLayout.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
-                mPresenter.getData_Fresh("", strID, strLev, "0", "");
+                page = 1;
+                mPresenter.getData_Fresh("", strID, strLev, "0", "", "1", App.pageSize);
             }
 
             @Override
             public void loadMore() {
+                page++;
+                mPresenter.getData_LoadMore("", strID, strLev, "0", "", page + "", App.pageSize);
             }
         });
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        strLev = SharedPreferencesUtil.getInstance(getActivity()).getSP("zhishuLev");
-        strID = SharedPreferencesUtil.getInstance(getActivity()).getSP("zhishuId");
-
-        mPresenter.getData("", strID, strLev, "0", "");
-    }
 
     @Override
     protected int getLayoutId() {
@@ -100,6 +99,7 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
     @Override
     public void onError(Throwable throwable) {
         refreshLayout.finishRefresh();
+        refreshLayout.finishLoadMore();
         otherView.showRetryView();
     }
 
@@ -114,11 +114,37 @@ public class FeidailiFragment extends BaseMvpFragment<FeidailiPresenter> impleme
         initData(bean);
     }
 
-    private void initData(DailiListBean bean) {
+    @Override
+    public void onSuccess_LoadMore(DailiListBean bean) {
+        refreshLayout.finishLoadMore();
         if (bean.getCode() == 1) {
-            list = bean.getData().getList();
+            list.addAll(bean.getData().getList());
+            //延迟更新数据，避免卡顿
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    adapter.notifyItemRangeChanged(0, bean.getData().getList().size());
+                }
+            }, 500);
+            if (bean.getData().getList().size() == 0) {
+                ToastUtil.showShortToast("没有更多数据");
+            }
+        } else if (bean.getCode() == -10) {
+            ShowDialogUtils.restLoginDialog(getActivity());
+        } else {
+            ToastUtil.showShortToast(bean.getMessage());
+        }
+    }
+
+    private void initData(DailiListBean bean) {
+        list.clear();
+        if (bean.getCode() == 1) {
+            list.addAll(bean.getData().getList());
             if (list.size() == 0) {
                 otherView.showEmptyView();
+                refreshLayout.setCanLoadMore(false);
+            } else {
+                refreshLayout.setCanLoadMore(true);
             }
             recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
             recycler.setNestedScrollingEnabled(false);

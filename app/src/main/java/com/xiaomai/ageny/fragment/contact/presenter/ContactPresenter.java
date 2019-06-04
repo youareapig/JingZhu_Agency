@@ -17,12 +17,12 @@ public class ContactPresenter extends BasePresenter<ContactContract.View> implem
     }
 
     @Override
-    public void getData(String mobile, String sellerId, String isbyearn) {
+    public void getData(String mobile, String sellerId, String isbyearn,String page,String pagesize) {
         if (!isViewAttached()) {
             return;
         }
         mView.showLoading();
-        model.getData(mobile, sellerId, isbyearn).compose(RxScheduler.<ContactListBean>Flo_io_main())
+        model.getData(mobile, sellerId, isbyearn,page,pagesize).compose(RxScheduler.<ContactListBean>Flo_io_main())
                 .as(mView.<ContactListBean>bindAutoDispose())
                 .subscribe(new Consumer<ContactListBean>() {
                     @Override
@@ -40,16 +40,36 @@ public class ContactPresenter extends BasePresenter<ContactContract.View> implem
     }
 
     @Override
-    public void getData_Fresh(String mobile, String sellerId, String isbyearn) {
+    public void getData_Fresh(String mobile, String sellerId, String isbyearn,String page,String pagesize) {
         if (!isViewAttached()) {
             return;
         }
-        model.getData(mobile, sellerId, isbyearn).compose(RxScheduler.<ContactListBean>Flo_io_main())
+        model.getData(mobile, sellerId, isbyearn,page,pagesize).compose(RxScheduler.<ContactListBean>Flo_io_main())
                 .as(mView.<ContactListBean>bindAutoDispose())
                 .subscribe(new Consumer<ContactListBean>() {
                     @Override
                     public void accept(ContactListBean bean) throws Exception {
                         mView.onSuccess_Fresh(bean);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        mView.onError(throwable);
+                    }
+                });
+    }
+
+    @Override
+    public void getData_LoadMore(String mobile, String sellerId, String isbyearn, String page, String pagesize) {
+        if (!isViewAttached()) {
+            return;
+        }
+        model.getData(mobile, sellerId, isbyearn,page,pagesize).compose(RxScheduler.<ContactListBean>Flo_io_main())
+                .as(mView.<ContactListBean>bindAutoDispose())
+                .subscribe(new Consumer<ContactListBean>() {
+                    @Override
+                    public void accept(ContactListBean bean) throws Exception {
+                        mView.onSuccess_LoadMore(bean);
                     }
                 }, new Consumer<Throwable>() {
                     @Override

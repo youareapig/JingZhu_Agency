@@ -26,7 +26,7 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        ImmersionBar.with(this).transparentBar().fitsSystemWindows(false).statusBarDarkFont(false).init();
+        ImmersionBar.with(this).statusBarColor(R.color.white).fitsSystemWindows(true).statusBarDarkFont(true).init();
         img = findViewById(R.id.img);
         AlphaAnimation animation = new AlphaAnimation(0.1f, 1.0f);
         animation.setDuration(3000);
@@ -39,7 +39,6 @@ public class StartActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                try {
                     String token = SharedPreferencesUtil.getInstance(StartActivity.this).getSP("token");
                     String role = SharedPreferencesUtil.getInstance(StartActivity.this).getSP("role");
                     if (TextUtils.isEmpty(token)) {
@@ -62,10 +61,6 @@ public class StartActivity extends AppCompatActivity {
                         }
 
                     }
-                } catch (Exception e) {
-                    startActivity(new Intent(StartActivity.this, LoginActivity.class));
-                    finish();
-                }
             }
 
             @Override

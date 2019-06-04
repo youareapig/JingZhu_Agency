@@ -7,7 +7,7 @@ import io.reactivex.Flowable;
 
 public interface DailiContract {
     interface Model {
-        Flowable<DailiListBean> getData(String mobile, String deviceid, String grade, String directly, String isbytime);
+        Flowable<DailiListBean> getData(String mobile, String deviceid, String grade, String directly, String isbytime, String page, String pagesize);
     }
 
     interface View extends BaseView {
@@ -21,11 +21,17 @@ public interface DailiContract {
         void onError(Throwable throwable);
 
         void onSuccess(DailiListBean bean);
+
         void onSuccess_Fresh(DailiListBean bean);
+
+        void onSuccess_LoadMore(DailiListBean bean);
     }
 
     interface Presenter {
-        void getData(String mobile, String deviceid, String grade, String directly, String isbytime);
-        void getData_Fresh(String mobile, String deviceid, String grade, String directly, String isbytime);
+        void getData(String mobile, String deviceid, String grade, String directly, String isbytime, String page, String pagesize);
+
+        void getData_Fresh(String mobile, String deviceid, String grade, String directly, String isbytime, String page, String pagesize);
+
+        void getData_LoadMore(String mobile, String deviceid, String grade, String directly, String isbytime, String page, String pagesize);
     }
 }

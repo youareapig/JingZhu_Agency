@@ -4,7 +4,7 @@ public class ContactDetailsBean {
 
     /**
      * code : 1
-     * data : {"bank":"","creditCard":"","day_earn":"0.00","freeze_money":"0.00","is_havecard":"","liquidated":"0.00","mobile":"","month_earn":"0.00","noRentCount":"0","offLineCount":"0","onLineCount":"0","realName":"","rentCount":"0","subBank":"","total_earn":"0.00","unliquidated":"0.00","yestoday_earn":"0.00"}
+     * data : {"bank":"","countTask":"","creditCard":"","day_earn":"0.00","freeze_money":"0.00","is_havecard":"","liquidated":"0.00","mobile":"","month_earn":"14.00","noRentCount":"2","offLineCount":"0","onLineCount":"1","orderCount":"15","orderRentPrice":"22.00","realName":"","rentCount":"0","subBank":"","total_earn":"14.00","unliquidated":"14.00","yestoday_earn":"14.00"}
      * message : 获取商户详情成功
      */
 
@@ -39,25 +39,29 @@ public class ContactDetailsBean {
     public static class DataBean {
         /**
          * bank :
+         * countTask :
          * creditCard :
          * day_earn : 0.00
          * freeze_money : 0.00
          * is_havecard :
          * liquidated : 0.00
          * mobile :
-         * month_earn : 0.00
-         * noRentCount : 0
+         * month_earn : 14.00
+         * noRentCount : 2
          * offLineCount : 0
-         * onLineCount : 0
+         * onLineCount : 1
+         * orderCount : 15
+         * orderRentPrice : 22.00
          * realName :
          * rentCount : 0
          * subBank :
-         * total_earn : 0.00
-         * unliquidated : 0.00
-         * yestoday_earn : 0.00
+         * total_earn : 14.00
+         * unliquidated : 14.00
+         * yestoday_earn : 14.00
          */
 
         private String bank;
+        private String countTask;
         private String creditCard;
         private String day_earn;
         private String freeze_money;
@@ -68,6 +72,8 @@ public class ContactDetailsBean {
         private String noRentCount;
         private String offLineCount;
         private String onLineCount;
+        private String orderCount;
+        private String orderRentPrice;
         private String realName;
         private String rentCount;
         private String subBank;
@@ -81,6 +87,14 @@ public class ContactDetailsBean {
 
         public void setBank(String bank) {
             this.bank = bank;
+        }
+
+        public String getCountTask() {
+            return countTask;
+        }
+
+        public void setCountTask(String countTask) {
+            this.countTask = countTask;
         }
 
         public String getCreditCard() {
@@ -161,6 +175,22 @@ public class ContactDetailsBean {
 
         public void setOnLineCount(String onLineCount) {
             this.onLineCount = onLineCount;
+        }
+
+        public String getOrderCount() {
+            return orderCount;
+        }
+
+        public void setOrderCount(String orderCount) {
+            this.orderCount = orderCount;
+        }
+
+        public String getOrderRentPrice() {
+            return orderRentPrice;
+        }
+
+        public void setOrderRentPrice(String orderRentPrice) {
+            this.orderRentPrice = orderRentPrice;
         }
 
         public String getRealName() {

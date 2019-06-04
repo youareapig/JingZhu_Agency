@@ -1,6 +1,7 @@
 package com.xiaomai.ageny.addcontact;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -153,6 +154,8 @@ public class AddContactActivity extends BaseMvpActivity<AddContactPresenter> imp
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
+                    Intent intent=new Intent();
+                    setResult(3,intent);
                     finish();
                 }
             }, 1000);
